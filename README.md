@@ -1,7 +1,7 @@
 tardisgo-samples
 ================
 
-Sample code using TARDIS Go.
+Sample code using TARDIS Go (not yet published).
 
 Haxe-OpenFL examples:
 - gohandlingmouseevents
