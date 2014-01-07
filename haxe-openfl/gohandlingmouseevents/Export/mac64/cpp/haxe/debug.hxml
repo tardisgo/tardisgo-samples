@@ -1,0 +1,17 @@
+-main ApplicationMain 
+-lib openfl
+-lib openfl-native
+-lib hxlibc
+-lib actuate
+-cp Source
+-D tools=1.2.6
+-D lime_native
+-D no-compilation
+-D mac
+-D desktop
+-cpp Export/mac64/cpp/obj/
+-cp Export/mac64/cpp/haxe
+--macro allowPackage("flash")
+--macro keep("Main")
+-debug
+-D no-compilation
