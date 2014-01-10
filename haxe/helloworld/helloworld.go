@@ -1,5 +1,7 @@
-package main
+﻿package main
 
 func main() {
-	println("Hello world! 你好世界！ ") // NOTE fmt.Printf does not work as at January 2014
+	// NOTE fmt.Printf does not work as at January 2014
+	println("Well hello everyone!")
+	// println("你好世界！ ") // TODO does not print properly on Windows / Java at Jan'14
 }
