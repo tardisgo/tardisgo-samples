@@ -10,7 +10,7 @@ From the directory containing the .go files, to translate Go to Haxe, type the c
 
 Then to run the tardis/Go.hx file generated, type the command line: "haxe -main tardis.Go --interp", or whatever Haxe compilation options you want to use. (Note that to compile for PHP you currently need to add the haxe compilation option "--php-prefix tardisgo" to avoid name confilcts).
 
-To run the examples using OpenFL you will need to install both Haxe (from http://haxe.org) and then OpenFL (from http://openfl.org). Run the tardisgo command as described above from the Source directory. Then follow the normal OpenFL/Lime development process.
+To run the examples using OpenFL you will need to also install OpenFL (from http://openfl.org). Run the tardisgo command as described above from the Source directory. Then follow the normal OpenFL/Lime development process.
 
 
 Haxe-gobyexample examples
