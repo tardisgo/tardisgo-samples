@@ -22,7 +22,7 @@ Examples adapted from https://gobyexample.com/
 - closures
 - interfaces
 - stateful goroutines
-- collection functions
+- collection functions (not currently working for PHP, C++ or Java targets)
 
 
 
