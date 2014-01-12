@@ -17,10 +17,10 @@ import (
 	// "time"
 	// "math/rand"
 
+	_ "github.com/tardisgo/tardisgo/golibruntime/sync/atomic" // runtime functions for sync/atomic
 	"sync/atomic"
 
-	_ "github.com/tardisgo/tardisgo/golibruntime" // runtime functions for some parts of the Go standard libraries
-	"github.com/tardisgo/tardisgo/tardisgolib"    // runtime functions for TARDIS Go
+	"github.com/tardisgo/tardisgo/tardisgolib" // runtime functions for TARDIS Go
 )
 
 // In this example our state will be owned by a single
