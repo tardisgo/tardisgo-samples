@@ -1,7 +1,7 @@
-﻿package main
+﻿// example for tardisgo.github.io
+package main
 
 func main() {
-	// NOTE fmt.Printf does not work as at January 2014
-	println("Well hello everyone!")
-	// println("你好世界！ ") // TODO does not print properly on Windows / Java at Jan'14
+	println("Hello World!") // NOTE fmt.Printf does not work in TARDIS Go as at Jan'14
+	println("你好世界！") // NOTE: Chinese version may print incorrectly on Windows hosts (like golang proper) or when targeting Java. 
 }
