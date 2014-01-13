@@ -28,7 +28,8 @@ Examples adapted from https://gobyexample.com/
 
 Haxe-OpenFL examples
 --------------------
-- gohandlingmouseevents (adapted from the OpenFL example)
+- gohandlingmouseevents (adapted from the OpenFL example; before building you must type "haxelib install actuate" at the command prompt)
+
 
 
 
