@@ -3,7 +3,6 @@ tardisgo-samples
 
 Sample code using TARDIS Go (not yet published).
 
-
 To run these examples you will need to install Haxe (from http://haxe.org).
 
 From the directory containing the .go files, to translate Go to Haxe, type the command line: "tardisgo filename.go". Note that a "tardis" sub-directory must exist before the command is run (which it does in these samples). 
@@ -13,7 +12,7 @@ Then to run the tardis/Go.hx file generated, type the command line: "haxe -main 
 To run the examples using OpenFL you will need to also install OpenFL (from http://openfl.org). Run the tardisgo command as described above from the Source directory. Then follow the normal OpenFL/Lime development process.
 
 
-Haxe-gobyexample examples
+gobyexample examples
 -------------------------
 
 Examples adapted from https://gobyexample.com/
@@ -26,9 +25,18 @@ Examples adapted from https://gobyexample.com/
 
 
 
-Haxe-OpenFL examples
+OpenFL examples
 --------------------
-- gohandlingmouseevents (adapted from the OpenFL example; before building you must type "haxelib install actuate" at the command prompt)
+- gohandlingmouseevents (adapted from the OpenFL example; requires the "actuate" haxe library)
+
+
+
+WIP (work in progress)
+----------------------
+The code in these directories is not yet working properly in TARDIS go, bugs are being chased...
+
+
+
 
 
 

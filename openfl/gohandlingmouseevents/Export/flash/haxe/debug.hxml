@@ -1,0 +1,14 @@
+-main ApplicationMain 
+-lib openfl
+-lib actuate
+-cp Source
+-D tools=1.2.6
+-D web
+-dce std
+-swf-version 11.2
+-swf Export/flash/bin/HandlingMouseEvents.swf
+-swf-header 800:600:30:FFFFFF
+-cp Export/flash/haxe
+#--remap nme:flash
+--no-inline
+-debug
