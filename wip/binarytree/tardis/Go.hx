@@ -1418,693 +1418,10 @@ public static inline function NumGoroutine():Int {
 
 
 
-#if js @:expose("Go_haxegoruntime_RunesToUTF8") #end class Go_haxegoruntime_RunesToUTF8 extends StackFrameBasis implements StackFrame {  // langgoruntime.go:79:6
-var p_r:Slice;
-public function new(gr:Int,_bds:Array<Dynamic>, p_r : Slice) {
-super(gr,149,"Go_haxegoruntime_RunesToUTF8");
-this._bds=_bds;
-this.p_r=p_r;
-Scheduler.push(gr,this);
-}
-var _res:Slice;
-public inline function res():Dynamic {return _res;}
-var _t0:Slice=null;
-var _t1:Int=0;
-var _t2:Slice=null;
-var _t3:Int=0;
-var _t4:Int=0;
-var _t5:Bool=false;
-var _t6:Pointer=null;
-var _t7:Int=0;
-var _SF1:StackFrame;
-var _t8:Int=0;
-var _t9:Slice=null;
-var _t10:Pointer=null;
-var _t11:Int=0;
-var _SF2:StackFrame;
-var _t13:Slice=null;
-var _Phi:Int=0;
-var _Next:Int=0;
-public static inline function callFromHaxe( p_r : Slice) : Slice {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_haxegoruntime_RunesToUTF8(0,[], p_r).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-return _sf.res();
-}
-public static inline function callFromRT( _gr, p_r : Slice) : Slice {
-var _sf=new Go_haxegoruntime_RunesToUTF8(_gr,[], p_r).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-return _sf.res();
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>, p_r : Slice) : Go_haxegoruntime_RunesToUTF8
-{return new Go_haxegoruntime_RunesToUTF8(gr,_bds, p_r);
-}
-public function run():Go_haxegoruntime_RunesToUTF8 {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(149,0);
-this.SubFn0();
-_Phi=0;
-case 1: // rangeindex.loop
-this.setLatest(149,1);
-this.setPH(150);
-_t2=((_Phi==0)?_t0:(_Phi==2)?_t13:new Slice(new Pointer(new Array<Int>()),0,0)); // _t2 = phi [0.entry: t0, 2.rangeindex.body: t13] #ret *ssa.Phi @ langgoruntime.go:80:6
-_t3=((_Phi==0)?(-1):(_Phi==2)?_t4:0); // _t3 = phi [0.entry: -1:int, 2.rangeindex.body: t4] *ssa.Phi near langgoruntime.go:80:6
-this.SubFn1();
-_Phi=1;
-case 2: // rangeindex.body
-this.setLatest(150,2);
-this.SubFn2();
-this.setPH(153);
-_SF1=Go_utf8_RuneLen.call(this._goroutine,[],_t7);
-_Next = -1;
-return this;
-case -1:
-this.setLatest(153,-1);
-_t8=_SF1.res();
- // _t8 = unicode/utf8.RuneLen(t7) *ssa.Call @ langgoruntime.go:83:35
-this.SubFn3();
-this.setPH(154);
-Go_utf8_EncodeRune.call(this._goroutine,[],_t9,_t11);
-_Next = -2;
-return this;
-case -2:
-this.setLatest(154,-2);
- // _t12 = unicode/utf8.EncodeRune(t9, t11) *ssa.Call @ langgoruntime.go:84:18 [REGISTER VALUE UN-USED]
-this.SubFn4();
-_Phi=2;
-case 3: // rangeindex.done
-this.setLatest(154,3);
-this.setPH(157);
-_res= _t2;
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t2 *ssa.Return @ langgoruntime.go:87:2
-
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
-this.setPH(151);
-_t0=new Slice(new Pointer({var _v:Array<Int>=new Array<Int>();for(_i in 0...0) _v[_i]=0; _v;}),0,0); // _t0 = make []byte 0:int 0:int *ssa.MakeSlice @ langgoruntime.go:81:12
-_t1=({var _v=p_r;_v==null?0:_v.len();}); // _t1 = len(r) *ssa.Call near langgoruntime.go:81:12
-_Next=1; // jump 1.rangeindex.loop *ssa.Jump near langgoruntime.go:81:12
-}// end SubFn0
-private inline  function SubFn1():Void {
-var _t5:Bool;
-_t4=(_t3+1); // _t4 = t3 + 1:int *ssa.BinOp near langgoruntime.go:81:12
-_t5=(_t4<_t1); // _t5 = t4 < t1 *ssa.BinOp near langgoruntime.go:81:12
-_Next=_t5 ? 2 : 3; // if t5 goto 2.rangeindex.body else 3.rangeindex.done *ssa.If near langgoruntime.go:81:12
-}// end SubFn1
-private inline  function SubFn2():Void {
-var _t6:Pointer;
-this.setPH(153);
-if((_t4<0)||(_t4>=p_r.len())) Scheduler.ioor(); // _t6 = &r[t4] *ssa.IndexAddr @ langgoruntime.go:83:37 [POINTER]
-_t6=p_r.addr(_t4);  // _t6 = &r[t4] *ssa.IndexAddr @ langgoruntime.go:83:37 [POINTER]
-_t7=(_t6.load()|0); // _t7 = *t6 *ssa.UnOp near langgoruntime.go:83:37
-}// end SubFn2
-private inline  function SubFn3():Void {
-var _t10:Pointer;
-_t9=new Slice(new Pointer({var _v:Array<Int>=new Array<Int>();for(_i in 0..._t8) _v[_i]=0; _v;}),0,_t8); // _t9 = make []byte t8 t8 *ssa.MakeSlice @ langgoruntime.go:83:14
-this.setPH(154);
-if((_t4<0)||(_t4>=p_r.len())) Scheduler.ioor(); // _t10 = &r[t4] *ssa.IndexAddr @ langgoruntime.go:84:25 [POINTER]
-_t10=p_r.addr(_t4);  // _t10 = &r[t4] *ssa.IndexAddr @ langgoruntime.go:84:25 [POINTER]
-_t11=(_t10.load()|0); // _t11 = *t10 *ssa.UnOp near langgoruntime.go:84:25
-}// end SubFn3
-private inline  function SubFn4():Void {
-this.setPH(155);
-_t13={var _v:Slice;if(_t2==null) _v=_t9;else if(_t2.len()==0) _v=_t9;else if(_t9==null) _v=_t2;else if(_t9.len()==0) _v=_t2;else {var l0:Int=_t2.len();_v=new Slice(new Pointer({var _v:Array<Int>=new Array<Int>();for(_i in 0..._t2.len()+_t9.len()) _v[_i]=0; _v;}),0,_t2.len()+_t9.len());for(_i in 0...l0) _v.setAt(_i,Deep.copy(_t2.getAt(_i)));for(_i in 0..._t9.len()) _v.setAt(_i+l0,Deep.copy(_t9.getAt(_i)));};_v;}; // _t13 = append(t2, t9...) *ssa.Call @ langgoruntime.go:85:15
-_Next=1; // jump 1.rangeindex.loop *ssa.Jump near langgoruntime.go:85:15
-}// end SubFn4
-}
-#if js @:expose("Go_utf8_RuneLen") #end class Go_utf8_RuneLen extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:310:6
-var p_r:Int;
-public function new(gr:Int,_bds:Array<Dynamic>, p_r : Int) {
-super(gr,629,"Go_utf8_RuneLen");
-this._bds=_bds;
-this.p_r=p_r;
-Scheduler.push(gr,this);
-}
-var _res:Int;
-public inline function res():Dynamic {return _res;}
-var _t0:Bool=false;
-var _t1:Bool=false;
-var _t2:Bool=false;
-var _t3:Bool=false;
-var _t4:Bool=false;
-var _t5:Bool=false;
-var _t6:Bool=false;
-var _t7:Bool=false;
-var _Phi:Int=0;
-var _Next:Int=0;
-public static inline function callFromHaxe( p_r : Int) : Int {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_utf8_RuneLen(0,[], p_r).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-return _sf.res();
-}
-public static inline function callFromRT( _gr, p_r : Int) : Int {
-var _sf=new Go_utf8_RuneLen(_gr,[], p_r).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-return _sf.res();
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>, p_r : Int) : Go_utf8_RuneLen
-{return new Go_utf8_RuneLen(gr,_bds, p_r);
-}
-public function run():Go_utf8_RuneLen {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(629,0);
-this.SubFn0();
-_Phi=0;
-case 1: // switch.body
-this.setLatest(629,1);
-this.setPH(632);
-_res= (-1);
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return -1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:313:3
-
-case 2: // switch.body
-this.setLatest(632,2);
-this.setPH(634);
-_res= 1;
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:315:3
-
-case 3: // switch.next
-this.setLatest(634,3);
-this.SubFn1();
-_Phi=3;
-case 4: // switch.body
-this.setLatest(634,4);
-this.setPH(636);
-_res= 2;
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 2:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:317:3
-
-case 5: // switch.next
-this.setLatest(636,5);
-this.SubFn2();
-_Phi=5;
-case 6: // switch.body
-this.setLatest(636,6);
-this.setPH(638);
-_res= (-1);
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return -1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:319:3
-
-case 7: // switch.next
-this.setLatest(638,7);
-this.SubFn3();
-_Phi=7;
-case 8: // switch.body
-this.setLatest(638,8);
-this.setPH(640);
-_res= 3;
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 3:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:321:3
-
-case 9: // switch.next
-this.setLatest(640,9);
-this.SubFn4();
-_Phi=9;
-case 10: // binop.rhs
-this.setLatest(640,10);
-this.SubFn5();
-_Phi=10;
-case 11: // binop.done
-this.setLatest(640,11);
-this.setPH(637);
-_t6=((_Phi==7)?false:(_Phi==10)?_t5:false); // _t6 = phi [7.switch.next: false:bool, 10.binop.rhs: t5] #&& *ssa.Phi @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:318:25
-this.SubFn6();
-_Phi=11;
-case 12: // switch.body
-this.setLatest(637,12);
-this.setPH(642);
-_res= 4;
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 4:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:323:3
-
-case 13: // switch.next
-this.setLatest(642,13);
-this.SubFn7();
-_Phi=13;
-case 14: // switch.next
-this.setLatest(642,14);
-this.setPH(644);
-_res= (-1);
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return -1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:325:2
-
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
-var _t0:Bool;
-this.setPH(631);
-_t0=(p_r<0); // _t0 = r < 0:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:312:9
-_Next=_t0 ? 1 : 3; // if t0 goto 1.switch.body else 3.switch.next *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:312:9
-}// end SubFn0
-private inline  function SubFn1():Void {
-var _t1:Bool;
-this.setPH(633);
-_t1=(p_r<=127); // _t1 = r <= 127:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:314:9
-_Next=_t1 ? 2 : 5; // if t1 goto 2.switch.body else 5.switch.next *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:314:9
-}// end SubFn1
-private inline  function SubFn2():Void {
-var _t2:Bool;
-this.setPH(635);
-_t2=(p_r<=2047); // _t2 = r <= 2047:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:316:9
-_Next=_t2 ? 4 : 7; // if t2 goto 4.switch.body else 7.switch.next *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:316:9
-}// end SubFn2
-private inline  function SubFn3():Void {
-var _t3:Bool;
-this.setPH(637);
-_t3=(55296<=p_r); // _t3 = 55296:rune <= r *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:318:20
-_Next=_t3 ? 10 : 11; // if t3 goto 10.binop.rhs else 11.binop.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:318:20
-}// end SubFn3
-private inline  function SubFn4():Void {
-var _t4:Bool;
-this.setPH(639);
-_t4=(p_r<=65535); // _t4 = r <= 65535:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:320:9
-_Next=_t4 ? 8 : 13; // if t4 goto 8.switch.body else 13.switch.next *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:320:9
-}// end SubFn4
-private inline  function SubFn5():Void {
-this.setPH(637);
-_t5=(p_r<=57343); // _t5 = r <= 57343:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:318:30
-_Next=11; // jump 11.binop.done *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:318:30
-}// end SubFn5
-private inline  function SubFn6():Void {
-_Next=_t6 ? 6 : 9; // if t6 goto 6.switch.body else 9.switch.next *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:318:30
-}// end SubFn6
-private inline  function SubFn7():Void {
-var _t7:Bool;
-this.setPH(641);
-_t7=(p_r<=1114111); // _t7 = r <= 1114111:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:322:9
-_Next=_t7 ? 12 : 14; // if t7 goto 12.switch.body else 14.switch.next *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:322:9
-}// end SubFn7
-}
-#if js @:expose("Go_utf16_EncodeRune") #end class Go_utf16_EncodeRune extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf16/utf16.go:47:6
-var p_r:Int;
-public function new(gr:Int,_bds:Array<Dynamic>, p_r : Int) {
-super(gr,258,"Go_utf16_EncodeRune");
-this._bds=_bds;
-this.p_r=p_r;
-Scheduler.push(gr,this);
-}
-var _res:{r0:Int, r1:Int};
-public inline function res():Dynamic {return _res;}
-var _t0:Bool=false;
-var _t1:Int=0;
-var _t2:Int=0;
-var _t3:Int=0;
-var _t4:Int=0;
-var _t5:Int=0;
-var _t6:Int=0;
-var _SF1:StackFrame;
-var _t7:Bool=false;
-var _t8:Bool=false;
-var _Next:Int=0;
-public static inline function callFromHaxe( p_r : Int) : {r0:Int, r1:Int} {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_utf16_EncodeRune(0,[], p_r).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-return _sf.res();
-}
-public static inline function callFromRT( _gr, p_r : Int) : {r0:Int, r1:Int} {
-var _sf=new Go_utf16_EncodeRune(_gr,[], p_r).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-return _sf.res();
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>, p_r : Int) : Go_utf16_EncodeRune
-{return new Go_utf16_EncodeRune(gr,_bds, p_r);
-}
-public function run():Go_utf16_EncodeRune {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(258,0);
-this.SubFn0();
-
-case 1: // if.then
-this.setLatest(258,1);
-this.setPH(260);
-_res= {r0:65533,r1:65533};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 65533:rune *ssa.Return @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:49:3
-
-case 2: // if.done
-this.setLatest(260,2);
-this.SubFn1();
-this.setPH(263);
-_res= {r0:_t4,r1:_t6};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t4, t6 *ssa.Return @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:52:2
-
-case 3: // cond.false
-this.setLatest(263,3);
-this.setPH(259);
-_SF1=Go_utf16_IsSurrogate.call(this._goroutine,[],p_r);
-_Next = -1;
-return this;
-case -1:
-this.setLatest(259,-1);
-_t7=_SF1.res();
- // _t7 = IsSurrogate(r) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:47
-this.SubFn2();
-
-case 4: // cond.false
-this.setLatest(259,4);
-this.SubFn3();
-
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
-var _t0:Bool;
-_t0=(p_r<65536); // _t0 = r < 65536:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:7
-_Next=_t0 ? 1 : 4; // if t0 goto 1.if.then else 4.cond.false *ssa.If near /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:7
-}// end SubFn0
-private inline  function SubFn1():Void {
-var _t2:Int;
-var _t3:Int;
-var _t5:Int;
-_t1=Force.toInt32((p_r-65536)); // _t1 = r - 65536:rune *ssa.BinOp near /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:7
-this.setPH(263);
-_t2=(_t1>>GOint64.toInt(GOint64.make(0x0,0xa))); // _t2 = t1 >> 10:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:52:19
-_t3=Force.toInt32((_t2&1023)); // _t3 = t2 & 1023:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:52:24
-_t4=Force.toInt32((55296+_t3)); // _t4 = 55296:rune + t3 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:52:15
-_t5=Force.toInt32((_t1&1023)); // _t5 = t1 & 1023:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:52:41
-_t6=Force.toInt32((56320+_t5)); // _t6 = 56320:rune + t5 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:52:38
-}// end SubFn1
-private inline  function SubFn2():Void {
-_Next=_t7 ? 1 : 2; // if t7 goto 1.if.then else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf16/utf16.go:52:38
-}// end SubFn2
-private inline  function SubFn3():Void {
-var _t8:Bool;
-this.setPH(259);
-_t8=(p_r>1114111); // _t8 = r > 1114111:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:23
-_Next=_t8 ? 1 : 3; // if t8 goto 1.if.then else 3.cond.false *ssa.If near /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:23
-}// end SubFn3
-}
-#if (!php) private #end class Go__star_main_dot_binaryNode_itemCheck extends StackFrameBasis implements StackFrame {  // binarytree.go:26:22
-var p_n:Pointer;
-public function new(gr:Int,_bds:Array<Dynamic>, p_n : Pointer) {
-super(gr,26,"Go__star_main_dot_binaryNode_itemCheck");
-this._bds=_bds;
-this.p_n=p_n;
-Scheduler.push(gr,this);
-}
-var _res:Int;
-public inline function res():Dynamic {return _res;}
-var _t0:Pointer=null;
-var _t1:Pointer=null;
-var _t2:Bool=false;
-var _t3:Pointer=null;
-var _t4:Int=0;
-var _t5:Pointer=null;
-var _t6:Int=0;
-var _t7:Pointer=null;
-var _t8:Pointer=null;
-var _SF1:StackFrame;
-var _t9:Int=0;
-var _t10:Int=0;
-var _t11:Pointer=null;
-var _t12:Pointer=null;
-var _SF2:StackFrame;
-var _t13:Int=0;
-var _t14:Int=0;
-var _Next:Int=0;
-public static inline function callFromHaxe( p_n : Pointer) : Int {
-if(!Go.doneInit) Go.init();
-var _sf=new Go__star_main_dot_binaryNode_itemCheck(0,[], p_n).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-return _sf.res();
-}
-public static inline function callFromRT( _gr, p_n : Pointer) : Int {
-var _sf=new Go__star_main_dot_binaryNode_itemCheck(_gr,[], p_n).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-return _sf.res();
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>, p_n : Pointer) : Go__star_main_dot_binaryNode_itemCheck
-{return new Go__star_main_dot_binaryNode_itemCheck(gr,_bds, p_n);
-}
-public function run():Go__star_main_dot_binaryNode_itemCheck {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(26,0);
-this.SubFn0();
-
-case 1: // if.then
-this.setLatest(26,1);
-this.SubFn1();
-this.setPH(28);
-_res= _t4;
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t4 *ssa.Return @ binarytree.go:28:3
-
-case 2: // if.done
-this.setLatest(28,2);
-this.SubFn2();
-this.setPH(30);
-_SF1=Go__star_main_dot_binaryNode_itemCheck.call(this._goroutine,[],_t8);
-_Next = -1;
-return this;
-case -1:
-this.setLatest(30,-1);
-_t9=_SF1.res();
- // _t9 = (*binaryNode).itemCheck(t8) *ssa.Call @ binarytree.go:30:34
-this.SubFn3();
-_SF2=Go__star_main_dot_binaryNode_itemCheck.call(this._goroutine,[],_t12);
-_Next = -2;
-return this;
-case -2:
-this.setLatest(30,-2);
-_t13=_SF2.res();
- // _t13 = (*binaryNode).itemCheck(t12) *ssa.Call @ binarytree.go:30:56
-this.SubFn4();
-_res= _t14;
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t14 *ssa.Return @ binarytree.go:30:2
-
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
-var _t0:Pointer;
-var _t1:Pointer;
-var _t2:Bool;
-this.setPH(27);
-_t0=p_n.addr(1);  // _t0 = &n.left [#1] *ssa.FieldAddr @ binarytree.go:27:7 [POINTER]
-_t1=({var _v:Pointer=_t0.load(); _v;}); // _t1 = *t0 *ssa.UnOp near binarytree.go:27:7
-_t2=(_t1==null); // _t2 = t1 == nil:*binaryNode *ssa.BinOp @ binarytree.go:27:12
-_Next=_t2 ? 1 : 2; // if t2 goto 1.if.then else 2.if.done *ssa.If near binarytree.go:27:12
-}// end SubFn0
-private inline  function SubFn1():Void {
-var _t3:Pointer;
-this.setPH(28);
-_t3=p_n.addr(0);  // _t3 = &n.item [#0] *ssa.FieldAddr @ binarytree.go:28:12 [POINTER]
-_t4=(_t3.load()|0); // _t4 = *t3 *ssa.UnOp near binarytree.go:28:12
-}// end SubFn1
-private inline  function SubFn2():Void {
-var _t5:Pointer;
-var _t7:Pointer;
-this.setPH(30);
-_t5=p_n.addr(0);  // _t5 = &n.item [#0] *ssa.FieldAddr @ binarytree.go:30:11 [POINTER]
-_t6=(_t5.load()|0); // _t6 = *t5 *ssa.UnOp near binarytree.go:30:11
-_t7=p_n.addr(1);  // _t7 = &n.left [#1] *ssa.FieldAddr @ binarytree.go:30:20 [POINTER]
-_t8=({var _v:Pointer=_t7.load(); _v;}); // _t8 = *t7 *ssa.UnOp near binarytree.go:30:20
-}// end SubFn2
-private inline  function SubFn3():Void {
-var _t11:Pointer;
-_t10=(_t6+_t9); // _t10 = t6 + t9 *ssa.BinOp @ binarytree.go:30:16
-_t11=p_n.addr(2);  // _t11 = &n.right [#2] *ssa.FieldAddr @ binarytree.go:30:41 [POINTER]
-_t12=({var _v:Pointer=_t11.load(); _v;}); // _t12 = *t11 *ssa.UnOp near binarytree.go:30:41
-}// end SubFn3
-private inline  function SubFn4():Void {
-_t14=(_t10-_t13); // _t14 = t10 - t13 *ssa.BinOp @ binarytree.go:30:37
-}// end SubFn4
-}
-#if js @:expose("Go_utf8_FullRune") #end class Go_utf8_FullRune extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:203:6
-var p_p:Slice;
-public function new(gr:Int,_bds:Array<Dynamic>, p_p : Slice) {
-super(gr,522,"Go_utf8_FullRune");
-this._bds=_bds;
-this.p_p=p_p;
-Scheduler.push(gr,this);
-}
-var _res:Bool;
-public inline function res():Dynamic {return _res;}
-var _SF1:StackFrame;
-var _t0:{r0:Int,r1:Int,r2:Bool}=null;
-var _t3:Bool=false;
-var _t4:Bool=false;
-var _Next:Int=0;
-public static inline function callFromHaxe( p_p : Slice) : Bool {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_utf8_FullRune(0,[], p_p).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-return _sf.res();
-}
-public static inline function callFromRT( _gr, p_p : Slice) : Bool {
-var _sf=new Go_utf8_FullRune(_gr,[], p_p).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-return _sf.res();
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>, p_p : Slice) : Go_utf8_FullRune
-{return new Go_utf8_FullRune(gr,_bds, p_p);
-}
-public function run():Go_utf8_FullRune {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(522,0);
-this.setPH(523);
-_SF1=Go_utf8_decodeRuneInternal.call(this._goroutine,[],p_p);
-_Next = -1;
-return this;
-case -1:
-this.setLatest(523,-1);
-_t0=_SF1.res();
- // _t0 = decodeRuneInternal(p) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:204:35
-this.SubFn0();
-this.setPH(524);
-_res= _t4;
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t4 *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:205:2
-
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
- // _t1 = extract t0 #0 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:205:2 [REGISTER VALUE UN-USED]
- // _t2 = extract t0 #1 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:205:2 [REGISTER VALUE UN-USED]
-_t3=_t0.r2; // _t3 = extract t0 #2 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:205:2
-_t4=(!_t3); // _t4 = !t3 *ssa.UnOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:205:9
-}// end SubFn0
-}
-#if js @:expose("Go_utf8_ValidString") #end class Go_utf8_ValidString extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:415:6
-var p_s:String;
-public function new(gr:Int,_bds:Array<Dynamic>, p_s : String) {
-super(gr,734,"Go_utf8_ValidString");
-this._bds=_bds;
-this.p_s=p_s;
-Scheduler.push(gr,this);
-}
-var _res:Bool;
-public inline function res():Dynamic {return _res;}
-var _t0:Dynamic=null;
-var _t1:{r0:Bool,r1:Int,r2:Int}=null;
-var _t2:Bool=false;
-var _t3:Int=0;
-var _t4:Int=0;
-var _t5:Bool=false;
-var _t6:String="";
-var _SF1:StackFrame;
-var _t7:{r0:Int,r1:Int}=null;
-var _t9:Int=0;
-var _t10:Bool=false;
-var _Next:Int=0;
-public static inline function callFromHaxe( p_s : String) : Bool {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_utf8_ValidString(0,[], p_s).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-return _sf.res();
-}
-public static inline function callFromRT( _gr, p_s : String) : Bool {
-var _sf=new Go_utf8_ValidString(_gr,[], p_s).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-return _sf.res();
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>, p_s : String) : Go_utf8_ValidString
-{return new Go_utf8_ValidString(gr,_bds, p_s);
-}
-public function run():Go_utf8_ValidString {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(734,0);
-this.SubFn0();
-
-case 1: // rangeiter.loop
-this.setLatest(734,1);
-this.SubFn1();
-
-case 2: // rangeiter.body
-this.setLatest(734,2);
-this.SubFn2();
-
-case 3: // rangeiter.done
-this.setLatest(734,3);
-this.setPH(747);
-_res= true;
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return true:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:428:2
-
-case 4: // if.then
-this.setLatest(747,4);
-this.SubFn3();
-this.setPH(741);
-_SF1=Go_utf8_DecodeRuneInString.call(this._goroutine,[],_t6);
-_Next = -1;
-return this;
-case -1:
-this.setLatest(741,-1);
-_t7=_SF1.res();
- // _t7 = DecodeRuneInString(t6) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:422:33
-this.SubFn4();
-
-case 5: // if.then
-this.setLatest(741,5);
-this.setPH(743);
-_res= false;
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:424:5
-
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
-this.setPH(735);
-_t0={k:0,v:Force.toUTF8slice(this._goroutine,p_s)}; // _t0 = range s *ssa.Range @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:416:2
-_Next=1; // jump 1.rangeiter.loop *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:416:2
-}// end SubFn0
-private inline  function SubFn1():Void {
-var _t2:Bool;
-_t1={var _thisK:Int=_t0.k;if(_t0.k>=_t0.v.len()){r0:false,r1:0,r2:0};else {var _dr:{r0:Int,r1:Int}=Go_utf8_DecodeRune.callFromRT(this._goroutine,_t0.v.subSlice(_thisK,-1));_t0.k+=_dr.r1;{r0:true,r1:cast(_thisK,Int),r2:cast(_dr.r0,Int)};}}; // _t1 = next t0 *ssa.Next near /usr/local/go/src/pkg/unicode/utf8/utf8.go:416:2
-_t2=_t1.r0; // _t2 = extract t1 #0 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:416:2
-_Next=_t2 ? 2 : 3; // if t2 goto 2.rangeiter.body else 3.rangeiter.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:416:2
-}// end SubFn1
-private inline  function SubFn2():Void {
-var _t5:Bool;
-_t3=_t1.r1; // _t3 = extract t1 #1 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:416:2
-_t4=_t1.r2; // _t4 = extract t1 #2 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:416:2
-this.setPH(736);
-_t5=(_t4==65533); // _t5 = t4 == 65533:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:417:8
-_Next=_t5 ? 4 : 1; // if t5 goto 4.if.then else 1.rangeiter.loop *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:417:8
-}// end SubFn2
-private inline  function SubFn3():Void {
-this.setPH(741);
-_t6=Force.toRawString(this._goroutine,Force.toUTF8slice(this._goroutine,p_s).subSlice(_t3,-1)); // _t6 = slice s[t3:] *ssa.Slice @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:422:35
-}// end SubFn3
-private inline  function SubFn4():Void {
-var _t10:Bool;
- // _t8 = extract t7 #0 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:422:35 [REGISTER VALUE UN-USED]
-_t9=_t7.r1; // _t9 = extract t7 #1 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:422:35
-this.setPH(742);
-_t10=(_t9==1); // _t10 = t9 == 1:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:423:12
-_Next=_t10 ? 5 : 1; // if t10 goto 5.if.then else 1.rangeiter.loop *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:423:12
-}// end SubFn4
-}
-#if js @:expose("Go_haxegoruntime_UTF8toRunes") #end class Go_haxegoruntime_UTF8toRunes extends StackFrameBasis implements StackFrame {  // langgoruntime.go:39:6
+#if js @:expose("Go_haxegoruntime_UTF16toRunes") #end class Go_haxegoruntime_UTF16toRunes extends StackFrameBasis implements StackFrame {  // langgoruntime.go:35:6
 var p_s:Slice;
 public function new(gr:Int,_bds:Array<Dynamic>, p_s : Slice) {
-super(gr,109,"Go_haxegoruntime_UTF8toRunes");
+super(gr,105,"Go_haxegoruntime_UTF16toRunes");
 this._bds=_bds;
 this.p_s=p_s;
 Scheduler.push(gr,this);
@@ -2112,834 +1429,41 @@ Scheduler.push(gr,this);
 var _res:Slice;
 public inline function res():Dynamic {return _res;}
 var _SF1:StackFrame;
-var _t0:Int=0;
-var _t1:Slice=null;
-var _t2:Int=0;
-var _t3:Int=0;
-var _t4:Slice=null;
-var _t5:Int=0;
-var _t6:Int=0;
-var _t7:Int=0;
-var _t8:Bool=false;
-var _t9:Int=0;
-var _t10:Bool=false;
-var _t11:Pointer=null;
-var _t12:Int=0;
-var _t13:Pointer=null;
-var _t14:Int=0;
-var _t15:Int=0;
-var _SF2:StackFrame;
-var _t16:{r0:Int,r1:Int}=null;
-var _t17:Int=0;
-var _t18:Int=0;
-var _t19:Pointer=null;
-var _t20:Int=0;
-var _t21:Int=0;
-var _t22:Int=0;
-var _t23:Int=0;
-var _t24:Int=0;
-var _t25:Bool=false;
-var _Phi:Int=0;
+var _t0:Slice=null;
 var _Next:Int=0;
 public static inline function callFromHaxe( p_s : Slice) : Slice {
 if(!Go.doneInit) Go.init();
-var _sf=new Go_haxegoruntime_UTF8toRunes(0,[], p_s).run(); 
+var _sf=new Go_haxegoruntime_UTF16toRunes(0,[], p_s).run(); 
 while(_sf._incomplete) Scheduler.runAll();
 return _sf.res();
 }
 public static inline function callFromRT( _gr, p_s : Slice) : Slice {
-var _sf=new Go_haxegoruntime_UTF8toRunes(_gr,[], p_s).run(); 
+var _sf=new Go_haxegoruntime_UTF16toRunes(_gr,[], p_s).run(); 
 while(_sf._incomplete) Scheduler.run1(_gr);
 return _sf.res();
 }
-public static inline function call( gr:Int,_bds:Array<Dynamic>, p_s : Slice) : Go_haxegoruntime_UTF8toRunes
-{return new Go_haxegoruntime_UTF8toRunes(gr,_bds, p_s);
+public static inline function call( gr:Int,_bds:Array<Dynamic>, p_s : Slice) : Go_haxegoruntime_UTF16toRunes
+{return new Go_haxegoruntime_UTF16toRunes(gr,_bds, p_s);
 }
-public function run():Go_haxegoruntime_UTF8toRunes {
+public function run():Go_haxegoruntime_UTF16toRunes {
 while(true){
 switch(_Next) {
 case 0: // entry
-this.setLatest(109,0);
-this.setPH(110);
-_SF1=Go_utf8_RuneCount.call(this._goroutine,[],p_s);
+this.setLatest(105,0);
+this.setPH(106);
+_SF1=Go_utf16_Decode.call(this._goroutine,[],p_s);
 _Next = -1;
 return this;
 case -1:
-this.setLatest(110,-1);
+this.setLatest(106,-1);
 _t0=_SF1.res();
- // _t0 = unicode/utf8.RuneCount(s) *ssa.Call @ langgoruntime.go:40:36
-this.SubFn0();
-_Phi=0;
-case 1: // for.body
-this.setLatest(110,1);
-this.SubFn1();
-_Phi=1;
-case 2: // for.done
-this.setLatest(110,2);
-this.setPH(121);
-_res= _t1;
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t1 *ssa.Return @ langgoruntime.go:51:2
-
-case 3: // for.loop
-this.setLatest(121,3);
-this.setPH(111);
-_t5=((_Phi==0)?0:(_Phi==6)?_t20:0); // _t5 = phi [0.entry: 0:int, 6.for.done: t20] #si *ssa.Phi @ langgoruntime.go:41:2
-this.setPH(112);
-_t6=((_Phi==0)?0:(_Phi==6)?_t21:0); // _t6 = phi [0.entry: 0:int, 6.for.done: t21] #ri *ssa.Phi @ langgoruntime.go:42:6
-this.SubFn2();
-_Phi=3;
-case 4: // cond.true
-this.setLatest(112,4);
-this.SubFn3();
-_Phi=4;
-case 5: // for.body
-this.setLatest(112,5);
-this.SubFn4();
-_Phi=5;
-case 6: // for.done
-this.setLatest(112,6);
-this.setPH(117);
-_SF2=Go_utf8_DecodeRune.call(this._goroutine,[],_t4);
-_Next = -2;
-return this;
-case -2:
-this.setLatest(117,-2);
-_t16=_SF2.res();
- // _t16 = unicode/utf8.DecodeRune(t4) *ssa.Call @ langgoruntime.go:47:33
-this.SubFn5();
-_Phi=6;
-case 7: // for.loop
-this.setLatest(117,7);
-this.setPH(114);
-_t22=((_Phi==1)?0:(_Phi==5)?_t15:0); // _t22 = phi [1.for.body: 0:int, 5.for.body: t15] #j *ssa.Phi @ langgoruntime.go:44:7
-this.SubFn6();
-_Phi=7;
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
-this.setPH(110);
-_t1=new Slice(new Pointer({var _v:Array<Int>=new Array<Int>();for(_i in 0..._t0) _v[_i]=0; _v;}),0,_t0); // _t1 = make []rune t0 t0 *ssa.MakeSlice @ langgoruntime.go:40:13
-_Next=3; // jump 3.for.loop *ssa.Jump near langgoruntime.go:40:13
-}// end SubFn0
-private inline  function SubFn1():Void {
-var _t2:Int;
-var _t3:Int;
-this.setPH(113);
-_t2=({var _v=p_s;_v==null?0:_v.len();}); // _t2 = len(s) *ssa.Call @ langgoruntime.go:43:24
-_t3=(_t2-_t5); // _t3 = t2 - t5 *ssa.BinOp @ langgoruntime.go:43:27
-_t4=new Slice(new Pointer({var _v:Array<Int>=new Array<Int>();for(_i in 0..._t3) _v[_i]=0; _v;}),0,_t3); // _t4 = make []byte t3 t3 *ssa.MakeSlice @ langgoruntime.go:43:12
-_Next=7; // jump 7.for.loop *ssa.Jump near langgoruntime.go:43:12
-}// end SubFn1
-private inline  function SubFn2():Void {
-var _t7:Int;
-var _t8:Bool;
-this.setPH(112);
-_t7=({var _v=p_s;_v==null?0:_v.len();}); // _t7 = len(s) *ssa.Call @ langgoruntime.go:42:23
-_t8=(_t5<_t7); // _t8 = t5 < t7 *ssa.BinOp @ langgoruntime.go:42:18
-_Next=_t8 ? 4 : 2; // if t8 goto 4.cond.true else 2.for.done *ssa.If near langgoruntime.go:42:18
-}// end SubFn2
-private inline  function SubFn3():Void {
-var _t9:Int;
-var _t10:Bool;
-_t9=({var _v=_t1;_v==null?0:_v.len();}); // _t9 = len(t1) *ssa.Call @ langgoruntime.go:42:38
-_t10=(_t6<_t9); // _t10 = t6 < t9 *ssa.BinOp @ langgoruntime.go:42:33
-_Next=_t10 ? 1 : 2; // if t10 goto 1.for.body else 2.for.done *ssa.If near langgoruntime.go:42:33
-}// end SubFn3
-private inline  function SubFn4():Void {
-var _t11:Pointer;
-var _t12:Int;
-var _t13:Pointer;
-var _t14:Int;
-this.setPH(115);
-if((_t22<0)||(_t22>=_t4.len())) Scheduler.ioor(); // _t11 = &t4[t22] *ssa.IndexAddr @ langgoruntime.go:45:5 [POINTER]
-_t11=_t4.addr(_t22);  // _t11 = &t4[t22] *ssa.IndexAddr @ langgoruntime.go:45:5 [POINTER]
-_t12=(_t5+_t22); // _t12 = t5 + t22 *ssa.BinOp @ langgoruntime.go:45:15
-if((_t12<0)||(_t12>=p_s.len())) Scheduler.ioor(); // _t13 = &s[t12] *ssa.IndexAddr @ langgoruntime.go:45:12 [POINTER]
-_t13=p_s.addr(_t12);  // _t13 = &s[t12] *ssa.IndexAddr @ langgoruntime.go:45:12 [POINTER]
-_t14=(_t13.load()|0); // _t14 = *t13 *ssa.UnOp near langgoruntime.go:45:12
-_t11.store(_t14); // *t11 = t14 *ssa.Store near langgoruntime.go:45:12
-_t15=(_t22+1); // _t15 = t22 + 1:int *ssa.BinOp near langgoruntime.go:45:12
-_Next=7; // jump 7.for.loop *ssa.Jump near langgoruntime.go:45:12
-}// end SubFn4
-private inline  function SubFn5():Void {
-var _t19:Pointer;
-_t17=_t16.r0; // _t17 = extract t16 #0 *ssa.Extract near langgoruntime.go:45:12
-_t18=_t16.r1; // _t18 = extract t16 #1 *ssa.Extract near langgoruntime.go:45:12
-this.setPH(118);
-if((_t6<0)||(_t6>=_t1.len())) Scheduler.ioor(); // _t19 = &t1[t6] *ssa.IndexAddr @ langgoruntime.go:48:6 [POINTER]
-_t19=_t1.addr(_t6);  // _t19 = &t1[t6] *ssa.IndexAddr @ langgoruntime.go:48:6 [POINTER]
-_t19.store(_t17); // *t19 = t17 *ssa.Store near langgoruntime.go:48:6
-_t20=(_t5+_t18); // _t20 = t5 + t18 *ssa.BinOp near langgoruntime.go:48:6
-_t21=(_t6+1); // _t21 = t6 + 1:int *ssa.BinOp near langgoruntime.go:48:6
-_Next=3; // jump 3.for.loop *ssa.Jump near langgoruntime.go:48:6
-}// end SubFn5
-private inline  function SubFn6():Void {
-var _t23:Int;
-var _t24:Int;
-var _t25:Bool;
-this.setPH(114);
-_t23=({var _v=p_s;_v==null?0:_v.len();}); // _t23 = len(s) *ssa.Call @ langgoruntime.go:44:23
-_t24=(_t23-_t5); // _t24 = t23 - t5 *ssa.BinOp @ langgoruntime.go:44:27
-_t25=(_t22<_t24); // _t25 = t22 < t24 *ssa.BinOp @ langgoruntime.go:44:17
-_Next=_t25 ? 5 : 6; // if t25 goto 5.for.body else 6.for.done *ssa.If near langgoruntime.go:44:17
-}// end SubFn6
-}
-#if js @:expose("Go_utf16_DecodeRune") #end class Go_utf16_DecodeRune extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf16/utf16.go:37:6
-var p_r1:Int;
-var p_r2:Int;
-public function new(gr:Int,_bds:Array<Dynamic>, p_r1 : Int, p_r2 : Int) {
-super(gr,248,"Go_utf16_DecodeRune");
-this._bds=_bds;
-this.p_r1=p_r1;
-this.p_r2=p_r2;
-Scheduler.push(gr,this);
-}
-var _res:Int;
-public inline function res():Dynamic {return _res;}
-var _t0:Bool=false;
-var _t1:Int=0;
-var _t2:Int=0;
-var _t3:Int=0;
-var _t4:Int=0;
-var _t5:Int=0;
-var _t6:Bool=false;
-var _t7:Bool=false;
-var _t8:Bool=false;
-var _Next:Int=0;
-public static inline function callFromHaxe( p_r1 : Int, p_r2 : Int) : Int {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_utf16_DecodeRune(0,[], p_r1, p_r2).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-return _sf.res();
-}
-public static inline function callFromRT( _gr, p_r1 : Int, p_r2 : Int) : Int {
-var _sf=new Go_utf16_DecodeRune(_gr,[], p_r1, p_r2).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-return _sf.res();
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>, p_r1 : Int, p_r2 : Int) : Go_utf16_DecodeRune
-{return new Go_utf16_DecodeRune(gr,_bds, p_r1, p_r2);
-}
-public function run():Go_utf16_DecodeRune {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(248,0);
-this.SubFn0();
-
-case 1: // if.then
-this.setLatest(248,1);
-this.SubFn1();
-this.setPH(250);
-_res= _t5;
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t5 *ssa.Return @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:39:3
-
-case 2: // if.done
-this.setLatest(250,2);
-this.setPH(252);
-_res= 65533;
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune *ssa.Return @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:41:2
-
-case 3: // cond.true
-this.setLatest(252,3);
-this.SubFn2();
-
-case 4: // cond.true
-this.setLatest(252,4);
-this.SubFn3();
-
-case 5: // cond.true
-this.setLatest(252,5);
-this.SubFn4();
-
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
-var _t0:Bool;
-this.setPH(249);
-_t0=(55296<=p_r1); // _t0 = 55296:rune <= r1 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:11
-_Next=_t0 ? 5 : 2; // if t0 goto 5.cond.true else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:11
-}// end SubFn0
-private inline  function SubFn1():Void {
-var _t1:Int;
-var _t2:Int;
-var _t3:Int;
-var _t4:Int;
-this.setPH(250);
-_t1=Force.toInt32((p_r1-55296)); // _t1 = r1 - 55296:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:39:19
-_t2=(_t1<<GOint64.toInt(GOint64.make(0x0,0xa))); // _t2 = t1 << 10:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:39:26
-_t3=Force.toInt32((p_r2-56320)); // _t3 = r2 - 56320:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:39:43
-_t4=Force.toInt32((_t2|_t3)); // _t4 = t2 | t3 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:39:31
-_t5=Force.toInt32((_t4+65536)); // _t5 = t4 + 65536:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:39:52
-}// end SubFn1
-private inline  function SubFn2():Void {
-var _t6:Bool;
-this.setPH(249);
-_t6=(p_r2<57344); // _t6 = r2 < 57344:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:52
-_Next=_t6 ? 1 : 2; // if t6 goto 1.if.then else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:52
-}// end SubFn2
-private inline  function SubFn3():Void {
-var _t7:Bool;
-_t7=(56320<=p_r2); // _t7 = 56320:rune <= r2 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:40
-_Next=_t7 ? 3 : 2; // if t7 goto 3.cond.true else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:40
-}// end SubFn3
-private inline  function SubFn4():Void {
-var _t8:Bool;
-_t8=(p_r1<56320); // _t8 = r1 < 56320:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:23
-_Next=_t8 ? 4 : 2; // if t8 goto 4.cond.true else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:23
-}// end SubFn4
-}
-#if js @:expose("Go_haxegoruntime_RunesToUTF16") #end class Go_haxegoruntime_RunesToUTF16 extends StackFrameBasis implements StackFrame {  // langgoruntime.go:75:6
-var p_r:Slice;
-public function new(gr:Int,_bds:Array<Dynamic>, p_r : Slice) {
-super(gr,145,"Go_haxegoruntime_RunesToUTF16");
-this._bds=_bds;
-this.p_r=p_r;
-Scheduler.push(gr,this);
-}
-var _res:Slice;
-public inline function res():Dynamic {return _res;}
-var _SF1:StackFrame;
-var _t0:Slice=null;
-var _Next:Int=0;
-public static inline function callFromHaxe( p_r : Slice) : Slice {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_haxegoruntime_RunesToUTF16(0,[], p_r).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-return _sf.res();
-}
-public static inline function callFromRT( _gr, p_r : Slice) : Slice {
-var _sf=new Go_haxegoruntime_RunesToUTF16(_gr,[], p_r).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-return _sf.res();
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>, p_r : Slice) : Go_haxegoruntime_RunesToUTF16
-{return new Go_haxegoruntime_RunesToUTF16(gr,_bds, p_r);
-}
-public function run():Go_haxegoruntime_RunesToUTF16 {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(145,0);
-this.setPH(146);
-_SF1=Go_utf16_Encode.call(this._goroutine,[],p_r);
-_Next = -1;
-return this;
-case -1:
-this.setLatest(146,-1);
-_t0=_SF1.res();
- // _t0 = unicode/utf16.Encode(r) *ssa.Call @ langgoruntime.go:76:21
+ // _t0 = unicode/utf16.Decode(s) *ssa.Call @ langgoruntime.go:36:21
 _res= _t0;
 this._incomplete=false;
 Scheduler.pop(this._goroutine);
-return this; // return t0 *ssa.Return @ langgoruntime.go:76:2
+return this; // return t0 *ssa.Return @ langgoruntime.go:36:2
 
 default: Scheduler.bbi();}}}
-}
-#if js @:expose("Go_utf8_DecodeLastRuneInString") #end class Go_utf8_DecodeLastRuneInString extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:276:6
-var p_s:String;
-public function new(gr:Int,_bds:Array<Dynamic>, p_s : String) {
-super(gr,595,"Go_utf8_DecodeLastRuneInString");
-this._bds=_bds;
-this.p_s=p_s;
-Scheduler.push(gr,this);
-}
-var _res:{r0:Int, r1:Int};
-public inline function res():Dynamic {return _res;}
-var _t0:Int=0;
-var _t1:Bool=false;
-var _t2:Int=0;
-var _t3:Int=0;
-var _t4:Int=0;
-var _t5:Bool=false;
-var _t6:Int=0;
-var _t7:Bool=false;
-var _t8:Int=0;
-var _t9:Int=0;
-var _t10:Int=0;
-var _SF1:StackFrame;
-var _t11:Bool=false;
-var _t12:Bool=false;
-var _t13:Int=0;
-var _t14:Bool=false;
-var _t15:Int=0;
-var _t16:Int=0;
-var _t17:String="";
-var _SF2:StackFrame;
-var _t18:{r0:Int,r1:Int}=null;
-var _t19:Int=0;
-var _t20:Int=0;
-var _t21:Int=0;
-var _t22:Bool=false;
-var _Phi:Int=0;
-var _Next:Int=0;
-public static inline function callFromHaxe( p_s : String) : {r0:Int, r1:Int} {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_utf8_DecodeLastRuneInString(0,[], p_s).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-return _sf.res();
-}
-public static inline function callFromRT( _gr, p_s : String) : {r0:Int, r1:Int} {
-var _sf=new Go_utf8_DecodeLastRuneInString(_gr,[], p_s).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-return _sf.res();
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>, p_s : String) : Go_utf8_DecodeLastRuneInString
-{return new Go_utf8_DecodeLastRuneInString(gr,_bds, p_s);
-}
-public function run():Go_utf8_DecodeLastRuneInString {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(595,0);
-this.SubFn0();
-_Phi=0;
-case 1: // if.then
-this.setLatest(595,1);
-this.setPH(598);
-_res= {r0:65533,r1:0};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 0:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:279:3
-
-case 2: // if.done
-this.setLatest(598,2);
-this.SubFn1();
-_Phi=2;
-case 3: // if.then
-this.setLatest(598,3);
-this.setPH(603);
-_res= {r0:_t4,r1:1};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t4, 1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:284:3
-
-case 4: // if.done
-this.setLatest(603,4);
-this.SubFn2();
-_Phi=4;
-case 5: // if.then
-this.setLatest(603,5);
-this.SubFn3();
-_Phi=5;
-case 6: // if.done
-this.setLatest(603,6);
-this.setPH(608);
-_t8=((_Phi==4)?_t6:(_Phi==5)?0:0); // _t8 = phi [4.if.done: t6, 5.if.then: 0:int] #lim *ssa.Phi @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:289:2
-this.SubFn4();
-_Phi=6;
-case 7: // for.body
-this.setLatest(608,7);
-this.SubFn5();
-this.setPH(613);
-_SF1=Go_utf8_RuneStart.call(this._goroutine,[],_t10);
-_Next = -1;
-return this;
-case -1:
-this.setLatest(613,-1);
-_t11=_SF1.res();
- // _t11 = RuneStart(t10) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:294:15
-this.SubFn6();
-_Phi=7;
-case 8: // for.done
-this.setLatest(613,8);
-this.SubFn7();
-_Phi=8;
-case 9: // for.loop
-this.setLatest(613,9);
-this.setPH(600);
-_t13=((_Phi==6)?_t9:(_Phi==10)?_t15:0); // _t13 = phi [6.if.done: t9, 10.if.done: t15] #start *ssa.Phi @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:281:2
-this.SubFn8();
-_Phi=9;
-case 10: // if.done
-this.setLatest(600,10);
-this.SubFn9();
-_Phi=10;
-case 11: // if.then
-this.setLatest(600,11);
-this.SubFn10();
-_Phi=11;
-case 12: // if.done
-this.setLatest(600,12);
-_t16=((_Phi==8)?_t13:(_Phi==11)?0:0); // _t16 = phi [8.for.done: t13, 11.if.then: 0:int] #start *ssa.Phi @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:281:2
-this.SubFn11();
-this.setPH(620);
-_SF2=Go_utf8_DecodeRuneInString.call(this._goroutine,[],_t17);
-_Next = -2;
-return this;
-case -2:
-this.setLatest(620,-2);
-_t18=_SF2.res();
- // _t18 = DecodeRuneInString(t17) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:301:30
-this.SubFn12();
-_Phi=12;
-case 13: // if.then
-this.setLatest(620,13);
-this.setPH(622);
-_res= {r0:65533,r1:1};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:303:3
-
-case 14: // if.done
-this.setLatest(622,14);
-this.setPH(624);
-_res= {r0:_t19,r1:_t20};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t19, t20 *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:305:2
-
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
-var _t1:Bool;
-this.setPH(596);
-_t0=Force.toUTF8length(this._goroutine,p_s); // _t0 = len(s) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:277:12
-this.setPH(597);
-_t1=(_t0==0); // _t1 = t0 == 0:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:278:9
-_Next=_t1 ? 1 : 2; // if t1 goto 1.if.then else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:278:9
-}// end SubFn0
-private inline  function SubFn1():Void {
-var _t3:Int;
-var _t5:Bool;
-this.setPH(600);
-_t2=(_t0-1); // _t2 = t0 - 1:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:281:15
-this.setPH(601);
-_t3=Force.toUTF8slice(this._goroutine,p_s).getAt(_t2); // _t3 = s[t2] *ssa.Lookup @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:282:12
-_t4=_t3; // _t4 = convert rune <- uint8 (t3) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:282:10
-this.setPH(602);
-_t5=(_t4<128); // _t5 = t4 < 128:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:283:7
-_Next=_t5 ? 3 : 4; // if t5 goto 3.if.then else 4.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:283:7
-}// end SubFn1
-private inline  function SubFn2():Void {
-var _t7:Bool;
-this.setPH(608);
-_t6=(_t0-4); // _t6 = t0 - 4:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:289:13
-this.setPH(609);
-_t7=(_t6<0); // _t7 = t6 < 0:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:290:9
-_Next=_t7 ? 5 : 6; // if t7 goto 5.if.then else 6.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:290:9
-}// end SubFn2
-private inline  function SubFn3():Void {
-_Next=6; // jump 6.if.done *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:290:9
-}// end SubFn3
-private inline  function SubFn4():Void {
-_t9=(_t2-1); // _t9 = t2 - 1:int *ssa.BinOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:290:9
-_Next=9; // jump 9.for.loop *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:290:9
-}// end SubFn4
-private inline  function SubFn5():Void {
-this.setPH(613);
-_t10=Force.toUTF8slice(this._goroutine,p_s).getAt(_t13); // _t10 = s[t13] *ssa.Lookup @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:294:17
-}// end SubFn5
-private inline  function SubFn6():Void {
-_Next=_t11 ? 8 : 10; // if t11 goto 8.for.done else 10.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:294:17
-}// end SubFn6
-private inline  function SubFn7():Void {
-var _t12:Bool;
-this.setPH(617);
-_t12=(_t13<0); // _t12 = t13 < 0:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:298:11
-_Next=_t12 ? 11 : 12; // if t12 goto 11.if.then else 12.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:298:11
-}// end SubFn7
-private inline  function SubFn8():Void {
-var _t14:Bool;
-this.setPH(612);
-_t14=(_t13>=_t8); // _t14 = t13 >= t8 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:293:21
-_Next=_t14 ? 7 : 8; // if t14 goto 7.for.body else 8.for.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:293:21
-}// end SubFn8
-private inline  function SubFn9():Void {
-_t15=(_t13-1); // _t15 = t13 - 1:int *ssa.BinOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:293:21
-_Next=9; // jump 9.for.loop *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:293:21
-}// end SubFn9
-private inline  function SubFn10():Void {
-_Next=12; // jump 12.if.done *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:293:21
-}// end SubFn10
-private inline  function SubFn11():Void {
-this.setPH(620);
-_t17=Force.toRawString(this._goroutine,Force.toUTF8slice(this._goroutine,p_s).subSlice(_t16,_t0)); // _t17 = slice s[t16:t0] *ssa.Slice @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:301:32
-}// end SubFn11
-private inline  function SubFn12():Void {
-var _t21:Int;
-var _t22:Bool;
-_t19=_t18.r0; // _t19 = extract t18 #0 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:301:32
-_t20=_t18.r1; // _t20 = extract t18 #1 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:301:32
-this.setPH(621);
-_t21=(_t16+_t20); // _t21 = t16 + t20 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:302:10
-_t22=(_t21!=_t0); // _t22 = t21 != t0 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:302:16
-_Next=_t22 ? 13 : 14; // if t22 goto 13.if.then else 14.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:302:16
-}// end SubFn12
-}
-#if js @:expose("Go_utf8_DecodeRune") #end class Go_utf8_DecodeRune extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:219:6
-var p_p:Slice;
-public function new(gr:Int,_bds:Array<Dynamic>, p_p : Slice) {
-super(gr,538,"Go_utf8_DecodeRune");
-this._bds=_bds;
-this.p_p=p_p;
-Scheduler.push(gr,this);
-}
-var _res:{r0:Int, r1:Int};
-public inline function res():Dynamic {return _res;}
-var _SF1:StackFrame;
-var _t0:{r0:Int,r1:Int,r2:Bool}=null;
-var _t1:Int=0;
-var _t2:Int=0;
-var _Next:Int=0;
-public static inline function callFromHaxe( p_p : Slice) : {r0:Int, r1:Int} {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_utf8_DecodeRune(0,[], p_p).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-return _sf.res();
-}
-public static inline function callFromRT( _gr, p_p : Slice) : {r0:Int, r1:Int} {
-var _sf=new Go_utf8_DecodeRune(_gr,[], p_p).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-return _sf.res();
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>, p_p : Slice) : Go_utf8_DecodeRune
-{return new Go_utf8_DecodeRune(gr,_bds, p_p);
-}
-public function run():Go_utf8_DecodeRune {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(538,0);
-this.setPH(539);
-_SF1=Go_utf8_decodeRuneInternal.call(this._goroutine,[],p_p);
-_Next = -1;
-return this;
-case -1:
-this.setLatest(539,-1);
-_t0=_SF1.res();
- // _t0 = decodeRuneInternal(p) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:220:33
-this.SubFn0();
-this.setPH(540);
-_res= {r0:_t1,r1:_t2};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t1, t2 *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:221:2
-
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
-_t1=_t0.r0; // _t1 = extract t0 #0 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:221:2
-_t2=_t0.r1; // _t2 = extract t0 #1 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:221:2
- // _t3 = extract t0 #2 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:221:2 [REGISTER VALUE UN-USED]
-}// end SubFn0
-}
-#if (!php) private #end class Go_haxegoruntime_init_36_1 extends StackFrameBasis implements StackFrame {  // langgoruntime.go:14:6
-public function new(gr:Int,_bds:Array<Dynamic>) {
-super(gr,84,"Go_haxegoruntime_init_36_1");
-this._bds=_bds;
-Scheduler.push(gr,this);
-}
-public inline function res():Dynamic {return null;}
-var _SF1:StackFrame;
-var _SF2:StackFrame;
-var _SF3:StackFrame;
-var _SF4:StackFrame;
-var _SF5:StackFrame;
-var _SF6:StackFrame;
-var _SF7:StackFrame;
-var _SF8:StackFrame;
-var _SF9:StackFrame;
-var _SF10:StackFrame;
-var _SF11:StackFrame;
-var _t11:{r0:Int,r1:Int}=null;
-var _SF12:StackFrame;
-var _SF13:StackFrame;
-var _Next:Int=0;
-public static inline function callFromHaxe( ) : Void {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_haxegoruntime_init_36_1(0,[]).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-}
-public static inline function callFromRT( _gr) : Void {
-var _sf=new Go_haxegoruntime_init_36_1(_gr,[]).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>) : Go_haxegoruntime_init_36_1
-{return new Go_haxegoruntime_init_36_1(gr,_bds);
-}
-public function run():Go_haxegoruntime_init_36_1 {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(84,0);
-this.SubFn0();
-this.setPH(86);
-Go_haxegoruntime_UTF16toRunes.call(this._goroutine,[],null);
-_Next = -1;
-return this;
-case -1:
-this.setLatest(86,-1);
- // _t1 = UTF16toRunes(nil:[]uint16) *ssa.Call @ langgoruntime.go:16:18 [REGISTER VALUE UN-USED]
-this.setPH(87);
-Go_haxegoruntime_UTF8toRunes.call(this._goroutine,[],null);
-_Next = -2;
-return this;
-case -2:
-this.setLatest(87,-2);
- // _t2 = UTF8toRunes(nil:[]byte) *ssa.Call @ langgoruntime.go:17:17 [REGISTER VALUE UN-USED]
-this.setPH(88);
-Go_haxegoruntime_Raw2Runes.call(this._goroutine,[],null);
-_Next = -3;
-return this;
-case -3:
-this.setLatest(88,-3);
- // _t3 = Raw2Runes(nil:[]int) *ssa.Call @ langgoruntime.go:18:15 [REGISTER VALUE UN-USED]
-this.setPH(89);
-Go_haxegoruntime_RunesToUTF16.call(this._goroutine,[],null);
-_Next = -4;
-return this;
-case -4:
-this.setLatest(89,-4);
- // _t4 = RunesToUTF16(nil:[]rune) *ssa.Call @ langgoruntime.go:19:18 [REGISTER VALUE UN-USED]
-this.setPH(90);
-Go_haxegoruntime_RunesToUTF8.call(this._goroutine,[],null);
-_Next = -5;
-return this;
-case -5:
-this.setLatest(90,-5);
- // _t5 = RunesToUTF8(nil:[]rune) *ssa.Call @ langgoruntime.go:20:17 [REGISTER VALUE UN-USED]
-this.setPH(91);
-Go_haxegoruntime_Runes2Raw.call(this._goroutine,[],null);
-_Next = -6;
-return this;
-case -6:
-this.setLatest(91,-6);
- // _t6 = Runes2Raw(nil:[]rune) *ssa.Call @ langgoruntime.go:21:15 [REGISTER VALUE UN-USED]
-this.setPH(92);
-Go_haxegoruntime_Rune2Raw.call(this._goroutine,[],42);
-_Next = -7;
-return this;
-case -7:
-this.setLatest(92,-7);
- // _t7 = Rune2Raw(42:rune) *ssa.Call @ langgoruntime.go:22:14 [REGISTER VALUE UN-USED]
-this.setPH(93);
-Go_haxegoruntime_StringCompare.call(this._goroutine,[],"X","Y");
-_Next = -8;
-return this;
-case -8:
-this.setLatest(93,-8);
- // _t8 = StringCompare("X":string, "Y":string) *ssa.Call @ langgoruntime.go:23:19 [REGISTER VALUE UN-USED]
-this.setPH(95);
-Go_utf16_Decode.call(this._goroutine,[],null);
-_Next = -9;
-return this;
-case -9:
-this.setLatest(95,-9);
- // _t9 = unicode/utf16.Decode(nil:[]uint16) *ssa.Call @ langgoruntime.go:25:18 [REGISTER VALUE UN-USED]
-this.setPH(96);
-Go_utf8_RuneCount.call(this._goroutine,[],null);
-_Next = -10;
-return this;
-case -10:
-this.setLatest(96,-10);
- // _t10 = unicode/utf8.RuneCount(nil:[]byte) *ssa.Call @ langgoruntime.go:26:20 [REGISTER VALUE UN-USED]
-this.setPH(97);
-_SF11=Go_utf8_DecodeRune.call(this._goroutine,[],null);
-_Next = -11;
-return this;
-case -11:
-this.setLatest(97,-11);
-_t11=_SF11.res();
- // _t11 = unicode/utf8.DecodeRune(nil:[]byte) *ssa.Call @ langgoruntime.go:27:23
-this.SubFn1();
-this.setPH(98);
-Go_utf16_Encode.call(this._goroutine,[],null);
-_Next = -12;
-return this;
-case -12:
-this.setLatest(98,-12);
- // _t14 = unicode/utf16.Encode(nil:[]rune) *ssa.Call @ langgoruntime.go:28:18 [REGISTER VALUE UN-USED]
-this.setPH(99);
-Go_utf8_RuneLen.call(this._goroutine,[],42);
-_Next = -13;
-return this;
-case -13:
-this.setLatest(99,-13);
- // _t15 = unicode/utf8.RuneLen(42:rune) *ssa.Call @ langgoruntime.go:29:18 [REGISTER VALUE UN-USED]
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return *ssa.Return near langgoruntime.go:29:18
-
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
- // _t0 = *ZiLen *ssa.UnOp near langgoruntime.go:29:18 [REGISTER VALUE UN-USED]
-}// end SubFn0
-private inline  function SubFn1():Void {
- // _t12 = extract t11 #0 *ssa.Extract near langgoruntime.go:29:18 [REGISTER VALUE UN-USED]
- // _t13 = extract t11 #1 *ssa.Extract near langgoruntime.go:29:18 [REGISTER VALUE UN-USED]
-}// end SubFn1
-}
-#if (!php) private #end class Go_main_main extends StackFrameBasis implements StackFrame {  // binarytree.go:66:6
-public function new(gr:Int,_bds:Array<Dynamic>) {
-super(gr,66,"Go_main_main");
-this._bds=_bds;
-Scheduler.push(gr,this);
-}
-public inline function res():Dynamic {return null;}
-var _SF1:StackFrame;
-var _t1:Int=0;
-var _t2:Int=0;
-var _t3:Bool=false;
-var _Phi:Int=0;
-var _Next:Int=0;
-public static inline function callFromHaxe( ) : Void {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_main_main(0,[]).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-}
-public static inline function callFromRT( _gr) : Void {
-var _sf=new Go_main_main(_gr,[]).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>) : Go_main_main
-{return new Go_main_main(gr,_bds);
-}
-public function run():Go_main_main {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(66,0);
-this.SubFn0();
-_Phi=0;
-case 1: // for.body
-this.setLatest(66,1);
-this.setPH(68);
-Go_main_binarytree.call(this._goroutine,[],17);
-_Next = -1;
-return this;
-case -1:
-this.setLatest(68,-1);
- // _t0 = binarytree(17:int) *ssa.Call @ binarytree.go:68:13 [REGISTER VALUE UN-USED]
-this.SubFn1();
-_Phi=1;
-case 2: // for.done
-this.setLatest(68,2);
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return *ssa.Return near binarytree.go:68:13
-
-case 3: // for.loop
-this.setLatest(68,3);
-this.setPH(67);
-_t2=((_Phi==0)?0:(_Phi==1)?_t1:0); // _t2 = phi [0.entry: 0:int, 1.for.body: t1] #i *ssa.Phi @ binarytree.go:67:6
-this.SubFn2();
-_Phi=3;
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
-_Next=3; // jump 3.for.loop *ssa.Jump near binarytree.go:67:6
-}// end SubFn0
-private inline  function SubFn1():Void {
-_t1=(_t2+1); // _t1 = t2 + 1:int *ssa.BinOp near binarytree.go:67:6
-_Next=3; // jump 3.for.loop *ssa.Jump near binarytree.go:67:6
-}// end SubFn1
-private inline  function SubFn2():Void {
-var _t3:Bool;
-_t3=(_t2<1); // _t3 = t2 < 1:int *ssa.BinOp @ binarytree.go:67:16
-_Next=_t3 ? 1 : 2; // if t3 goto 1.for.body else 2.for.done *ssa.If near binarytree.go:67:16
-}// end SubFn2
 }
 #if js @:expose("Go_utf8_EncodeRune") #end class Go_utf8_EncodeRune extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:330:6
 var p_p:Slice;
@@ -4167,79 +2691,6 @@ _t3=_t0.r2; // _t3 = extract t0 #2 *ssa.Extract near /usr/local/go/src/pkg/unico
 _t4=(!_t3); // _t4 = !t3 *ssa.UnOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:211:9
 }// end SubFn0
 }
-#if (!php) private #end class Go_haxegoruntime_init extends StackFrameBasis implements StackFrame { 
-public function new(gr:Int,_bds:Array<Dynamic>) {
-super(gr,530,"Go_haxegoruntime_init");
-this._bds=_bds;
-Scheduler.push(gr,this);
-}
-public inline function res():Dynamic {return null;}
-var _t0:Bool=false;
-var _SF1:StackFrame;
-var _SF2:StackFrame;
-var _SF3:StackFrame;
-var _Next:Int=0;
-public static inline function callFromHaxe( ) : Void {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_haxegoruntime_init(0,[]).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-}
-public static inline function callFromRT( _gr) : Void {
-var _sf=new Go_haxegoruntime_init(_gr,[]).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>) : Go_haxegoruntime_init
-{return new Go_haxegoruntime_init(gr,_bds);
-}
-public function run():Go_haxegoruntime_init {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(530,0);
-this.SubFn0();
-
-case 1: // init.start
-this.setLatest(530,1);
-this.SubFn1();
-Go_utf16_init.call(this._goroutine,[]);
-_Next = -1;
-return this;
-case -1:
-this.setLatest(530,-1);
- // _t1 = unicode/utf16.init() *ssa.Call near /usr/local/go/src/pkg/unicode/utf8/utf8.go:211:9 [REGISTER VALUE UN-USED]
-Go_utf8_init.call(this._goroutine,[]);
-_Next = -2;
-return this;
-case -2:
-this.setLatest(530,-2);
- // _t2 = unicode/utf8.init() *ssa.Call near /usr/local/go/src/pkg/unicode/utf8/utf8.go:211:9 [REGISTER VALUE UN-USED]
-Go_haxegoruntime_init_36_1.call(this._goroutine,[]);
-_Next = -3;
-return this;
-case -3:
-this.setLatest(530,-3);
- // _t3 = init$1() *ssa.Call near /usr/local/go/src/pkg/unicode/utf8/utf8.go:211:9 [REGISTER VALUE UN-USED]
-this.SubFn2();
-
-case 2: // init.done
-this.setLatest(530,2);
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return *ssa.Return near /usr/local/go/src/pkg/unicode/utf8/utf8.go:211:9
-
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
-var _t0:Bool;
-_t0=Go.haxegoruntime_init_36_guard.load(); // _t0 = *init$guard *ssa.UnOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:211:9
-_Next=_t0 ? 2 : 1; // if t0 goto 2.init.done else 1.init.start *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:211:9
-}// end SubFn0
-private inline  function SubFn1():Void {
-Go.haxegoruntime_init_36_guard.store(true); // *init$guard = true:bool *ssa.Store near /usr/local/go/src/pkg/unicode/utf8/utf8.go:211:9
-}// end SubFn1
-private inline  function SubFn2():Void {
-_Next=2; // jump 2.init.done *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:211:9
-}// end SubFn2
-}
 #if (!php) private #end class Go_utf8_init extends StackFrameBasis implements StackFrame { 
 public function new(gr:Int,_bds:Array<Dynamic>) {
 super(gr,530,"Go_utf8_init");
@@ -4570,6 +3021,2218 @@ private inline  function SubFn2():Void {
 _t4=(_t1+1); // _t4 = t1 + 1:int *ssa.BinOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:383:2
 _Next=1; // jump 1.rangeiter.loop *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:383:2
 }// end SubFn2
+}
+#if js @:expose("Go_utf16_DecodeRune") #end class Go_utf16_DecodeRune extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf16/utf16.go:37:6
+var p_r1:Int;
+var p_r2:Int;
+public function new(gr:Int,_bds:Array<Dynamic>, p_r1 : Int, p_r2 : Int) {
+super(gr,248,"Go_utf16_DecodeRune");
+this._bds=_bds;
+this.p_r1=p_r1;
+this.p_r2=p_r2;
+Scheduler.push(gr,this);
+}
+var _res:Int;
+public inline function res():Dynamic {return _res;}
+var _t0:Bool=false;
+var _t1:Int=0;
+var _t2:Int=0;
+var _t3:Int=0;
+var _t4:Int=0;
+var _t5:Int=0;
+var _t6:Bool=false;
+var _t7:Bool=false;
+var _t8:Bool=false;
+var _Next:Int=0;
+public static inline function callFromHaxe( p_r1 : Int, p_r2 : Int) : Int {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_utf16_DecodeRune(0,[], p_r1, p_r2).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+return _sf.res();
+}
+public static inline function callFromRT( _gr, p_r1 : Int, p_r2 : Int) : Int {
+var _sf=new Go_utf16_DecodeRune(_gr,[], p_r1, p_r2).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+return _sf.res();
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>, p_r1 : Int, p_r2 : Int) : Go_utf16_DecodeRune
+{return new Go_utf16_DecodeRune(gr,_bds, p_r1, p_r2);
+}
+public function run():Go_utf16_DecodeRune {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(248,0);
+this.SubFn0();
+
+case 1: // if.then
+this.setLatest(248,1);
+this.SubFn1();
+this.setPH(250);
+_res= _t5;
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t5 *ssa.Return @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:39:3
+
+case 2: // if.done
+this.setLatest(250,2);
+this.setPH(252);
+_res= 65533;
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune *ssa.Return @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:41:2
+
+case 3: // cond.true
+this.setLatest(252,3);
+this.SubFn2();
+
+case 4: // cond.true
+this.setLatest(252,4);
+this.SubFn3();
+
+case 5: // cond.true
+this.setLatest(252,5);
+this.SubFn4();
+
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+var _t0:Bool;
+this.setPH(249);
+_t0=(55296<=p_r1); // _t0 = 55296:rune <= r1 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:11
+_Next=_t0 ? 5 : 2; // if t0 goto 5.cond.true else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:11
+}// end SubFn0
+private inline  function SubFn1():Void {
+var _t1:Int;
+var _t2:Int;
+var _t3:Int;
+var _t4:Int;
+this.setPH(250);
+_t1=Force.toInt32((p_r1-55296)); // _t1 = r1 - 55296:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:39:19
+_t2=(_t1<<GOint64.toInt(GOint64.make(0x0,0xa))); // _t2 = t1 << 10:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:39:26
+_t3=Force.toInt32((p_r2-56320)); // _t3 = r2 - 56320:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:39:43
+_t4=Force.toInt32((_t2|_t3)); // _t4 = t2 | t3 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:39:31
+_t5=Force.toInt32((_t4+65536)); // _t5 = t4 + 65536:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:39:52
+}// end SubFn1
+private inline  function SubFn2():Void {
+var _t6:Bool;
+this.setPH(249);
+_t6=(p_r2<57344); // _t6 = r2 < 57344:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:52
+_Next=_t6 ? 1 : 2; // if t6 goto 1.if.then else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:52
+}// end SubFn2
+private inline  function SubFn3():Void {
+var _t7:Bool;
+_t7=(56320<=p_r2); // _t7 = 56320:rune <= r2 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:40
+_Next=_t7 ? 3 : 2; // if t7 goto 3.cond.true else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:40
+}// end SubFn3
+private inline  function SubFn4():Void {
+var _t8:Bool;
+_t8=(p_r1<56320); // _t8 = r1 < 56320:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:23
+_Next=_t8 ? 4 : 2; // if t8 goto 4.cond.true else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf16/utf16.go:38:23
+}// end SubFn4
+}
+#if js @:expose("Go_haxegoruntime_RunesToUTF16") #end class Go_haxegoruntime_RunesToUTF16 extends StackFrameBasis implements StackFrame {  // langgoruntime.go:75:6
+var p_r:Slice;
+public function new(gr:Int,_bds:Array<Dynamic>, p_r : Slice) {
+super(gr,145,"Go_haxegoruntime_RunesToUTF16");
+this._bds=_bds;
+this.p_r=p_r;
+Scheduler.push(gr,this);
+}
+var _res:Slice;
+public inline function res():Dynamic {return _res;}
+var _SF1:StackFrame;
+var _t0:Slice=null;
+var _Next:Int=0;
+public static inline function callFromHaxe( p_r : Slice) : Slice {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_haxegoruntime_RunesToUTF16(0,[], p_r).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+return _sf.res();
+}
+public static inline function callFromRT( _gr, p_r : Slice) : Slice {
+var _sf=new Go_haxegoruntime_RunesToUTF16(_gr,[], p_r).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+return _sf.res();
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>, p_r : Slice) : Go_haxegoruntime_RunesToUTF16
+{return new Go_haxegoruntime_RunesToUTF16(gr,_bds, p_r);
+}
+public function run():Go_haxegoruntime_RunesToUTF16 {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(145,0);
+this.setPH(146);
+_SF1=Go_utf16_Encode.call(this._goroutine,[],p_r);
+_Next = -1;
+return this;
+case -1:
+this.setLatest(146,-1);
+_t0=_SF1.res();
+ // _t0 = unicode/utf16.Encode(r) *ssa.Call @ langgoruntime.go:76:21
+_res= _t0;
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t0 *ssa.Return @ langgoruntime.go:76:2
+
+default: Scheduler.bbi();}}}
+}
+#if js @:expose("Go_utf8_DecodeLastRuneInString") #end class Go_utf8_DecodeLastRuneInString extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:276:6
+var p_s:String;
+public function new(gr:Int,_bds:Array<Dynamic>, p_s : String) {
+super(gr,595,"Go_utf8_DecodeLastRuneInString");
+this._bds=_bds;
+this.p_s=p_s;
+Scheduler.push(gr,this);
+}
+var _res:{r0:Int, r1:Int};
+public inline function res():Dynamic {return _res;}
+var _t0:Int=0;
+var _t1:Bool=false;
+var _t2:Int=0;
+var _t3:Int=0;
+var _t4:Int=0;
+var _t5:Bool=false;
+var _t6:Int=0;
+var _t7:Bool=false;
+var _t8:Int=0;
+var _t9:Int=0;
+var _t10:Int=0;
+var _SF1:StackFrame;
+var _t11:Bool=false;
+var _t12:Bool=false;
+var _t13:Int=0;
+var _t14:Bool=false;
+var _t15:Int=0;
+var _t16:Int=0;
+var _t17:String="";
+var _SF2:StackFrame;
+var _t18:{r0:Int,r1:Int}=null;
+var _t19:Int=0;
+var _t20:Int=0;
+var _t21:Int=0;
+var _t22:Bool=false;
+var _Phi:Int=0;
+var _Next:Int=0;
+public static inline function callFromHaxe( p_s : String) : {r0:Int, r1:Int} {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_utf8_DecodeLastRuneInString(0,[], p_s).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+return _sf.res();
+}
+public static inline function callFromRT( _gr, p_s : String) : {r0:Int, r1:Int} {
+var _sf=new Go_utf8_DecodeLastRuneInString(_gr,[], p_s).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+return _sf.res();
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>, p_s : String) : Go_utf8_DecodeLastRuneInString
+{return new Go_utf8_DecodeLastRuneInString(gr,_bds, p_s);
+}
+public function run():Go_utf8_DecodeLastRuneInString {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(595,0);
+this.SubFn0();
+_Phi=0;
+case 1: // if.then
+this.setLatest(595,1);
+this.setPH(598);
+_res= {r0:65533,r1:0};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 0:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:279:3
+
+case 2: // if.done
+this.setLatest(598,2);
+this.SubFn1();
+_Phi=2;
+case 3: // if.then
+this.setLatest(598,3);
+this.setPH(603);
+_res= {r0:_t4,r1:1};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t4, 1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:284:3
+
+case 4: // if.done
+this.setLatest(603,4);
+this.SubFn2();
+_Phi=4;
+case 5: // if.then
+this.setLatest(603,5);
+this.SubFn3();
+_Phi=5;
+case 6: // if.done
+this.setLatest(603,6);
+this.setPH(608);
+_t8=((_Phi==4)?_t6:(_Phi==5)?0:0); // _t8 = phi [4.if.done: t6, 5.if.then: 0:int] #lim *ssa.Phi @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:289:2
+this.SubFn4();
+_Phi=6;
+case 7: // for.body
+this.setLatest(608,7);
+this.SubFn5();
+this.setPH(613);
+_SF1=Go_utf8_RuneStart.call(this._goroutine,[],_t10);
+_Next = -1;
+return this;
+case -1:
+this.setLatest(613,-1);
+_t11=_SF1.res();
+ // _t11 = RuneStart(t10) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:294:15
+this.SubFn6();
+_Phi=7;
+case 8: // for.done
+this.setLatest(613,8);
+this.SubFn7();
+_Phi=8;
+case 9: // for.loop
+this.setLatest(613,9);
+this.setPH(600);
+_t13=((_Phi==6)?_t9:(_Phi==10)?_t15:0); // _t13 = phi [6.if.done: t9, 10.if.done: t15] #start *ssa.Phi @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:281:2
+this.SubFn8();
+_Phi=9;
+case 10: // if.done
+this.setLatest(600,10);
+this.SubFn9();
+_Phi=10;
+case 11: // if.then
+this.setLatest(600,11);
+this.SubFn10();
+_Phi=11;
+case 12: // if.done
+this.setLatest(600,12);
+_t16=((_Phi==8)?_t13:(_Phi==11)?0:0); // _t16 = phi [8.for.done: t13, 11.if.then: 0:int] #start *ssa.Phi @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:281:2
+this.SubFn11();
+this.setPH(620);
+_SF2=Go_utf8_DecodeRuneInString.call(this._goroutine,[],_t17);
+_Next = -2;
+return this;
+case -2:
+this.setLatest(620,-2);
+_t18=_SF2.res();
+ // _t18 = DecodeRuneInString(t17) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:301:30
+this.SubFn12();
+_Phi=12;
+case 13: // if.then
+this.setLatest(620,13);
+this.setPH(622);
+_res= {r0:65533,r1:1};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:303:3
+
+case 14: // if.done
+this.setLatest(622,14);
+this.setPH(624);
+_res= {r0:_t19,r1:_t20};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t19, t20 *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:305:2
+
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+var _t1:Bool;
+this.setPH(596);
+_t0=Force.toUTF8length(this._goroutine,p_s); // _t0 = len(s) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:277:12
+this.setPH(597);
+_t1=(_t0==0); // _t1 = t0 == 0:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:278:9
+_Next=_t1 ? 1 : 2; // if t1 goto 1.if.then else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:278:9
+}// end SubFn0
+private inline  function SubFn1():Void {
+var _t3:Int;
+var _t5:Bool;
+this.setPH(600);
+_t2=(_t0-1); // _t2 = t0 - 1:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:281:15
+this.setPH(601);
+_t3=Force.toUTF8slice(this._goroutine,p_s).getAt(_t2); // _t3 = s[t2] *ssa.Lookup @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:282:12
+_t4=_t3; // _t4 = convert rune <- uint8 (t3) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:282:10
+this.setPH(602);
+_t5=(_t4<128); // _t5 = t4 < 128:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:283:7
+_Next=_t5 ? 3 : 4; // if t5 goto 3.if.then else 4.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:283:7
+}// end SubFn1
+private inline  function SubFn2():Void {
+var _t7:Bool;
+this.setPH(608);
+_t6=(_t0-4); // _t6 = t0 - 4:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:289:13
+this.setPH(609);
+_t7=(_t6<0); // _t7 = t6 < 0:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:290:9
+_Next=_t7 ? 5 : 6; // if t7 goto 5.if.then else 6.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:290:9
+}// end SubFn2
+private inline  function SubFn3():Void {
+_Next=6; // jump 6.if.done *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:290:9
+}// end SubFn3
+private inline  function SubFn4():Void {
+_t9=(_t2-1); // _t9 = t2 - 1:int *ssa.BinOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:290:9
+_Next=9; // jump 9.for.loop *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:290:9
+}// end SubFn4
+private inline  function SubFn5():Void {
+this.setPH(613);
+_t10=Force.toUTF8slice(this._goroutine,p_s).getAt(_t13); // _t10 = s[t13] *ssa.Lookup @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:294:17
+}// end SubFn5
+private inline  function SubFn6():Void {
+_Next=_t11 ? 8 : 10; // if t11 goto 8.for.done else 10.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:294:17
+}// end SubFn6
+private inline  function SubFn7():Void {
+var _t12:Bool;
+this.setPH(617);
+_t12=(_t13<0); // _t12 = t13 < 0:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:298:11
+_Next=_t12 ? 11 : 12; // if t12 goto 11.if.then else 12.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:298:11
+}// end SubFn7
+private inline  function SubFn8():Void {
+var _t14:Bool;
+this.setPH(612);
+_t14=(_t13>=_t8); // _t14 = t13 >= t8 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:293:21
+_Next=_t14 ? 7 : 8; // if t14 goto 7.for.body else 8.for.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:293:21
+}// end SubFn8
+private inline  function SubFn9():Void {
+_t15=(_t13-1); // _t15 = t13 - 1:int *ssa.BinOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:293:21
+_Next=9; // jump 9.for.loop *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:293:21
+}// end SubFn9
+private inline  function SubFn10():Void {
+_Next=12; // jump 12.if.done *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:293:21
+}// end SubFn10
+private inline  function SubFn11():Void {
+this.setPH(620);
+_t17=Force.toRawString(this._goroutine,Force.toUTF8slice(this._goroutine,p_s).subSlice(_t16,_t0)); // _t17 = slice s[t16:t0] *ssa.Slice @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:301:32
+}// end SubFn11
+private inline  function SubFn12():Void {
+var _t21:Int;
+var _t22:Bool;
+_t19=_t18.r0; // _t19 = extract t18 #0 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:301:32
+_t20=_t18.r1; // _t20 = extract t18 #1 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:301:32
+this.setPH(621);
+_t21=(_t16+_t20); // _t21 = t16 + t20 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:302:10
+_t22=(_t21!=_t0); // _t22 = t21 != t0 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:302:16
+_Next=_t22 ? 13 : 14; // if t22 goto 13.if.then else 14.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:302:16
+}// end SubFn12
+}
+#if js @:expose("Go_utf8_DecodeRune") #end class Go_utf8_DecodeRune extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:219:6
+var p_p:Slice;
+public function new(gr:Int,_bds:Array<Dynamic>, p_p : Slice) {
+super(gr,538,"Go_utf8_DecodeRune");
+this._bds=_bds;
+this.p_p=p_p;
+Scheduler.push(gr,this);
+}
+var _res:{r0:Int, r1:Int};
+public inline function res():Dynamic {return _res;}
+var _SF1:StackFrame;
+var _t0:{r0:Int,r1:Int,r2:Bool}=null;
+var _t1:Int=0;
+var _t2:Int=0;
+var _Next:Int=0;
+public static inline function callFromHaxe( p_p : Slice) : {r0:Int, r1:Int} {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_utf8_DecodeRune(0,[], p_p).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+return _sf.res();
+}
+public static inline function callFromRT( _gr, p_p : Slice) : {r0:Int, r1:Int} {
+var _sf=new Go_utf8_DecodeRune(_gr,[], p_p).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+return _sf.res();
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>, p_p : Slice) : Go_utf8_DecodeRune
+{return new Go_utf8_DecodeRune(gr,_bds, p_p);
+}
+public function run():Go_utf8_DecodeRune {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(538,0);
+this.setPH(539);
+_SF1=Go_utf8_decodeRuneInternal.call(this._goroutine,[],p_p);
+_Next = -1;
+return this;
+case -1:
+this.setLatest(539,-1);
+_t0=_SF1.res();
+ // _t0 = decodeRuneInternal(p) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:220:33
+this.SubFn0();
+this.setPH(540);
+_res= {r0:_t1,r1:_t2};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t1, t2 *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:221:2
+
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+_t1=_t0.r0; // _t1 = extract t0 #0 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:221:2
+_t2=_t0.r1; // _t2 = extract t0 #1 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:221:2
+ // _t3 = extract t0 #2 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:221:2 [REGISTER VALUE UN-USED]
+}// end SubFn0
+}
+#if (!php) private #end class Go_haxegoruntime_init_36_1 extends StackFrameBasis implements StackFrame {  // langgoruntime.go:14:6
+public function new(gr:Int,_bds:Array<Dynamic>) {
+super(gr,84,"Go_haxegoruntime_init_36_1");
+this._bds=_bds;
+Scheduler.push(gr,this);
+}
+public inline function res():Dynamic {return null;}
+var _SF1:StackFrame;
+var _SF2:StackFrame;
+var _SF3:StackFrame;
+var _SF4:StackFrame;
+var _SF5:StackFrame;
+var _SF6:StackFrame;
+var _SF7:StackFrame;
+var _SF8:StackFrame;
+var _SF9:StackFrame;
+var _SF10:StackFrame;
+var _SF11:StackFrame;
+var _t11:{r0:Int,r1:Int}=null;
+var _SF12:StackFrame;
+var _SF13:StackFrame;
+var _Next:Int=0;
+public static inline function callFromHaxe( ) : Void {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_haxegoruntime_init_36_1(0,[]).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+}
+public static inline function callFromRT( _gr) : Void {
+var _sf=new Go_haxegoruntime_init_36_1(_gr,[]).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>) : Go_haxegoruntime_init_36_1
+{return new Go_haxegoruntime_init_36_1(gr,_bds);
+}
+public function run():Go_haxegoruntime_init_36_1 {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(84,0);
+this.SubFn0();
+this.setPH(86);
+Go_haxegoruntime_UTF16toRunes.call(this._goroutine,[],null);
+_Next = -1;
+return this;
+case -1:
+this.setLatest(86,-1);
+ // _t1 = UTF16toRunes(nil:[]uint16) *ssa.Call @ langgoruntime.go:16:18 [REGISTER VALUE UN-USED]
+this.setPH(87);
+Go_haxegoruntime_UTF8toRunes.call(this._goroutine,[],null);
+_Next = -2;
+return this;
+case -2:
+this.setLatest(87,-2);
+ // _t2 = UTF8toRunes(nil:[]byte) *ssa.Call @ langgoruntime.go:17:17 [REGISTER VALUE UN-USED]
+this.setPH(88);
+Go_haxegoruntime_Raw2Runes.call(this._goroutine,[],null);
+_Next = -3;
+return this;
+case -3:
+this.setLatest(88,-3);
+ // _t3 = Raw2Runes(nil:[]int) *ssa.Call @ langgoruntime.go:18:15 [REGISTER VALUE UN-USED]
+this.setPH(89);
+Go_haxegoruntime_RunesToUTF16.call(this._goroutine,[],null);
+_Next = -4;
+return this;
+case -4:
+this.setLatest(89,-4);
+ // _t4 = RunesToUTF16(nil:[]rune) *ssa.Call @ langgoruntime.go:19:18 [REGISTER VALUE UN-USED]
+this.setPH(90);
+Go_haxegoruntime_RunesToUTF8.call(this._goroutine,[],null);
+_Next = -5;
+return this;
+case -5:
+this.setLatest(90,-5);
+ // _t5 = RunesToUTF8(nil:[]rune) *ssa.Call @ langgoruntime.go:20:17 [REGISTER VALUE UN-USED]
+this.setPH(91);
+Go_haxegoruntime_Runes2Raw.call(this._goroutine,[],null);
+_Next = -6;
+return this;
+case -6:
+this.setLatest(91,-6);
+ // _t6 = Runes2Raw(nil:[]rune) *ssa.Call @ langgoruntime.go:21:15 [REGISTER VALUE UN-USED]
+this.setPH(92);
+Go_haxegoruntime_Rune2Raw.call(this._goroutine,[],42);
+_Next = -7;
+return this;
+case -7:
+this.setLatest(92,-7);
+ // _t7 = Rune2Raw(42:rune) *ssa.Call @ langgoruntime.go:22:14 [REGISTER VALUE UN-USED]
+this.setPH(93);
+Go_haxegoruntime_StringCompare.call(this._goroutine,[],"X","Y");
+_Next = -8;
+return this;
+case -8:
+this.setLatest(93,-8);
+ // _t8 = StringCompare("X":string, "Y":string) *ssa.Call @ langgoruntime.go:23:19 [REGISTER VALUE UN-USED]
+this.setPH(95);
+Go_utf16_Decode.call(this._goroutine,[],null);
+_Next = -9;
+return this;
+case -9:
+this.setLatest(95,-9);
+ // _t9 = unicode/utf16.Decode(nil:[]uint16) *ssa.Call @ langgoruntime.go:25:18 [REGISTER VALUE UN-USED]
+this.setPH(96);
+Go_utf8_RuneCount.call(this._goroutine,[],null);
+_Next = -10;
+return this;
+case -10:
+this.setLatest(96,-10);
+ // _t10 = unicode/utf8.RuneCount(nil:[]byte) *ssa.Call @ langgoruntime.go:26:20 [REGISTER VALUE UN-USED]
+this.setPH(97);
+_SF11=Go_utf8_DecodeRune.call(this._goroutine,[],null);
+_Next = -11;
+return this;
+case -11:
+this.setLatest(97,-11);
+_t11=_SF11.res();
+ // _t11 = unicode/utf8.DecodeRune(nil:[]byte) *ssa.Call @ langgoruntime.go:27:23
+this.SubFn1();
+this.setPH(98);
+Go_utf16_Encode.call(this._goroutine,[],null);
+_Next = -12;
+return this;
+case -12:
+this.setLatest(98,-12);
+ // _t14 = unicode/utf16.Encode(nil:[]rune) *ssa.Call @ langgoruntime.go:28:18 [REGISTER VALUE UN-USED]
+this.setPH(99);
+Go_utf8_RuneLen.call(this._goroutine,[],42);
+_Next = -13;
+return this;
+case -13:
+this.setLatest(99,-13);
+ // _t15 = unicode/utf8.RuneLen(42:rune) *ssa.Call @ langgoruntime.go:29:18 [REGISTER VALUE UN-USED]
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return *ssa.Return near langgoruntime.go:29:18
+
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+ // _t0 = *ZiLen *ssa.UnOp near langgoruntime.go:29:18 [REGISTER VALUE UN-USED]
+}// end SubFn0
+private inline  function SubFn1():Void {
+ // _t12 = extract t11 #0 *ssa.Extract near langgoruntime.go:29:18 [REGISTER VALUE UN-USED]
+ // _t13 = extract t11 #1 *ssa.Extract near langgoruntime.go:29:18 [REGISTER VALUE UN-USED]
+}// end SubFn1
+}
+#if (!php) private #end class Go_main_main extends StackFrameBasis implements StackFrame {  // binarytree.go:66:6
+public function new(gr:Int,_bds:Array<Dynamic>) {
+super(gr,66,"Go_main_main");
+this._bds=_bds;
+Scheduler.push(gr,this);
+}
+public inline function res():Dynamic {return null;}
+var _SF1:StackFrame;
+var _t1:Int=0;
+var _t2:Int=0;
+var _t3:Bool=false;
+var _Phi:Int=0;
+var _Next:Int=0;
+public static inline function callFromHaxe( ) : Void {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_main_main(0,[]).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+}
+public static inline function callFromRT( _gr) : Void {
+var _sf=new Go_main_main(_gr,[]).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>) : Go_main_main
+{return new Go_main_main(gr,_bds);
+}
+public function run():Go_main_main {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(66,0);
+this.SubFn0();
+_Phi=0;
+case 1: // for.body
+this.setLatest(66,1);
+this.setPH(68);
+Go_main_binarytree.call(this._goroutine,[],17);
+_Next = -1;
+return this;
+case -1:
+this.setLatest(68,-1);
+ // _t0 = binarytree(17:int) *ssa.Call @ binarytree.go:68:13 [REGISTER VALUE UN-USED]
+this.SubFn1();
+_Phi=1;
+case 2: // for.done
+this.setLatest(68,2);
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return *ssa.Return near binarytree.go:68:13
+
+case 3: // for.loop
+this.setLatest(68,3);
+this.setPH(67);
+_t2=((_Phi==0)?0:(_Phi==1)?_t1:0); // _t2 = phi [0.entry: 0:int, 1.for.body: t1] #i *ssa.Phi @ binarytree.go:67:6
+this.SubFn2();
+_Phi=3;
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+_Next=3; // jump 3.for.loop *ssa.Jump near binarytree.go:67:6
+}// end SubFn0
+private inline  function SubFn1():Void {
+_t1=(_t2+1); // _t1 = t2 + 1:int *ssa.BinOp near binarytree.go:67:6
+_Next=3; // jump 3.for.loop *ssa.Jump near binarytree.go:67:6
+}// end SubFn1
+private inline  function SubFn2():Void {
+var _t3:Bool;
+_t3=(_t2<1); // _t3 = t2 < 1:int *ssa.BinOp @ binarytree.go:67:16
+_Next=_t3 ? 1 : 2; // if t3 goto 1.for.body else 2.for.done *ssa.If near binarytree.go:67:16
+}// end SubFn2
+}
+#if (!php) private #end class Go_utf8_decodeRuneInternal extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:45:6
+var p_p:Slice;
+public function new(gr:Int,_bds:Array<Dynamic>, p_p : Slice) {
+super(gr,364,"Go_utf8_decodeRuneInternal");
+this._bds=_bds;
+this.p_p=p_p;
+Scheduler.push(gr,this);
+}
+var _res:{r0:Int, r1:Int, r2:Bool};
+public inline function res():Dynamic {return _res;}
+var _t0:Int=0;
+var _t1:Bool=false;
+var _t2:Pointer=null;
+var _t3:Int=0;
+var _t4:Bool=false;
+var _t5:Int=0;
+var _t6:Bool=false;
+var _t7:Bool=false;
+var _t8:Pointer=null;
+var _t9:Int=0;
+var _t10:Bool=false;
+var _t11:Bool=false;
+var _t12:Bool=false;
+var _t13:Int=0;
+var _t14:Int=0;
+var _t15:Int=0;
+var _t16:Int=0;
+var _t17:Int=0;
+var _t18:Int=0;
+var _t19:Bool=false;
+var _t20:Bool=false;
+var _t21:Pointer=null;
+var _t22:Int=0;
+var _t23:Bool=false;
+var _t24:Bool=false;
+var _t25:Bool=false;
+var _t26:Int=0;
+var _t27:Int=0;
+var _t28:Int=0;
+var _t29:Int=0;
+var _t30:Int=0;
+var _t31:Int=0;
+var _t32:Int=0;
+var _t33:Int=0;
+var _t34:Int=0;
+var _t35:Int=0;
+var _t36:Bool=false;
+var _t37:Bool=false;
+var _t38:Bool=false;
+var _t39:Bool=false;
+var _t40:Pointer=null;
+var _t41:Int=0;
+var _t42:Bool=false;
+var _t43:Bool=false;
+var _t44:Bool=false;
+var _t45:Int=0;
+var _t46:Int=0;
+var _t47:Int=0;
+var _t48:Int=0;
+var _t49:Int=0;
+var _t50:Int=0;
+var _t51:Int=0;
+var _t52:Int=0;
+var _t53:Int=0;
+var _t54:Int=0;
+var _t55:Int=0;
+var _t56:Int=0;
+var _t57:Int=0;
+var _t58:Int=0;
+var _t59:Bool=false;
+var _t60:Bool=false;
+var _Next:Int=0;
+public static inline function callFromHaxe( p_p : Slice) : {r0:Int, r1:Int, r2:Bool} {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_utf8_decodeRuneInternal(0,[], p_p).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+return _sf.res();
+}
+public static inline function callFromRT( _gr, p_p : Slice) : {r0:Int, r1:Int, r2:Bool} {
+var _sf=new Go_utf8_decodeRuneInternal(_gr,[], p_p).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+return _sf.res();
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>, p_p : Slice) : Go_utf8_decodeRuneInternal
+{return new Go_utf8_decodeRuneInternal(gr,_bds, p_p);
+}
+public function run():Go_utf8_decodeRuneInternal {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(364,0);
+this.SubFn0();
+
+case 1: // if.then
+this.setLatest(364,1);
+this.setPH(367);
+_res= {r0:65533,r1:0,r2:true};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 0:int, true:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:48:3
+
+case 2: // if.done
+this.setLatest(367,2);
+this.SubFn1();
+
+case 3: // if.then
+this.setLatest(367,3);
+this.SubFn2();
+this.setPH(373);
+_res= {r0:_t5,r1:1,r2:false};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t5, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:54:3
+
+case 4: // if.done
+this.setLatest(373,4);
+this.SubFn3();
+
+case 5: // if.then
+this.setLatest(373,5);
+this.setPH(378);
+_res= {r0:65533,r1:1,r2:false};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:59:3
+
+case 6: // if.done
+this.setLatest(378,6);
+this.SubFn4();
+
+case 7: // if.then
+this.setLatest(378,7);
+this.setPH(383);
+_res= {r0:65533,r1:1,r2:true};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 1:int, true:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:64:3
+
+case 8: // if.done
+this.setLatest(383,8);
+this.SubFn5();
+
+case 9: // if.then
+this.setLatest(383,9);
+this.setPH(387);
+_res= {r0:65533,r1:1,r2:false};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:68:3
+
+case 10: // if.done
+this.setLatest(387,10);
+this.SubFn6();
+
+case 11: // cond.false
+this.setLatest(387,11);
+this.SubFn7();
+
+case 12: // if.then
+this.setLatest(387,12);
+this.SubFn8();
+
+case 13: // if.done
+this.setLatest(387,13);
+this.SubFn9();
+
+case 14: // if.then
+this.setLatest(387,14);
+this.setPH(394);
+_res= {r0:65533,r1:1,r2:false};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:75:4
+
+case 15: // if.done
+this.setLatest(394,15);
+this.setPH(396);
+_res= {r0:_t18,r1:2,r2:false};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t18, 2:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:77:3
+
+case 16: // if.then
+this.setLatest(396,16);
+this.setPH(401);
+_res= {r0:65533,r1:1,r2:true};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 1:int, true:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:82:3
+
+case 17: // if.done
+this.setLatest(401,17);
+this.SubFn10();
+
+case 18: // if.then
+this.setLatest(401,18);
+this.setPH(405);
+_res= {r0:65533,r1:1,r2:false};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:86:3
+
+case 19: // if.done
+this.setLatest(405,19);
+this.SubFn11();
+
+case 20: // cond.false
+this.setLatest(405,20);
+this.SubFn12();
+
+case 21: // if.then
+this.setLatest(405,21);
+this.SubFn13();
+
+case 22: // if.done
+this.setLatest(405,22);
+this.SubFn14();
+
+case 23: // if.then
+this.setLatest(405,23);
+this.setPH(412);
+_res= {r0:65533,r1:1,r2:false};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:93:4
+
+case 24: // if.done
+this.setLatest(412,24);
+this.SubFn15();
+
+case 25: // if.then
+this.setLatest(412,25);
+this.setPH(415);
+_res= {r0:65533,r1:1,r2:false};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:96:4
+
+case 26: // if.done
+this.setLatest(415,26);
+this.setPH(417);
+_res= {r0:_t35,r1:3,r2:false};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t35, 3:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:98:3
+
+case 27: // cond.true
+this.setLatest(417,27);
+this.SubFn16();
+
+case 28: // if.then
+this.setLatest(417,28);
+this.setPH(422);
+_res= {r0:65533,r1:1,r2:true};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 1:int, true:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:103:3
+
+case 29: // if.done
+this.setLatest(422,29);
+this.SubFn17();
+
+case 30: // if.then
+this.setLatest(422,30);
+this.setPH(426);
+_res= {r0:65533,r1:1,r2:false};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:107:3
+
+case 31: // if.done
+this.setLatest(426,31);
+this.SubFn18();
+
+case 32: // cond.false
+this.setLatest(426,32);
+this.SubFn19();
+
+case 33: // if.then
+this.setLatest(426,33);
+this.SubFn20();
+
+case 34: // if.done
+this.setLatest(426,34);
+this.setPH(439);
+_res= {r0:65533,r1:1,r2:false};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:120:2
+
+case 35: // if.then
+this.setLatest(439,35);
+this.setPH(433);
+_res= {r0:65533,r1:1,r2:false};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:114:4
+
+case 36: // if.done
+this.setLatest(433,36);
+this.setPH(435);
+_res= {r0:_t58,r1:4,r2:false};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t58, 4:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:116:3
+
+case 37: // cond.false
+this.setLatest(435,37);
+this.SubFn21();
+
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+var _t1:Bool;
+this.setPH(365);
+_t0=({var _v=p_p;_v==null?0:_v.len();}); // _t0 = len(p) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:46:10
+this.setPH(366);
+_t1=(_t0<1); // _t1 = t0 < 1:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:47:7
+_Next=_t1 ? 1 : 2; // if t1 goto 1.if.then else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:47:7
+}// end SubFn0
+private inline  function SubFn1():Void {
+var _t2:Pointer;
+var _t4:Bool;
+this.setPH(369);
+if((0<0)||(0>=p_p.len())) Scheduler.ioor(); // _t2 = &p[0:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:50:9 [POINTER]
+_t2=p_p.addr(0);  // _t2 = &p[0:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:50:9 [POINTER]
+_t3=(_t2.load()|0); // _t3 = *t2 *ssa.UnOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:50:9
+this.setPH(372);
+_t4=(Force.uintCompare(_t3,128)<0); // _t4 = t3 < 128:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:53:8
+_Next=_t4 ? 3 : 4; // if t4 goto 3.if.then else 4.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:53:8
+}// end SubFn1
+private inline  function SubFn2():Void {
+this.setPH(373);
+_t5=_t3; // _t5 = convert rune <- byte (t3) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:54:14
+}// end SubFn2
+private inline  function SubFn3():Void {
+var _t6:Bool;
+this.setPH(377);
+_t6=(Force.uintCompare(_t3,192)<0); // _t6 = t3 < 192:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:58:8
+_Next=_t6 ? 5 : 6; // if t6 goto 5.if.then else 6.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:58:8
+}// end SubFn3
+private inline  function SubFn4():Void {
+var _t7:Bool;
+this.setPH(382);
+_t7=(_t0<2); // _t7 = t0 < 2:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:63:7
+_Next=_t7 ? 7 : 8; // if t7 goto 7.if.then else 8.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:63:7
+}// end SubFn4
+private inline  function SubFn5():Void {
+var _t8:Pointer;
+var _t10:Bool;
+this.setPH(385);
+if((1<0)||(1>=p_p.len())) Scheduler.ioor(); // _t8 = &p[1:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:66:9 [POINTER]
+_t8=p_p.addr(1);  // _t8 = &p[1:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:66:9 [POINTER]
+_t9=(_t8.load()|0); // _t9 = *t8 *ssa.UnOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:66:9
+this.setPH(386);
+_t10=(Force.uintCompare(_t9,128)<0); // _t10 = t9 < 128:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:67:8
+_Next=_t10 ? 9 : 11; // if t10 goto 9.if.then else 11.cond.false *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:67:8
+}// end SubFn5
+private inline  function SubFn6():Void {
+var _t11:Bool;
+this.setPH(391);
+_t11=(Force.uintCompare(_t3,224)<0); // _t11 = t3 < 224:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:72:8
+_Next=_t11 ? 12 : 13; // if t11 goto 12.if.then else 13.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:72:8
+}// end SubFn6
+private inline  function SubFn7():Void {
+var _t12:Bool;
+this.setPH(386);
+_t12=(Force.uintCompare(192,_t9)<=0); // _t12 = 192:byte <= t9 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:67:19
+_Next=_t12 ? 9 : 10; // if t12 goto 9.if.then else 10.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:67:19
+}// end SubFn7
+private inline  function SubFn8():Void {
+var _t13:Int;
+var _t14:Int;
+var _t15:Int;
+var _t16:Int;
+var _t17:Int;
+var _t19:Bool;
+this.setPH(392);
+_t13=Force.toUint8((_t3&31)); // _t13 = t3 & 31:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:73:14
+_t14=_t13; // _t14 = convert rune <- byte (t13) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:73:11
+_t15=(_t14<<GOint64.toInt(GOint64.make(0x0,0x6))); // _t15 = t14 << 6:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:73:21
+_t16=Force.toUint8((_t9&63)); // _t16 = t9 & 63:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:73:34
+_t17=_t16; // _t17 = convert rune <- byte (t16) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:73:31
+_t18=Force.toInt32((_t15|_t17)); // _t18 = t15 | t17 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:73:25
+this.setPH(393);
+_t19=(_t18<=127); // _t19 = t18 <= 127:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:74:8
+_Next=_t19 ? 14 : 15; // if t19 goto 14.if.then else 15.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:74:8
+}// end SubFn8
+private inline  function SubFn9():Void {
+var _t20:Bool;
+this.setPH(400);
+_t20=(_t0<3); // _t20 = t0 < 3:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:81:7
+_Next=_t20 ? 16 : 17; // if t20 goto 16.if.then else 17.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:81:7
+}// end SubFn9
+private inline  function SubFn10():Void {
+var _t21:Pointer;
+var _t23:Bool;
+this.setPH(403);
+if((2<0)||(2>=p_p.len())) Scheduler.ioor(); // _t21 = &p[2:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:84:9 [POINTER]
+_t21=p_p.addr(2);  // _t21 = &p[2:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:84:9 [POINTER]
+_t22=(_t21.load()|0); // _t22 = *t21 *ssa.UnOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:84:9
+this.setPH(404);
+_t23=(Force.uintCompare(_t22,128)<0); // _t23 = t22 < 128:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:85:8
+_Next=_t23 ? 18 : 20; // if t23 goto 18.if.then else 20.cond.false *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:85:8
+}// end SubFn10
+private inline  function SubFn11():Void {
+var _t24:Bool;
+this.setPH(409);
+_t24=(Force.uintCompare(_t3,240)<0); // _t24 = t3 < 240:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:90:8
+_Next=_t24 ? 21 : 22; // if t24 goto 21.if.then else 22.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:90:8
+}// end SubFn11
+private inline  function SubFn12():Void {
+var _t25:Bool;
+this.setPH(404);
+_t25=(Force.uintCompare(192,_t22)<=0); // _t25 = 192:byte <= t22 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:85:19
+_Next=_t25 ? 18 : 19; // if t25 goto 18.if.then else 19.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:85:19
+}// end SubFn12
+private inline  function SubFn13():Void {
+var _t26:Int;
+var _t27:Int;
+var _t28:Int;
+var _t29:Int;
+var _t30:Int;
+var _t31:Int;
+var _t32:Int;
+var _t33:Int;
+var _t34:Int;
+var _t36:Bool;
+this.setPH(410);
+_t26=Force.toUint8((_t3&15)); // _t26 = t3 & 15:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:14
+_t27=_t26; // _t27 = convert rune <- byte (t26) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:11
+_t28=(_t27<<GOint64.toInt(GOint64.make(0x0,0xc))); // _t28 = t27 << 12:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:21
+_t29=Force.toUint8((_t9&63)); // _t29 = t9 & 63:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:35
+_t30=_t29; // _t30 = convert rune <- byte (t29) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:32
+_t31=(_t30<<GOint64.toInt(GOint64.make(0x0,0x6))); // _t31 = t30 << 6:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:42
+_t32=Force.toInt32((_t28|_t31)); // _t32 = t28 | t31 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:26
+_t33=Force.toUint8((_t22&63)); // _t33 = t22 & 63:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:55
+_t34=_t33; // _t34 = convert rune <- byte (t33) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:52
+_t35=Force.toInt32((_t32|_t34)); // _t35 = t32 | t34 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:46
+this.setPH(411);
+_t36=(_t35<=2047); // _t36 = t35 <= 2047:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:92:8
+_Next=_t36 ? 23 : 24; // if t36 goto 23.if.then else 24.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:92:8
+}// end SubFn13
+private inline  function SubFn14():Void {
+var _t37:Bool;
+this.setPH(421);
+_t37=(_t0<4); // _t37 = t0 < 4:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:102:7
+_Next=_t37 ? 28 : 29; // if t37 goto 28.if.then else 29.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:102:7
+}// end SubFn14
+private inline  function SubFn15():Void {
+var _t38:Bool;
+this.setPH(414);
+_t38=(55296<=_t35); // _t38 = 55296:rune <= t35 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:95:19
+_Next=_t38 ? 27 : 26; // if t38 goto 27.cond.true else 26.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:95:19
+}// end SubFn15
+private inline  function SubFn16():Void {
+var _t39:Bool;
+_t39=(_t35<=57343); // _t39 = t35 <= 57343:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:95:29
+_Next=_t39 ? 25 : 26; // if t39 goto 25.if.then else 26.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:95:29
+}// end SubFn16
+private inline  function SubFn17():Void {
+var _t40:Pointer;
+var _t42:Bool;
+this.setPH(424);
+if((3<0)||(3>=p_p.len())) Scheduler.ioor(); // _t40 = &p[3:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:105:9 [POINTER]
+_t40=p_p.addr(3);  // _t40 = &p[3:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:105:9 [POINTER]
+_t41=(_t40.load()|0); // _t41 = *t40 *ssa.UnOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:105:9
+this.setPH(425);
+_t42=(Force.uintCompare(_t41,128)<0); // _t42 = t41 < 128:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:106:8
+_Next=_t42 ? 30 : 32; // if t42 goto 30.if.then else 32.cond.false *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:106:8
+}// end SubFn17
+private inline  function SubFn18():Void {
+var _t43:Bool;
+this.setPH(430);
+_t43=(Force.uintCompare(_t3,248)<0); // _t43 = t3 < 248:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:111:8
+_Next=_t43 ? 33 : 34; // if t43 goto 33.if.then else 34.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:111:8
+}// end SubFn18
+private inline  function SubFn19():Void {
+var _t44:Bool;
+this.setPH(425);
+_t44=(Force.uintCompare(192,_t41)<=0); // _t44 = 192:byte <= t41 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:106:19
+_Next=_t44 ? 30 : 31; // if t44 goto 30.if.then else 31.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:106:19
+}// end SubFn19
+private inline  function SubFn20():Void {
+var _t45:Int;
+var _t46:Int;
+var _t47:Int;
+var _t48:Int;
+var _t49:Int;
+var _t50:Int;
+var _t51:Int;
+var _t52:Int;
+var _t53:Int;
+var _t54:Int;
+var _t55:Int;
+var _t56:Int;
+var _t57:Int;
+var _t59:Bool;
+this.setPH(431);
+_t45=Force.toUint8((_t3&7)); // _t45 = t3 & 7:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:14
+_t46=_t45; // _t46 = convert rune <- byte (t45) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:11
+_t47=(_t46<<GOint64.toInt(GOint64.make(0x0,0x12))); // _t47 = t46 << 18:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:21
+_t48=Force.toUint8((_t9&63)); // _t48 = t9 & 63:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:35
+_t49=_t48; // _t49 = convert rune <- byte (t48) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:32
+_t50=(_t49<<GOint64.toInt(GOint64.make(0x0,0xc))); // _t50 = t49 << 12:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:42
+_t51=Force.toInt32((_t47|_t50)); // _t51 = t47 | t50 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:26
+_t52=Force.toUint8((_t22&63)); // _t52 = t22 & 63:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:56
+_t53=_t52; // _t53 = convert rune <- byte (t52) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:53
+_t54=(_t53<<GOint64.toInt(GOint64.make(0x0,0x6))); // _t54 = t53 << 6:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:63
+_t55=Force.toInt32((_t51|_t54)); // _t55 = t51 | t54 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:47
+_t56=Force.toUint8((_t41&63)); // _t56 = t41 & 63:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:76
+_t57=_t56; // _t57 = convert rune <- byte (t56) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:73
+_t58=Force.toInt32((_t55|_t57)); // _t58 = t55 | t57 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:67
+this.setPH(432);
+_t59=(_t58<=65535); // _t59 = t58 <= 65535:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:113:8
+_Next=_t59 ? 35 : 37; // if t59 goto 35.if.then else 37.cond.false *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:113:8
+}// end SubFn20
+private inline  function SubFn21():Void {
+var _t60:Bool;
+_t60=(1114111<_t58); // _t60 = 1114111:rune < t58 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:113:31
+_Next=_t60 ? 35 : 36; // if t60 goto 35.if.then else 36.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:113:31
+}// end SubFn21
+}
+#if (!php) private #end class Go_main_init extends StackFrameBasis implements StackFrame { 
+public function new(gr:Int,_bds:Array<Dynamic>) {
+super(gr,432,"Go_main_init");
+this._bds=_bds;
+Scheduler.push(gr,this);
+}
+public inline function res():Dynamic {return null;}
+var _t0:Bool=false;
+var _Next:Int=0;
+public static inline function callFromHaxe( ) : Void {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_main_init(0,[]).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+}
+public static inline function callFromRT( _gr) : Void {
+var _sf=new Go_main_init(_gr,[]).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>) : Go_main_init
+{return new Go_main_init(gr,_bds);
+}
+public function run():Go_main_init {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(432,0);
+this.SubFn0();
+
+case 1: // init.start
+this.setLatest(432,1);
+this.SubFn1();
+
+case 2: // init.done
+this.setLatest(432,2);
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return *ssa.Return near /usr/local/go/src/pkg/unicode/utf8/utf8.go:113:31
+
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+var _t0:Bool;
+_t0=Go.main_init_36_guard.load(); // _t0 = *init$guard *ssa.UnOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:113:31
+_Next=_t0 ? 2 : 1; // if t0 goto 2.init.done else 1.init.start *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:113:31
+}// end SubFn0
+private inline  function SubFn1():Void {
+Go.main_init_36_guard.store(true); // *init$guard = true:bool *ssa.Store near /usr/local/go/src/pkg/unicode/utf8/utf8.go:113:31
+_Next=2; // jump 2.init.done *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:113:31
+}// end SubFn1
+}
+#if js @:expose("Go_utf8_RuneStart") #end class Go_utf8_RuneStart extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:392:6
+var p_b:Int;
+public function new(gr:Int,_bds:Array<Dynamic>, p_b : Int) {
+super(gr,711,"Go_utf8_RuneStart");
+this._bds=_bds;
+this.p_b=p_b;
+Scheduler.push(gr,this);
+}
+var _res:Bool;
+public inline function res():Dynamic {return _res;}
+var _t0:Int=0;
+var _t1:Bool=false;
+var _Next:Int=0;
+public static inline function callFromHaxe( p_b : Int) : Bool {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_utf8_RuneStart(0,[], p_b).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+return _sf.res();
+}
+public static inline function callFromRT( _gr, p_b : Int) : Bool {
+var _sf=new Go_utf8_RuneStart(_gr,[], p_b).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+return _sf.res();
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>, p_b : Int) : Go_utf8_RuneStart
+{return new Go_utf8_RuneStart(gr,_bds, p_b);
+}
+public function run():Go_utf8_RuneStart {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(711,0);
+this.SubFn0();
+_res= _t1;
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t1 *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:392:31
+
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+var _t0:Int;
+_t0=Force.toUint8((p_b&192)); // _t0 = b & 192:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:392:39
+_t1=(Force.uintCompare(_t0,128)!=0); // _t1 = t0 != 128:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:392:45
+}// end SubFn0
+}
+#if js @:expose("Go_haxegoruntime_RunesToUTF8") #end class Go_haxegoruntime_RunesToUTF8 extends StackFrameBasis implements StackFrame {  // langgoruntime.go:79:6
+var p_r:Slice;
+public function new(gr:Int,_bds:Array<Dynamic>, p_r : Slice) {
+super(gr,149,"Go_haxegoruntime_RunesToUTF8");
+this._bds=_bds;
+this.p_r=p_r;
+Scheduler.push(gr,this);
+}
+var _res:Slice;
+public inline function res():Dynamic {return _res;}
+var _t0:Slice=null;
+var _t1:Int=0;
+var _t2:Slice=null;
+var _t3:Int=0;
+var _t4:Int=0;
+var _t5:Bool=false;
+var _t6:Pointer=null;
+var _t7:Int=0;
+var _SF1:StackFrame;
+var _t8:Int=0;
+var _t9:Slice=null;
+var _t10:Pointer=null;
+var _t11:Int=0;
+var _SF2:StackFrame;
+var _t13:Slice=null;
+var _Phi:Int=0;
+var _Next:Int=0;
+public static inline function callFromHaxe( p_r : Slice) : Slice {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_haxegoruntime_RunesToUTF8(0,[], p_r).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+return _sf.res();
+}
+public static inline function callFromRT( _gr, p_r : Slice) : Slice {
+var _sf=new Go_haxegoruntime_RunesToUTF8(_gr,[], p_r).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+return _sf.res();
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>, p_r : Slice) : Go_haxegoruntime_RunesToUTF8
+{return new Go_haxegoruntime_RunesToUTF8(gr,_bds, p_r);
+}
+public function run():Go_haxegoruntime_RunesToUTF8 {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(149,0);
+this.SubFn0();
+_Phi=0;
+case 1: // rangeindex.loop
+this.setLatest(149,1);
+this.setPH(150);
+_t2=((_Phi==0)?_t0:(_Phi==2)?_t13:new Slice(new Pointer(new Array<Int>()),0,0)); // _t2 = phi [0.entry: t0, 2.rangeindex.body: t13] #ret *ssa.Phi @ langgoruntime.go:80:6
+_t3=((_Phi==0)?(-1):(_Phi==2)?_t4:0); // _t3 = phi [0.entry: -1:int, 2.rangeindex.body: t4] *ssa.Phi near langgoruntime.go:80:6
+this.SubFn1();
+_Phi=1;
+case 2: // rangeindex.body
+this.setLatest(150,2);
+this.SubFn2();
+this.setPH(153);
+_SF1=Go_utf8_RuneLen.call(this._goroutine,[],_t7);
+_Next = -1;
+return this;
+case -1:
+this.setLatest(153,-1);
+_t8=_SF1.res();
+ // _t8 = unicode/utf8.RuneLen(t7) *ssa.Call @ langgoruntime.go:83:35
+this.SubFn3();
+this.setPH(154);
+Go_utf8_EncodeRune.call(this._goroutine,[],_t9,_t11);
+_Next = -2;
+return this;
+case -2:
+this.setLatest(154,-2);
+ // _t12 = unicode/utf8.EncodeRune(t9, t11) *ssa.Call @ langgoruntime.go:84:18 [REGISTER VALUE UN-USED]
+this.SubFn4();
+_Phi=2;
+case 3: // rangeindex.done
+this.setLatest(154,3);
+this.setPH(157);
+_res= _t2;
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t2 *ssa.Return @ langgoruntime.go:87:2
+
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+this.setPH(151);
+_t0=new Slice(new Pointer({var _v:Array<Int>=new Array<Int>();for(_i in 0...0) _v[_i]=0; _v;}),0,0); // _t0 = make []byte 0:int 0:int *ssa.MakeSlice @ langgoruntime.go:81:12
+_t1=({var _v=p_r;_v==null?0:_v.len();}); // _t1 = len(r) *ssa.Call near langgoruntime.go:81:12
+_Next=1; // jump 1.rangeindex.loop *ssa.Jump near langgoruntime.go:81:12
+}// end SubFn0
+private inline  function SubFn1():Void {
+var _t5:Bool;
+_t4=(_t3+1); // _t4 = t3 + 1:int *ssa.BinOp near langgoruntime.go:81:12
+_t5=(_t4<_t1); // _t5 = t4 < t1 *ssa.BinOp near langgoruntime.go:81:12
+_Next=_t5 ? 2 : 3; // if t5 goto 2.rangeindex.body else 3.rangeindex.done *ssa.If near langgoruntime.go:81:12
+}// end SubFn1
+private inline  function SubFn2():Void {
+var _t6:Pointer;
+this.setPH(153);
+if((_t4<0)||(_t4>=p_r.len())) Scheduler.ioor(); // _t6 = &r[t4] *ssa.IndexAddr @ langgoruntime.go:83:37 [POINTER]
+_t6=p_r.addr(_t4);  // _t6 = &r[t4] *ssa.IndexAddr @ langgoruntime.go:83:37 [POINTER]
+_t7=(_t6.load()|0); // _t7 = *t6 *ssa.UnOp near langgoruntime.go:83:37
+}// end SubFn2
+private inline  function SubFn3():Void {
+var _t10:Pointer;
+_t9=new Slice(new Pointer({var _v:Array<Int>=new Array<Int>();for(_i in 0..._t8) _v[_i]=0; _v;}),0,_t8); // _t9 = make []byte t8 t8 *ssa.MakeSlice @ langgoruntime.go:83:14
+this.setPH(154);
+if((_t4<0)||(_t4>=p_r.len())) Scheduler.ioor(); // _t10 = &r[t4] *ssa.IndexAddr @ langgoruntime.go:84:25 [POINTER]
+_t10=p_r.addr(_t4);  // _t10 = &r[t4] *ssa.IndexAddr @ langgoruntime.go:84:25 [POINTER]
+_t11=(_t10.load()|0); // _t11 = *t10 *ssa.UnOp near langgoruntime.go:84:25
+}// end SubFn3
+private inline  function SubFn4():Void {
+this.setPH(155);
+_t13={var _v:Slice;if(_t2==null) _v=_t9;else if(_t2.len()==0) _v=_t9;else if(_t9==null) _v=_t2;else if(_t9.len()==0) _v=_t2;else {var l0:Int=_t2.len();_v=new Slice(new Pointer({var _v:Array<Int>=new Array<Int>();for(_i in 0..._t2.len()+_t9.len()) _v[_i]=0; _v;}),0,_t2.len()+_t9.len());for(_i in 0...l0) _v.setAt(_i,Deep.copy(_t2.getAt(_i)));for(_i in 0..._t9.len()) _v.setAt(_i+l0,Deep.copy(_t9.getAt(_i)));};_v;}; // _t13 = append(t2, t9...) *ssa.Call @ langgoruntime.go:85:15
+_Next=1; // jump 1.rangeindex.loop *ssa.Jump near langgoruntime.go:85:15
+}// end SubFn4
+}
+#if js @:expose("Go_utf8_RuneLen") #end class Go_utf8_RuneLen extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:310:6
+var p_r:Int;
+public function new(gr:Int,_bds:Array<Dynamic>, p_r : Int) {
+super(gr,629,"Go_utf8_RuneLen");
+this._bds=_bds;
+this.p_r=p_r;
+Scheduler.push(gr,this);
+}
+var _res:Int;
+public inline function res():Dynamic {return _res;}
+var _t0:Bool=false;
+var _t1:Bool=false;
+var _t2:Bool=false;
+var _t3:Bool=false;
+var _t4:Bool=false;
+var _t5:Bool=false;
+var _t6:Bool=false;
+var _t7:Bool=false;
+var _Phi:Int=0;
+var _Next:Int=0;
+public static inline function callFromHaxe( p_r : Int) : Int {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_utf8_RuneLen(0,[], p_r).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+return _sf.res();
+}
+public static inline function callFromRT( _gr, p_r : Int) : Int {
+var _sf=new Go_utf8_RuneLen(_gr,[], p_r).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+return _sf.res();
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>, p_r : Int) : Go_utf8_RuneLen
+{return new Go_utf8_RuneLen(gr,_bds, p_r);
+}
+public function run():Go_utf8_RuneLen {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(629,0);
+this.SubFn0();
+_Phi=0;
+case 1: // switch.body
+this.setLatest(629,1);
+this.setPH(632);
+_res= (-1);
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return -1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:313:3
+
+case 2: // switch.body
+this.setLatest(632,2);
+this.setPH(634);
+_res= 1;
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:315:3
+
+case 3: // switch.next
+this.setLatest(634,3);
+this.SubFn1();
+_Phi=3;
+case 4: // switch.body
+this.setLatest(634,4);
+this.setPH(636);
+_res= 2;
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 2:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:317:3
+
+case 5: // switch.next
+this.setLatest(636,5);
+this.SubFn2();
+_Phi=5;
+case 6: // switch.body
+this.setLatest(636,6);
+this.setPH(638);
+_res= (-1);
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return -1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:319:3
+
+case 7: // switch.next
+this.setLatest(638,7);
+this.SubFn3();
+_Phi=7;
+case 8: // switch.body
+this.setLatest(638,8);
+this.setPH(640);
+_res= 3;
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 3:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:321:3
+
+case 9: // switch.next
+this.setLatest(640,9);
+this.SubFn4();
+_Phi=9;
+case 10: // binop.rhs
+this.setLatest(640,10);
+this.SubFn5();
+_Phi=10;
+case 11: // binop.done
+this.setLatest(640,11);
+this.setPH(637);
+_t6=((_Phi==7)?false:(_Phi==10)?_t5:false); // _t6 = phi [7.switch.next: false:bool, 10.binop.rhs: t5] #&& *ssa.Phi @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:318:25
+this.SubFn6();
+_Phi=11;
+case 12: // switch.body
+this.setLatest(637,12);
+this.setPH(642);
+_res= 4;
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 4:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:323:3
+
+case 13: // switch.next
+this.setLatest(642,13);
+this.SubFn7();
+_Phi=13;
+case 14: // switch.next
+this.setLatest(642,14);
+this.setPH(644);
+_res= (-1);
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return -1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:325:2
+
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+var _t0:Bool;
+this.setPH(631);
+_t0=(p_r<0); // _t0 = r < 0:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:312:9
+_Next=_t0 ? 1 : 3; // if t0 goto 1.switch.body else 3.switch.next *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:312:9
+}// end SubFn0
+private inline  function SubFn1():Void {
+var _t1:Bool;
+this.setPH(633);
+_t1=(p_r<=127); // _t1 = r <= 127:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:314:9
+_Next=_t1 ? 2 : 5; // if t1 goto 2.switch.body else 5.switch.next *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:314:9
+}// end SubFn1
+private inline  function SubFn2():Void {
+var _t2:Bool;
+this.setPH(635);
+_t2=(p_r<=2047); // _t2 = r <= 2047:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:316:9
+_Next=_t2 ? 4 : 7; // if t2 goto 4.switch.body else 7.switch.next *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:316:9
+}// end SubFn2
+private inline  function SubFn3():Void {
+var _t3:Bool;
+this.setPH(637);
+_t3=(55296<=p_r); // _t3 = 55296:rune <= r *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:318:20
+_Next=_t3 ? 10 : 11; // if t3 goto 10.binop.rhs else 11.binop.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:318:20
+}// end SubFn3
+private inline  function SubFn4():Void {
+var _t4:Bool;
+this.setPH(639);
+_t4=(p_r<=65535); // _t4 = r <= 65535:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:320:9
+_Next=_t4 ? 8 : 13; // if t4 goto 8.switch.body else 13.switch.next *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:320:9
+}// end SubFn4
+private inline  function SubFn5():Void {
+this.setPH(637);
+_t5=(p_r<=57343); // _t5 = r <= 57343:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:318:30
+_Next=11; // jump 11.binop.done *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:318:30
+}// end SubFn5
+private inline  function SubFn6():Void {
+_Next=_t6 ? 6 : 9; // if t6 goto 6.switch.body else 9.switch.next *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:318:30
+}// end SubFn6
+private inline  function SubFn7():Void {
+var _t7:Bool;
+this.setPH(641);
+_t7=(p_r<=1114111); // _t7 = r <= 1114111:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:322:9
+_Next=_t7 ? 12 : 14; // if t7 goto 12.switch.body else 14.switch.next *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:322:9
+}// end SubFn7
+}
+#if js @:expose("Go_utf16_EncodeRune") #end class Go_utf16_EncodeRune extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf16/utf16.go:47:6
+var p_r:Int;
+public function new(gr:Int,_bds:Array<Dynamic>, p_r : Int) {
+super(gr,258,"Go_utf16_EncodeRune");
+this._bds=_bds;
+this.p_r=p_r;
+Scheduler.push(gr,this);
+}
+var _res:{r0:Int, r1:Int};
+public inline function res():Dynamic {return _res;}
+var _t0:Bool=false;
+var _t1:Int=0;
+var _t2:Int=0;
+var _t3:Int=0;
+var _t4:Int=0;
+var _t5:Int=0;
+var _t6:Int=0;
+var _SF1:StackFrame;
+var _t7:Bool=false;
+var _t8:Bool=false;
+var _Next:Int=0;
+public static inline function callFromHaxe( p_r : Int) : {r0:Int, r1:Int} {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_utf16_EncodeRune(0,[], p_r).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+return _sf.res();
+}
+public static inline function callFromRT( _gr, p_r : Int) : {r0:Int, r1:Int} {
+var _sf=new Go_utf16_EncodeRune(_gr,[], p_r).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+return _sf.res();
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>, p_r : Int) : Go_utf16_EncodeRune
+{return new Go_utf16_EncodeRune(gr,_bds, p_r);
+}
+public function run():Go_utf16_EncodeRune {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(258,0);
+this.SubFn0();
+
+case 1: // if.then
+this.setLatest(258,1);
+this.setPH(260);
+_res= {r0:65533,r1:65533};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 65533:rune *ssa.Return @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:49:3
+
+case 2: // if.done
+this.setLatest(260,2);
+this.SubFn1();
+this.setPH(263);
+_res= {r0:_t4,r1:_t6};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t4, t6 *ssa.Return @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:52:2
+
+case 3: // cond.false
+this.setLatest(263,3);
+this.setPH(259);
+_SF1=Go_utf16_IsSurrogate.call(this._goroutine,[],p_r);
+_Next = -1;
+return this;
+case -1:
+this.setLatest(259,-1);
+_t7=_SF1.res();
+ // _t7 = IsSurrogate(r) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:47
+this.SubFn2();
+
+case 4: // cond.false
+this.setLatest(259,4);
+this.SubFn3();
+
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+var _t0:Bool;
+_t0=(p_r<65536); // _t0 = r < 65536:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:7
+_Next=_t0 ? 1 : 4; // if t0 goto 1.if.then else 4.cond.false *ssa.If near /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:7
+}// end SubFn0
+private inline  function SubFn1():Void {
+var _t2:Int;
+var _t3:Int;
+var _t5:Int;
+_t1=Force.toInt32((p_r-65536)); // _t1 = r - 65536:rune *ssa.BinOp near /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:7
+this.setPH(263);
+_t2=(_t1>>GOint64.toInt(GOint64.make(0x0,0xa))); // _t2 = t1 >> 10:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:52:19
+_t3=Force.toInt32((_t2&1023)); // _t3 = t2 & 1023:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:52:24
+_t4=Force.toInt32((55296+_t3)); // _t4 = 55296:rune + t3 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:52:15
+_t5=Force.toInt32((_t1&1023)); // _t5 = t1 & 1023:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:52:41
+_t6=Force.toInt32((56320+_t5)); // _t6 = 56320:rune + t5 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:52:38
+}// end SubFn1
+private inline  function SubFn2():Void {
+_Next=_t7 ? 1 : 2; // if t7 goto 1.if.then else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf16/utf16.go:52:38
+}// end SubFn2
+private inline  function SubFn3():Void {
+var _t8:Bool;
+this.setPH(259);
+_t8=(p_r>1114111); // _t8 = r > 1114111:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:23
+_Next=_t8 ? 1 : 3; // if t8 goto 1.if.then else 3.cond.false *ssa.If near /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:23
+}// end SubFn3
+}
+#if (!php) private #end class Go_haxegoruntime_init extends StackFrameBasis implements StackFrame { 
+public function new(gr:Int,_bds:Array<Dynamic>) {
+super(gr,259,"Go_haxegoruntime_init");
+this._bds=_bds;
+Scheduler.push(gr,this);
+}
+public inline function res():Dynamic {return null;}
+var _t0:Bool=false;
+var _SF1:StackFrame;
+var _SF2:StackFrame;
+var _SF3:StackFrame;
+var _Next:Int=0;
+public static inline function callFromHaxe( ) : Void {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_haxegoruntime_init(0,[]).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+}
+public static inline function callFromRT( _gr) : Void {
+var _sf=new Go_haxegoruntime_init(_gr,[]).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>) : Go_haxegoruntime_init
+{return new Go_haxegoruntime_init(gr,_bds);
+}
+public function run():Go_haxegoruntime_init {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(259,0);
+this.SubFn0();
+
+case 1: // init.start
+this.setLatest(259,1);
+this.SubFn1();
+Go_utf16_init.call(this._goroutine,[]);
+_Next = -1;
+return this;
+case -1:
+this.setLatest(259,-1);
+ // _t1 = unicode/utf16.init() *ssa.Call near /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:23 [REGISTER VALUE UN-USED]
+Go_utf8_init.call(this._goroutine,[]);
+_Next = -2;
+return this;
+case -2:
+this.setLatest(259,-2);
+ // _t2 = unicode/utf8.init() *ssa.Call near /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:23 [REGISTER VALUE UN-USED]
+Go_haxegoruntime_init_36_1.call(this._goroutine,[]);
+_Next = -3;
+return this;
+case -3:
+this.setLatest(259,-3);
+ // _t3 = init$1() *ssa.Call near /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:23 [REGISTER VALUE UN-USED]
+this.SubFn2();
+
+case 2: // init.done
+this.setLatest(259,2);
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return *ssa.Return near /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:23
+
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+var _t0:Bool;
+_t0=Go.haxegoruntime_init_36_guard.load(); // _t0 = *init$guard *ssa.UnOp near /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:23
+_Next=_t0 ? 2 : 1; // if t0 goto 2.init.done else 1.init.start *ssa.If near /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:23
+}// end SubFn0
+private inline  function SubFn1():Void {
+Go.haxegoruntime_init_36_guard.store(true); // *init$guard = true:bool *ssa.Store near /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:23
+}// end SubFn1
+private inline  function SubFn2():Void {
+_Next=2; // jump 2.init.done *ssa.Jump near /usr/local/go/src/pkg/unicode/utf16/utf16.go:48:23
+}// end SubFn2
+}
+#if (!php) private #end class Go__star_main_dot_binaryNode_itemCheck extends StackFrameBasis implements StackFrame {  // binarytree.go:26:22
+var p_n:Pointer;
+public function new(gr:Int,_bds:Array<Dynamic>, p_n : Pointer) {
+super(gr,26,"Go__star_main_dot_binaryNode_itemCheck");
+this._bds=_bds;
+this.p_n=p_n;
+Scheduler.push(gr,this);
+}
+var _res:Int;
+public inline function res():Dynamic {return _res;}
+var _t0:Pointer=null;
+var _t1:Pointer=null;
+var _t2:Bool=false;
+var _t3:Pointer=null;
+var _t4:Int=0;
+var _t5:Pointer=null;
+var _t6:Int=0;
+var _t7:Pointer=null;
+var _t8:Pointer=null;
+var _SF1:StackFrame;
+var _t9:Int=0;
+var _t10:Int=0;
+var _t11:Pointer=null;
+var _t12:Pointer=null;
+var _SF2:StackFrame;
+var _t13:Int=0;
+var _t14:Int=0;
+var _Next:Int=0;
+public static inline function callFromHaxe( p_n : Pointer) : Int {
+if(!Go.doneInit) Go.init();
+var _sf=new Go__star_main_dot_binaryNode_itemCheck(0,[], p_n).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+return _sf.res();
+}
+public static inline function callFromRT( _gr, p_n : Pointer) : Int {
+var _sf=new Go__star_main_dot_binaryNode_itemCheck(_gr,[], p_n).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+return _sf.res();
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>, p_n : Pointer) : Go__star_main_dot_binaryNode_itemCheck
+{return new Go__star_main_dot_binaryNode_itemCheck(gr,_bds, p_n);
+}
+public function run():Go__star_main_dot_binaryNode_itemCheck {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(26,0);
+this.SubFn0();
+
+case 1: // if.then
+this.setLatest(26,1);
+this.SubFn1();
+this.setPH(28);
+_res= _t4;
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t4 *ssa.Return @ binarytree.go:28:3
+
+case 2: // if.done
+this.setLatest(28,2);
+this.SubFn2();
+this.setPH(30);
+_SF1=Go__star_main_dot_binaryNode_itemCheck.call(this._goroutine,[],_t8);
+_Next = -1;
+return this;
+case -1:
+this.setLatest(30,-1);
+_t9=_SF1.res();
+ // _t9 = (*binaryNode).itemCheck(t8) *ssa.Call @ binarytree.go:30:34
+this.SubFn3();
+_SF2=Go__star_main_dot_binaryNode_itemCheck.call(this._goroutine,[],_t12);
+_Next = -2;
+return this;
+case -2:
+this.setLatest(30,-2);
+_t13=_SF2.res();
+ // _t13 = (*binaryNode).itemCheck(t12) *ssa.Call @ binarytree.go:30:56
+this.SubFn4();
+_res= _t14;
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t14 *ssa.Return @ binarytree.go:30:2
+
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+var _t0:Pointer;
+var _t1:Pointer;
+var _t2:Bool;
+this.setPH(27);
+_t0=p_n.addr(1);  // _t0 = &n.left [#1] *ssa.FieldAddr @ binarytree.go:27:7 [POINTER]
+_t1=({var _v:Pointer=_t0.load(); _v;}); // _t1 = *t0 *ssa.UnOp near binarytree.go:27:7
+_t2=(_t1==null); // _t2 = t1 == nil:*binaryNode *ssa.BinOp @ binarytree.go:27:12
+_Next=_t2 ? 1 : 2; // if t2 goto 1.if.then else 2.if.done *ssa.If near binarytree.go:27:12
+}// end SubFn0
+private inline  function SubFn1():Void {
+var _t3:Pointer;
+this.setPH(28);
+_t3=p_n.addr(0);  // _t3 = &n.item [#0] *ssa.FieldAddr @ binarytree.go:28:12 [POINTER]
+_t4=(_t3.load()|0); // _t4 = *t3 *ssa.UnOp near binarytree.go:28:12
+}// end SubFn1
+private inline  function SubFn2():Void {
+var _t5:Pointer;
+var _t7:Pointer;
+this.setPH(30);
+_t5=p_n.addr(0);  // _t5 = &n.item [#0] *ssa.FieldAddr @ binarytree.go:30:11 [POINTER]
+_t6=(_t5.load()|0); // _t6 = *t5 *ssa.UnOp near binarytree.go:30:11
+_t7=p_n.addr(1);  // _t7 = &n.left [#1] *ssa.FieldAddr @ binarytree.go:30:20 [POINTER]
+_t8=({var _v:Pointer=_t7.load(); _v;}); // _t8 = *t7 *ssa.UnOp near binarytree.go:30:20
+}// end SubFn2
+private inline  function SubFn3():Void {
+var _t11:Pointer;
+_t10=(_t6+_t9); // _t10 = t6 + t9 *ssa.BinOp @ binarytree.go:30:16
+_t11=p_n.addr(2);  // _t11 = &n.right [#2] *ssa.FieldAddr @ binarytree.go:30:41 [POINTER]
+_t12=({var _v:Pointer=_t11.load(); _v;}); // _t12 = *t11 *ssa.UnOp near binarytree.go:30:41
+}// end SubFn3
+private inline  function SubFn4():Void {
+_t14=(_t10-_t13); // _t14 = t10 - t13 *ssa.BinOp @ binarytree.go:30:37
+}// end SubFn4
+}
+#if js @:expose("Go_utf8_ValidString") #end class Go_utf8_ValidString extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:415:6
+var p_s:String;
+public function new(gr:Int,_bds:Array<Dynamic>, p_s : String) {
+super(gr,734,"Go_utf8_ValidString");
+this._bds=_bds;
+this.p_s=p_s;
+Scheduler.push(gr,this);
+}
+var _res:Bool;
+public inline function res():Dynamic {return _res;}
+var _t0:Dynamic=null;
+var _t1:{r0:Bool,r1:Int,r2:Int}=null;
+var _t2:Bool=false;
+var _t3:Int=0;
+var _t4:Int=0;
+var _t5:Bool=false;
+var _t6:String="";
+var _SF1:StackFrame;
+var _t7:{r0:Int,r1:Int}=null;
+var _t9:Int=0;
+var _t10:Bool=false;
+var _Next:Int=0;
+public static inline function callFromHaxe( p_s : String) : Bool {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_utf8_ValidString(0,[], p_s).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+return _sf.res();
+}
+public static inline function callFromRT( _gr, p_s : String) : Bool {
+var _sf=new Go_utf8_ValidString(_gr,[], p_s).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+return _sf.res();
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>, p_s : String) : Go_utf8_ValidString
+{return new Go_utf8_ValidString(gr,_bds, p_s);
+}
+public function run():Go_utf8_ValidString {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(734,0);
+this.SubFn0();
+
+case 1: // rangeiter.loop
+this.setLatest(734,1);
+this.SubFn1();
+
+case 2: // rangeiter.body
+this.setLatest(734,2);
+this.SubFn2();
+
+case 3: // rangeiter.done
+this.setLatest(734,3);
+this.setPH(747);
+_res= true;
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return true:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:428:2
+
+case 4: // if.then
+this.setLatest(747,4);
+this.SubFn3();
+this.setPH(741);
+_SF1=Go_utf8_DecodeRuneInString.call(this._goroutine,[],_t6);
+_Next = -1;
+return this;
+case -1:
+this.setLatest(741,-1);
+_t7=_SF1.res();
+ // _t7 = DecodeRuneInString(t6) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:422:33
+this.SubFn4();
+
+case 5: // if.then
+this.setLatest(741,5);
+this.setPH(743);
+_res= false;
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:424:5
+
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+this.setPH(735);
+_t0={k:0,v:Force.toUTF8slice(this._goroutine,p_s)}; // _t0 = range s *ssa.Range @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:416:2
+_Next=1; // jump 1.rangeiter.loop *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:416:2
+}// end SubFn0
+private inline  function SubFn1():Void {
+var _t2:Bool;
+_t1={var _thisK:Int=_t0.k;if(_t0.k>=_t0.v.len()){r0:false,r1:0,r2:0};else {var _dr:{r0:Int,r1:Int}=Go_utf8_DecodeRune.callFromRT(this._goroutine,_t0.v.subSlice(_thisK,-1));_t0.k+=_dr.r1;{r0:true,r1:cast(_thisK,Int),r2:cast(_dr.r0,Int)};}}; // _t1 = next t0 *ssa.Next near /usr/local/go/src/pkg/unicode/utf8/utf8.go:416:2
+_t2=_t1.r0; // _t2 = extract t1 #0 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:416:2
+_Next=_t2 ? 2 : 3; // if t2 goto 2.rangeiter.body else 3.rangeiter.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:416:2
+}// end SubFn1
+private inline  function SubFn2():Void {
+var _t5:Bool;
+_t3=_t1.r1; // _t3 = extract t1 #1 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:416:2
+_t4=_t1.r2; // _t4 = extract t1 #2 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:416:2
+this.setPH(736);
+_t5=(_t4==65533); // _t5 = t4 == 65533:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:417:8
+_Next=_t5 ? 4 : 1; // if t5 goto 4.if.then else 1.rangeiter.loop *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:417:8
+}// end SubFn2
+private inline  function SubFn3():Void {
+this.setPH(741);
+_t6=Force.toRawString(this._goroutine,Force.toUTF8slice(this._goroutine,p_s).subSlice(_t3,-1)); // _t6 = slice s[t3:] *ssa.Slice @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:422:35
+}// end SubFn3
+private inline  function SubFn4():Void {
+var _t10:Bool;
+ // _t8 = extract t7 #0 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:422:35 [REGISTER VALUE UN-USED]
+_t9=_t7.r1; // _t9 = extract t7 #1 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:422:35
+this.setPH(742);
+_t10=(_t9==1); // _t10 = t9 == 1:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:423:12
+_Next=_t10 ? 5 : 1; // if t10 goto 5.if.then else 1.rangeiter.loop *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:423:12
+}// end SubFn4
+}
+#if js @:expose("Go_utf8_FullRune") #end class Go_utf8_FullRune extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:203:6
+var p_p:Slice;
+public function new(gr:Int,_bds:Array<Dynamic>, p_p : Slice) {
+super(gr,522,"Go_utf8_FullRune");
+this._bds=_bds;
+this.p_p=p_p;
+Scheduler.push(gr,this);
+}
+var _res:Bool;
+public inline function res():Dynamic {return _res;}
+var _SF1:StackFrame;
+var _t0:{r0:Int,r1:Int,r2:Bool}=null;
+var _t3:Bool=false;
+var _t4:Bool=false;
+var _Next:Int=0;
+public static inline function callFromHaxe( p_p : Slice) : Bool {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_utf8_FullRune(0,[], p_p).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+return _sf.res();
+}
+public static inline function callFromRT( _gr, p_p : Slice) : Bool {
+var _sf=new Go_utf8_FullRune(_gr,[], p_p).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+return _sf.res();
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>, p_p : Slice) : Go_utf8_FullRune
+{return new Go_utf8_FullRune(gr,_bds, p_p);
+}
+public function run():Go_utf8_FullRune {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(522,0);
+this.setPH(523);
+_SF1=Go_utf8_decodeRuneInternal.call(this._goroutine,[],p_p);
+_Next = -1;
+return this;
+case -1:
+this.setLatest(523,-1);
+_t0=_SF1.res();
+ // _t0 = decodeRuneInternal(p) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:204:35
+this.SubFn0();
+this.setPH(524);
+_res= _t4;
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t4 *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:205:2
+
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+ // _t1 = extract t0 #0 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:205:2 [REGISTER VALUE UN-USED]
+ // _t2 = extract t0 #1 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:205:2 [REGISTER VALUE UN-USED]
+_t3=_t0.r2; // _t3 = extract t0 #2 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:205:2
+_t4=(!_t3); // _t4 = !t3 *ssa.UnOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:205:9
+}// end SubFn0
+}
+#if js @:expose("Go_haxegoruntime_UTF8toRunes") #end class Go_haxegoruntime_UTF8toRunes extends StackFrameBasis implements StackFrame {  // langgoruntime.go:39:6
+var p_s:Slice;
+public function new(gr:Int,_bds:Array<Dynamic>, p_s : Slice) {
+super(gr,109,"Go_haxegoruntime_UTF8toRunes");
+this._bds=_bds;
+this.p_s=p_s;
+Scheduler.push(gr,this);
+}
+var _res:Slice;
+public inline function res():Dynamic {return _res;}
+var _SF1:StackFrame;
+var _t0:Int=0;
+var _t1:Slice=null;
+var _t2:Int=0;
+var _t3:Int=0;
+var _t4:Slice=null;
+var _t5:Int=0;
+var _t6:Int=0;
+var _t7:Int=0;
+var _t8:Bool=false;
+var _t9:Int=0;
+var _t10:Bool=false;
+var _t11:Pointer=null;
+var _t12:Int=0;
+var _t13:Pointer=null;
+var _t14:Int=0;
+var _t15:Int=0;
+var _SF2:StackFrame;
+var _t16:{r0:Int,r1:Int}=null;
+var _t17:Int=0;
+var _t18:Int=0;
+var _t19:Pointer=null;
+var _t20:Int=0;
+var _t21:Int=0;
+var _t22:Int=0;
+var _t23:Int=0;
+var _t24:Int=0;
+var _t25:Bool=false;
+var _Phi:Int=0;
+var _Next:Int=0;
+public static inline function callFromHaxe( p_s : Slice) : Slice {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_haxegoruntime_UTF8toRunes(0,[], p_s).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+return _sf.res();
+}
+public static inline function callFromRT( _gr, p_s : Slice) : Slice {
+var _sf=new Go_haxegoruntime_UTF8toRunes(_gr,[], p_s).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+return _sf.res();
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>, p_s : Slice) : Go_haxegoruntime_UTF8toRunes
+{return new Go_haxegoruntime_UTF8toRunes(gr,_bds, p_s);
+}
+public function run():Go_haxegoruntime_UTF8toRunes {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(109,0);
+this.setPH(110);
+_SF1=Go_utf8_RuneCount.call(this._goroutine,[],p_s);
+_Next = -1;
+return this;
+case -1:
+this.setLatest(110,-1);
+_t0=_SF1.res();
+ // _t0 = unicode/utf8.RuneCount(s) *ssa.Call @ langgoruntime.go:40:36
+this.SubFn0();
+_Phi=0;
+case 1: // for.body
+this.setLatest(110,1);
+this.SubFn1();
+_Phi=1;
+case 2: // for.done
+this.setLatest(110,2);
+this.setPH(121);
+_res= _t1;
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t1 *ssa.Return @ langgoruntime.go:51:2
+
+case 3: // for.loop
+this.setLatest(121,3);
+this.setPH(111);
+_t5=((_Phi==0)?0:(_Phi==6)?_t20:0); // _t5 = phi [0.entry: 0:int, 6.for.done: t20] #si *ssa.Phi @ langgoruntime.go:41:2
+this.setPH(112);
+_t6=((_Phi==0)?0:(_Phi==6)?_t21:0); // _t6 = phi [0.entry: 0:int, 6.for.done: t21] #ri *ssa.Phi @ langgoruntime.go:42:6
+this.SubFn2();
+_Phi=3;
+case 4: // cond.true
+this.setLatest(112,4);
+this.SubFn3();
+_Phi=4;
+case 5: // for.body
+this.setLatest(112,5);
+this.SubFn4();
+_Phi=5;
+case 6: // for.done
+this.setLatest(112,6);
+this.setPH(117);
+_SF2=Go_utf8_DecodeRune.call(this._goroutine,[],_t4);
+_Next = -2;
+return this;
+case -2:
+this.setLatest(117,-2);
+_t16=_SF2.res();
+ // _t16 = unicode/utf8.DecodeRune(t4) *ssa.Call @ langgoruntime.go:47:33
+this.SubFn5();
+_Phi=6;
+case 7: // for.loop
+this.setLatest(117,7);
+this.setPH(114);
+_t22=((_Phi==1)?0:(_Phi==5)?_t15:0); // _t22 = phi [1.for.body: 0:int, 5.for.body: t15] #j *ssa.Phi @ langgoruntime.go:44:7
+this.SubFn6();
+_Phi=7;
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+this.setPH(110);
+_t1=new Slice(new Pointer({var _v:Array<Int>=new Array<Int>();for(_i in 0..._t0) _v[_i]=0; _v;}),0,_t0); // _t1 = make []rune t0 t0 *ssa.MakeSlice @ langgoruntime.go:40:13
+_Next=3; // jump 3.for.loop *ssa.Jump near langgoruntime.go:40:13
+}// end SubFn0
+private inline  function SubFn1():Void {
+var _t2:Int;
+var _t3:Int;
+this.setPH(113);
+_t2=({var _v=p_s;_v==null?0:_v.len();}); // _t2 = len(s) *ssa.Call @ langgoruntime.go:43:24
+_t3=(_t2-_t5); // _t3 = t2 - t5 *ssa.BinOp @ langgoruntime.go:43:27
+_t4=new Slice(new Pointer({var _v:Array<Int>=new Array<Int>();for(_i in 0..._t3) _v[_i]=0; _v;}),0,_t3); // _t4 = make []byte t3 t3 *ssa.MakeSlice @ langgoruntime.go:43:12
+_Next=7; // jump 7.for.loop *ssa.Jump near langgoruntime.go:43:12
+}// end SubFn1
+private inline  function SubFn2():Void {
+var _t7:Int;
+var _t8:Bool;
+this.setPH(112);
+_t7=({var _v=p_s;_v==null?0:_v.len();}); // _t7 = len(s) *ssa.Call @ langgoruntime.go:42:23
+_t8=(_t5<_t7); // _t8 = t5 < t7 *ssa.BinOp @ langgoruntime.go:42:18
+_Next=_t8 ? 4 : 2; // if t8 goto 4.cond.true else 2.for.done *ssa.If near langgoruntime.go:42:18
+}// end SubFn2
+private inline  function SubFn3():Void {
+var _t9:Int;
+var _t10:Bool;
+_t9=({var _v=_t1;_v==null?0:_v.len();}); // _t9 = len(t1) *ssa.Call @ langgoruntime.go:42:38
+_t10=(_t6<_t9); // _t10 = t6 < t9 *ssa.BinOp @ langgoruntime.go:42:33
+_Next=_t10 ? 1 : 2; // if t10 goto 1.for.body else 2.for.done *ssa.If near langgoruntime.go:42:33
+}// end SubFn3
+private inline  function SubFn4():Void {
+var _t11:Pointer;
+var _t12:Int;
+var _t13:Pointer;
+var _t14:Int;
+this.setPH(115);
+if((_t22<0)||(_t22>=_t4.len())) Scheduler.ioor(); // _t11 = &t4[t22] *ssa.IndexAddr @ langgoruntime.go:45:5 [POINTER]
+_t11=_t4.addr(_t22);  // _t11 = &t4[t22] *ssa.IndexAddr @ langgoruntime.go:45:5 [POINTER]
+_t12=(_t5+_t22); // _t12 = t5 + t22 *ssa.BinOp @ langgoruntime.go:45:15
+if((_t12<0)||(_t12>=p_s.len())) Scheduler.ioor(); // _t13 = &s[t12] *ssa.IndexAddr @ langgoruntime.go:45:12 [POINTER]
+_t13=p_s.addr(_t12);  // _t13 = &s[t12] *ssa.IndexAddr @ langgoruntime.go:45:12 [POINTER]
+_t14=(_t13.load()|0); // _t14 = *t13 *ssa.UnOp near langgoruntime.go:45:12
+_t11.store(_t14); // *t11 = t14 *ssa.Store near langgoruntime.go:45:12
+_t15=(_t22+1); // _t15 = t22 + 1:int *ssa.BinOp near langgoruntime.go:45:12
+_Next=7; // jump 7.for.loop *ssa.Jump near langgoruntime.go:45:12
+}// end SubFn4
+private inline  function SubFn5():Void {
+var _t19:Pointer;
+_t17=_t16.r0; // _t17 = extract t16 #0 *ssa.Extract near langgoruntime.go:45:12
+_t18=_t16.r1; // _t18 = extract t16 #1 *ssa.Extract near langgoruntime.go:45:12
+this.setPH(118);
+if((_t6<0)||(_t6>=_t1.len())) Scheduler.ioor(); // _t19 = &t1[t6] *ssa.IndexAddr @ langgoruntime.go:48:6 [POINTER]
+_t19=_t1.addr(_t6);  // _t19 = &t1[t6] *ssa.IndexAddr @ langgoruntime.go:48:6 [POINTER]
+_t19.store(_t17); // *t19 = t17 *ssa.Store near langgoruntime.go:48:6
+_t20=(_t5+_t18); // _t20 = t5 + t18 *ssa.BinOp near langgoruntime.go:48:6
+_t21=(_t6+1); // _t21 = t6 + 1:int *ssa.BinOp near langgoruntime.go:48:6
+_Next=3; // jump 3.for.loop *ssa.Jump near langgoruntime.go:48:6
+}// end SubFn5
+private inline  function SubFn6():Void {
+var _t23:Int;
+var _t24:Int;
+var _t25:Bool;
+this.setPH(114);
+_t23=({var _v=p_s;_v==null?0:_v.len();}); // _t23 = len(s) *ssa.Call @ langgoruntime.go:44:23
+_t24=(_t23-_t5); // _t24 = t23 - t5 *ssa.BinOp @ langgoruntime.go:44:27
+_t25=(_t22<_t24); // _t25 = t22 < t24 *ssa.BinOp @ langgoruntime.go:44:17
+_Next=_t25 ? 5 : 6; // if t25 goto 5.for.body else 6.for.done *ssa.If near langgoruntime.go:44:17
+}// end SubFn6
 }
 #if js @:expose("Go_utf8_RuneCount") #end class Go_utf8_RuneCount extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:367:6
 var p_p:Slice;
@@ -5556,244 +6219,6 @@ private inline  function SubFn4():Void {
 _t10.store(_t13); // *t10 = t13 *ssa.Store near binarytree.go:23:86
 }// end SubFn4
 }
-#if js @:expose("Go_utf8_DecodeLastRune") #end class Go_utf8_DecodeLastRune extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:239:6
-var p_p:Slice;
-public function new(gr:Int,_bds:Array<Dynamic>, p_p : Slice) {
-super(gr,558,"Go_utf8_DecodeLastRune");
-this._bds=_bds;
-this.p_p=p_p;
-Scheduler.push(gr,this);
-}
-var _res:{r0:Int, r1:Int};
-public inline function res():Dynamic {return _res;}
-var _t0:Int=0;
-var _t1:Bool=false;
-var _t2:Int=0;
-var _t3:Pointer=null;
-var _t4:Int=0;
-var _t5:Int=0;
-var _t6:Bool=false;
-var _t7:Int=0;
-var _t8:Bool=false;
-var _t9:Int=0;
-var _t10:Int=0;
-var _t11:Pointer=null;
-var _t12:Int=0;
-var _SF1:StackFrame;
-var _t13:Bool=false;
-var _t14:Bool=false;
-var _t15:Int=0;
-var _t16:Bool=false;
-var _t17:Int=0;
-var _t18:Int=0;
-var _t19:Slice=null;
-var _SF2:StackFrame;
-var _t20:{r0:Int,r1:Int}=null;
-var _t21:Int=0;
-var _t22:Int=0;
-var _t23:Int=0;
-var _t24:Bool=false;
-var _Phi:Int=0;
-var _Next:Int=0;
-public static inline function callFromHaxe( p_p : Slice) : {r0:Int, r1:Int} {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_utf8_DecodeLastRune(0,[], p_p).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-return _sf.res();
-}
-public static inline function callFromRT( _gr, p_p : Slice) : {r0:Int, r1:Int} {
-var _sf=new Go_utf8_DecodeLastRune(_gr,[], p_p).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-return _sf.res();
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>, p_p : Slice) : Go_utf8_DecodeLastRune
-{return new Go_utf8_DecodeLastRune(gr,_bds, p_p);
-}
-public function run():Go_utf8_DecodeLastRune {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(558,0);
-this.SubFn0();
-_Phi=0;
-case 1: // if.then
-this.setLatest(558,1);
-this.setPH(561);
-_res= {r0:65533,r1:0};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 0:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:242:3
-
-case 2: // if.done
-this.setLatest(561,2);
-this.SubFn1();
-_Phi=2;
-case 3: // if.then
-this.setLatest(561,3);
-this.setPH(566);
-_res= {r0:_t5,r1:1};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t5, 1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:247:3
-
-case 4: // if.done
-this.setLatest(566,4);
-this.SubFn2();
-_Phi=4;
-case 5: // if.then
-this.setLatest(566,5);
-this.SubFn3();
-_Phi=5;
-case 6: // if.done
-this.setLatest(566,6);
-this.setPH(571);
-_t9=((_Phi==4)?_t7:(_Phi==5)?0:0); // _t9 = phi [4.if.done: t7, 5.if.then: 0:int] #lim *ssa.Phi @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:252:2
-this.SubFn4();
-_Phi=6;
-case 7: // for.body
-this.setLatest(571,7);
-this.SubFn5();
-this.setPH(576);
-_SF1=Go_utf8_RuneStart.call(this._goroutine,[],_t12);
-_Next = -1;
-return this;
-case -1:
-this.setLatest(576,-1);
-_t13=_SF1.res();
- // _t13 = RuneStart(t12) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:257:15
-this.SubFn6();
-_Phi=7;
-case 8: // for.done
-this.setLatest(576,8);
-this.SubFn7();
-_Phi=8;
-case 9: // for.loop
-this.setLatest(576,9);
-this.setPH(563);
-_t15=((_Phi==6)?_t10:(_Phi==10)?_t17:0); // _t15 = phi [6.if.done: t10, 10.if.done: t17] #start *ssa.Phi @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:244:2
-this.SubFn8();
-_Phi=9;
-case 10: // if.done
-this.setLatest(563,10);
-this.SubFn9();
-_Phi=10;
-case 11: // if.then
-this.setLatest(563,11);
-this.SubFn10();
-_Phi=11;
-case 12: // if.done
-this.setLatest(563,12);
-_t18=((_Phi==8)?_t15:(_Phi==11)?0:0); // _t18 = phi [8.for.done: t15, 11.if.then: 0:int] #start *ssa.Phi @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:244:2
-this.SubFn11();
-this.setPH(583);
-_SF2=Go_utf8_DecodeRune.call(this._goroutine,[],_t19);
-_Next = -2;
-return this;
-case -2:
-this.setLatest(583,-2);
-_t20=_SF2.res();
- // _t20 = DecodeRune(t19) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:264:22
-this.SubFn12();
-_Phi=12;
-case 13: // if.then
-this.setLatest(583,13);
-this.setPH(585);
-_res= {r0:65533,r1:1};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:266:3
-
-case 14: // if.done
-this.setLatest(585,14);
-this.setPH(587);
-_res= {r0:_t21,r1:_t22};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t21, t22 *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:268:2
-
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
-var _t1:Bool;
-this.setPH(559);
-_t0=({var _v=p_p;_v==null?0:_v.len();}); // _t0 = len(p) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:240:12
-this.setPH(560);
-_t1=(_t0==0); // _t1 = t0 == 0:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:241:9
-_Next=_t1 ? 1 : 2; // if t1 goto 1.if.then else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:241:9
-}// end SubFn0
-private inline  function SubFn1():Void {
-var _t3:Pointer;
-var _t4:Int;
-var _t6:Bool;
-this.setPH(563);
-_t2=(_t0-1); // _t2 = t0 - 1:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:244:15
-this.setPH(564);
-if((_t2<0)||(_t2>=p_p.len())) Scheduler.ioor(); // _t3 = &p[t2] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:245:12 [POINTER]
-_t3=p_p.addr(_t2);  // _t3 = &p[t2] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:245:12 [POINTER]
-_t4=(_t3.load()|0); // _t4 = *t3 *ssa.UnOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:245:12
-_t5=_t4; // _t5 = convert rune <- byte (t4) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:245:10
-this.setPH(565);
-_t6=(_t5<128); // _t6 = t5 < 128:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:246:7
-_Next=_t6 ? 3 : 4; // if t6 goto 3.if.then else 4.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:246:7
-}// end SubFn1
-private inline  function SubFn2():Void {
-var _t8:Bool;
-this.setPH(571);
-_t7=(_t0-4); // _t7 = t0 - 4:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:252:13
-this.setPH(572);
-_t8=(_t7<0); // _t8 = t7 < 0:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:253:9
-_Next=_t8 ? 5 : 6; // if t8 goto 5.if.then else 6.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:253:9
-}// end SubFn2
-private inline  function SubFn3():Void {
-_Next=6; // jump 6.if.done *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:253:9
-}// end SubFn3
-private inline  function SubFn4():Void {
-_t10=(_t2-1); // _t10 = t2 - 1:int *ssa.BinOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:253:9
-_Next=9; // jump 9.for.loop *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:253:9
-}// end SubFn4
-private inline  function SubFn5():Void {
-var _t11:Pointer;
-this.setPH(576);
-if((_t15<0)||(_t15>=p_p.len())) Scheduler.ioor(); // _t11 = &p[t15] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:257:17 [POINTER]
-_t11=p_p.addr(_t15);  // _t11 = &p[t15] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:257:17 [POINTER]
-_t12=(_t11.load()|0); // _t12 = *t11 *ssa.UnOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:257:17
-}// end SubFn5
-private inline  function SubFn6():Void {
-_Next=_t13 ? 8 : 10; // if t13 goto 8.for.done else 10.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:257:17
-}// end SubFn6
-private inline  function SubFn7():Void {
-var _t14:Bool;
-this.setPH(580);
-_t14=(_t15<0); // _t14 = t15 < 0:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:261:11
-_Next=_t14 ? 11 : 12; // if t14 goto 11.if.then else 12.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:261:11
-}// end SubFn7
-private inline  function SubFn8():Void {
-var _t16:Bool;
-this.setPH(575);
-_t16=(_t15>=_t9); // _t16 = t15 >= t9 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:256:21
-_Next=_t16 ? 7 : 8; // if t16 goto 7.for.body else 8.for.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:256:21
-}// end SubFn8
-private inline  function SubFn9():Void {
-_t17=(_t15-1); // _t17 = t15 - 1:int *ssa.BinOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:256:21
-_Next=9; // jump 9.for.loop *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:256:21
-}// end SubFn9
-private inline  function SubFn10():Void {
-_Next=12; // jump 12.if.done *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:256:21
-}// end SubFn10
-private inline  function SubFn11():Void {
-this.setPH(583);
-_t19=p_p.subSlice(_t18,_t0); // _t19 = slice p[t18:t0] *ssa.Slice @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:264:24
-}// end SubFn11
-private inline  function SubFn12():Void {
-var _t23:Int;
-var _t24:Bool;
-_t21=_t20.r0; // _t21 = extract t20 #0 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:264:24
-_t22=_t20.r1; // _t22 = extract t20 #1 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:264:24
-this.setPH(584);
-_t23=(_t18+_t22); // _t23 = t18 + t22 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:265:10
-_t24=(_t23!=_t0); // _t24 = t23 != t0 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:265:16
-_Next=_t24 ? 13 : 14; // if t24 goto 13.if.then else 14.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:265:16
-}// end SubFn12
-}
 #if (!php) private #end class Go_utf8_decodeRuneInStringInternal extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:123:6
 var p_s:String;
 public function new(gr:Int,_bds:Array<Dynamic>, p_s : String) {
@@ -6300,6 +6725,244 @@ _t56=(1114111<_t54); // _t56 = 1114111:rune < t54 *ssa.BinOp @ /usr/local/go/src
 _Next=_t56 ? 35 : 36; // if t56 goto 35.if.then else 36.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:191:31
 }// end SubFn21
 }
+#if js @:expose("Go_utf8_DecodeLastRune") #end class Go_utf8_DecodeLastRune extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:239:6
+var p_p:Slice;
+public function new(gr:Int,_bds:Array<Dynamic>, p_p : Slice) {
+super(gr,558,"Go_utf8_DecodeLastRune");
+this._bds=_bds;
+this.p_p=p_p;
+Scheduler.push(gr,this);
+}
+var _res:{r0:Int, r1:Int};
+public inline function res():Dynamic {return _res;}
+var _t0:Int=0;
+var _t1:Bool=false;
+var _t2:Int=0;
+var _t3:Pointer=null;
+var _t4:Int=0;
+var _t5:Int=0;
+var _t6:Bool=false;
+var _t7:Int=0;
+var _t8:Bool=false;
+var _t9:Int=0;
+var _t10:Int=0;
+var _t11:Pointer=null;
+var _t12:Int=0;
+var _SF1:StackFrame;
+var _t13:Bool=false;
+var _t14:Bool=false;
+var _t15:Int=0;
+var _t16:Bool=false;
+var _t17:Int=0;
+var _t18:Int=0;
+var _t19:Slice=null;
+var _SF2:StackFrame;
+var _t20:{r0:Int,r1:Int}=null;
+var _t21:Int=0;
+var _t22:Int=0;
+var _t23:Int=0;
+var _t24:Bool=false;
+var _Phi:Int=0;
+var _Next:Int=0;
+public static inline function callFromHaxe( p_p : Slice) : {r0:Int, r1:Int} {
+if(!Go.doneInit) Go.init();
+var _sf=new Go_utf8_DecodeLastRune(0,[], p_p).run(); 
+while(_sf._incomplete) Scheduler.runAll();
+return _sf.res();
+}
+public static inline function callFromRT( _gr, p_p : Slice) : {r0:Int, r1:Int} {
+var _sf=new Go_utf8_DecodeLastRune(_gr,[], p_p).run(); 
+while(_sf._incomplete) Scheduler.run1(_gr);
+return _sf.res();
+}
+public static inline function call( gr:Int,_bds:Array<Dynamic>, p_p : Slice) : Go_utf8_DecodeLastRune
+{return new Go_utf8_DecodeLastRune(gr,_bds, p_p);
+}
+public function run():Go_utf8_DecodeLastRune {
+while(true){
+switch(_Next) {
+case 0: // entry
+this.setLatest(558,0);
+this.SubFn0();
+_Phi=0;
+case 1: // if.then
+this.setLatest(558,1);
+this.setPH(561);
+_res= {r0:65533,r1:0};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 0:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:242:3
+
+case 2: // if.done
+this.setLatest(561,2);
+this.SubFn1();
+_Phi=2;
+case 3: // if.then
+this.setLatest(561,3);
+this.setPH(566);
+_res= {r0:_t5,r1:1};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t5, 1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:247:3
+
+case 4: // if.done
+this.setLatest(566,4);
+this.SubFn2();
+_Phi=4;
+case 5: // if.then
+this.setLatest(566,5);
+this.SubFn3();
+_Phi=5;
+case 6: // if.done
+this.setLatest(566,6);
+this.setPH(571);
+_t9=((_Phi==4)?_t7:(_Phi==5)?0:0); // _t9 = phi [4.if.done: t7, 5.if.then: 0:int] #lim *ssa.Phi @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:252:2
+this.SubFn4();
+_Phi=6;
+case 7: // for.body
+this.setLatest(571,7);
+this.SubFn5();
+this.setPH(576);
+_SF1=Go_utf8_RuneStart.call(this._goroutine,[],_t12);
+_Next = -1;
+return this;
+case -1:
+this.setLatest(576,-1);
+_t13=_SF1.res();
+ // _t13 = RuneStart(t12) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:257:15
+this.SubFn6();
+_Phi=7;
+case 8: // for.done
+this.setLatest(576,8);
+this.SubFn7();
+_Phi=8;
+case 9: // for.loop
+this.setLatest(576,9);
+this.setPH(563);
+_t15=((_Phi==6)?_t10:(_Phi==10)?_t17:0); // _t15 = phi [6.if.done: t10, 10.if.done: t17] #start *ssa.Phi @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:244:2
+this.SubFn8();
+_Phi=9;
+case 10: // if.done
+this.setLatest(563,10);
+this.SubFn9();
+_Phi=10;
+case 11: // if.then
+this.setLatest(563,11);
+this.SubFn10();
+_Phi=11;
+case 12: // if.done
+this.setLatest(563,12);
+_t18=((_Phi==8)?_t15:(_Phi==11)?0:0); // _t18 = phi [8.for.done: t15, 11.if.then: 0:int] #start *ssa.Phi @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:244:2
+this.SubFn11();
+this.setPH(583);
+_SF2=Go_utf8_DecodeRune.call(this._goroutine,[],_t19);
+_Next = -2;
+return this;
+case -2:
+this.setLatest(583,-2);
+_t20=_SF2.res();
+ // _t20 = DecodeRune(t19) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:264:22
+this.SubFn12();
+_Phi=12;
+case 13: // if.then
+this.setLatest(583,13);
+this.setPH(585);
+_res= {r0:65533,r1:1};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return 65533:rune, 1:int *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:266:3
+
+case 14: // if.done
+this.setLatest(585,14);
+this.setPH(587);
+_res= {r0:_t21,r1:_t22};
+this._incomplete=false;
+Scheduler.pop(this._goroutine);
+return this; // return t21, t22 *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:268:2
+
+default: Scheduler.bbi();}}}
+private inline  function SubFn0():Void {
+var _t1:Bool;
+this.setPH(559);
+_t0=({var _v=p_p;_v==null?0:_v.len();}); // _t0 = len(p) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:240:12
+this.setPH(560);
+_t1=(_t0==0); // _t1 = t0 == 0:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:241:9
+_Next=_t1 ? 1 : 2; // if t1 goto 1.if.then else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:241:9
+}// end SubFn0
+private inline  function SubFn1():Void {
+var _t3:Pointer;
+var _t4:Int;
+var _t6:Bool;
+this.setPH(563);
+_t2=(_t0-1); // _t2 = t0 - 1:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:244:15
+this.setPH(564);
+if((_t2<0)||(_t2>=p_p.len())) Scheduler.ioor(); // _t3 = &p[t2] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:245:12 [POINTER]
+_t3=p_p.addr(_t2);  // _t3 = &p[t2] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:245:12 [POINTER]
+_t4=(_t3.load()|0); // _t4 = *t3 *ssa.UnOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:245:12
+_t5=_t4; // _t5 = convert rune <- byte (t4) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:245:10
+this.setPH(565);
+_t6=(_t5<128); // _t6 = t5 < 128:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:246:7
+_Next=_t6 ? 3 : 4; // if t6 goto 3.if.then else 4.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:246:7
+}// end SubFn1
+private inline  function SubFn2():Void {
+var _t8:Bool;
+this.setPH(571);
+_t7=(_t0-4); // _t7 = t0 - 4:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:252:13
+this.setPH(572);
+_t8=(_t7<0); // _t8 = t7 < 0:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:253:9
+_Next=_t8 ? 5 : 6; // if t8 goto 5.if.then else 6.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:253:9
+}// end SubFn2
+private inline  function SubFn3():Void {
+_Next=6; // jump 6.if.done *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:253:9
+}// end SubFn3
+private inline  function SubFn4():Void {
+_t10=(_t2-1); // _t10 = t2 - 1:int *ssa.BinOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:253:9
+_Next=9; // jump 9.for.loop *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:253:9
+}// end SubFn4
+private inline  function SubFn5():Void {
+var _t11:Pointer;
+this.setPH(576);
+if((_t15<0)||(_t15>=p_p.len())) Scheduler.ioor(); // _t11 = &p[t15] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:257:17 [POINTER]
+_t11=p_p.addr(_t15);  // _t11 = &p[t15] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:257:17 [POINTER]
+_t12=(_t11.load()|0); // _t12 = *t11 *ssa.UnOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:257:17
+}// end SubFn5
+private inline  function SubFn6():Void {
+_Next=_t13 ? 8 : 10; // if t13 goto 8.for.done else 10.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:257:17
+}// end SubFn6
+private inline  function SubFn7():Void {
+var _t14:Bool;
+this.setPH(580);
+_t14=(_t15<0); // _t14 = t15 < 0:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:261:11
+_Next=_t14 ? 11 : 12; // if t14 goto 11.if.then else 12.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:261:11
+}// end SubFn7
+private inline  function SubFn8():Void {
+var _t16:Bool;
+this.setPH(575);
+_t16=(_t15>=_t9); // _t16 = t15 >= t9 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:256:21
+_Next=_t16 ? 7 : 8; // if t16 goto 7.for.body else 8.for.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:256:21
+}// end SubFn8
+private inline  function SubFn9():Void {
+_t17=(_t15-1); // _t17 = t15 - 1:int *ssa.BinOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:256:21
+_Next=9; // jump 9.for.loop *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:256:21
+}// end SubFn9
+private inline  function SubFn10():Void {
+_Next=12; // jump 12.if.done *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:256:21
+}// end SubFn10
+private inline  function SubFn11():Void {
+this.setPH(583);
+_t19=p_p.subSlice(_t18,_t0); // _t19 = slice p[t18:t0] *ssa.Slice @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:264:24
+}// end SubFn11
+private inline  function SubFn12():Void {
+var _t23:Int;
+var _t24:Bool;
+_t21=_t20.r0; // _t21 = extract t20 #0 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:264:24
+_t22=_t20.r1; // _t22 = extract t20 #1 *ssa.Extract near /usr/local/go/src/pkg/unicode/utf8/utf8.go:264:24
+this.setPH(584);
+_t23=(_t18+_t22); // _t23 = t18 + t22 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:265:10
+_t24=(_t23!=_t0); // _t24 = t23 != t0 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:265:16
+_Next=_t24 ? 13 : 14; // if t24 goto 13.if.then else 14.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:265:16
+}// end SubFn12
+}
 #if js @:expose("Go_utf8_Valid") #end class Go_utf8_Valid extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:395:6
 var p_p:Slice;
 public function new(gr:Int,_bds:Array<Dynamic>, p_p : Slice) {
@@ -6437,669 +7100,6 @@ _t12=(_t3+_t10); // _t12 = t3 + t10 *ssa.BinOp near /usr/local/go/src/pkg/unicod
 _Next=3; // jump 3.for.loop *ssa.Jump near /usr/local/go/src/pkg/unicode/utf8/utf8.go:402:12
 }// end SubFn6
 }
-#if (!php) private #end class Go_utf8_decodeRuneInternal extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:45:6
-var p_p:Slice;
-public function new(gr:Int,_bds:Array<Dynamic>, p_p : Slice) {
-super(gr,364,"Go_utf8_decodeRuneInternal");
-this._bds=_bds;
-this.p_p=p_p;
-Scheduler.push(gr,this);
-}
-var _res:{r0:Int, r1:Int, r2:Bool};
-public inline function res():Dynamic {return _res;}
-var _t0:Int=0;
-var _t1:Bool=false;
-var _t2:Pointer=null;
-var _t3:Int=0;
-var _t4:Bool=false;
-var _t5:Int=0;
-var _t6:Bool=false;
-var _t7:Bool=false;
-var _t8:Pointer=null;
-var _t9:Int=0;
-var _t10:Bool=false;
-var _t11:Bool=false;
-var _t12:Bool=false;
-var _t13:Int=0;
-var _t14:Int=0;
-var _t15:Int=0;
-var _t16:Int=0;
-var _t17:Int=0;
-var _t18:Int=0;
-var _t19:Bool=false;
-var _t20:Bool=false;
-var _t21:Pointer=null;
-var _t22:Int=0;
-var _t23:Bool=false;
-var _t24:Bool=false;
-var _t25:Bool=false;
-var _t26:Int=0;
-var _t27:Int=0;
-var _t28:Int=0;
-var _t29:Int=0;
-var _t30:Int=0;
-var _t31:Int=0;
-var _t32:Int=0;
-var _t33:Int=0;
-var _t34:Int=0;
-var _t35:Int=0;
-var _t36:Bool=false;
-var _t37:Bool=false;
-var _t38:Bool=false;
-var _t39:Bool=false;
-var _t40:Pointer=null;
-var _t41:Int=0;
-var _t42:Bool=false;
-var _t43:Bool=false;
-var _t44:Bool=false;
-var _t45:Int=0;
-var _t46:Int=0;
-var _t47:Int=0;
-var _t48:Int=0;
-var _t49:Int=0;
-var _t50:Int=0;
-var _t51:Int=0;
-var _t52:Int=0;
-var _t53:Int=0;
-var _t54:Int=0;
-var _t55:Int=0;
-var _t56:Int=0;
-var _t57:Int=0;
-var _t58:Int=0;
-var _t59:Bool=false;
-var _t60:Bool=false;
-var _Next:Int=0;
-public static inline function callFromHaxe( p_p : Slice) : {r0:Int, r1:Int, r2:Bool} {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_utf8_decodeRuneInternal(0,[], p_p).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-return _sf.res();
-}
-public static inline function callFromRT( _gr, p_p : Slice) : {r0:Int, r1:Int, r2:Bool} {
-var _sf=new Go_utf8_decodeRuneInternal(_gr,[], p_p).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-return _sf.res();
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>, p_p : Slice) : Go_utf8_decodeRuneInternal
-{return new Go_utf8_decodeRuneInternal(gr,_bds, p_p);
-}
-public function run():Go_utf8_decodeRuneInternal {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(364,0);
-this.SubFn0();
-
-case 1: // if.then
-this.setLatest(364,1);
-this.setPH(367);
-_res= {r0:65533,r1:0,r2:true};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 0:int, true:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:48:3
-
-case 2: // if.done
-this.setLatest(367,2);
-this.SubFn1();
-
-case 3: // if.then
-this.setLatest(367,3);
-this.SubFn2();
-this.setPH(373);
-_res= {r0:_t5,r1:1,r2:false};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t5, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:54:3
-
-case 4: // if.done
-this.setLatest(373,4);
-this.SubFn3();
-
-case 5: // if.then
-this.setLatest(373,5);
-this.setPH(378);
-_res= {r0:65533,r1:1,r2:false};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:59:3
-
-case 6: // if.done
-this.setLatest(378,6);
-this.SubFn4();
-
-case 7: // if.then
-this.setLatest(378,7);
-this.setPH(383);
-_res= {r0:65533,r1:1,r2:true};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 1:int, true:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:64:3
-
-case 8: // if.done
-this.setLatest(383,8);
-this.SubFn5();
-
-case 9: // if.then
-this.setLatest(383,9);
-this.setPH(387);
-_res= {r0:65533,r1:1,r2:false};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:68:3
-
-case 10: // if.done
-this.setLatest(387,10);
-this.SubFn6();
-
-case 11: // cond.false
-this.setLatest(387,11);
-this.SubFn7();
-
-case 12: // if.then
-this.setLatest(387,12);
-this.SubFn8();
-
-case 13: // if.done
-this.setLatest(387,13);
-this.SubFn9();
-
-case 14: // if.then
-this.setLatest(387,14);
-this.setPH(394);
-_res= {r0:65533,r1:1,r2:false};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:75:4
-
-case 15: // if.done
-this.setLatest(394,15);
-this.setPH(396);
-_res= {r0:_t18,r1:2,r2:false};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t18, 2:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:77:3
-
-case 16: // if.then
-this.setLatest(396,16);
-this.setPH(401);
-_res= {r0:65533,r1:1,r2:true};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 1:int, true:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:82:3
-
-case 17: // if.done
-this.setLatest(401,17);
-this.SubFn10();
-
-case 18: // if.then
-this.setLatest(401,18);
-this.setPH(405);
-_res= {r0:65533,r1:1,r2:false};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:86:3
-
-case 19: // if.done
-this.setLatest(405,19);
-this.SubFn11();
-
-case 20: // cond.false
-this.setLatest(405,20);
-this.SubFn12();
-
-case 21: // if.then
-this.setLatest(405,21);
-this.SubFn13();
-
-case 22: // if.done
-this.setLatest(405,22);
-this.SubFn14();
-
-case 23: // if.then
-this.setLatest(405,23);
-this.setPH(412);
-_res= {r0:65533,r1:1,r2:false};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:93:4
-
-case 24: // if.done
-this.setLatest(412,24);
-this.SubFn15();
-
-case 25: // if.then
-this.setLatest(412,25);
-this.setPH(415);
-_res= {r0:65533,r1:1,r2:false};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:96:4
-
-case 26: // if.done
-this.setLatest(415,26);
-this.setPH(417);
-_res= {r0:_t35,r1:3,r2:false};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t35, 3:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:98:3
-
-case 27: // cond.true
-this.setLatest(417,27);
-this.SubFn16();
-
-case 28: // if.then
-this.setLatest(417,28);
-this.setPH(422);
-_res= {r0:65533,r1:1,r2:true};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 1:int, true:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:103:3
-
-case 29: // if.done
-this.setLatest(422,29);
-this.SubFn17();
-
-case 30: // if.then
-this.setLatest(422,30);
-this.setPH(426);
-_res= {r0:65533,r1:1,r2:false};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:107:3
-
-case 31: // if.done
-this.setLatest(426,31);
-this.SubFn18();
-
-case 32: // cond.false
-this.setLatest(426,32);
-this.SubFn19();
-
-case 33: // if.then
-this.setLatest(426,33);
-this.SubFn20();
-
-case 34: // if.done
-this.setLatest(426,34);
-this.setPH(439);
-_res= {r0:65533,r1:1,r2:false};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:120:2
-
-case 35: // if.then
-this.setLatest(439,35);
-this.setPH(433);
-_res= {r0:65533,r1:1,r2:false};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return 65533:rune, 1:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:114:4
-
-case 36: // if.done
-this.setLatest(433,36);
-this.setPH(435);
-_res= {r0:_t58,r1:4,r2:false};
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t58, 4:int, false:bool *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:116:3
-
-case 37: // cond.false
-this.setLatest(435,37);
-this.SubFn21();
-
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
-var _t1:Bool;
-this.setPH(365);
-_t0=({var _v=p_p;_v==null?0:_v.len();}); // _t0 = len(p) *ssa.Call @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:46:10
-this.setPH(366);
-_t1=(_t0<1); // _t1 = t0 < 1:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:47:7
-_Next=_t1 ? 1 : 2; // if t1 goto 1.if.then else 2.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:47:7
-}// end SubFn0
-private inline  function SubFn1():Void {
-var _t2:Pointer;
-var _t4:Bool;
-this.setPH(369);
-if((0<0)||(0>=p_p.len())) Scheduler.ioor(); // _t2 = &p[0:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:50:9 [POINTER]
-_t2=p_p.addr(0);  // _t2 = &p[0:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:50:9 [POINTER]
-_t3=(_t2.load()|0); // _t3 = *t2 *ssa.UnOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:50:9
-this.setPH(372);
-_t4=(Force.uintCompare(_t3,128)<0); // _t4 = t3 < 128:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:53:8
-_Next=_t4 ? 3 : 4; // if t4 goto 3.if.then else 4.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:53:8
-}// end SubFn1
-private inline  function SubFn2():Void {
-this.setPH(373);
-_t5=_t3; // _t5 = convert rune <- byte (t3) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:54:14
-}// end SubFn2
-private inline  function SubFn3():Void {
-var _t6:Bool;
-this.setPH(377);
-_t6=(Force.uintCompare(_t3,192)<0); // _t6 = t3 < 192:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:58:8
-_Next=_t6 ? 5 : 6; // if t6 goto 5.if.then else 6.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:58:8
-}// end SubFn3
-private inline  function SubFn4():Void {
-var _t7:Bool;
-this.setPH(382);
-_t7=(_t0<2); // _t7 = t0 < 2:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:63:7
-_Next=_t7 ? 7 : 8; // if t7 goto 7.if.then else 8.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:63:7
-}// end SubFn4
-private inline  function SubFn5():Void {
-var _t8:Pointer;
-var _t10:Bool;
-this.setPH(385);
-if((1<0)||(1>=p_p.len())) Scheduler.ioor(); // _t8 = &p[1:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:66:9 [POINTER]
-_t8=p_p.addr(1);  // _t8 = &p[1:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:66:9 [POINTER]
-_t9=(_t8.load()|0); // _t9 = *t8 *ssa.UnOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:66:9
-this.setPH(386);
-_t10=(Force.uintCompare(_t9,128)<0); // _t10 = t9 < 128:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:67:8
-_Next=_t10 ? 9 : 11; // if t10 goto 9.if.then else 11.cond.false *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:67:8
-}// end SubFn5
-private inline  function SubFn6():Void {
-var _t11:Bool;
-this.setPH(391);
-_t11=(Force.uintCompare(_t3,224)<0); // _t11 = t3 < 224:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:72:8
-_Next=_t11 ? 12 : 13; // if t11 goto 12.if.then else 13.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:72:8
-}// end SubFn6
-private inline  function SubFn7():Void {
-var _t12:Bool;
-this.setPH(386);
-_t12=(Force.uintCompare(192,_t9)<=0); // _t12 = 192:byte <= t9 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:67:19
-_Next=_t12 ? 9 : 10; // if t12 goto 9.if.then else 10.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:67:19
-}// end SubFn7
-private inline  function SubFn8():Void {
-var _t13:Int;
-var _t14:Int;
-var _t15:Int;
-var _t16:Int;
-var _t17:Int;
-var _t19:Bool;
-this.setPH(392);
-_t13=Force.toUint8((_t3&31)); // _t13 = t3 & 31:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:73:14
-_t14=_t13; // _t14 = convert rune <- byte (t13) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:73:11
-_t15=(_t14<<GOint64.toInt(GOint64.make(0x0,0x6))); // _t15 = t14 << 6:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:73:21
-_t16=Force.toUint8((_t9&63)); // _t16 = t9 & 63:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:73:34
-_t17=_t16; // _t17 = convert rune <- byte (t16) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:73:31
-_t18=Force.toInt32((_t15|_t17)); // _t18 = t15 | t17 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:73:25
-this.setPH(393);
-_t19=(_t18<=127); // _t19 = t18 <= 127:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:74:8
-_Next=_t19 ? 14 : 15; // if t19 goto 14.if.then else 15.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:74:8
-}// end SubFn8
-private inline  function SubFn9():Void {
-var _t20:Bool;
-this.setPH(400);
-_t20=(_t0<3); // _t20 = t0 < 3:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:81:7
-_Next=_t20 ? 16 : 17; // if t20 goto 16.if.then else 17.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:81:7
-}// end SubFn9
-private inline  function SubFn10():Void {
-var _t21:Pointer;
-var _t23:Bool;
-this.setPH(403);
-if((2<0)||(2>=p_p.len())) Scheduler.ioor(); // _t21 = &p[2:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:84:9 [POINTER]
-_t21=p_p.addr(2);  // _t21 = &p[2:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:84:9 [POINTER]
-_t22=(_t21.load()|0); // _t22 = *t21 *ssa.UnOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:84:9
-this.setPH(404);
-_t23=(Force.uintCompare(_t22,128)<0); // _t23 = t22 < 128:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:85:8
-_Next=_t23 ? 18 : 20; // if t23 goto 18.if.then else 20.cond.false *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:85:8
-}// end SubFn10
-private inline  function SubFn11():Void {
-var _t24:Bool;
-this.setPH(409);
-_t24=(Force.uintCompare(_t3,240)<0); // _t24 = t3 < 240:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:90:8
-_Next=_t24 ? 21 : 22; // if t24 goto 21.if.then else 22.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:90:8
-}// end SubFn11
-private inline  function SubFn12():Void {
-var _t25:Bool;
-this.setPH(404);
-_t25=(Force.uintCompare(192,_t22)<=0); // _t25 = 192:byte <= t22 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:85:19
-_Next=_t25 ? 18 : 19; // if t25 goto 18.if.then else 19.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:85:19
-}// end SubFn12
-private inline  function SubFn13():Void {
-var _t26:Int;
-var _t27:Int;
-var _t28:Int;
-var _t29:Int;
-var _t30:Int;
-var _t31:Int;
-var _t32:Int;
-var _t33:Int;
-var _t34:Int;
-var _t36:Bool;
-this.setPH(410);
-_t26=Force.toUint8((_t3&15)); // _t26 = t3 & 15:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:14
-_t27=_t26; // _t27 = convert rune <- byte (t26) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:11
-_t28=(_t27<<GOint64.toInt(GOint64.make(0x0,0xc))); // _t28 = t27 << 12:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:21
-_t29=Force.toUint8((_t9&63)); // _t29 = t9 & 63:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:35
-_t30=_t29; // _t30 = convert rune <- byte (t29) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:32
-_t31=(_t30<<GOint64.toInt(GOint64.make(0x0,0x6))); // _t31 = t30 << 6:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:42
-_t32=Force.toInt32((_t28|_t31)); // _t32 = t28 | t31 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:26
-_t33=Force.toUint8((_t22&63)); // _t33 = t22 & 63:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:55
-_t34=_t33; // _t34 = convert rune <- byte (t33) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:52
-_t35=Force.toInt32((_t32|_t34)); // _t35 = t32 | t34 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:91:46
-this.setPH(411);
-_t36=(_t35<=2047); // _t36 = t35 <= 2047:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:92:8
-_Next=_t36 ? 23 : 24; // if t36 goto 23.if.then else 24.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:92:8
-}// end SubFn13
-private inline  function SubFn14():Void {
-var _t37:Bool;
-this.setPH(421);
-_t37=(_t0<4); // _t37 = t0 < 4:int *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:102:7
-_Next=_t37 ? 28 : 29; // if t37 goto 28.if.then else 29.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:102:7
-}// end SubFn14
-private inline  function SubFn15():Void {
-var _t38:Bool;
-this.setPH(414);
-_t38=(55296<=_t35); // _t38 = 55296:rune <= t35 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:95:19
-_Next=_t38 ? 27 : 26; // if t38 goto 27.cond.true else 26.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:95:19
-}// end SubFn15
-private inline  function SubFn16():Void {
-var _t39:Bool;
-_t39=(_t35<=57343); // _t39 = t35 <= 57343:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:95:29
-_Next=_t39 ? 25 : 26; // if t39 goto 25.if.then else 26.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:95:29
-}// end SubFn16
-private inline  function SubFn17():Void {
-var _t40:Pointer;
-var _t42:Bool;
-this.setPH(424);
-if((3<0)||(3>=p_p.len())) Scheduler.ioor(); // _t40 = &p[3:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:105:9 [POINTER]
-_t40=p_p.addr(3);  // _t40 = &p[3:int] *ssa.IndexAddr @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:105:9 [POINTER]
-_t41=(_t40.load()|0); // _t41 = *t40 *ssa.UnOp near /usr/local/go/src/pkg/unicode/utf8/utf8.go:105:9
-this.setPH(425);
-_t42=(Force.uintCompare(_t41,128)<0); // _t42 = t41 < 128:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:106:8
-_Next=_t42 ? 30 : 32; // if t42 goto 30.if.then else 32.cond.false *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:106:8
-}// end SubFn17
-private inline  function SubFn18():Void {
-var _t43:Bool;
-this.setPH(430);
-_t43=(Force.uintCompare(_t3,248)<0); // _t43 = t3 < 248:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:111:8
-_Next=_t43 ? 33 : 34; // if t43 goto 33.if.then else 34.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:111:8
-}// end SubFn18
-private inline  function SubFn19():Void {
-var _t44:Bool;
-this.setPH(425);
-_t44=(Force.uintCompare(192,_t41)<=0); // _t44 = 192:byte <= t41 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:106:19
-_Next=_t44 ? 30 : 31; // if t44 goto 30.if.then else 31.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:106:19
-}// end SubFn19
-private inline  function SubFn20():Void {
-var _t45:Int;
-var _t46:Int;
-var _t47:Int;
-var _t48:Int;
-var _t49:Int;
-var _t50:Int;
-var _t51:Int;
-var _t52:Int;
-var _t53:Int;
-var _t54:Int;
-var _t55:Int;
-var _t56:Int;
-var _t57:Int;
-var _t59:Bool;
-this.setPH(431);
-_t45=Force.toUint8((_t3&7)); // _t45 = t3 & 7:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:14
-_t46=_t45; // _t46 = convert rune <- byte (t45) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:11
-_t47=(_t46<<GOint64.toInt(GOint64.make(0x0,0x12))); // _t47 = t46 << 18:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:21
-_t48=Force.toUint8((_t9&63)); // _t48 = t9 & 63:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:35
-_t49=_t48; // _t49 = convert rune <- byte (t48) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:32
-_t50=(_t49<<GOint64.toInt(GOint64.make(0x0,0xc))); // _t50 = t49 << 12:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:42
-_t51=Force.toInt32((_t47|_t50)); // _t51 = t47 | t50 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:26
-_t52=Force.toUint8((_t22&63)); // _t52 = t22 & 63:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:56
-_t53=_t52; // _t53 = convert rune <- byte (t52) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:53
-_t54=(_t53<<GOint64.toInt(GOint64.make(0x0,0x6))); // _t54 = t53 << 6:uint64 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:63
-_t55=Force.toInt32((_t51|_t54)); // _t55 = t51 | t54 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:47
-_t56=Force.toUint8((_t41&63)); // _t56 = t41 & 63:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:76
-_t57=_t56; // _t57 = convert rune <- byte (t56) *ssa.Convert @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:73
-_t58=Force.toInt32((_t55|_t57)); // _t58 = t55 | t57 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:112:67
-this.setPH(432);
-_t59=(_t58<=65535); // _t59 = t58 <= 65535:rune *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:113:8
-_Next=_t59 ? 35 : 37; // if t59 goto 35.if.then else 37.cond.false *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:113:8
-}// end SubFn20
-private inline  function SubFn21():Void {
-var _t60:Bool;
-_t60=(1114111<_t58); // _t60 = 1114111:rune < t58 *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:113:31
-_Next=_t60 ? 35 : 36; // if t60 goto 35.if.then else 36.if.done *ssa.If near /usr/local/go/src/pkg/unicode/utf8/utf8.go:113:31
-}// end SubFn21
-}
-#if js @:expose("Go_haxegoruntime_UTF16toRunes") #end class Go_haxegoruntime_UTF16toRunes extends StackFrameBasis implements StackFrame {  // langgoruntime.go:35:6
-var p_s:Slice;
-public function new(gr:Int,_bds:Array<Dynamic>, p_s : Slice) {
-super(gr,105,"Go_haxegoruntime_UTF16toRunes");
-this._bds=_bds;
-this.p_s=p_s;
-Scheduler.push(gr,this);
-}
-var _res:Slice;
-public inline function res():Dynamic {return _res;}
-var _SF1:StackFrame;
-var _t0:Slice=null;
-var _Next:Int=0;
-public static inline function callFromHaxe( p_s : Slice) : Slice {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_haxegoruntime_UTF16toRunes(0,[], p_s).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-return _sf.res();
-}
-public static inline function callFromRT( _gr, p_s : Slice) : Slice {
-var _sf=new Go_haxegoruntime_UTF16toRunes(_gr,[], p_s).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-return _sf.res();
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>, p_s : Slice) : Go_haxegoruntime_UTF16toRunes
-{return new Go_haxegoruntime_UTF16toRunes(gr,_bds, p_s);
-}
-public function run():Go_haxegoruntime_UTF16toRunes {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(105,0);
-this.setPH(106);
-_SF1=Go_utf16_Decode.call(this._goroutine,[],p_s);
-_Next = -1;
-return this;
-case -1:
-this.setLatest(106,-1);
-_t0=_SF1.res();
- // _t0 = unicode/utf16.Decode(s) *ssa.Call @ langgoruntime.go:36:21
-_res= _t0;
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t0 *ssa.Return @ langgoruntime.go:36:2
-
-default: Scheduler.bbi();}}}
-}
-#if (!php) private #end class Go_main_init extends StackFrameBasis implements StackFrame { 
-public function new(gr:Int,_bds:Array<Dynamic>) {
-super(gr,106,"Go_main_init");
-this._bds=_bds;
-Scheduler.push(gr,this);
-}
-public inline function res():Dynamic {return null;}
-var _t0:Bool=false;
-var _Next:Int=0;
-public static inline function callFromHaxe( ) : Void {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_main_init(0,[]).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-}
-public static inline function callFromRT( _gr) : Void {
-var _sf=new Go_main_init(_gr,[]).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>) : Go_main_init
-{return new Go_main_init(gr,_bds);
-}
-public function run():Go_main_init {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(106,0);
-this.SubFn0();
-
-case 1: // init.start
-this.setLatest(106,1);
-this.SubFn1();
-
-case 2: // init.done
-this.setLatest(106,2);
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return *ssa.Return near langgoruntime.go:36:2
-
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
-var _t0:Bool;
-_t0=Go.main_init_36_guard.load(); // _t0 = *init$guard *ssa.UnOp near langgoruntime.go:36:2
-_Next=_t0 ? 2 : 1; // if t0 goto 2.init.done else 1.init.start *ssa.If near langgoruntime.go:36:2
-}// end SubFn0
-private inline  function SubFn1():Void {
-Go.main_init_36_guard.store(true); // *init$guard = true:bool *ssa.Store near langgoruntime.go:36:2
-_Next=2; // jump 2.init.done *ssa.Jump near langgoruntime.go:36:2
-}// end SubFn1
-}
-#if js @:expose("Go_utf8_RuneStart") #end class Go_utf8_RuneStart extends StackFrameBasis implements StackFrame {  // /usr/local/go/src/pkg/unicode/utf8/utf8.go:392:6
-var p_b:Int;
-public function new(gr:Int,_bds:Array<Dynamic>, p_b : Int) {
-super(gr,711,"Go_utf8_RuneStart");
-this._bds=_bds;
-this.p_b=p_b;
-Scheduler.push(gr,this);
-}
-var _res:Bool;
-public inline function res():Dynamic {return _res;}
-var _t0:Int=0;
-var _t1:Bool=false;
-var _Next:Int=0;
-public static inline function callFromHaxe( p_b : Int) : Bool {
-if(!Go.doneInit) Go.init();
-var _sf=new Go_utf8_RuneStart(0,[], p_b).run(); 
-while(_sf._incomplete) Scheduler.runAll();
-return _sf.res();
-}
-public static inline function callFromRT( _gr, p_b : Int) : Bool {
-var _sf=new Go_utf8_RuneStart(_gr,[], p_b).run(); 
-while(_sf._incomplete) Scheduler.run1(_gr);
-return _sf.res();
-}
-public static inline function call( gr:Int,_bds:Array<Dynamic>, p_b : Int) : Go_utf8_RuneStart
-{return new Go_utf8_RuneStart(gr,_bds, p_b);
-}
-public function run():Go_utf8_RuneStart {
-while(true){
-switch(_Next) {
-case 0: // entry
-this.setLatest(711,0);
-this.SubFn0();
-_res= _t1;
-this._incomplete=false;
-Scheduler.pop(this._goroutine);
-return this; // return t1 *ssa.Return @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:392:31
-
-default: Scheduler.bbi();}}}
-private inline  function SubFn0():Void {
-var _t0:Int;
-_t0=Force.toUint8((p_b&192)); // _t0 = b & 192:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:392:39
-_t1=(Force.uintCompare(_t0,128)!=0); // _t1 = t0 != 128:byte *ssa.BinOp @ /usr/local/go/src/pkg/unicode/utf8/utf8.go:392:45
-}// end SubFn0
-}
 
 #if js
 @:expose("Go")
@@ -7128,9 +7128,9 @@ class Go
 	}
 
 public static var utf8_RuneError:Int = 65533;
+public static var utf8_RuneSelf:Int = 128;
 public static var utf8_MaxRune:Int = 1114111;
 public static var utf8_UTFMax:Int = 4;
-public static var utf8_RuneSelf:Int = 128;
 public static var haxegoruntime_ZiLen:Pointer=new Pointer(0);  // langgoruntime.go:33:5
 public static var haxegoruntime_init_36_guard:Pointer=new Pointer(false); 
 public static var main_init_36_guard:Pointer=new Pointer(false); 
@@ -7193,7 +7193,15 @@ default:}
  Scheduler.panicFromHaxe( "no method found!"); return null;}
 }
 
- // Warning: *ssa.Call @ langgoruntime.go:84:18 (pogo) The result from a function call is not used
+ // Warning: *ssa.Call @ binarytree.go:60:25 (pogo) The result from a function call is not used
+ // Warning: _t2@/usr/local/go/src/pkg/unicode/utf8/utf8.go:382:6 (Haxe) LangType() unrecognised basic type, Dynamic assumed
+ // Warning: _t2@/usr/local/go/src/pkg/unicode/utf8/utf8.go:382:6 (Haxe) LangType() unrecognised basic type, Dynamic assumed
+ // Warning: _t2@/usr/local/go/src/pkg/unicode/utf8/utf8.go:382:6 (Haxe) LangType() unrecognised basic type, Dynamic assumed
+ // Warning: _t2@/usr/local/go/src/pkg/unicode/utf8/utf8.go:382:6 (Haxe) LangType() unrecognised basic type, Dynamic assumed
+ // Warning: temp var declaration (Haxe) LangType() unrecognised basic type, Dynamic assumed
+ // Warning: temp var declaration (Haxe) LangType() unrecognised basic type, Dynamic assumed
+ // Warning: *ssa.Next near /usr/local/go/src/pkg/unicode/utf8/utf8.go:383:2 (Haxe) LangType() unrecognised basic type, Dynamic assumed
+ // Warning: *ssa.Next near /usr/local/go/src/pkg/unicode/utf8/utf8.go:383:2 (Haxe) LangType() unrecognised basic type, Dynamic assumed
  // Warning: *ssa.Call @ langgoruntime.go:16:18 (pogo) The result from a function call is not used
  // Warning: *ssa.Call @ langgoruntime.go:17:17 (pogo) The result from a function call is not used
  // Warning: *ssa.Call @ langgoruntime.go:18:15 (pogo) The result from a function call is not used
@@ -7206,15 +7214,7 @@ default:}
  // Warning: *ssa.Call @ langgoruntime.go:26:20 (pogo) The result from a function call is not used
  // Warning: *ssa.Call @ langgoruntime.go:28:18 (pogo) The result from a function call is not used
  // Warning: *ssa.Call @ langgoruntime.go:29:18 (pogo) The result from a function call is not used
- // Warning: *ssa.Call @ binarytree.go:60:25 (pogo) The result from a function call is not used
- // Warning: _t2@/usr/local/go/src/pkg/unicode/utf8/utf8.go:382:6 (Haxe) LangType() unrecognised basic type, Dynamic assumed
- // Warning: _t2@/usr/local/go/src/pkg/unicode/utf8/utf8.go:382:6 (Haxe) LangType() unrecognised basic type, Dynamic assumed
- // Warning: _t2@/usr/local/go/src/pkg/unicode/utf8/utf8.go:382:6 (Haxe) LangType() unrecognised basic type, Dynamic assumed
- // Warning: _t2@/usr/local/go/src/pkg/unicode/utf8/utf8.go:382:6 (Haxe) LangType() unrecognised basic type, Dynamic assumed
- // Warning: temp var declaration (Haxe) LangType() unrecognised basic type, Dynamic assumed
- // Warning: temp var declaration (Haxe) LangType() unrecognised basic type, Dynamic assumed
- // Warning: *ssa.Next near /usr/local/go/src/pkg/unicode/utf8/utf8.go:383:2 (Haxe) LangType() unrecognised basic type, Dynamic assumed
- // Warning: *ssa.Next near /usr/local/go/src/pkg/unicode/utf8/utf8.go:383:2 (Haxe) LangType() unrecognised basic type, Dynamic assumed
+ // Warning: *ssa.Call @ langgoruntime.go:84:18 (pogo) The result from a function call is not used
  // Package List:
  //  package goruntime
  //  package main
