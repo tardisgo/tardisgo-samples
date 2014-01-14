@@ -21,7 +21,7 @@ To run the examples using OpenFL you will need to also install OpenFL (from http
 
 
 gobyexample examples
--------------------------
+--------------------
 
 Examples adapted from https://gobyexample.com/
 - hello world
@@ -34,9 +34,17 @@ Examples adapted from https://gobyexample.com/
 
 
 OpenFL examples
---------------------
+---------------
 - gohandlingmouseevents (adapted from the OpenFL example) - you can see it working live at http://tardisgo.github.io/
 
+
+Tests
+-----
+A directory for tests that pass.
+
+WIP
+---
+A directory for non-passing tests that are a work-in-progress.
 
 
 
