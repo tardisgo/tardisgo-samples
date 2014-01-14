@@ -36,6 +36,7 @@ Examples adapted from https://gobyexample.com/
 
 ### Scripts (OSX)
 -------
+- tgo.sh : transpile all the code in the current directory and run haxe on the result using the user-provided haxe flags
 - tgoall.sh : transpile all the code in the current directory for all haxe targets and test each of them (requires all the haxe target languages to be installed, with any required haxlibs)
 - tgolime.sh : wrapper for the OpenFL "lime" command, to transpile the Go first
 
