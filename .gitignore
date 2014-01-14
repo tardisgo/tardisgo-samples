@@ -1,4 +1,11 @@
 .DS_Store
+gobyexample/*/*.js
+gobyexample/*/*.n
+gobyexample/*/java/*
+gobyexample/*/cs/*
+gobyexample/*/cpp/*
+gobyexample/*/php/*
+gobyexample/*/*.swf
 openfl/*/Export/*
 tests/*/*.js
 tests/*/*.n
