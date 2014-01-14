@@ -1,27 +1,20 @@
 // THIS IS NOT PRETTY, IT IS A WORK-IN-PROGRESS
 
+// TODO separate this jumble of tests into a set of smaller ones
+
 package main
 
 import (
-	//"mygo/pogo/pg"
-	//"mygo/pogo/test/unicodetests" //BIG so test later TODO rework to only report errors, rather than all progress as now
 	"math"
 	//"math/big" // does not currently complile - infinite loop
-	//"math/cmplx"
-	//"math/rand" // requires method values
-	//"reflect"
-	"strconv"
-	"unicode/utf8"
-	//"unsafe"
 	"bytes"
-	"runtime"
-	//"mygo/pogo/pg/runtime"
-	"strings"
-	//"mygo/pogo/pg/sync"
 	"github.com/tardisgo/tardisgo/tardisgolib"
-	//_ "mygo/pogo/hxshadow"
+	"runtime"
+	"strconv"
+	"strings"
 	"sync"
 	"sync/atomic"
+	"unicode/utf8"
 
 	// final one at end to match the constant declaration
 	_ "github.com/tardisgo/tardisgo/golibruntime"
@@ -376,32 +369,6 @@ func noCaller() float64 { // this should be removed by a good target compiler...
 	return U_
 }
 
-/*
-
-func main1() {
-	var myArray []int = make([]int, 7)
-	var t1 = Sqrt(17.0)
-	var t2 = Sqrt(19.0)
-	println(t1 + t2)
-	println("Hello World !")
-	println(Sqrt(1024.0))
-	println(Pi)
-	println(TestInit)
-	println(Caller())
-	for i := range myArray {
-		aSlice[i] = myArray[i]
-	}
-	println(len(anArray))
-	s := make([]string, 3)
-	s[0] = "Both a 1st string "
-	s[1] = "and a 2nd one."
-	s[2] = s[0] + s[1]
-	println(s)
-	println(aSlice)
-}
-
-var twoD [][][]float64
-*/
 //var aPtr *int // TODO this should generate an error
 
 func twoRets(x int) (a int, b string) {
@@ -505,12 +472,7 @@ func testCallBy() {
 	var xx [10]float64
 	for i := range x {
 		xx[i] = float64(i * i)
-		//println(xx[i])
 		testTweakFloatByReference(&xx[i])
-		//println(xx[i])
-		//if i > 0 {
-		//	xx[i] = Sqrt(float64(xx[i]))
-		//}
 		TEQfloat(tardisgolib.CPos(), xx[i], float64(i), 0.1)
 	}
 }
@@ -758,12 +720,8 @@ func testIntOverflow() { //TODO add int64
 		As an exception to this rule, if the dividend x is the most negative value for the int type of x,
 		the quotient q = x / -1 is equal to x (and r = 0).
 	*/
-	//if tardisgolib.Platform() == "php" {
-	//	println("Div&Mod int64 special case tests skipped for PHP, known error of infinate loop")
-	//} else {
 	TEQint64(tardisgolib.CPos()+" int64 div special case", int64_mostNeg/int64(-1), int64_mostNeg)
 	TEQint64(tardisgolib.CPos()+" int64 mod special case", int64_mostNeg%int64(-1), 0)
-	//}
 	TEQint32(tardisgolib.CPos()+" int32 div special case", int32(int32_mostNeg/int32(-1)), int32_mostNeg)
 	TEQint32(tardisgolib.CPos()+" int32 mod special case", int32_mostNeg%int32(-1), 0)
 	if int16(int16_mostNeg/int16(-1)) != int16_mostNeg {
@@ -862,8 +820,8 @@ func testIntOverflow() { //TODO add int64
 	TEQfloat(tardisgolib.CPos(), float64(uint64Global), float64(uint64(0xffffffffffffffff)), float64(2000.0))
 
 	// tests below removed to avoid also loading the math package
-	//TEQint64(tardisgolib.CPos()+" NaN ->int64 conversion", int64(math.NaN()), -9223372036854775808)
-	//TEQuint64(tardisgolib.CPos()+" NaN ->uint64 conversion (error on php)", uint64(math.NaN()), 9223372036854775808)
+	TEQint64(tardisgolib.CPos()+" NaN ->int64 conversion", int64(math.NaN()), -9223372036854775808)
+	TEQuint64(tardisgolib.CPos()+" NaN ->uint64 conversion (error on php)", uint64(math.NaN()), 9223372036854775808)
 
 	myPi := float64(7)
 	myPi64 := int64(myPi)
@@ -1295,8 +1253,6 @@ func testStrconv() {
 }
 
 func sum(a []int, c chan int) {
-	//println("sum")
-	//pg.C0("Scheduler.traceStackDump")
 	sum := 0
 	for _, v := range a {
 		sum += v
@@ -1331,35 +1287,25 @@ func testDefer_c() (i int) {
 	return 1
 }
 func protect(g func(int)) {
-	//println("protect", g)
 	defer func() {
-		//println("done") // Println executes normally even if there is a panic
-		//if x := recover(); x != nil {
-		//	println("run time panic: %v", x)
-		//}
-		//println("defered fn", g)
 		TEQ(tardisgolib.CPos(), recover(), "test panic")
 	}()
-	//println("start")
 	g(0)
 }
 
 func g(i int) {
 	if i > 3 {
-		//       fmt.Println("Panicking!")
 		panic("test panic")
 	}
 	for j := 0; j < i; j++ {
 		defer testDefer_d()
 	}
-	//fmt.Println("Printing in g", i)
 	g(i + 1)
 }
 
 var tddCount = 0
 
 func testDefer_d() {
-	//println("test_detect")
 	tddCount++ // just to give the routine something to do
 }
 
@@ -1377,7 +1323,7 @@ func testDefer() {
 	TEQ(tardisgolib.CPos(), tddCount, 6)
 }
 
-// these two names were failing in java as being duplicates
+// these two names were failing in java as being duplicates, now failing in PHP...
 func Ilogb(x float64) int {
 	return int(Sqrt(x))
 }
@@ -1402,35 +1348,25 @@ func aGoroutine(a int) {
 		runtime.Gosched()
 	}
 	(&aGrCtrMux).Lock()
-	//runtime.Gosched()
 	atomic.AddInt32(&aGrCtr, -1)
-	//runtime.Gosched()
-	// <-aGrCtrMux
 	(&aGrCtrMux).Unlock()
 
-	//tmg <- true
 	aGrWG.Done()
 }
 
 const numGR = 5
 
-//var tmg = make(chan bool, numGR*2)
-
 func testManyGoroutines() {
 	var n = numGR
 	aGrCtr = numGR * 2 // set up the goroutine counter
 	for i := 0; i < n; i++ {
-		//tmg <- true
 		aGrWG.Add(1)
 		go aGoroutine(i)
 	}
-	//panic("test panic main goroutine zero")
 	for i := n; i > 0; i-- {
-		//tmg <- true
 		aGrWG.Add(1)
 		go aGoroutine(i)
 	}
-	//close(tmg)
 }
 
 //
@@ -1523,21 +1459,8 @@ func tourfib() {
 // end tour
 
 func main() {
-	//haxegoruntime.InitIV()
-	//for iv := range haxegoruntime.IV {
-	//	println("DEBUG  haxegoruntime.IV ", iv, haxegoruntime.IV[iv])
-	//}
-	//var xxx [3]int
-	//for yyy := 0; yyy < 43; yyy++ {
-	//	xxx[yyy] = 43 // generate a runtime error
-	//}
-
-	//println(noCaller())
-	//println("runtime.Compiler=", runtime.Compiler)
-	//println("runtime.MemProfileRate=", runtime.MemProfileRate)
 	println("Start test running in: " + tardisgolib.Platform())
 	testManyGoroutines()
-	//println("Num Haxe GR running=", tardisgolib.NumGoroutine())
 	testChanSelect()
 	tourfib()
 	testCaseSensitivity()
@@ -1570,42 +1493,7 @@ func main() {
 	testStrconv()
 	testTour64()
 	testDefer()
-	/* TODO add support for select statements
-	   forLoop:
-	   	select {
-	   	case tmgTmp := <-tmg:
-	   		tmg <- tmgTmp // put it back to retain the correct number of GR markers in the channel
-	   		runtime.Gosched()
-	   		goto forLoop
-	   	default:
-	   		break
-	   	}
-	*/
-
-	//println("Num Haxe GR pre-wait=", tardisgolib.NumGoroutine(), aGrCtr)
-
-	//for g := 0; g < 2*numGR; g++ {
-	//	<-tmg
-	//}
 	aGrWG.Wait()
-
-	//for aGrCtr > 0 {
-	//	pg.Gosched()
-	//}
-	/*
-	   loop:
-	   	aGrCtrMux <- true
-	   	if aGrCtr != 0 {
-	   		<-aGrCtrMux
-	   			func(x int32) {
-	   				if aGrCtr != x {
-	   					println("aGrCtr already changed")
-	   				}
-	   			}(aGrCtr) // run an anon func to schedule other goroutines - NoOp in normal go
-	   		goto loop
-	   	}
-	   	<-aGrCtrMux
-	*/
 	TEQint32(tardisgolib.CPos()+" testManyGoroutines() sync/atomic counter:", aGrCtr, 0)
 	if tardisgolib.Host() == "haxe" {
 		TEQ(tardisgolib.CPos(), int(tardisgolib.HAXE("42;")), int(42))
@@ -1616,83 +1504,4 @@ func main() {
 	}
 	println("End test running in: " + tardisgolib.Platform())
 	println("再见！Previous two chinese characters should say goodbye! (testing unicode output)")
-	//OK println(cmplx.Abs(complex(-1, -2)))
-	//println(big.MaxBase)
-	//println(rand.Int())
-	/*
-		println(0x7FFFFFFF)
-		allOnes++
-		println(allOnes)
-		allOnesR++
-		println(allOnesR)
-		xPI = x22 / x7
-		println(xPI)
-		rPI = r22 / r7
-		println(rPI)
-	*/
-	/*
-		println(Sqrt(1024.0))
-	*/
-	/*
-			println(pg.M0(pg.C0("Date.now"), "Date", "toString"))
-
-			println(tardisgolib.Host())
-
-			myDate := pg.C6("new Date", 2014, 11, 11, 11, 11, 11)
-			println(pg.M0(myDate, "Date", "toString"))
-			println(pg.C1("DateTools.getMonthDays", myDate))
-
-			println(pg.C1("haxe.CallStack.toString", pg.C0("haxe.CallStack.callStack")))
-
-		myHost := tardisgolib.Host()
-		switch myHost {
-		case "Haxe":
-			println("Keep Me - switch")
-		case "Go":
-			println("Drop Me - switch")
-		}
-		if myHost == "Go" {
-			println("Drop Me - if")
-		}
-	*/
-	/*
-		var p *int
-		/*
-			s0 := []int{0, 0}
-			s0[0] = -4
-			println(s0[0] >> 1)
-			println(primes)
-
-			// vowels[ch] is true if ch is a vowel
-			vowels := [128]bool{'a': true, 'e': true, 'i': true, 'o': true, 'u': true, 'y': true}
-			println("vowels=", vowels)
-			// the array [10]float32{-1, 0, 0, 0, -0.1, -0.1, 0, 0, 0, -1}
-			filter := [10]float64{-1, 4: -0.1, -0.1, 9: -1}
-			println("filter=", filter)
-			// frequencies in Hz for equal-tempered scale (A4 = 440Hz)
-			noteFrequency := map[string]float64{
-				"C0": 16.35, "D0": 18.35, "E0": 20.60, "F0": 21.83,
-				"G0": 24.50, "A0": 27.50, "B0": 30.87,
-			}
-			for k, v := range noteFrequency {
-				println(k, v)
-			}
-
-				myMap["one"] = 1
-				myMap["two"] = 2
-				println(myMap["one"], myMap["two"])
-				x, isok := myMap["two"]
-				y, notok := myMap["three"]
-				println(isok, notok)
-				a, b := twoRets()
-				println("a=", a, "b=", b, "\n")
-				myMap["three"] = 3
-				delete(myMap, "two")
-				for z1, z2 := range myMap {
-					println("z1=", z1, "z2=", z2, "\n")
-				}
-				panic("It's all over!")
-				//main1()
-				/*
-	*/
 }
