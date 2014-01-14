@@ -31,11 +31,6 @@ OpenFL examples
 
 
 
-WIP (work in progress)
-----------------------
-The code in these directories is not yet working properly in TARDIS go, bugs are being chased...
-
-
 
 
 
