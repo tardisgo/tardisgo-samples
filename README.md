@@ -35,7 +35,7 @@ Examples adapted from https://gobyexample.com/
 
 OpenFL examples
 --------------------
-- gohandlingmouseevents (adapted from the OpenFL example; requires the "actuate" haxe library) - you can see it working live at http://tardisgo.github.io/
+- gohandlingmouseevents (adapted from the OpenFL example) - you can see it working live at http://tardisgo.github.io/
 
 
 
