@@ -40,7 +40,7 @@ OpenFL examples
 
 Tests
 -----
-A directory for tests that pass.
+A directory for tests that (mostly) pass.
 
 WIP
 ---
