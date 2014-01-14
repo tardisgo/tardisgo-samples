@@ -9,7 +9,7 @@ From the directory containing the .go files, to translate Go to Haxe, type the c
 ```
 tardisgo filename.go
 ```
-Note that a "tardis" sub-directory must exist before the command is run (which it does in these samples). 
+Note that a "tardis" sub-directory must exist before the command is run. 
 
 Then to run the tardis/Go.hx file generated, type the command line: 
 ```

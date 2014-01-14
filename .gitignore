@@ -6,7 +6,9 @@ gobyexample/*/cs/*
 gobyexample/*/cpp/*
 gobyexample/*/php/*
 gobyexample/*/*.swf
+gobyexample/*/tardis/Go.hx
 openfl/*/Export/*
+openfl/*/Source/tardis/Go.hx
 tests/*/*.js
 tests/*/*.n
 tests/*/java/*
@@ -14,6 +16,7 @@ tests/*/cs/*
 tests/*/cpp/*
 tests/*/php/*
 tests/*/*.swf
+tests/*/tardis/Go.hx
 wip/*/*.js
 wip/*/*.n
 wip/*/java/*
@@ -21,3 +24,4 @@ wip/*/cs/*
 wip/*/cpp/*
 wip/*/php/*
 wip/*/*.swf
+wip/*/tardis/Go.hx
