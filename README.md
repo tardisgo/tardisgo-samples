@@ -3,13 +3,20 @@ tardisgo-samples
 
 Sample code using TARDIS Go.
 
+
+For help or general discussions about this repository please go to the [Google Group](https://groups.google.com/d/forum/tardisgo).
+
+
 To run these examples you will need to install Haxe (from http://haxe.org).
 
-From the directory containing the .go files, to translate Go to Haxe, type the command line: 
+From the directory containing the .go files, first create a "tardis" sub-directory (TODO review this requirement):
+```
+mkdir tardis
+```
+Then to translate Go to Haxe, type the command line: 
 ```
 tardisgo filename.go
-```
-Note that a "tardis" sub-directory must exist before the command is run. 
+``` 
 
 Then to run the tardis/Go.hx file generated, type the command line: 
 ```
@@ -17,7 +24,7 @@ haxe -main tardis.Go --interp
 ```
 ... or whatever haxe compilation options you want to use. (Note that to compile for PHP you currently need to add the haxe compilation option "--php-prefix tardisgo" to avoid name confilcts).
 
-To run the examples using OpenFL you will need to also install OpenFL (from http://openfl.org). Run the tardisgo command as described above from the "Source" directory. Then follow the normal OpenFL/Lime development process.
+To run the examples using OpenFL you will need to also install OpenFL (from http://openfl.org). Create the directory and run the tardisgo command as described above from the "Source" directory. Then follow the normal OpenFL/Lime development process.
 
 
 ### gobyexample
