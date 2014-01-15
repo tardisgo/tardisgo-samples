@@ -34,7 +34,7 @@ Examples adapted from https://gobyexample.com/
 ---------------
 - gohandlingmouseevents (adapted from the OpenFL example) - you can see it working live at http://tardisgo.github.io/
 
-### Scripts (OSX)
+### Scripts (tested on OSX and Ubuntu)
 -------
 - tgo.sh : transpile all the code in the current directory and run haxe on the result using the user-provided haxe flags
 - tgoall.sh : transpile all the code in the current directory for all haxe targets and test each of them (requires all the haxe target languages to be installed, with any required haxlibs)

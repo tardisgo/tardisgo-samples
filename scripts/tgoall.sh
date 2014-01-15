@@ -9,10 +9,10 @@ if [ "$?" = "0" ]; then
 	haxe -main tardis.Go -dce full -java java
 	haxe -main tardis.Go -dce full -cs cs
 	haxe -main tardis.Go -dce full -php php --php-prefix tardisgo
-	echo "Neko (interp):"
+	echo "Neko (haxe --interp):"
 	haxe -main tardis.Go --interp
 	echo "Neko:"
-	neko pogo.n
+	neko tardisgo.n
 	echo "Node/JS:"
 	node < tardisgo.js
 	echo "CPP:"
@@ -23,6 +23,6 @@ if [ "$?" = "0" ]; then
 	mono ./cs/bin/cs.exe
 	echo "PHP:"
 	php php/index.php
-	echo "Opening swf file (Chrome as a file association for swf works to test):"
+	echo "Opening swf file (Chrome as a file association for swf works to test on OSX):"
 	open tardisgo.swf
 fi
