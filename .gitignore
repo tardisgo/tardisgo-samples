@@ -17,6 +17,14 @@ tests/*/cpp/*
 tests/*/php/*
 tests/*/*.swf
 tests/*/tardis/Go.hx
+benchmarks/*/*.js
+benchmarks/*/*.n
+benchmarks/*/java/*
+benchmarks/*/cs/*
+benchmarks/*/cpp/*
+benchmarks/*/php/*
+benchmarks/*/*.swf
+benchmarks/*/tardis/Go.hx
 wip/*/*.js
 wip/*/*.n
 wip/*/java/*
