@@ -34,6 +34,7 @@ Examples adapted from https://gobyexample.com/
 - recursion
 - closures
 - interfaces
+- channel synchronization
 - stateful goroutines
 - collection functions (not yet working for PHP, C++ or Java targets)
 
