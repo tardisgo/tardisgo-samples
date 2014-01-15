@@ -35,8 +35,9 @@ Examples adapted from https://gobyexample.com/
 - closures
 - interfaces
 - channel synchronization
-- stateful goroutines
-- collection functions (not yet working for PHP, C++ or Java targets)
+- stateful goroutines (uses "sync/atomic" package)
+- sorting by functions (uses "sort" package)
+- collection functions (uses "strings" package, but not yet working for PHP, C++ or Java targets)
 
 ### OpenFL 
 ---
@@ -51,9 +52,17 @@ Tested on OSX and Ubuntu:
 
 (TODO: windows .BAT examples)
 
+
+### Benchmarks
+---
+- mandlebrot
+- fannkuch
+
+(Results will be published at a talk on 23rd January 2014)
+
 ### Tests
 ---
-A directory for tests that pass.
+A directory for tests that pass. (TODO populate this directory)
 
 ### WIP
 ---
