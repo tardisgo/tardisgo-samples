@@ -37,18 +37,21 @@ Examples adapted from https://gobyexample.com/
 - stateful goroutines
 - collection functions (not yet working for PHP, C++ or Java targets)
 
-### OpenFL examples
----------------
+### OpenFL 
+---
 - gohandlingmouseevents (adapted from the OpenFL example) - you can see it working live at http://tardisgo.github.io/
 
-### Scripts (tested on OSX and Ubuntu)
--------
+### Scripts 
+---
+Tested on OSX and Ubuntu:
 - tgo.sh : transpile all the code in the current directory and run haxe on the result using the user-provided haxe flags
 - tgoall.sh : transpile all the code in the current directory for all haxe targets and test each of them (requires all the haxe target languages to be installed, with any required haxlibs)
 - tgolime.sh : wrapper for the OpenFL "lime" command, to transpile the Go first
 
+(TODO: windows .BAT examples)
+
 ### Tests
------
+---
 A directory for tests that pass.
 
 ### WIP
