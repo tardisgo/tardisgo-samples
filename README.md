@@ -1,7 +1,7 @@
 tardisgo-samples
 ================
 
-Sample code using TARDIS Go.
+Sample code using [TARDIS Go](https://github.com/tardisgo/tardisgo).
 
 
 For help or general discussions about this repository please go to the [Google Group](https://groups.google.com/d/forum/tardisgo).
