@@ -39,7 +39,8 @@ Examples adapted from https://gobyexample.com/
 - channel synchronization
 - stateful goroutines (uses "sync/atomic" package)
 - sorting by functions (uses "sort" package)
-- collection functions (uses "strings" package. Not yet working for PHP, C++ or Java targets)
+- collection functions (uses "strings" package; not yet working for PHP, C++ or Java targets)
+- base64 encoding (uses "encoding/base64" package; not yet working for PHP target)
 
 ### OpenFL 
 ---
