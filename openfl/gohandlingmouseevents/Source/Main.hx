@@ -2,8 +2,12 @@ package;
 
 import flash.display.Bitmap;
 import flash.display.Sprite;
+import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.utils.Timer;
+import flash.media.Sound;
+import flash.media.SoundChannel;
+import flash.media.SoundTransform;
 import openfl.Assets;
 import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
@@ -25,6 +29,8 @@ class Main extends Sprite {
 	public function new () {
 		
 		super ();
+
+		soundNew();
 
 		whatToDo = new TextField ();
 		whatToDo.selectable = false;
@@ -90,16 +96,18 @@ class Main extends Sprite {
 			lastStatus=Go.main_Status.load();
 			textField.text=lastStatus;
 		}
-		if (Destination.hitTestPoint (Logo.x, Logo.y)) { // this is just to make it look pretty
+		if (Destination.hitTestPoint (Logo.x, Logo.y)) { // this is just to make it look & sound pretty
 			if(UseGopher) {
 				Logo.addChild (new Bitmap (Assets.getBitmapData ("assets/openfl.png")));
 				UseGopher=false;
 			}
+			play();
 		} else {
 			if(!UseGopher) {
 				Logo.addChild (new Bitmap (Assets.getBitmapData ("assets/gopher.png")));
 				UseGopher=true;
 			}
+			pause();
 		}
 	}
 	
@@ -127,6 +135,56 @@ class Main extends Sprite {
 		Go_main_MouseUp.callFromHaxe(event.stageX,event.stageY);
 		
 	}
+
+	
+	
+	
+	private function channel_onSoundComplete (event:Event):Void {
+		
+		pause ();
+		position = 0;
+		
+	}
+	
+	// Sound handling
+
+	private var channel:SoundChannel;
+	private var playing:Bool;
+	private var position:Float;
+	private var sound:Sound;
+		
+	private function soundNew():Void {
+	
+		#if flash
+		sound = Assets.getSound ("assets/yeah.mp3");
+		#else
+		sound = Assets.getSound ("assets/yeah.ogg");
+		#end
+		
+		position = 0;
+		playing = false;
+	}		
+	
+	
+	
+	private function play (fadeIn:Float = 3):Void {
+		if(playing != true) {
+			playing = true;
+			channel = sound.play (position);
+		}					
+	}
+	
+
+	
+	private function pause ():Void {
+		
+		if (playing) {
+			playing = false;
+			channel.stop ();
+		}
+		
+	}
+	
 	
 	
 }
