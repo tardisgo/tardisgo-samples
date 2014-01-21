@@ -33,3 +33,11 @@ wip/*/cpp/*
 wip/*/php/*
 wip/*/*.swf
 wip/*/tardis/Go.hx
+gohaxelib/*/*.js
+gohaxelib/*/*.n
+gohaxelib/*/java/*
+gohaxelib/*/cs/*
+gohaxelib/*/cpp/*
+gohaxelib/*/php/*
+gohaxelib/*/*.swf
+gohaxelib/*/tardis/Go.hx
