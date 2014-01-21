@@ -16,10 +16,12 @@ const (
 
 var mouseEvents = make(chan mouseEvent, 100)
 
+// The next three functions are all called by Haxe event handlers
 func MouseUp(x, y float64)   { mouseEvents <- mouseEvent{MOUSE_UP, x, y} }
 func MouseDown(x, y float64) { mouseEvents <- mouseEvent{MOUSE_DOWN, x, y} }
 func MouseMove(x, y float64) { mouseEvents <- mouseEvent{MOUSE_MOVE, x, y} }
 
+// This function is called to set-up the mouse handling
 func MouseGoroutine() {
 	go handleMouse()
 }
