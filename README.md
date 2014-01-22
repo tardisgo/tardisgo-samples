@@ -31,7 +31,7 @@ go get "github.com/tardisgo/gohaxelib/_haxeapi"
 
 ### OpenFL - samples showing Go called from Haxe
 ---
-To run the OpenFl examples you will need to also install [OpenFL](http://openfl.org). Create the directory and run the tardisgo command as normal from the "Source" directory. Then follow the normal OpenFL/Lime development process. Or use the tgolime.sh script described below. 
+To run the OpenFl examples you will also need to follow the instructions to install OpenFL [here](http://www.openfl.org/download/). From the "Source" directory, check there is a "tardis" sub-directory and run the tardisgo command as normal e.g. "tardisgo mouse.go". Then follow the normal OpenFL/Lime development process from the directory above, try: "lime test html5". Or use the tgolime.sh script described below. 
 - [gohandlingmouseevents](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/gohandlingmouseevents/Source) (adapted from the OpenFL example) - you can see it working live at http://tardisgo.github.io/
  
 
