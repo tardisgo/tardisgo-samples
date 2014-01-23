@@ -9,7 +9,10 @@ package main
 import (
 	b64 "encoding/base64"
 	//import "fmt"
-	_ "github.com/tardisgo/tardisgo/golibruntime"
+	_ "github.com/tardisgo/tardisgo/golibruntime/bytes"
+	_ "github.com/tardisgo/tardisgo/golibruntime/strings"
+	_ "github.com/tardisgo/tardisgo/golibruntime/sync"
+	_ "github.com/tardisgo/tardisgo/golibruntime/sync/atomic"
 )
 
 func main() {
