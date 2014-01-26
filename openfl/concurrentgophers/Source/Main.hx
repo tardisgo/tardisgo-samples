@@ -36,10 +36,22 @@ class Main extends Sprite {
 	
 	private var textField:TextField;
 	private var whatToDo:TextField;
+	private var headline:TextField;
 
 	public function new () {
 		
 		super ();
+
+		// headline at the top
+		headline = new TextField ();
+		headline.selectable = true;
+		headline.x = 300;
+		headline.y = 10;
+		headline.width = 300;
+		headline.text = "TARDIS Go example; see tardisgo.github.io";
+		headline.textColor = 0x008000;		
+		addChild (headline);
+
 
 		// Explation text on the left
 		whatToDo = new TextField ();
