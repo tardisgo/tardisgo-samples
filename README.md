@@ -31,8 +31,11 @@ go get "github.com/tardisgo/gohaxelib/_haxeapi"
 
 ### OpenFL - samples showing Go called from Haxe
 ---
-To run the OpenFl examples you will also need to follow the instructions to install OpenFL [here](http://www.openfl.org/download/). From the "Source" directory, check there is a "tardis" sub-directory and run the tardisgo command as normal e.g. "tardisgo mouse.go". Then follow the normal OpenFL/Lime development process from the directory above, try: "lime test html5". Or use the tgolime.sh script described below. 
-- [gohandlingmouseevents](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/gohandlingmouseevents/Source) (adapted from the OpenFL example) - you can see it working live at http://tardisgo.github.io/
+You can see these examples working live at http://tardisgo.github.io/
+- [gohandlingmouseevents](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/gohandlingmouseevents/Source) (adapted from the OpenFL example) 
+- [concurrentgophers](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/concurrentgophers/Source) (inspired by slide 21 of "[Concurrency is not Parallelism (it's better)](http://concur.rspace.googlecode.com/hg/talk/concur.html#slide-21)" a talk by Rob Pike)
+
+To compile and run them you will also need to follow the instructions to install OpenFL [here](http://www.openfl.org/download/). From the "Source" directory, check there is a "tardis" sub-directory and run the tardisgo command as normal e.g. "tardisgo mouse.go". Then follow the normal OpenFL/Lime development process from the directory above, try: "lime test html5". Or use the tgolime.sh script described below. 
  
 
 
