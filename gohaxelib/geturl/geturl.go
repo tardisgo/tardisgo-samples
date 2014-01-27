@@ -5,14 +5,10 @@ import (
 	"github.com/tardisgo/tardisgo/tardisgolib"
 )
 
-// Print current Haxe date and time using the Haxe "target".Lib.println() API if one exists
+// Print tardisgo web site LICENSE in the simplest way possible (this particular formulation does not work for JavaScript, C# or Flash)
 func main() {
 
-	dateNow := _haxeapi.XDate_now()
-
-	sDate := string(_haxeapi.XDate(dateNow).XtoString())
-
-	s := tardisgolib.Platform() + " says it is " + sDate
+	s := string(_haxeapi.Xhaxe_Http_requestUrl("http://tardisgo.github.io/LICENSE"))
 
 	switch tardisgolib.Platform() {
 	case "neko":
@@ -28,5 +24,4 @@ func main() {
 		// print using the built-in trace-style println() for other platforms
 		println(s)
 	}
-
 }

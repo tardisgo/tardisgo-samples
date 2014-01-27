@@ -22,11 +22,13 @@ For help or general discussions about this repository please go to the [Google G
 
 ### gohaxelib - command line samples showing Haxe called from Go
 ---
-To run the [gohaxlib](https://github.com/tardisgo/gohaxelib) examples, you will first need to:
+The gohaxelib methodology is still very experimental and incomplete, as are these examples. To run the [gohaxlib](https://github.com/tardisgo/gohaxelib) examples, you will first need to:
 ```
 go get "github.com/tardisgo/gohaxelib/_haxeapi"
 ```
 - [printdatetime](https://github.com/tardisgo/tardisgo-samples/blob/master/gohaxelib/printdatetime/printdatetime.go) - Print current Haxe date and time using the Haxe "target".Lib.println() API if one exists 
+- [geturl](https://github.com/tardisgo/tardisgo-samples/blob/master/gohaxelib/geturl/geturl.go) Print tardisgo web site LICENSE in the simplest way possible (this particular formulation does not work for JavaScript, C# or Flash)
+
 
 
 ### OpenFL - animated graphical multi-platform samples showing Go called from Haxe
