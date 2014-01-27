@@ -5,7 +5,7 @@ Sample code using [TARDIS Go](https://github.com/tardisgo/tardisgo), both comman
 For help or general discussions about this repository please go to the [Google Group](https://groups.google.com/d/forum/tardisgo).
 
 
-### Go by example - command line samples adapted from https://gobyexample.com/
+### [Go by example](https://gobyexample.com/) : adapted command line examples
 
 ---
 - [hello world](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/helloworld/helloworld.go)
@@ -20,7 +20,7 @@ For help or general discussions about this repository please go to the [Google G
 - [base64 encoding](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/base64/base64.go) (uses "encoding/base64" package; not yet working for PHP target)
 
 
-### gohaxelib - command line samples showing Haxe called from Go
+### [gohaxelib](https://github.com/tardisgo/gohaxelib) : command line samples showing Haxe called from Go
 ---
 The gohaxelib methodology is still very experimental and incomplete, as are these examples. To run the [gohaxlib](https://github.com/tardisgo/gohaxelib) examples, you will first need to:
 ```
@@ -31,7 +31,7 @@ go get "github.com/tardisgo/gohaxelib/_haxeapi"
 
 
 
-### OpenFL - animated graphical multi-platform samples showing Go called from Haxe
+### [OpenFL](http://openfl.org) : animated graphical multi-platform samples showing Go called from Haxe
 ---
 You can see these examples working live at http://tardisgo.github.io/
 - [gohandlingmouseevents](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/gohandlingmouseevents/Source) (adapted from the OpenFL example) 
