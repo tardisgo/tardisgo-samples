@@ -60,7 +60,9 @@ For OSX and Ubuntu users, here are some scripts that might help:
 - mandlebrot
 - fannkuch
 
-(Results will be published at a talk on 2nd February 2014)
+A snapshot of TARDIS Go's poor relative performance as at January 2014 can be found in the graph [here](https://speakerdeck.com/elliott5/write-your-own-go-compiler?slide=29). But please note that both llgo and GopherJS had elements of their core Go implementations missing when these tests were run. 
+
+Improving the speed of TARDIS Go will be a focus of future development, with results reported at intervals.
 
 
 ### WIP
