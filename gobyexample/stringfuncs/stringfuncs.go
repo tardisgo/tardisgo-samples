@@ -25,7 +25,7 @@ func p(vs ...interface{}) {
 	}
 	switch len(vs) {
 	case 0:
-		println(" ")
+		println()
 	case 2:
 		println(x[0].(string), x[1])
 	}
