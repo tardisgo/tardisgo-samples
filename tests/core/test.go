@@ -2,17 +2,18 @@
 
 // TODO separate this jumble of tests into a set of smaller ones
 
+// This package should only test the core language functionality, all standard package tests moved elsewhere
 package main
 
 import (
-	"math"
+	//"math"
 	//"math/big" // does not currently complile - infinite loop
-	"bytes"
+	//"bytes"
 	"github.com/tardisgo/tardisgo/tardisgolib"
-	"runtime"
-	"strconv"
-	"strings"
-	"sync"
+	//"runtime"
+	//"strconv"
+	//"strings"
+	"sync" // keep these two for now...
 	"sync/atomic"
 	"unicode/utf8"
 
@@ -21,8 +22,6 @@ import (
 )
 
 const tardisgoLibRuntimePath = "github.com/tardisgo/tardisgo/golibruntime"
-
-//const tardisgoHaxePackage = "pogo"
 
 const tardisgoHeader = "/* TARDIS Go general header*/"
 
@@ -403,7 +402,7 @@ func testAppend() {
 
 func testHeader() {
 	if tardisgolib.Host() == "Haxe" { // test of "pogoHeaderHaxe"
-		//TODO implement a way to do this probably using _package
+		//TODO implement a way to do this properly, probably using _package
 		//TEQ(tardisgolib.CPos(), pg.C1("Util.comma", 75840032), string("75,840,032"))
 		//TEQ(tardisgolib.CPos(), pg.C1("Util.comma", 300012301), string("300,012,301"))
 	}
@@ -820,8 +819,8 @@ func testIntOverflow() { //TODO add int64
 	TEQfloat(tardisgolib.CPos(), float64(uint64Global), float64(uint64(0xffffffffffffffff)), float64(2000.0))
 
 	// tests below removed to avoid also loading the math package
-	TEQint64(tardisgolib.CPos()+" NaN ->int64 conversion", int64(math.NaN()), -9223372036854775808)
-	TEQuint64(tardisgolib.CPos()+" NaN ->uint64 conversion (error on php)", uint64(math.NaN()), 9223372036854775808)
+	//TEQint64(tardisgolib.CPos()+" NaN ->int64 conversion", int64(math.NaN()), -9223372036854775808)
+	//TEQuint64(tardisgolib.CPos()+" NaN ->uint64 conversion (error on php)", uint64(math.NaN()), 9223372036854775808)
 
 	myPi := float64(7)
 	myPi64 := int64(myPi)
@@ -1091,11 +1090,11 @@ func testVariadic(values ...int) {
 
 func testMath() {
 	// comment out for quicker testing
-
-	if int(math.Sqrt(16.0)) != 4 {
-		println(tardisgolib.CPos() + ": Incorrect square root of 16")
-	}
-
+	/*
+		if int(math.Sqrt(16.0)) != 4 {
+			println(tardisgolib.CPos() + ": Incorrect square root of 16")
+		}
+	*/
 }
 
 func testInterface() {
@@ -1236,20 +1235,20 @@ func testInterfaceMethods() {
 }
 
 func testStrconv() {
+	/*
+		TEQ(tardisgolib.CPos()+"testStrconv():Itoa", "424242", strconv.Itoa(424242))
 
-	TEQ(tardisgolib.CPos()+"testStrconv():Itoa", "424242", strconv.Itoa(424242))
+		TEQ(tardisgolib.CPos(), strings.HasPrefix("say what", "say"), true)
+		TEQ(tardisgolib.CPos()+" string.Contains (error on js)", strings.Contains("say what", "ay"), true)
+		TEQ(tardisgolib.CPos()+" string.Contains (error on js)", strings.Contains("seafood", "foo"), true)
+		TEQ(tardisgolib.CPos(), strings.Contains("seafood", "bar"), false)
+		TEQ(tardisgolib.CPos(), strings.Contains("seafood", ""), true)
+		TEQ(tardisgolib.CPos(), strings.Contains("", ""), true)
+		TEQ(tardisgolib.CPos(), strings.Contains("equal?", "equal?"), true)
 
-	TEQ(tardisgolib.CPos(), strings.HasPrefix("say what", "say"), true)
-	TEQ(tardisgolib.CPos()+" string.Contains (error on js)", strings.Contains("say what", "ay"), true)
-	TEQ(tardisgolib.CPos()+" string.Contains (error on js)", strings.Contains("seafood", "foo"), true)
-	TEQ(tardisgolib.CPos(), strings.Contains("seafood", "bar"), false)
-	TEQ(tardisgolib.CPos(), strings.Contains("seafood", ""), true)
-	TEQ(tardisgolib.CPos(), strings.Contains("", ""), true)
-	TEQ(tardisgolib.CPos(), strings.Contains("equal?", "equal?"), true)
-
-	TEQ(tardisgolib.CPos(), bytes.HasPrefix([]byte("say what"), []byte("say")), true)
-	TEQ(tardisgolib.CPos(), bytes.Contains([]byte("say what"), []byte("ay")), true)
-
+		TEQ(tardisgolib.CPos(), bytes.HasPrefix([]byte("say what"), []byte("say")), true)
+		TEQ(tardisgolib.CPos(), bytes.Contains([]byte("say what"), []byte("ay")), true)
+	*/
 }
 
 func sum(a []int, c chan int) {
@@ -1331,7 +1330,8 @@ func ilogb(x float64) int {
 	return int(Sqrt(x))
 }
 func testCaseSensitivity() {
-	TEQ(tardisgolib.CPos(), ilogb(64), Ilogb(64))
+	//moved to a separate test file
+	//TEQ(tardisgolib.CPos(), ilogb(64), Ilogb(64))
 }
 
 var (
@@ -1345,7 +1345,7 @@ func aGoroutine(a int) {
 		//panic("test panic in goroutine 4")
 	}
 	for i := 0; i < a; i++ {
-		runtime.Gosched()
+		tardisgolib.Gosched()
 	}
 	(&aGrCtrMux).Lock()
 	atomic.AddInt32(&aGrCtr, -1)
@@ -1498,10 +1498,11 @@ func main() {
 	if tardisgolib.Host() == "haxe" {
 		TEQ(tardisgolib.CPos(), int(tardisgolib.HAXE("42;")), int(42))
 		TEQ(tardisgolib.CPos(), string(tardisgolib.HAXE("'test';")), "test")
-		TEQ(tardisgolib.CPos()+"Num Haxe GR post-wait", runtime.NumGoroutine(), 1)
+		TEQ(tardisgolib.CPos()+"Num Haxe GR post-wait", tardisgolib.NumGoroutine(), 1)
 	} else {
-		TEQ(tardisgolib.CPos()+"Num Haxe GR post-wait", runtime.NumGoroutine(), 2)
+		TEQ(tardisgolib.CPos()+"Num Haxe GR post-wait", tardisgolib.NumGoroutine(), 2)
 	}
 	println("End test running in: " + tardisgolib.Platform())
 	println("再见！Previous two chinese characters should say goodbye! (testing unicode output)")
+	println()
 }

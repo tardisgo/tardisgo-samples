@@ -8,7 +8,7 @@ if [ "$?" = "0" ]; then
 	haxe -main tardis.Go -dce full -cpp cpp 
 	haxe -main tardis.Go -dce full -java java
 	haxe -main tardis.Go -dce full -cs cs
-	haxe -main tardis.Go -dce full -php php --php-prefix tardisgo
+	haxe -main tardis.Go -dce full -php php --php-prefix tardisgo 
 	echo "Neko (haxe --interp):"
 	haxe -main tardis.Go --interp
 	echo "Neko:"
