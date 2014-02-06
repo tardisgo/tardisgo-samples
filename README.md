@@ -20,7 +20,7 @@ For help or general discussions about this repository please go to the [Google G
 - [sorting by functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/sortbyfunc/sortbyfunc.go) (uses "sort" package)
 - [collection functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/collections/collections.go) (uses "strings" package; not yet working for PHP, C++ or Java targets)
 - [string functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/stringfuncs/stringfuncs.go) (uses "strings" package; strings.split() function not yet working correctly for flash target)
-- [base64 encoding](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/base64/base64.go) (uses "encoding/base64" package; not yet working for PHP target)
+- [base64 encoding](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/base64/base64.go) (uses "encoding/base64" package)
 
 
 ### [gohaxelib](https://github.com/tardisgo/gohaxelib) : command line samples showing Haxe called from Go
