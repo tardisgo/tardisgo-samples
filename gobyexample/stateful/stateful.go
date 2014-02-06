@@ -62,7 +62,7 @@ func main() {
 	// channel `resp` to indicate success (and the desired
 	// value in the case of `reads`).
 	go func() {
-		var state [100]int // TODO(tardisgo) using make(map[int]int) here produces a cast error for some targets, but works for Java and C# as at Jan'14
+		state := make(map[int]int)
 		for {
 			select {
 			case read := <-reads:
@@ -117,5 +117,5 @@ func main() {
 	// Finally, capture and report the `ops` count.
 	opsFinal := atomic.LoadInt64(&ops)
 	//fmt.Println("ops:", opsFinal)
-	println("ops:", opsFinal)
+	println("ops:", int(opsFinal)) // TODO println of a 64-bit int does not show the actual value on all platforms, only the type name see issue #18
 }
