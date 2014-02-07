@@ -18,7 +18,7 @@ type binaryNode struct {
 
 func bottomUpTree(item, depth int) *binaryNode {
 	if depth <= 0 {
-		return &binaryNode{item: item, left: nil, right: nil} // was without left and right declaration
+		return &binaryNode{item: item}
 	}
 	return &binaryNode{item, bottomUpTree(2*item-1, depth-1), bottomUpTree(2*item, depth-1)}
 }
