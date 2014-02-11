@@ -1458,6 +1458,29 @@ func tourfib() {
 
 // end tour
 
+func testUintDiv32() {
+	var uifs, pwr2 uint32
+	uifs = uint32(0xffffffff) // TODO add tests for other -ve numbers
+	pwr2 = uint32(1)
+	for i := uint32(0); i < 32; i++ {
+		if !TEQuint32("testUintDiv32() ", uifs>>i, uifs/pwr2) {
+			println("Problem i=", int(i))
+		}
+		pwr2 *= 2
+	}
+}
+func testUintDiv64() {
+	var uifs, pwr2 uint64
+	uifs = uint64(0xffffffffffffffff)
+	pwr2 = uint64(1)
+	for i := uint64(0); i < 64; i++ {
+		if !TEQuint64("testUintDiv64() ", uifs>>i, uifs/pwr2) {
+			println("Problem i=", int(i))
+		}
+		pwr2 *= 2
+	}
+}
+
 func main() {
 	println("Start test running in: " + tardisgolib.Platform())
 	testManyGoroutines()
@@ -1492,6 +1515,8 @@ func main() {
 	testInterfaceMethods()
 	testStrconv()
 	testTour64()
+	testUintDiv32()
+	testUintDiv64()
 	testDefer()
 	aGrWG.Wait()
 	TEQint32(tardisgolib.CPos()+" testManyGoroutines() sync/atomic counter:", aGrCtr, 0)

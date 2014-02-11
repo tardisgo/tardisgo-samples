@@ -13,29 +13,66 @@ func main() {
 
 	// With `ParseFloat`, this `64` tells how many bits of
 	// precision to parse.
-	f, _ := strconv.ParseFloat("1.234", 64)
-	println(f)
+	f, err := strconv.ParseFloat("1.234", 64)
+	if err == nil {
+		println(f)
+	} else {
+		println(err.Error())
+	}
+
+	println(strconv.IntSize)
+	println(cutoff64(32))
 
 	// For `ParseInt`, the `0` means infer the base from
 	// the string. `64` requires that the result fit in 64
 	// bits.
-	i, _ := strconv.ParseInt("123", 0, 64)
-	println(i)
+	i, err := strconv.ParseInt("123", 0, 32) // was 64)
+	if err == nil {
+		println(i)
+	} else {
+		println(err.Error())
+	}
+	println(strconv.FormatInt(i, 10))
 
 	// `ParseInt` will recognize hex-formatted numbers.
-	d, _ := strconv.ParseInt("0x1c8", 0, 64)
-	println(d)
+	d, err := strconv.ParseInt("0x1c8", 0, 32) // was 64)
+	if err == nil {
+		println(d)
+	} else {
+		println(err.Error())
+	}
+	println(strconv.FormatInt(d, 10))
 
 	// A `ParseUint` is also available.
-	u, _ := strconv.ParseUint("789", 0, 64)
-	println(u)
+	u, err := strconv.ParseUint("789", 0, 32) // was 64)
+	if err == nil {
+		println(u)
+	} else {
+		println(err.Error())
+	}
+	println(strconv.FormatUint(u, 10))
 
 	// `Atoi` is a convenience function for basic base-10
 	// `int` parsing.
-	k, _ := strconv.Atoi("135")
-	println(k)
+	k, err := strconv.Atoi("135")
+	if err == nil {
+		println(k)
+	} else {
+		println(err.Error())
+	}
 
 	// Parse functions return an error on bad input.
 	_, e := strconv.Atoi("wat")
-	panic(e)
+	println(e.Error())
+}
+
+func cutoff64(base int) uint64 {
+	if base < 2 {
+		return 0
+	}
+	println("uint64(1<<64 - 1)=", uint64(1<<64-1))
+	println("uint64(base)=", uint64(base))
+	println("uint64(0xffffffff)/uint64(base) + 1=", uint64(0xffffffff)/uint64(base)+1)
+	println("uint(0xffffffff)/uint(base) + 1=", uint(0xffffffff)/uint(base)+1)
+	return (1<<64-1)/uint64(base) + 1
 }
