@@ -1460,11 +1460,20 @@ func tourfib() {
 
 func testUintDiv32() {
 	var uifs, pwr2 uint32
-	uifs = uint32(0xffffffff) // TODO add tests for other -ve numbers
+	uifs = uint32(0xffffffff) // test for  "-1" number constant
 	pwr2 = uint32(1)
 	for i := uint32(0); i < 32; i++ {
-		if !TEQuint32("testUintDiv32() ", uifs>>i, uifs/pwr2) {
-			println("Problem i=", int(i))
+		if !TEQuint32("testUintDiv32() T1 ", (uifs)>>i, (uifs)/pwr2) {
+			println("ProblemT1 i=", int(i))
+		}
+		pwr2 *= 2
+	}
+	uifs2 := uint32(0xfffffff0) //  test another "-ve" number constant
+	uifs = uifs2
+	pwr2 = uint32(1)
+	for i := uint32(0); i < 32; i++ {
+		if !TEQuint32("testUintDiv32() T2 ", (uifs)>>i, (uifs)/pwr2) {
+			println("ProblemT2 i=", int(i))
 		}
 		pwr2 *= 2
 	}
