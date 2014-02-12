@@ -1484,7 +1484,7 @@ func testUintDiv32() {
 }
 func testUintDiv64() {
 	var uifs, pwr2 uint64
-	uifs = uint64(0xffffffffffffffff)
+	uifs = uint64(0xfffffffffffffff0)
 	pwr2 = uint64(1)
 	for i := uint64(0); i < 64; i++ {
 		if !TEQuint64("testUintDiv64() ", uifs>>i, uifs/pwr2) {

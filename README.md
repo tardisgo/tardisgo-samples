@@ -19,7 +19,8 @@ For help or general discussions about this repository please go to the [Google G
 - [stateful goroutines](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/stateful/stateful.go) (uses "sync/atomic" package)
 - [sorting by functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/sortbyfunc/sortbyfunc.go) (uses "sort" package)
 - [collection functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/collections/collections.go) (uses "strings" package)
-- [string functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/stringfuncs/stringfuncs.go) (uses "strings" package; strings.split() function not yet working correctly for flash target)
+- [string functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/stringfuncs/stringfuncs.go) (uses "strings" package; strings.split function not yet working correctly for flash target)
+- [number parsing](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/numberparsing/numberparsing.go) (uses "strconv" package)
 - [base64 encoding](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/base64/base64.go) (uses "encoding/base64" package)
 
 
