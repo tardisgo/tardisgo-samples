@@ -54,8 +54,10 @@ func TEQ(l string, a, b interface{}) bool {
 func TEQuint64(l string, a, b uint64) bool {
 	if a != b {
 		println("TEQui64 error " + l + " ")
-		println(a)
-		println(b)
+		println("high a", uint(a>>32))
+		println("low a", uint(a&0xFFFFFFFF))
+		println("high b", uint(b>>32))
+		println("low b", uint(b&0xFFFFFFFF))
 		return false
 	}
 	return true
@@ -63,8 +65,10 @@ func TEQuint64(l string, a, b uint64) bool {
 func TEQint64(l string, a, b int64) bool {
 	if a != b {
 		println("TEQi64 error " + l + " ")
-		println(a)
-		println(b)
+		println("high a", int(a>>32))
+		println("low a", int(a&0xFFFFFFFF))
+		println("high b", int(b>>32))
+		println("low b", int(b&0xFFFFFFFF))
 		return false
 	}
 	return true
