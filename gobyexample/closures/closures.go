@@ -16,7 +16,7 @@ package main
 func intSeq() func() int {
 	i := 0
 	return func() int {
-		i += 1
+		i++
 		return i
 	}
 }

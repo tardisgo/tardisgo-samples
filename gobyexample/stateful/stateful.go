@@ -44,7 +44,7 @@ type writeOp struct {
 func main() {
 
 	// As before we'll count how many operations we perform.
-	var ops int64 = 0
+	var ops int64
 
 	// The `reads` and `writes` channels will be used by
 	// other goroutines to issue read and write requests,
