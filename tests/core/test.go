@@ -18,7 +18,8 @@ import (
 	"unicode/utf8"
 
 	// final one at end to match the constant declaration
-	_ "github.com/tardisgo/tardisgo/golibruntime"
+	_ "github.com/tardisgo/tardisgo/golibruntime/sync"
+	_ "github.com/tardisgo/tardisgo/golibruntime/sync/atomic"
 )
 
 const tardisgoLibRuntimePath = "github.com/tardisgo/tardisgo/golibruntime"
