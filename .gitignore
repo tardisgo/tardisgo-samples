@@ -1,4 +1,14 @@
 .DS_Store
+*/*/Go.hx
+*/*/*/Go.hx
+*/*/*/*/Go.hx
+*/*/*/*/*/Go.hx
+*/*/*/*/*/*/Go.hx
+*/*/*.pprof
+*/*/*/*.pprof
+*/*/*/*/*.pprof
+*/*/*/*/*/*.pprof
+*/*/*/*/*/*/*.pprof
 gobyexample/*/*.js
 gobyexample/*/*.n
 gobyexample/*/java/*
