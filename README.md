@@ -19,9 +19,9 @@ For help or general discussions about this repository please go to the [Google G
 - [stateful goroutines](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/stateful/stateful.go) (uses "sync/atomic" package)
 - [sorting by functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/sortbyfunc/sortbyfunc.go) (uses "sort" package)
 - [collection functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/collections/collections.go) (uses "strings" package)
-- [string functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/stringfuncs/stringfuncs.go) (uses "strings" package; strings.split function not yet working correctly for flash target)
-- [number parsing](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/numberparsing/numberparsing.go) (uses "strconv" package)
-- [base64 encoding](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/base64/base64.go) (uses "encoding/base64" package)
+- [string functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/stringfuncs/stringfuncs.go) (uses "strings" package; strings.split function not yet working correctly for Flash target)
+- [number parsing](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/numberparsing/numberparsing.go) (uses "strconv" package, not working for Flash target)
+- [base64 encoding](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/base64/base64.go) (uses "encoding/base64" package, not working for PHP target)
 
 
 ### [gohaxelib](https://github.com/tardisgo/gohaxelib) : command line samples showing Haxe called from Go
@@ -48,7 +48,7 @@ To compile and run them you will also need to follow the instructions to install
 
 ### Scripts 
 ---
-For OSX and Ubuntu users, here are some scripts that might help:
+For OSX and Ubuntu users, here are some scripts that might help. Note: they are written for HAXE 3.1.0:
 - [tgo.sh](https://github.com/tardisgo/tardisgo-samples/blob/master/scripts/tgo.sh) : transpile all the code in the current directory and run haxe on the result using the user-provided haxe flags
 - [tgoall.sh](https://github.com/tardisgo/tardisgo-samples/blob/master/scripts/tgoall.sh) : transpile all the code in the current directory for all haxe targets and test each of them (requires all the haxe target languages to be installed, with any required haxelibs, tested on OSX)
 - [tgoallu.sh](https://github.com/tardisgo/tardisgo-samples/blob/master/scripts/tgoallu.sh) :  Ubuntu version of tgoall.sh

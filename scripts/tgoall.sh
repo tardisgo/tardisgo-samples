@@ -18,9 +18,9 @@ if [ "$?" = "0" ]; then
 	echo "CPP:"
 	./cpp/Go
 	echo "Java:"
-	java -jar java/java.jar
+	java -jar java/Go.jar
 	echo "CS:"
-	mono ./cs/bin/cs.exe
+	mono ./cs/bin/Go.exe
 	echo "PHP:"
 	php php/index.php
 	echo "Opening swf file (Chrome as a file association for swf works to test on OSX):"
