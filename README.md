@@ -48,13 +48,13 @@ To compile and run them you will also need to follow the instructions to install
 
 ### Scripts 
 ---
-For OSX and Ubuntu users, here are some scripts that might help. Note: they are written for HAXE 3.1.0:
+For OSX and Ubuntu users, here are some scripts that might help, they are written for HAXE 3.1.1. NOTE: The tardisgo -testall flag (e.g. "tardisgo -testall mycode.go") provides the same functionality as tgoall.sh/tgoallu.sh below, but runs all the jobs concurrently and so is faster:
 - [tgo.sh](https://github.com/tardisgo/tardisgo-samples/blob/master/scripts/tgo.sh) : transpile all the code in the current directory and run haxe on the result using the user-provided haxe flags
 - [tgoall.sh](https://github.com/tardisgo/tardisgo-samples/blob/master/scripts/tgoall.sh) : transpile all the code in the current directory for all haxe targets and test each of them (requires all the haxe target languages to be installed, with any required haxelibs, tested on OSX)
 - [tgoallu.sh](https://github.com/tardisgo/tardisgo-samples/blob/master/scripts/tgoallu.sh) :  Ubuntu version of tgoall.sh
 - [tgolime.sh](https://github.com/tardisgo/tardisgo-samples/blob/master/scripts/tgolime.sh) : wrapper for the OpenFL "lime" command, to transpile the Go first
 
-(TODO: windows .BAT examples)
+
 
 
 ### Benchmarks
