@@ -6,8 +6,10 @@
 	
 	<source path="Source" />
 	
+	<set name="html5-backend" value="openfl-html5-dom" />
 	<haxelib name="openfl" />
 	
+			
 	<assets path="Assets" rename="assets" exclude="*.svg" />
 	<icon path="Assets/gopher.svg" />
 	
