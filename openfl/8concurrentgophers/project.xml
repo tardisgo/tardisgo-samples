@@ -6,7 +6,6 @@
 	
 	<source path="Source" />
 	
-	<set name="html5-backend" value="openfl-html5-dom" />
 	<haxelib name="openfl" />
 	
 			

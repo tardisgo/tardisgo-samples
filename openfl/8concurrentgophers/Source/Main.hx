@@ -1,10 +1,14 @@
-package; // written for FOSDEM14
+package; // written for FOSDEM14, using new (March 2014) openfl-html5 back-end
 
 import flash.display.Bitmap;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
-import flash.utils.Timer;
+#if js
+	import utils.Timer; // copy of flash.utils.timer from old openfl html5 back-end, requirement for this should be removed once included in the main library
+#else
+	import haxe.utils.Timer;
+#end
 import openfl.Assets;
 import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
