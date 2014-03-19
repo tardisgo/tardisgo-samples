@@ -4,11 +4,13 @@ import flash.display.Bitmap;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
+
 #if js
-	import utils.Timer; // copy of flash.utils.timer from old openfl html5 back-end, requirement for this should be removed once included in the main library
+import myutils.Timer; // copy of flash.utils.timer from old openfl html5 back-end, requirement for this should be removed once included in the main library
 #else
-	import haxe.utils.Timer;
+import flash.utils.Timer;
 #end
+
 import openfl.Assets;
 import flash.text.TextField;
 import flash.text.TextFieldAutoSize;

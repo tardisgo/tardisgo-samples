@@ -1,12 +1,37 @@
 
 // COPY of https://raw.github.com/openfl/openfl-html5-dom/master/flash/utils/Timer.hx
 
-package utils;
-
+package myutils;
 
 import flash.events.EventDispatcher;
-import flash.events.TimerEvent;
+//import flash.events.TimerEvent;
 
+
+import flash.events.Event;
+
+
+class TimerEvent extends Event {
+	
+	
+	public static inline var TIMER:String = "timer";
+	public static inline var TIMER_COMPLETE:String = "timerComplete";
+	
+	
+	public function new (type:String, bubbles:Bool = false, cancelable:Bool = false):Void {
+		
+		super(type, bubbles, cancelable);
+		
+	}
+	
+	
+	public function updateAfterEvent ():Void {
+		
+		
+		
+	}
+	
+	
+}
 
 class Timer extends EventDispatcher {
 	
@@ -130,4 +155,3 @@ class Timer extends EventDispatcher {
 	
 	
 }
-
