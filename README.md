@@ -15,6 +15,7 @@ For help or general discussions about this repository please go to the [Google G
 - [methods](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/methods/methods.go)
 - [interfaces](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/interfaces/interfaces.go)
 - [channel synchronization](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/chansync/chansync.go)
+- [Non-Blocking Channel Operations](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/nonblock/nonblock.go)
 - [range over channel](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/rangeoverchan/rangeoverchan.go)
 - [stateful goroutines](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/stateful/stateful.go) (uses "sync/atomic" package)
 - [sorting by functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/sortbyfunc/sortbyfunc.go) (uses "sort" package)
