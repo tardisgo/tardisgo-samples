@@ -5,7 +5,8 @@ import (
 	"github.com/tardisgo/tardisgo/tardisgolib"
 )
 
-// Print tardisgo web site LICENSE in the simplest way possible (this particular formulation does not work for JavaScript, C# or Flash)
+// Print tardisgo web site LICENSE in the simplest way possible
+// (this particular formulation does not work for JavaScript, C# or Flash)
 func main() {
 
 	s := string(_haxeapi.Xhaxe_Http_requestUrl("http://tardisgo.github.io/LICENSE"))

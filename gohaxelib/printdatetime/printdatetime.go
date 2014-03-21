@@ -10,9 +10,13 @@ func main() {
 
 	dateNow := _haxeapi.XDate_now()
 
-	sDate := string(_haxeapi.XDate(dateNow).XtoString())
+	sDate := dateNow.XtoString()
 
-	s := tardisgolib.Platform() + " says it is " + sDate
+	fTime := dateNow.XgetTime()
+
+	sTime := _haxeapi.XStd_string(fTime)
+
+	s := tardisgolib.Platform() + " says it is " + sDate + "; timstamp= " + sTime
 
 	switch tardisgolib.Platform() {
 	case "neko":
