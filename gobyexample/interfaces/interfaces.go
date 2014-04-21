@@ -5,7 +5,11 @@
 
 package main
 
-import "math"
+import (
+	"math"
+
+	_ "github.com/tardisgo/tardisgo/golibruntime/math"
+)
 
 // Here's a basic interface for geometric shapes.
 type geometry interface {
