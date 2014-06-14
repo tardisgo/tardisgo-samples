@@ -10,6 +10,7 @@
 */*/*/*/*/*.pprof
 */*/*/*/*/*/*.pprof
 gobyexample/*/*.js
+gobyexample/*/*.js.map
 gobyexample/*/*.n
 gobyexample/*/java/*
 gobyexample/*/cs/*
@@ -20,6 +21,7 @@ gobyexample/*/tardis/Go.hx
 openfl/*/Export/*
 openfl/*/Source/tardis/Go.hx
 tests/*/*.js
+tests/*/*.js.map
 tests/*/*.n
 tests/*/java/*
 tests/*/cs/*
@@ -28,6 +30,7 @@ tests/*/php/*
 tests/*/*.swf
 tests/*/tardis/Go.hx
 benchmarks/*/*.js
+benchmarks/*/*.js.map
 benchmarks/*/*.n
 benchmarks/*/java/*
 benchmarks/*/cs/*
@@ -36,6 +39,7 @@ benchmarks/*/php/*
 benchmarks/*/*.swf
 benchmarks/*/tardis/Go.hx
 wip/*/*.js
+wip/*/*.js.map
 wip/*/*.n
 wip/*/java/*
 wip/*/cs/*
@@ -44,6 +48,7 @@ wip/*/php/*
 wip/*/*.swf
 wip/*/tardis/Go.hx
 gohaxelib/*/*.js
+gohaxelib/*/*.js.map
 gohaxelib/*/*.n
 gohaxelib/*/java/*
 gohaxelib/*/cs/*

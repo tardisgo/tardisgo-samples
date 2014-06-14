@@ -21,7 +21,6 @@ For help or general discussions about this repository please go to the [Google G
 - [sorting by functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/sortbyfunc/sortbyfunc.go) (uses "sort" package)
 - [collection functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/collections/collections.go) (uses "strings" package)
 - [string functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/stringfuncs/stringfuncs.go) (uses "strings" package; strings.split function not yet working correctly for Flash target)
-- [number parsing](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/numberparsing/numberparsing.go) (uses "strconv" package, not working for Flash target)
 - [base64 encoding](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/base64/base64.go) (uses "encoding/base64" package, not working for PHP target)
 
 
@@ -60,8 +59,9 @@ For OSX and Ubuntu users, here are some scripts that might help, they are writte
 
 ### Benchmarks
 ---
-- mandlebrot
+- mandlebrot 
 - fannkuch
+- binarytree
 
 A snapshot of TARDIS Go's poor relative performance as at January 2014 can be found in the graph [here](https://speakerdeck.com/elliott5/write-your-own-go-compiler?slide=29). But please note that both llgo and GopherJS had elements of their core Go implementations missing when these tests were run. 
 

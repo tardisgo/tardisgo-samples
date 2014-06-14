@@ -4,5 +4,5 @@ cd Source
 tardisgo *.go
 if [ "$?" = "0" ]; then
 	cd ..
-	lime $*
+	lime —build-library=hxcpp $*
 fi

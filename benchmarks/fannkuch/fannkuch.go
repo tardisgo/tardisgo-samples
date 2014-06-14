@@ -84,5 +84,4 @@ func BenchmarkFannkuch11(b *testing.B) {
 	}
 }
 */
-func main(){fannkuch(11)}
-
+func main() { fannkuch(11) }
