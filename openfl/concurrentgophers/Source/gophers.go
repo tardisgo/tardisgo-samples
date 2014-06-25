@@ -1,13 +1,17 @@
-// animation inspired by http://concur.rspace.googlecode.com/hg/talk/concur.html#landing-slide
+// animation inspired by http://blog.golang.org/concurrency-is-not-parallelism
 // gopher logo by Renée French
 
 package main
 
-import "github.com/tardisgo/tardisgo/tardisgolib"
+import (
+	"github.com/tardisgo/tardisgo/tardisgolib"
+	"github.com/tardisgo/tardisgo/tardisgolib/hx"
+)
 
+// see haxe file Main.hx for the true entry point
 func main() {}
 
-// the globals below are inspected by the Haxe code to move and change sprites to create the animation
+// the globals below are inspected by the Haxe interface code below to move and change sprites to create the animation
 var bigpile, smallpile, oven chan int
 var Sprite1X, Sprite1Y, Sprite2X, Sprite2Y float64
 var Sprite1state, Sprite2state int
@@ -20,12 +24,14 @@ const ( // constants for the state of a gopher, also used by Haxe code
 )
 
 // This function is called to set-off the gophers
-func StartGophers() {
+func startGophers() {
 	bigpile = make(chan int)
 	bigpile <- 1     // start low, so that left-hand gopher moves fast
 	go fillbigpile() // keep adding randomly to the big pile
+
 	smallpile = make(chan int)
 	smallpile <- 10 // start high, so that right-hand gopher moves slow
+
 	oven = make(chan int)
 	go fire() // burn everything that arrives!
 
@@ -76,7 +82,7 @@ func pushBooks(x, y *float64, state *int, cartLoad int) {
 		if *y > 0.0 { // create bumps in the road
 			*y = 0.0
 		} else {
-			*y = float64(tardisgolib.HAXE("Std.random(3);")) // random small bumps
+			*y = float64(hx.CodeInt("Std.random(3);")) // random small bumps
 		}
 		tardisgolib.Gosched() // without this, the animation would not show each state
 	}
@@ -100,7 +106,7 @@ func moreBooks(x, y *float64, state *int) {
 		if *y > 0.0 { // create bumps in the road
 			*y = 0.0
 		} else {
-			*y = float64(tardisgolib.HAXE("Std.random(5);")) // random bigger bumps
+			*y = float64(hx.CodeInt("Std.random(5);")) // random bigger bumps
 		}
 		tardisgolib.Gosched() // would not show state without this, the animation would jump.
 	}
@@ -110,5 +116,184 @@ func loop(n int) { // add some delay when required
 	for n > 0 {
 		n--
 		tardisgolib.Gosched() // give up control in order to show the gopher waiting
+	}
+}
+
+/*************************************** Haxe/OpenFL interface code *************************************/
+
+var mainThis, headline, Books, Logo1, Logo2, Sprite1, Sprite2, goTimer uintptr
+
+const (
+	s1x = 90
+	s1y = 45
+	s2x = 420
+	s2y = 45
+)
+
+func makeText(selectable bool, x, y, width, height, textColor int, text string) uintptr {
+	txt := hx.CodeDynamic("new openfl.text.TextField ();")
+	hx.FsetBool(txt, "selectable", selectable)
+	hx.FsetInt(txt, "x", x)
+	hx.FsetInt(txt, "y", y)
+	hx.FsetInt(txt, "width", width)
+	hx.FsetInt(txt, "height", height)
+	hx.FsetInt(txt, "textColor", textColor)
+	hx.FsetString(txt, "text", text)
+	hx.Meth(mainThis, "addChild", 1, txt)
+	return txt
+}
+
+func makeBitmap(file string) uintptr {
+	return hx.CodeDynamic(`new openfl.display.Bitmap (openfl.Assets.getBitmapData (_a[0].val));`, file)
+}
+
+func makeSprite(bitmap uintptr, x, y int) uintptr {
+	sp := hx.CodeDynamic("new  openfl.display.Sprite ();")
+	hx.Meth(sp, "addChild", 1, bitmap)
+	hx.FsetInt(sp, "x", x)
+	hx.FsetInt(sp, "y", y)
+	hx.Meth(mainThis, "addChild", 1, sp)
+	return sp
+}
+
+var emptyPilePng, smallPilePng, pickPng1, pickPng2, fullPng1, fullPng2, emptyPng1, emptyPng2, shovelPng1, shovelPng2 uintptr
+
+func Start(mt uintptr) {
+	mainThis = mt // this is actually a Haxe object, therefore a pointer, so can't be passed by value within Go
+
+	// setup the animated PNG bitmaps
+	emptyPilePng = makeBitmap("assets/emptypile.png")
+	smallPilePng = makeBitmap("assets/smallpile.png")
+	pickPng1 = makeBitmap("assets/pick.png")
+	pickPng2 = makeBitmap("assets/pick.png")
+	fullPng1 = makeBitmap("assets/full.png")
+	fullPng2 = makeBitmap("assets/full.png")
+	emptyPng1 = makeBitmap("assets/empty.png")
+	emptyPng2 = makeBitmap("assets/empty.png")
+	shovelPng1 = makeBitmap("assets/shovel.png")
+	shovelPng2 = makeBitmap("assets/shovel.png")
+
+	// headline at the top
+	headline = makeText(false, 200, 10, 500, 50, 0x008000, "")
+
+	// Explation text on the left
+	makeText(false, 10, 140, 180, 200, 0x008000, `Both animated gophers are 
+running the code on the right.
+The 2 logos show where they
+each are in that code now.
+Go uses the tardsigolib/hx
+package to call Haxe.`)
+
+	// the code extract in the centre
+	makeSprite(makeBitmap("assets/function.png"), 200, 110)
+
+	// the "inspired by"" text
+	makeText(true, 590, 140, 200, 200, 0x008000, `Inspired by Rob Pike:
+"Concurrency is not Parallelism"
+http://blog.golang.org/
+concurrency-is-not-parallelism
+
+- Gopher by Renee French`)
+
+	// big pile of books on the left
+	makeSprite(makeBitmap("assets/bigpile.png"), 10, 20)
+
+	// oven on the right
+	makeSprite(makeBitmap("assets/oven.png"), 690, 0)
+
+	// books in the middle
+	Books = makeSprite(emptyPilePng, 390, 50)
+
+	// the left hand code indicator
+	Logo1 = makeSprite(makeBitmap("assets/gophercolor16x16.png"), 230, 140)
+
+	// the right hand code indicator
+	Logo2 = makeSprite(makeBitmap("assets/gophercolor16x16flipped.png"), 540, 140)
+
+	// the left hand gopher
+	Sprite1 = makeSprite(pickPng1, s1x, s1y)
+
+	// the right hand gopher
+	Sprite2 = makeSprite(pickPng2, s2x, s2y)
+
+	startGophers() // start the animation logic
+	go monitor()   // monitor the state of the system on the display
+
+	// now start an OpenFL timer to schedule this Go code to run every time a new frame is calculated
+	hx.Meth(mainThis, "addEventListener", 2,
+		hx.GetDynamic("openfl.events.Event.ENTER_FRAME"),
+		hx.GetDynamic("Scheduler.timerEventHandler"))
+}
+
+func replaceBitmap(sprite, bitmap *uintptr) { // pointers here to avoid a Haxe object copy when passing by value
+	hx.Meth(*sprite, "removeChildAt", 1, 0)
+	hx.Meth(*sprite, "addChild", 1, *bitmap)
+}
+
+func monitor() {
+	showingBooks := false
+	s1state, s2state := Pick, Pick
+	time := -1 // invalid value, so that it always does not match 1st time through
+	for {
+
+		// put in the correct time, if we are on a new second
+		tm := hx.GetInt("Date.now().getSeconds()")
+		if time != tm {
+			time = tm
+			tms := hx.GetString("Date.now().toString()")
+			hx.FsetString(headline, "text", "This is written in Go, translated go->haxe->"+tardisgolib.Platform()+
+				", running live: "+tms)
+		}
+
+		// make the pile of books appear or disappear
+		if len(smallpile) > 0 { // take the length of the channel here
+			if !showingBooks {
+				replaceBitmap(&Books, &smallPilePng)
+				showingBooks = true
+			}
+		} else {
+			if showingBooks {
+				replaceBitmap(&Books, &emptyPilePng)
+				showingBooks = false
+			}
+		}
+
+		// animate left-hand sprite and it's code logo
+		if s1state != Sprite1state {
+			s1state = Sprite1state
+			hx.FsetInt(Logo1, "y", 140+(15*Sprite1state)) // move the logo to reflect the new state
+			switch s1state {
+			case Pick:
+				replaceBitmap(&Sprite1, &pickPng1)
+			case Full:
+				replaceBitmap(&Sprite1, &fullPng1)
+			case Shovel:
+				replaceBitmap(&Sprite1, &shovelPng1)
+			case Empty:
+				replaceBitmap(&Sprite1, &emptyPng1)
+			}
+		}
+		hx.FsetFloat(Sprite1, "x", s1x+Sprite1X)
+		hx.FsetFloat(Sprite1, "y", s1y+Sprite1Y)
+
+		// animate right-hand sprite and it's code logo
+		if s2state != Sprite2state {
+			s2state = Sprite2state
+			hx.FsetInt(Logo2, "y", 140+(15*Sprite2state)) // move the logo to reflect the new state
+			switch s2state {
+			case Pick:
+				replaceBitmap(&Sprite2, &pickPng2)
+			case Full:
+				replaceBitmap(&Sprite2, &fullPng2)
+			case Shovel:
+				replaceBitmap(&Sprite2, &shovelPng2)
+			case Empty:
+				replaceBitmap(&Sprite2, &emptyPng2)
+			}
+		}
+		hx.FsetFloat(Sprite2, "x", s2x+Sprite2X)
+		hx.FsetFloat(Sprite2, "y", s2y+Sprite2Y)
+
+		tardisgolib.Gosched() // give up control
 	}
 }

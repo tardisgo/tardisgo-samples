@@ -17,10 +17,12 @@ import (
 	// "time"
 	// "math/rand"
 
-	_ "github.com/tardisgo/tardisgo/golibruntime/sync/atomic" // runtime functions for sync/atomic
 	"sync/atomic"
 
-	"github.com/tardisgo/tardisgo/tardisgolib" // runtime functions for TARDIS Go
+	_ "github.com/tardisgo/tardisgo/golibruntime/sync/atomic" // runtime functions for sync/atomic
+
+	"github.com/tardisgo/tardisgo/tardisgolib"
+	"github.com/tardisgo/tardisgo/tardisgolib/hx" // runtime functions for TARDIS Go
 )
 
 // In this example our state will be owned by a single
@@ -83,7 +85,7 @@ func main() {
 		go func() {
 			for {
 				read := &readOp{
-					key:  int(tardisgolib.HAXE("Std.random(5);")), // rand.Intn(5),
+					key:  hx.CodeInt("Std.random(5);"), // rand.Intn(5),
 					resp: make(chan int)}
 				reads <- read
 				<-read.resp
@@ -98,8 +100,8 @@ func main() {
 		go func() {
 			for {
 				write := &writeOp{
-					key:  int(tardisgolib.HAXE("Std.random(5);")),   // rand.Intn(5),
-					val:  int(tardisgolib.HAXE("Std.random(100);")), // rand.Intn(100),
+					key:  hx.CodeInt("Std.random(5);"),   // rand.Intn(5),
+					val:  hx.CodeInt("Std.random(100);"), // rand.Intn(100),
 					resp: make(chan bool)}
 				writes <- write
 				<-write.resp

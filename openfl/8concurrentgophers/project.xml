@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<meta title="TARDIS Go 8 Concurrent Gophers" package="" version="0.0.1" company="Elliott Stoneham" />
+	<meta title="TARDIS Go 8 Concurrent Gophers" package="io.github.tardisgo" version="0.0.1" company="Elliott Stoneham" />
 	<app main="Main" path="Export" file="8concurrentgophers" />
 	
 	<source path="Source" />
