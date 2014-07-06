@@ -66,6 +66,6 @@ func binarytree(n int) {
 func main() {
 	for i := 1; i < 3; i++ {
 		println("begin itteration", i) // multiple itterations to check GC is working
-		binarytree(10)                 // was 17, but this breaks Java & PHP default memory sizes ... and runs for too long at present!
+		binarytree(17)                 // NOTE breaks PHP default memory sizes ... and runs for too long at present!
 	}
 }

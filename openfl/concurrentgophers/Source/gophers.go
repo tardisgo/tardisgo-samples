@@ -144,7 +144,7 @@ func makeText(selectable bool, x, y, width, height, textColor int, text string) 
 }
 
 func makeBitmap(file string) uintptr {
-	return hx.CodeDynamic(`new openfl.display.Bitmap (openfl.Assets.getBitmapData (_a[0].val));`, file)
+	return hx.CodeDynamic(`new openfl.display.Bitmap (openfl.Assets.getBitmapData (_a.itemAddr(0).load().val));`, file)
 }
 
 func makeSprite(bitmap uintptr, x, y int) uintptr {
@@ -294,6 +294,6 @@ func monitor() {
 		hx.FsetFloat(Sprite2, "x", s2x+Sprite2X)
 		hx.FsetFloat(Sprite2, "y", s2y+Sprite2Y)
 
-		tardisgolib.Gosched() // give up control
+		tardisgolib.Gosched() // give up control (NOTE Gosched creates a channel and selects from it)
 	}
 }
