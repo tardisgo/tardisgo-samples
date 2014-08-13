@@ -17,9 +17,9 @@ import (
 	// "time"
 	// "math/rand"
 
-	"sync/atomic"
+	//"sync/atomic"
 
-	_ "github.com/tardisgo/tardisgo/golibruntime/sync/atomic" // runtime functions for sync/atomic
+	//_ "github.com/tardisgo/tardisgo/golibruntime/sync/atomic" // runtime functions for sync/atomic
 
 	"github.com/tardisgo/tardisgo/tardisgolib"
 	"github.com/tardisgo/tardisgo/tardisgolib/hx" // runtime functions for TARDIS Go
@@ -89,7 +89,7 @@ func main() {
 					resp: make(chan int)}
 				reads <- read
 				<-read.resp
-				atomic.AddInt64(&ops, 1)
+				ops++ //atomic.AddInt64(&ops, 1)
 			}
 		}()
 	}
@@ -105,7 +105,7 @@ func main() {
 					resp: make(chan bool)}
 				writes <- write
 				<-write.resp
-				atomic.AddInt64(&ops, 1)
+				ops++ //atomic.AddInt64(&ops, 1)
 			}
 		}()
 	}
@@ -117,7 +117,7 @@ func main() {
 	}
 
 	// Finally, capture and report the `ops` count.
-	opsFinal := atomic.LoadInt64(&ops)
+	opsFinal := ops //atomic.LoadInt64(&ops)
 	//fmt.Println("ops:", opsFinal)
 	println("ops:", int(opsFinal)) // TODO println of a 64-bit int does not show the actual value on all platforms, only the type name see issue #18
 }

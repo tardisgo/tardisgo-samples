@@ -47,6 +47,15 @@ wip/*/cpp/*
 wip/*/php/*
 wip/*/*.swf
 wip/*/tardis/Go.hx
+wip/gobyexample/*/*.js
+wip/gobyexample/*/*.js.map
+wip/gobyexample/*/*.n
+wip/gobyexample/*/java/*
+wip/gobyexample/*/cs/*
+wip/gobyexample/*/cpp/*
+wip/gobyexample/*/php/*
+wip/gobyexample/*/*.swf
+wip/gobyexample/*/tardis/Go.hx
 gohaxelib/*/*.js
 gohaxelib/*/*.js.map
 gohaxelib/*/*.n

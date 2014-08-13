@@ -24,8 +24,9 @@ import "strings"
 
 // required TARDIS Go runtime support for the strings go package
 import _ "github.com/tardisgo/tardisgo/golibruntime/strings"
-import _ "github.com/tardisgo/tardisgo/golibruntime/sync"
-import _ "github.com/tardisgo/tardisgo/golibruntime/sync/atomic"
+
+//import _ "github.com/tardisgo/tardisgo/golibruntime/sync"
+//import _ "github.com/tardisgo/tardisgo/golibruntime/sync/atomic"
 
 //import "fmt" - not supported by TARDIS Go as at Jan'14
 
