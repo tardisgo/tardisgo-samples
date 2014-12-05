@@ -1,8 +1,8 @@
-# usage as the lime command
+# usage as the openfl command
 # only tested on OSX, requires tardisgo compiler
 cd Source
 tardisgo *.go
 if [ "$?" = "0" ]; then
 	cd ..
-	lime —build-library=hxcpp $*
+	openfl —build-library=hxcpp $*
 fi

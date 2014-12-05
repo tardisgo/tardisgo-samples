@@ -1,5 +1,5 @@
 #!/bin/bash
-for d in gobyexample/* gohaxelib/*
+for d in gobyexample/* 
 do
  cd $d
  tardisgo -debug *.go

@@ -2,10 +2,18 @@
 package main
 
 import (
-	"fmt"
-	_ "github.com/tardisgo/tardisgo/golibruntime"
+	"bufio"
+	"os"
+	//"fmt"
 )
 
 func main() {
-	fmt.Println("Hello world!\n")
+
+	w := bufio.NewWriter(os.Stdout)
+	w.Write([]byte("Hello, "))
+	w.Write([]byte("world!"))
+	w.Write([]byte("\n"))
+	w.Flush() // Don't forget to flush!
+
+	//fmt.Printf("Hello world - %d!\n", 42)
 }

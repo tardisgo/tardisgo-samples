@@ -10,10 +10,11 @@ import (
 	b64 "encoding/base64"
 	//import "fmt"
 	_ "github.com/tardisgo/tardisgo/golibruntime/bytes"
-	_ "github.com/tardisgo/tardisgo/golibruntime/strings"
-	//_ "github.com/tardisgo/tardisgo/golibruntime/sync"
-	//_ "github.com/tardisgo/tardisgo/golibruntime/sync/atomic"
 	_ "github.com/tardisgo/tardisgo/golibruntime/math"
+	_ "github.com/tardisgo/tardisgo/golibruntime/runtime"
+	_ "github.com/tardisgo/tardisgo/golibruntime/strings"
+	_ "github.com/tardisgo/tardisgo/golibruntime/tgosync"
+	_ "github.com/tardisgo/tardisgo/golibruntime/tgosync/atomic"
 )
 
 func main() {

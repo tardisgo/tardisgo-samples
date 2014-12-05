@@ -96,7 +96,8 @@ class Main extends Sprite {
 			lastStatus=Go.main_Status.load();
 			textField.text=lastStatus;
 		}
-		if (Destination.hitTestPoint (Logo.x, Logo.y)) { // this is just to make it look & sound pretty
+		if ( Logo.x>Destination.x && Logo.x<(Destination.x+Logo.width) &&
+		 Logo.y>Destination.y && Logo.y<(Destination.y+Logo.height) ) { // this is just to make it look & sound pretty
 			if(UseGopher) {
 				Logo.addChild (new Bitmap (Assets.getBitmapData ("assets/openfl.png")));
 				UseGopher=false;

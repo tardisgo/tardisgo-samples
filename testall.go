@@ -1,3 +1,15 @@
+/* TESTING STATUS
+
+Working:
+	container/ring
+	unicode/utf8
+
+Part-Working:
+	math - all_test.go : TestExp() and TestExp2()
+
+
+*/
+
 package main
 
 import (
@@ -21,7 +33,7 @@ func main() {
 	wg := sync.WaitGroup{}
 	base, err := os.Getwd()
 	if err == nil {
-		for _, dir := range []string{"gobyexample", "gohaxelib"} {
+		for _, dir := range []string{"gobyexample"} {
 			subdir := base + string(os.PathSeparator) + dir
 			fds, err := ioutil.ReadDir(subdir)
 			if err == nil {

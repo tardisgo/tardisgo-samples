@@ -21,25 +21,15 @@ For help or general discussions about this repository please go to the [Google G
 - [sorting by functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/sortbyfunc/sortbyfunc.go) (uses "sort" package)
 
 
-### [gohaxelib](https://github.com/tardisgo/gohaxelib) : command line samples showing Haxe called from Go
----
-The gohaxelib methodology is still very experimental and incomplete, as are these examples. To run the [gohaxlib](https://github.com/tardisgo/gohaxelib) examples, you will first need to:
-```
-go get "github.com/tardisgo/gohaxelib/_haxeapi"
-```
-- [printdatetime](https://github.com/tardisgo/tardisgo-samples/blob/master/gohaxelib/printdatetime/printdatetime.go) - Print current Haxe date and time using the Haxe "target".Lib.println() API if one exists 
-- [geturl](https://github.com/tardisgo/tardisgo-samples/blob/master/gohaxelib/geturl/geturl.go) Print tardisgo web site LICENSE in the simplest way possible (this particular formulation does not work for JavaScript, C# or Flash)
-
-
 
 ### [OpenFL](http://openfl.org) : animated graphical multi-platform samples showing Go called from Haxe
 ---
 You can see these examples working live at http://tardisgo.github.io/
-- [gohandlingmouseevents](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/gohandlingmouseevents/Source) (adapted from the OpenFL example) 
+- [gohandlingmouseevents](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/gohandlingmouseevents/Source) (adapted from the OpenFL example) - (Dec 2014: html5, flash and mac targets work ok)
 - [concurrentgophers](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/concurrentgophers/Source) (inspired by slide 21 of "[Concurrency is not Parallelism (it's better)](http://concur.rspace.googlecode.com/hg/talk/concur.html#slide-21)" a talk by Rob Pike) - now rewritten (almost) entirely in Go
-- [8concurrentgophers](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/8concurrentgophers/Source) (as above, but with 8 gophers rather than 2, for FOSDEM14 presentation; modified 19-Mar-2014 to use new openfl-html5 back-end)
+- [8concurrentgophers](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/8concurrentgophers/Source) (as above, but with 8 gophers rather than 2, for FOSDEM14 presentation; modified 19-Mar-2014 to use new openfl-html5 back-end) - (Dec 2014: Not Currently working, re-write fully into Go planned)
 
-To compile and run them you will also need to follow the instructions to install OpenFL [here](http://www.openfl.org/download/). From the "Source" directory, check there is a "tardis" sub-directory and run the tardisgo command as normal e.g. "tardisgo mouse.go". Then follow the normal OpenFL/Lime development process from the directory above, try: "lime test html5". Or use the tgolime.sh script described below. 
+To compile and run them you will also need to follow the instructions to install OpenFL [here](http://www.openfl.org/download/). From the "Source" directory, check there is a "tardis" sub-directory and run the tardisgo command as normal e.g. "tardisgo gophers.go". Then follow the normal OpenFL development process from the directory above, try: "openfl test html5". Or use the tgolime.sh script described below. Tested with OpenFL command-line tools version 2.1.6.
  
 
 
@@ -49,7 +39,7 @@ For OSX and Ubuntu users, here are some scripts that might help, they are writte
 - [tgo.sh](https://github.com/tardisgo/tardisgo-samples/blob/master/scripts/tgo.sh) : transpile all the code in the current directory and run haxe on the result using the user-provided haxe flags
 - [tgoall.sh](https://github.com/tardisgo/tardisgo-samples/blob/master/scripts/tgoall.sh) : transpile all the code in the current directory for all haxe targets and test each of them (requires all the haxe target languages to be installed, with any required haxelibs, tested on OSX)
 - [tgoallu.sh](https://github.com/tardisgo/tardisgo-samples/blob/master/scripts/tgoallu.sh) :  Ubuntu version of tgoall.sh
-- [tgolime.sh](https://github.com/tardisgo/tardisgo-samples/blob/master/scripts/tgolime.sh) : wrapper for the OpenFL "lime" command, to transpile the Go first
+- [tgoopenfl.sh](https://github.com/tardisgo/tardisgo-samples/blob/master/scripts/tgolime.sh) : wrapper for the OpenFL command, to transpile the Go first
 
 
 
