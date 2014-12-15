@@ -20,18 +20,19 @@ For help or general discussions about this repository please go to the [Google G
 - [stateful goroutines](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/stateful/stateful.go) (uses "sync/atomic" package)
 - [sorting by functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/sortbyfunc/sortbyfunc.go) (uses "sort" package)
 
-
+-### Command line samples showing Haxe called from Go
+----
+-- [geturl](https://github.com/tardisgo/tardisgo-samples/blob/master/haxe-call-examples/geturl/geturl.go) Print tardisgo web site LICENSE in the simplest way possible using the [Haxe pseudo-functions API library](https://github.com/tardisgo/tardisgo/blob/master/tardisgolib/hx/hx.go)
+-- [printdatetime](https://github.com/tardisgo/tardisgo-samples/blob/master/haxe-call-examples/printdatetime/printdatetime.go) - Print current Haxe date and time using the Haxe "target".Lib.println() API if one exists - shows use of the [_cross API definition](https://github.com/tardisgo/gohaxelib) and also has an example of hand-building a haxe api definition 
 
 ### [OpenFL](http://openfl.org) : animated graphical multi-platform samples showing Go called from Haxe
 ---
 You can see these examples working live at http://tardisgo.github.io/
-- [gohandlingmouseevents](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/gohandlingmouseevents/Source) (adapted from the OpenFL example) - (Dec 2014: html5, flash and mac targets work ok)
-- [concurrentgophers](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/concurrentgophers/Source) (inspired by slide 21 of "[Concurrency is not Parallelism (it's better)](http://concur.rspace.googlecode.com/hg/talk/concur.html#slide-21)" a talk by Rob Pike) - now rewritten (almost) entirely in Go
-- [8concurrentgophers](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/8concurrentgophers/Source) (as above, but with 8 gophers rather than 2, for FOSDEM14 presentation; modified 19-Mar-2014 to use new openfl-html5 back-end) - (Dec 2014: Not Currently working, re-write fully into Go planned)
+- [gohandlingmouseevents](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/gohandlingmouseevents/Source) (adapted from the OpenFL example) - Shows use of the [_openfl API definition](https://github.com/tardisgo/gohaxelib) 
+- [concurrentgophers](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/concurrentgophers/Source) (inspired by slide 21 of "[Concurrency is not Parallelism (it's better)](http://concur.rspace.googlecode.com/hg/talk/concur.html#slide-21)" a talk by Rob Pike) - Shows use of the [Haxe pseudo-functions API library](https://github.com/tardisgo/tardisgo/blob/master/tardisgolib/hx/hx.go)
+- [8concurrentgophers](https://github.com/tardisgo/tardisgo-samples/tree/master/openfl/8concurrentgophers/Source) (as above, but with 8 gophers rather than 2, for FOSDEM14 presentation; modified 19-Mar-2014 to use new openfl-html5 back-end) - Shows the way to interface to Go in a minimal way, with most of the logic in Haxe.
 
-To compile and run them you will also need to follow the instructions to install OpenFL [here](http://www.openfl.org/download/). From the "Source" directory, check there is a "tardis" sub-directory and run the tardisgo command as normal e.g. "tardisgo gophers.go". Then follow the normal OpenFL development process from the directory above, try: "openfl test html5". Or use the tgolime.sh script described below. Tested with OpenFL command-line tools version 2.1.6.
- 
-
+To compile and run them you will also need to follow the instructions to install OpenFL [here](http://www.openfl.org/download/). From the "Source" directory, check there is a "tardis" sub-directory and run the tardisgo command as normal e.g. "tardisgo gophers.go". Then follow the normal OpenFL development process from the directory above, try: "openfl test html5". Or use the tgoopenfl.sh script described below. Tested with OpenFL command-line tools version 2.1.6.
 
 ### Scripts 
 ---
@@ -40,8 +41,6 @@ For OSX and Ubuntu users, here are some scripts that might help, they are writte
 - [tgoall.sh](https://github.com/tardisgo/tardisgo-samples/blob/master/scripts/tgoall.sh) : transpile all the code in the current directory for all haxe targets and test each of them (requires all the haxe target languages to be installed, with any required haxelibs, tested on OSX)
 - [tgoallu.sh](https://github.com/tardisgo/tardisgo-samples/blob/master/scripts/tgoallu.sh) :  Ubuntu version of tgoall.sh
 - [tgoopenfl.sh](https://github.com/tardisgo/tardisgo-samples/blob/master/scripts/tgolime.sh) : wrapper for the OpenFL command, to transpile the Go first
-
-
 
 ### Benchmarks
 ---

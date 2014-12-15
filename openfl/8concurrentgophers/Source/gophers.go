@@ -86,7 +86,7 @@ func pushBooks(x, y *float64, state *int, cartLoad int) {
 		if *y > 0.0 { // create bumps in the road
 			*y = 0.0
 		} else {
-			*y = float64(hx.CodeInt("Std.random(3);")) // random small bumps
+			*y = float64(hx.CodeInt("", "Std.random(3);")) // random small bumps
 		}
 		tardisgolib.Gosched() // without this, the animation would not show each state
 	}
@@ -112,7 +112,7 @@ func moreBooks(x, y *float64, state *int) {
 		if *y > 0.0 { // create bumps in the road
 			*y = 0.0
 		} else {
-			*y = float64(hx.CodeInt("Std.random(5);")) // random bigger bumps
+			*y = float64(hx.CodeInt("", "Std.random(5);")) // random bigger bumps
 		}
 		tardisgolib.Gosched() // would not show state without this, the animation would jump.
 	}

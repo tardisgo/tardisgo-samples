@@ -33,7 +33,7 @@ func main() {
 	wg := sync.WaitGroup{}
 	base, err := os.Getwd()
 	if err == nil {
-		for _, dir := range []string{"gobyexample"} {
+		for _, dir := range []string{"gobyexample", "haxe-call-examples"} {
 			subdir := base + string(os.PathSeparator) + dir
 			fds, err := ioutil.ReadDir(subdir)
 			if err == nil {

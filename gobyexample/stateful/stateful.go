@@ -85,7 +85,7 @@ func main() {
 		go func() {
 			for {
 				read := &readOp{
-					key:  hx.CodeInt("Std.random(5);"), // rand.Intn(5),
+					key:  hx.CodeInt("", "Std.random(5);"), // rand.Intn(5),
 					resp: make(chan int)}
 				reads <- read
 				<-read.resp
@@ -100,8 +100,8 @@ func main() {
 		go func() {
 			for {
 				write := &writeOp{
-					key:  hx.CodeInt("Std.random(5);"),   // rand.Intn(5),
-					val:  hx.CodeInt("Std.random(100);"), // rand.Intn(100),
+					key:  hx.CodeInt("", "Std.random(5);"),   // rand.Intn(5),
+					val:  hx.CodeInt("", "Std.random(100);"), // rand.Intn(100),
 					resp: make(chan bool)}
 				writes <- write
 				<-write.resp
