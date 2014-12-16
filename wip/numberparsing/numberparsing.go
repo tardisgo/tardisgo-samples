@@ -6,7 +6,6 @@ package main
 // The built-in package `strconv` provides the number
 // parsing and printing.
 import (
-	_ "github.com/tardisgo/tardisgo/golibruntime/math" // required by strconv
 	"strconv"
 )
 
