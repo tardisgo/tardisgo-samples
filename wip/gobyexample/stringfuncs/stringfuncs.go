@@ -11,14 +11,14 @@ import s "strings"
 // required TARDIS Go runtime support for the strings go package
 import _ "github.com/tardisgo/tardisgo/golibruntime/strings"
 
-import _ "github.com/tardisgo/tardisgo/golibruntime/tgosync"
+//import _ "github.com/tardisgo/tardisgo/golibruntime/tgosync"
 
 //import _ "github.com/tardisgo/tardisgo/golibruntime/sync/atomic"
 //import _ "github.com/tardisgo/tardisgo/golibruntime/runtime"
 
 //import "fmt"
 
-// We alias `fmt.Println` to a shorter name as we'll use
+// We alias `fmt.Println` type functionality to a shorter name as we'll use
 // it a lot below.
 //var p = fmt.Println
 func p(vs ...interface{}) {
@@ -35,7 +35,6 @@ func p(vs ...interface{}) {
 }
 
 func main() {
-
 	// Here's a sample of the functions available in
 	// `strings`. Note that these are all functions from
 	// package, not methods on the string object itself.
@@ -64,3 +63,21 @@ func main() {
 	p("Len: ", len("hello"))
 	p("Char:", "hello"[1])
 }
+
+/* Expected output:
+Contains:   true
+Count:      2
+HasPrefix:  true
+HasSuffix:  true
+Index:      1
+Join:       a-b
+Repeat:     aaaaa
+Replace:    f00
+Replace:    f0o
+Split:      [a b c d e]
+ToLower:    test
+ToUpper:    TEST
+
+Len:  5
+Char: 101
+*/

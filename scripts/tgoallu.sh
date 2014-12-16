@@ -3,7 +3,7 @@
 tardisgo *.go
 if [ "$?" = "0" ]; then
 	haxe -main tardis.Go -dce full -swf tardisgo.swf
-	haxe -main tardis.Go -dce full -neko tardisgo.n
+	#haxe -main tardis.Go -dce full -neko tardisgo.n
 	haxe -main tardis.Go -dce full -js tardisgo.js
 	haxe -main tardis.Go -dce full -cpp cpp 
 	haxe -main tardis.Go -dce full -java java
@@ -11,8 +11,8 @@ if [ "$?" = "0" ]; then
 	haxe -main tardis.Go -dce full -php php --php-prefix tgo
 	echo "Neko (haxe --interp):"
 	haxe -main tardis.Go --interp
-	echo "Neko:"
-	neko tardisgo.n
+	#echo "Neko:"
+	#neko tardisgo.n
 	echo "Node/JS:"
 	nodejs < tardisgo.js
 	echo "CPP:"

@@ -121,7 +121,7 @@ func loop(n int) { // add some delay when required
 
 /*************************************** Haxe/OpenFL interface code *************************************/
 
-var mainThis, headline, Books, Logo1, Logo2, Sprite1, Sprite2, goTimer hx.Dynamic
+var mainThis, headline, Books, Logo1, Logo2, Sprite1, Sprite2, goTimer uintptr
 
 const (
 	s1x = 90
@@ -130,36 +130,36 @@ const (
 	s2y = 45
 )
 
-func makeText(selectable bool, x, y, width, height, textColor int, text string) hx.Dynamic {
+func makeText(selectable bool, x, y, width, height, textColor int, text string) uintptr {
 	txt := hx.New("", "openfl.text.TextField", 0)
-	hx.FsetBool("", txt, "selectable", selectable)
-	hx.FsetInt("", txt, "x", x)
-	hx.FsetInt("", txt, "y", y)
-	hx.FsetInt("", txt, "width", width)
-	hx.FsetInt("", txt, "height", height)
-	hx.FsetInt("", txt, "textColor", textColor)
-	hx.FsetString("", txt, "text", text)
+	hx.FsetBool("", txt, "openfl.text.TextField", "selectable", selectable)
+	hx.FsetInt("", txt, "openfl.text.TextField", "x", x)
+	hx.FsetInt("", txt, "openfl.text.TextField", "y", y)
+	hx.FsetInt("", txt, "openfl.text.TextField", "width", width)
+	hx.FsetInt("", txt, "openfl.text.TextField", "height", height)
+	hx.FsetInt("", txt, "openfl.text.TextField", "textColor", textColor)
+	hx.FsetString("", txt, "openfl.text.TextField", "text", text)
 	hx.Meth("", mainThis, "", "addChild", 1, txt)
 	return txt
 }
 
-func makeBitmap(file string) hx.Dynamic {
+func makeBitmap(file string) uintptr {
 	bmd := hx.CallDynamic("", "openfl.Assets.getBitmapData", 1, file)
 	return hx.New("", "openfl.display.Bitmap", 1, bmd)
 }
 
-func makeSprite(bitmap hx.Dynamic, x, y int) hx.Dynamic {
+func makeSprite(bitmap uintptr, x, y int) uintptr {
 	sp := hx.New("", "openfl.display.Sprite", 0)
 	hx.Meth("", sp, "", "addChild", 1, bitmap)
-	hx.FsetInt("", sp, "x", x)
-	hx.FsetInt("", sp, "y", y)
+	hx.FsetInt("", sp, "openfl.display.Sprite", "x", x)
+	hx.FsetInt("", sp, "openfl.display.Sprite", "y", y)
 	hx.Meth("", mainThis, "", "addChild", 1, sp)
 	return sp
 }
 
-var emptyPilePng, smallPilePng, pickPng1, pickPng2, fullPng1, fullPng2, emptyPng1, emptyPng2, shovelPng1, shovelPng2 hx.Dynamic
+var emptyPilePng, smallPilePng, pickPng1, pickPng2, fullPng1, fullPng2, emptyPng1, emptyPng2, shovelPng1, shovelPng2 uintptr
 
-func Start(mt hx.Dynamic) {
+func Start(mt uintptr) {
 	mainThis = mt // this is actually a Haxe object, therefore a pointer, so can't be passed by value within Go
 
 	// setup the animated PNG bitmaps
@@ -226,7 +226,7 @@ concurrency-is-not-parallelism
 		hx.GetDynamic("", "Scheduler.timerEventHandler"))
 }
 
-func replaceBitmap(sprite, bitmap *hx.Dynamic) { // pointers here to avoid a Haxe object copy when passing by value
+func replaceBitmap(sprite, bitmap *uintptr) { // pointers here to avoid a Haxe object copy when passing by value
 	hx.Meth("", *sprite, "", "removeChildAt", 1, 0)
 	hx.Meth("", *sprite, "", "addChild", 1, *bitmap)
 }
@@ -242,7 +242,7 @@ func monitor() {
 		if time != tm {
 			time = tm
 			tms := hx.GetString("", "Date.now().toString()")
-			hx.FsetString("", headline, "text", "This is written in Go, translated go->haxe->"+tardisgolib.Platform()+
+			hx.FsetString("", headline, "openfl.text.TextField", "text", "This is written in Go, translated go->haxe->"+tardisgolib.Platform()+
 				", running live: "+tms)
 		}
 
@@ -262,7 +262,7 @@ func monitor() {
 		// animate left-hand sprite and it's code logo
 		if s1state != Sprite1state {
 			s1state = Sprite1state
-			hx.FsetInt("", Logo1, "y", 140+(15*Sprite1state)) // move the logo to reflect the new state
+			hx.FsetInt("", Logo1, "openfl.display.Sprite", "y", 140+(15*Sprite1state)) // move the logo to reflect the new state
 			switch s1state {
 			case Pick:
 				replaceBitmap(&Sprite1, &pickPng1)
@@ -274,13 +274,13 @@ func monitor() {
 				replaceBitmap(&Sprite1, &emptyPng1)
 			}
 		}
-		hx.FsetFloat("", Sprite1, "x", s1x+Sprite1X)
-		hx.FsetFloat("", Sprite1, "y", s1y+Sprite1Y)
+		hx.FsetFloat("", Sprite1, "openfl.display.Sprite", "x", s1x+Sprite1X)
+		hx.FsetFloat("", Sprite1, "openfl.display.Sprite", "y", s1y+Sprite1Y)
 
 		// animate right-hand sprite and it's code logo
 		if s2state != Sprite2state {
 			s2state = Sprite2state
-			hx.FsetInt("", Logo2, "y", 140+(15*Sprite2state)) // move the logo to reflect the new state
+			hx.FsetInt("", Logo2, "openfl.display.Sprite", "y", 140+(15*Sprite2state)) // move the logo to reflect the new state
 			switch s2state {
 			case Pick:
 				replaceBitmap(&Sprite2, &pickPng2)
@@ -292,8 +292,8 @@ func monitor() {
 				replaceBitmap(&Sprite2, &emptyPng2)
 			}
 		}
-		hx.FsetFloat("", Sprite2, "x", s2x+Sprite2X)
-		hx.FsetFloat("", Sprite2, "y", s2y+Sprite2Y)
+		hx.FsetFloat("", Sprite2, "openfl.display.Sprite", "x", s2x+Sprite2X)
+		hx.FsetFloat("", Sprite2, "openfl.display.Sprite", "y", s2y+Sprite2Y)
 
 		tardisgolib.Gosched() // give up control (NOTE Gosched creates a channel and selects from it)
 	}
