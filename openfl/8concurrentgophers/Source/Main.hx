@@ -1,19 +1,15 @@
-package; // written for FOSDEM14, using new (March 2014) openfl-html5 back-end
+package; // written for FOSDEM14, using new (March 2014) openfl-html5 back-end, Dec 2014 rewrite for latest OpenFL
 
-import flash.display.Bitmap;
-import flash.display.Sprite;
-import flash.events.Event;
-import flash.events.MouseEvent;
+import openfl.display.Bitmap;
+import openfl.display.Sprite;
+import openfl.events.Event;
+import openfl.events.MouseEvent;
 
-#if js
-import myutils.Timer; // copy of flash.utils.timer from old openfl html5 back-end, requirement for this should be removed once included in the main library
-#else
-import flash.utils.Timer;
-#end
+import openfl.utils.Timer;
 
 import openfl.Assets;
-import flash.text.TextField;
-import flash.text.TextFieldAutoSize;
+import openfl.text.TextField;
+import openfl.text.TextFieldAutoSize;
 
 import tardis.Go; // import of the Go code
 
@@ -165,26 +161,28 @@ class Main extends Sprite {
 
 	private function goTimerEvent(e:Dynamic):Void { // the entry point for every tick
 		
+		//trace("event listner!");
+
 		Scheduler.timerEventHandler(e); // schedule the Go code
 
 		for(l in 0...4){
 
-			if(Go.main_smallpiles.load()[l].hasContents()!=bookslaststatus[l]){
-				bookslaststatus[l]=Go.main_smallpiles.load()[l].hasContents();
+			if(Go.main_smallpiles.addr(l<<2).load().hasContents()!=bookslaststatus[l]){
+				bookslaststatus[l]=Go.main_smallpiles.addr(l<<2).load().hasContents();
 				Books[l].removeChildAt(0);		
-				if(Go.main_smallpiles.load()[l].hasContents()==true){		
+				if(Go.main_smallpiles.addr(l<<2).load().hasContents()==true){		
 					Books[l].addChild (new Bitmap (Assets.getBitmapData ("assets/smallpile.png")));			
 				} else {
 					Books[l].addChild (new Bitmap (Assets.getBitmapData ("assets/emptypile.png")));			
 				}
 			}
 		
-			if((Go.main_Sprite1state.load()[l]|0)!=s1laststatus[l]){
+			if(Go.main_Sprite1state.addr(l<<2).load_int32()!=s1laststatus[l]){
 			
 				// make sure we don't leave any stray pixels unset and flag for GC
 				Sprite1[l].removeChildAt(0);
 	
-				s1laststatus[l] = Go.main_Sprite1state.load()[l]|0; // switch to the new state
+				s1laststatus[l] = Go.main_Sprite1state.addr(l<<2).load_int32(); // switch to the new state
 				if(l==0)
 					Logo1.y = 140 + (15*s1laststatus[l]); // move the logo to reflect the new state
 			
@@ -202,15 +200,15 @@ class Main extends Sprite {
 					Sprite1[l].addChild (new Bitmap (Assets.getBitmapData ("assets/empty.png")));
 				}
 			}
-			Sprite1[l].x = s1x + Go.main_Sprite1X.load()[l];
-			Sprite1[l].y = s1y + Go.main_Sprite1Y.load()[l] + lineOffsets[l];
+			Sprite1[l].x = s1x + Go.main_Sprite1X.addr(l<<3).load_float64();
+			Sprite1[l].y = s1y + Go.main_Sprite1Y.addr(l<<3).load_float64() + lineOffsets[l];
 			
-			if((Go.main_Sprite2state.load()[l]|0)!=s2laststatus[l]){
+			if(Go.main_Sprite2state.addr(l<<2).load_int32()!=s2laststatus[l]){
 				
 				// make sure we don't leave any stray pixels unset and flag for GC
 				Sprite2[l].removeChildAt(0);
 				
-				s2laststatus[l] = Go.main_Sprite2state.load()[l]|0; // switch to the new state
+				s2laststatus[l] = Go.main_Sprite2state.addr(l<<2).load_int32(); // switch to the new state
 				if (l==0)
 						Logo2.y = 140 + (15*s2laststatus[l]); // move the logo to reflect the new state
 				
@@ -228,8 +226,8 @@ class Main extends Sprite {
 					Sprite2[l].addChild (new Bitmap (Assets.getBitmapData ("assets/empty.png")));
 				}
 			}
-			Sprite2[l].x = s2x + Go.main_Sprite2X.load()[l];
-			Sprite2[l].y = s2y + Go.main_Sprite2Y.load()[l] + lineOffsets[l];
+			Sprite2[l].x = s2x + Go.main_Sprite2X.addr(l<<3).load_float64();
+			Sprite2[l].y = s2y + Go.main_Sprite2Y.addr(l<<3).load_float64() + lineOffsets[l];
 		}			
 	}
 }
