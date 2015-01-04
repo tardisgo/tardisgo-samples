@@ -1,4 +1,4 @@
-package utf8_test
+package utf8_example
 
 import (
 	"fmt"

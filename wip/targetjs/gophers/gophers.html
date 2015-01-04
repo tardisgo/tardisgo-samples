@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<body>
+<center style="font-family: Arial, Helvetica, sans-serif;">
+
+<canvas id="myCanvas" width="800" height="230" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<table width="800"><TR><TD>
+
+<h1>THE TEXT BELOW ALL NEEDS TO BE REWRITTEN IN THE LIGHT OF THIS NEW VERSION (TODO)</h1>
+
+<p>
+Above is the <a href="http://tardisgo.github.io">TARDIS Go</a> front page example re-written by 
+<a href="https://github.com/elliott5">Elliott</a> to work with <a href="http://gopherjs.org">GopherJS</a>, 
+a project that sets the benchmark for Go implementations into JS. The project's author, Richard Musiol, 
+and his many open-source contributors are to be congratulated.
+</p>
+
+<p>
+At 8.5k, the GopherJS version of the
+<a href="https://github.com/tardisgo/tardisgo.github.io/blob/master/gopherjs/gophers/gophers.go">source code</a>
+is a similar size to that for TARDIS Go. 
+However GopherJS' 206k of minimized JS is only 56% of the 370k TARDIS Go version (as at 7 November 2014). 
+</p>
+
+<p>
+Why is the TARDIS Go JS version so big? In part because the code is not using the JS/HTML API directly (as the GopherJS version is), but is working through the <a href="http://www.openfl.org">OpenFL</a> "Open Flash" API. While this approach means that the TARDIS Go JS version is larger, for other platforms it has the great advantage that the same code can be used to build binaries for all of the OpenFL targets - desktops, tablets, phones and even games consoles.
+</p>
+
+<center>
+<!--img src="../../iOS140621.png"-->
+</center>
+
+<p>
+The Go gopher was designed by <a href="http://reneefrench.blogspot.com/">Renee French</a>.
+The design is licensed under the Creative Commons 3.0 Attributions license.
+For more details see <a href="http://blog.golang.org/gopher">http://blog.golang.org/gopher</a>.
+</p>
+
+</TD></TR></table>
+</center>
+<script src="tgo-min.js"></script>
+</body>
+</html>
+
+
