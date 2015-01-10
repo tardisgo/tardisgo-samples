@@ -8,13 +8,7 @@ package main
 // save us some space below.
 import (
 	b64 "encoding/base64"
-	//import "fmt"
-	_ "github.com/tardisgo/tardisgo/golibruntime/bytes"
-	_ "github.com/tardisgo/tardisgo/golibruntime/math"
-	_ "github.com/tardisgo/tardisgo/golibruntime/runtime"
-	_ "github.com/tardisgo/tardisgo/golibruntime/strings"
-	_ "github.com/tardisgo/tardisgo/golibruntime/tgosync"
-	_ "github.com/tardisgo/tardisgo/golibruntime/tgosync/atomic"
+	"fmt"
 )
 
 func main() {
@@ -28,23 +22,23 @@ func main() {
 	// cast our `string` to that type.
 	sEnc := b64.StdEncoding.EncodeToString([]byte(data))
 	//fmt.Println(sEnc)
-	println(sEnc)
+	fmt.Println(sEnc)
 
 	// Decoding may return an error, which you can check
 	// if you don't already know the input to be
 	// well-formed.
 	sDec, _ := b64.StdEncoding.DecodeString(sEnc)
 	//fmt.Println(string(sDec))
-	println(string(sDec))
+	fmt.Println(string(sDec))
 	//fmt.Println()
-	println(" ") // TODO fix this bug - println() generates a haxe error : Unexpected )
+	fmt.Println(" ") // TODO fix this bug - println() generates a haxe error : Unexpected )
 
 	// This encodes/decodes using a URL-compatible base64
 	// format.
 	uEnc := b64.URLEncoding.EncodeToString([]byte(data))
 	//fmt.Println(uEnc)
-	println(uEnc)
+	fmt.Println(uEnc)
 	uDec, _ := b64.URLEncoding.DecodeString(uEnc)
 	//fmt.Println(string(uDec))
-	println(string(uDec))
+	fmt.Println(string(uDec))
 }

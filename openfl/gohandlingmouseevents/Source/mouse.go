@@ -1,8 +1,8 @@
 package main
 
 import (
+	"runtime"
 	. "github.com/tardisgo/gohaxelib/_openfl"
-	"github.com/tardisgo/tardisgo/tardisgolib"
 )
 
 func main() {} // see Main.hx for the starting point of this code
@@ -163,7 +163,7 @@ var playing bool
 var sound Xopenfl_media_Sound
 
 func SoundNew() {
-	if tardisgolib.Platform() == "flash" {
+	if runtime.GOARCH == "flash" {
 		sound = Xopenfl_Assets_getSound_1("assets/yeah.mp3")
 	} else {
 		sound = Xopenfl_Assets_getSound_1("assets/yeah.ogg")

@@ -4,8 +4,9 @@
 package main
 
 import (
-	"github.com/tardisgo/tardisgo/tardisgolib"
-	"github.com/tardisgo/tardisgo/tardisgolib/hx"
+	"runtime"
+
+	"github.com/tardisgo/tardisgo/haxe/hx"
 )
 
 // see haxe file Main.hx for the true entry point
@@ -84,7 +85,7 @@ func pushBooks(x, y *float64, state *int, cartLoad int) {
 		} else {
 			*y = float64(hx.CallInt("", "Std.random", 1, 3)) // random small bumps
 		}
-		tardisgolib.Gosched() // without this, the animation would not show each state
+		runtime.Gosched() // without this, the animation would not show each state
 	}
 	if *x > 150.0 { // constrain large x offsets
 		*x = 150.0
@@ -108,14 +109,14 @@ func moreBooks(x, y *float64, state *int) {
 		} else {
 			*y = float64(hx.CallInt("", "Std.random", 1, 5)) // random bigger bumps
 		}
-		tardisgolib.Gosched() // would not show state without this, the animation would jump.
+		runtime.Gosched() // would not show state without this, the animation would jump.
 	}
 	*y = 0.0
 }
 func loop(n int) { // add some delay when required
 	for n > 0 {
 		n--
-		tardisgolib.Gosched() // give up control in order to show the gopher waiting
+		runtime.Gosched() // give up control in order to show the gopher waiting
 	}
 }
 
@@ -182,7 +183,7 @@ func Start(mt uintptr) {
 running the code on the right.
 The 2 logos show where they
 each are in that code now.
-Go uses the tardsigolib/hx
+Go uses the tardisgo/haxe/hx
 package to call Haxe.`)
 
 	// the code extract in the centre
@@ -242,7 +243,7 @@ func monitor() {
 		if time != tm {
 			time = tm
 			tms := hx.GetString("", "Date.now().toString()")
-			hx.FsetString("", headline, "openfl.text.TextField", "text", "This is written in Go, translated go->haxe->"+tardisgolib.Platform()+
+			hx.FsetString("", headline, "openfl.text.TextField", "text", "This is written in Go, translated go->haxe->"+runtime.GOARCH+
 				", running live: "+tms)
 		}
 
@@ -295,6 +296,6 @@ func monitor() {
 		hx.FsetFloat("", Sprite2, "openfl.display.Sprite", "x", s2x+Sprite2X)
 		hx.FsetFloat("", Sprite2, "openfl.display.Sprite", "y", s2y+Sprite2Y)
 
-		tardisgolib.Gosched() // give up control (NOTE Gosched creates a channel and selects from it)
+		runtime.Gosched() // give up control (NOTE Gosched creates a channel and selects from it)
 	}
 }

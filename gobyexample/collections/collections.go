@@ -20,15 +20,10 @@
 
 package main
 
-import "strings"
-
-// required TARDIS Go runtime support for the strings go package
-import _ "github.com/tardisgo/tardisgo/golibruntime/strings"
-
-//import _ "github.com/tardisgo/tardisgo/golibruntime/sync"
-//import _ "github.com/tardisgo/tardisgo/golibruntime/sync/atomic"
-
-//import "fmt" - not supported by TARDIS Go as at Jan'14
+import (
+	"fmt"
+	"strings"
+)
 
 // Index returns the first index of the target string `t`, or
 // -1 if no match is found.
@@ -96,25 +91,25 @@ func main() {
 	// Here we try out our various collection functions.
 	var strs = []string{"peach", "apple", "pear", "plum"}
 
-	println(Index(strs, "pear"))
+	fmt.Println(Index(strs, "pear"))
 
-	println(Include(strs, "grape"))
+	fmt.Println(Include(strs, "grape"))
 
-	println(Any(strs, func(v string) bool {
+	fmt.Println(Any(strs, func(v string) bool {
 		return strings.HasPrefix(v, "p")
 	}))
 
-	println(All(strs, func(v string) bool {
+	fmt.Println(All(strs, func(v string) bool {
 		return strings.HasPrefix(v, "p")
 	}))
 
-	println(Filter(strs, func(v string) bool {
+	fmt.Println(Filter(strs, func(v string) bool {
 		return strings.Contains(v, "e")
 	}))
 
 	// The above examples all used anonymous functions,
 	// but you can also use named functions of the correct
 	// type.
-	println(Map(strs, strings.ToUpper))
+	fmt.Println(Map(strs, strings.ToUpper))
 
 }

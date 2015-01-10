@@ -3,10 +3,10 @@ package main
 import (
 	// Each of the two definition files below should work
 	//. "github.com/tardisgo/tardisgo-samples/haxe-call-examples/printdatetime/_defs" // hand-created defs
+	"runtime"
 	. "github.com/tardisgo/gohaxelib/_cross" // API auto-generated defs
 
-	"github.com/tardisgo/tardisgo/tardisgolib"
-	"github.com/tardisgo/tardisgo/tardisgolib/hx"
+	"github.com/tardisgo/tardisgo/haxe/hx"
 )
 
 // Print current Haxe date and time using the Haxe "target".Lib.println() API if one exists
@@ -20,9 +20,9 @@ func main() {
 
 	sTime := hx.CallString("", "Std.string", 1, fTime)
 
-	s := tardisgolib.Platform() + " says it is " + sDate + "; timestamp= " + sTime
+	s := runtime.GOARCH + " says it is " + sDate + "; timestamp= " + sTime
 
-	switch tardisgolib.Platform() {
+	switch runtime.GOARCH {
 	case "neko", "cpp", "php":
 		hx.Call("neko", "neko.Lib.println", 1, s)
 		hx.Call("cpp", "cpp.Lib.println", 1, s)

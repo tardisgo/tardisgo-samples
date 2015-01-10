@@ -962,24 +962,33 @@ tardis.Scheduler.timerEventHandler = function(dummy) {
 	if(tardis.Scheduler.runLimit < 2) tardis.Scheduler.runAll(); else tardis.Scheduler.runToStasis(tardis.Scheduler.runLimit);
 };
 tardis.Scheduler.runToStasis = function(cycles) {
-	var lastHash = 0;
+	var lastHash = new Array();
 	var thisHash = tardis.Scheduler.makeStateHash();
-	while(lastHash != thisHash && cycles > 0) {
+	while(!tardis.Scheduler.hashesEqual(lastHash,thisHash) && cycles > 0) {
 		lastHash = thisHash;
 		tardis.Scheduler.runAll();
 		thisHash = tardis.Scheduler.makeStateHash();
 		cycles -= 1;
 	}
 };
+tardis.Scheduler.hashesEqual = function(a,b) {
+	if(a.length != b.length) return false;
+	var _g1 = 0;
+	var _g = a.length;
+	while(_g1 < _g) {
+		var i = _g1++;
+		if(a[i] != b[i]) return false;
+	}
+	return true;
+};
 tardis.Scheduler.makeStateHash = function() {
-	var hash = tardis.Scheduler.grStacks.length;
+	var hash = new Array();
 	var _g1 = 0;
 	var _g = tardis.Scheduler.grStacks.length;
 	while(_g1 < _g) {
 		var gr = _g1++;
 		var first = tardis.Scheduler.grStacks[gr].first();
-		if(first != null) hash += first._functionPH + first._Next;
-		hash <<= 1;
+		if(first == null) hash[gr] = null; else hash[gr] = first._functionPH + first._Next;
 	}
 	return hash;
 };
@@ -1102,1540 +1111,6 @@ tardis.Scheduler.ioor = function() {
 tardis.Scheduler.wraprangechk = function(val,sz) {
 	if(val < 0 || val >= sz) tardis.Scheduler.ioor();
 };
-tardis._Go.Go_main_pushBooks = function(gr,_bds,p_x,p_y,p_state,p_cartLoad) {
-	this._t12 = 0;
-	this._t11 = null;
-	tardis.StackFrameBasis.call(this,gr,93,"Go_main_pushBooks");
-	this._bds = _bds;
-	this.p_x = p_x;
-	this.p_y = p_y;
-	this.p_state = p_state;
-	this.p_cartLoad = p_cartLoad;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_pushBooks.__name__ = true;
-tardis._Go.Go_main_pushBooks.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_pushBooks.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_pushBooks.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g.p_state.store_int32(1);
-			_g.p_x.store_float64(0);
-			_g._Next = 3;
-			return null;
-		};
-		var _Block1 = function() {
-			var _t0 = 0.0;
-			var _t1 = false;
-			_t0 = _g.p_y.load_float64();
-			_t1 = _t0 > 0;
-			if(_t1) _g._Next = 4; else _g._Next = 6;
-			return null;
-		};
-		var _Block2 = function() {
-			var _t2 = 0.0;
-			var _t3 = false;
-			_t2 = _g.p_x.load_float64();
-			_t3 = _t2 > 150;
-			if(_t3) _g._Next = 7; else _g._Next = 8;
-			return null;
-		};
-		var _Block3 = function() {
-			var _t4 = 0.0;
-			var _t5 = false;
-			_t4 = _g.p_x.load_float64();
-			_t5 = _t4 < 150;
-			if(_t5) _g._Next = 1; else _g._Next = 2;
-			return null;
-		};
-		var _Block4 = function() {
-			_g.p_y.store_float64(0);
-			_g._Next = 5;
-			return null;
-		};
-		var _Block5 = function() {
-			new tardis.Go_main_Gosched(_g._goroutine,[]);
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			var _t7 = 0.0;
-			var _t8 = 0.0;
-			var _t9 = 0.0;
-			var _t10 = 0.0;
-			_t7 = _g.p_cartLoad;
-			_t8 = tardis.Force.floatDiv(10,_t7);
-			_t9 = _g.p_x.load_float64();
-			_t10 = _t9 + _t8;
-			_g.p_x.store_float64(_t10);
-			_g._Next = 3;
-			return null;
-		};
-		var _Block6 = function() {
-			_g._t11 = new tardis.Interface(0,3);
-			_g._t12 = Std.random(tardis.Force.toHaxeParam(_g._t11));
-			var _t13 = 0.0;
-			_t13 = _g._t12;
-			_g.p_y.store_float64(_t13);
-			_g._Next = 5;
-			return null;
-		};
-		var _Block7 = function() {
-			_g.p_x.store_float64(150);
-			_g._Next = 8;
-			return null;
-		};
-		var _Block8 = function() {
-			_g.p_y.store_float64(0);
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block_2 = function() {
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case 3:
-				retVal = _Block3();
-				break;
-			case 4:
-				retVal = _Block4();
-				break;
-			case 5:
-				retVal = _Block5();
-				break;
-			case 6:
-				retVal = _Block6();
-				break;
-			case 7:
-				retVal = _Block7();
-				break;
-			case 8:
-				retVal = _Block8();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_pushBooks
-});
-tardis._Go.Go_main_main = function(gr,_bds) {
-	this._t5 = null;
-	this._t4 = null;
-	this._t3 = null;
-	this._t1 = null;
-	this._t0 = null;
-	tardis.StackFrameBasis.call(this,gr,21,"Go_main_main");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_main.__name__ = true;
-tardis._Go.Go_main_main.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_main.callFromHaxe = function() {
-	if(!tardis.Go.doneInit) tardis.Go.init();
-	var _sf = new tardis._Go.Go_main_main(0,null).run();
-	while(_sf._incomplete) tardis.Scheduler.runAll();
-};
-tardis._Go.Go_main_main.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_main.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._t0 = new tardis.Interface(0,100);
-			_g._t1 = new haxe.Timer(tardis.Force.toHaxeParam(_g._t0));
-			tardis.Go.main_timer.store_uintptr(_g._t1);
-			tardis.Scheduler.runLimit = 10;
-			_g._t3 = tardis.Go.main_timer.load_uintptr();
-			_g._t4 = new tardis.Interface(1,"Scheduler.timerEventHandler");
-			_g._t5 = new tardis.Interface(-1,tardis.Scheduler.timerEventHandler);
-			_g._t3.run = tardis.Force.toHaxeParam(_g._t5);
-			tardis.Go_main_Start.call(tardis.Scheduler.makeGoroutine(),[]);
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var _Block_2 = function() {
-			return null;
-		};
-		var _Block_3 = function() {
-			return null;
-		};
-		var _Block_4 = function() {
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			case -3:
-				retVal = _Block_3();
-				break;
-			case -4:
-				retVal = _Block_4();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_main
-});
-tardis.Go_haxegoruntime_UTF16toRunes = $hx_exports.Go_haxegoruntime_UTF16toRunes = function(gr,_bds,p_s) {
-	this._t0 = null;
-	this._SF1 = null;
-	tardis.StackFrameBasis.call(this,gr,429,"Go_haxegoruntime_UTF16toRunes");
-	this._bds = _bds;
-	this.p_s = p_s;
-	tardis.Scheduler.push(gr,this);
-};
-tardis.Go_haxegoruntime_UTF16toRunes.__name__ = true;
-tardis.Go_haxegoruntime_UTF16toRunes.__interfaces__ = [tardis.StackFrame];
-tardis.Go_haxegoruntime_UTF16toRunes.callFromRT = function(_gr,p_s) {
-	var _sf = new tardis.Go_haxegoruntime_UTF16toRunes(_gr,null,p_s).run();
-	while(_sf._incomplete) if(tardis.Scheduler.grStacks[_gr].first() == null) throw "Panic:" + Std.string(tardis.Scheduler.grPanicMsg) + "\nScheduler: null stack entry for goroutine " + _gr + "\n" + tardis.Scheduler.stackDump(); else {
-		tardis.Scheduler.currentGR = _gr;
-		tardis.Scheduler.grStacks[_gr].first().run();
-	}
-	return _sf._res;
-};
-tardis.Go_haxegoruntime_UTF16toRunes.__super__ = tardis.StackFrameBasis;
-tardis.Go_haxegoruntime_UTF16toRunes.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._SF1 = new tardis.Go_utf16_Decode(_g._goroutine,[],_g.p_s);
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			_g._t0 = _g._SF1.res();
-			_g._res = _g._t0;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis.Go_haxegoruntime_UTF16toRunes
-});
-tardis._Go.Go_haxegoruntime_init = function(gr,_bds) {
-	this._t5 = 0;
-	tardis.StackFrameBasis.call(this,gr,430,"Go_haxegoruntime_init");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_haxegoruntime_init.__name__ = true;
-tardis._Go.Go_haxegoruntime_init.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_haxegoruntime_init.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_haxegoruntime_init.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t0 = false;
-			_t0 = tardis.Go.haxegoruntime_init_36_guard.load_bool();
-			if(_t0) _g._Next = 2; else _g._Next = 1;
-			return null;
-		};
-		var _Block1 = function() {
-			tardis.Go.haxegoruntime_init_36_guard.store_bool(true);
-			new tardis._Go.Go_utf16_init(_g._goroutine,[]).run();
-			new tardis._Go.Go_utf8_init(_g._goroutine,[]).run();
-			new tardis._Go.Go_golibruntime_init(_g._goroutine,[]);
-			_g._Next = -4;
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var _Block_2 = function() {
-			return null;
-		};
-		var _Block_3 = function() {
-			return null;
-		};
-		var _Block_4 = function() {
-			var _a = null;
-			_g._t5 = "字".length;
-			tardis.Go.haxegoruntime_ZiLen.store_int32(_g._t5);
-			_g._Next = 2;
-			return null;
-		};
-		var _Block2 = function() {
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block_5 = function() {
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			case -3:
-				retVal = _Block_3();
-				break;
-			case -4:
-				retVal = _Block_4();
-				break;
-			case -5:
-				retVal = _Block_5();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_haxegoruntime_init
-});
-tardis._Go.Go_utf8_init = function(gr,_bds) {
-	tardis.StackFrameBasis.call(this,gr,426,"Go_utf8_init");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_utf8_init.__name__ = true;
-tardis._Go.Go_utf8_init.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_utf8_init.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_utf8_init.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t0 = false;
-			_t0 = tardis.Go.utf8_init_36_guard.load_bool();
-			if(_t0) _g._Next = 2; else _g._Next = 1;
-			return null;
-		};
-		var _Block1 = function() {
-			tardis.Go.utf8_init_36_guard.store_bool(true);
-			_g._Next = 2;
-			return null;
-		};
-		var _Block2 = function() {
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_utf8_init
-});
-tardis._Go.Go_golibruntime_init = function(gr,_bds) {
-	tardis.StackFrameBasis.call(this,gr,426,"Go_golibruntime_init");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_golibruntime_init.__name__ = true;
-tardis._Go.Go_golibruntime_init.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_golibruntime_init.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_golibruntime_init.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t0 = false;
-			_t0 = tardis.Go.golibruntime_init_36_guard.load_bool();
-			if(_t0) _g._Next = 2; else _g._Next = 1;
-			return null;
-		};
-		var _Block1 = function() {
-			tardis.Go.golibruntime_init_36_guard.store_bool(true);
-			new tardis._Go.Go_tgoaddmath_init(_g._goroutine,[]);
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			_g._Next = 2;
-			return null;
-		};
-		var _Block2 = function() {
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_golibruntime_init
-});
-tardis._Go.Go_main_makeHeadline = function(gr,_bds,p_e) {
-	this._t8 = 0;
-	this._t6 = "";
-	this._t5 = "";
-	this._t4 = "";
-	this._t1 = 0;
-	this._t0 = null;
-	tardis.StackFrameBasis.call(this,gr,205,"Go_main_makeHeadline");
-	this._bds = _bds;
-	this.p_e = p_e;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_makeHeadline.__name__ = true;
-tardis._Go.Go_main_makeHeadline.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_makeHeadline.call = function(gr,_bds,p_e) {
-	return new tardis._Go.Go_main_makeHeadline(gr,_bds,p_e);
-};
-tardis._Go.Go_main_makeHeadline.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_makeHeadline.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._t0 = new Date();
-			_g._t1 = _g._t0.getSeconds();
-			var _t2 = 0;
-			var _t3 = false;
-			_t2 = tardis.Go.main_lastTime.load_int32();
-			_t3 = _g._t1 != _t2;
-			if(_t3) _g._Next = 1; else _g._Next = 2;
-			return null;
-		};
-		var _Block1 = function() {
-			_g._t4 = HxOverrides.dateStr(_g._t0);
-			_g._t5 = "Translated by TARDIS Go into JS and running live: " + _g._t4;
-			_g._t6 = tardis.Go.main_lastHeading.load_string();
-			new tardis._Go.Go_main_makeText(_g._goroutine,[],false,195,15,500,20,32768,_g._t6,_g._t5);
-			_g._Next = -4;
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var _Block_2 = function() {
-			return null;
-		};
-		var _Block_3 = function() {
-			return null;
-		};
-		var _Block_4 = function() {
-			_g._t8 = _g._t0.getSeconds();
-			tardis.Go.main_lastTime.store_int32(_g._t8);
-			tardis.Go.main_lastHeading.store_string(_g._t5);
-			_g._Next = 2;
-			return null;
-		};
-		var _Block2 = function() {
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block_5 = function() {
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			case -3:
-				retVal = _Block_3();
-				break;
-			case -4:
-				retVal = _Block_4();
-				break;
-			case -5:
-				retVal = _Block_5();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_makeHeadline
-});
-tardis._Go.Go_main_replaceBitmap = function(gr,_bds,p_sprite,p_bitmap) {
-	this._t11 = null;
-	this._t10 = null;
-	this._t9 = null;
-	this._t2 = null;
-	tardis.StackFrameBasis.call(this,gr,291,"Go_main_replaceBitmap");
-	this._bds = _bds;
-	this.p_sprite = p_sprite;
-	this.p_bitmap = p_bitmap;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_replaceBitmap.__name__ = true;
-tardis._Go.Go_main_replaceBitmap.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_replaceBitmap.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_replaceBitmap.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t0 = null;
-			var _t1 = null;
-			var _t3 = null;
-			var _t4 = null;
-			var _t5 = null;
-			var _t6 = 0;
-			var _t7 = null;
-			var _t8 = 0;
-			_t0 = _g.p_sprite.addr(0);
-			_t1 = _g.p_bitmap.load_uintptr();
-			_t0.obj.set(_t0.off,_t1);
-			_g._t2 = tardis.Go.main_context.load_uintptr();
-			_t3 = _g.p_sprite.addr(0);
-			_t4 = _t3.obj.dVec4[_t3.off >> 2];
-			_t5 = _g.p_sprite.addr(4);
-			_t6 = _t5.obj.get_int32(_t5.off);
-			_t7 = _g.p_sprite.addr(8);
-			_t8 = _t7.obj.get_int32(_t7.off);
-			_g._t9 = new tardis.Interface(2,_t4);
-			_g._t10 = new tardis.Interface(0,_t6);
-			_g._t11 = new tardis.Interface(0,_t8);
-			_g._t2.drawImage(tardis.Force.toHaxeParam(_g._t9),tardis.Force.toHaxeParam(_g._t10),tardis.Force.toHaxeParam(_g._t11));
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_replaceBitmap
-});
-tardis._Go.Go_main_delay = function(gr,_bds,p_n) {
-	this._t7 = null;
-	this._t5 = null;
-	this._t4 = null;
-	this._t0 = null;
-	tardis.StackFrameBasis.call(this,gr,129,"Go_main_delay");
-	this._bds = _bds;
-	this.p_n = p_n;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_delay.__name__ = true;
-tardis._Go.Go_main_delay.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_delay.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_delay.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t1 = null;
-			var _t2 = null;
-			var _t3 = 0;
-			_g._t0 = new tardis.Pointer(new tardis.Object(4));
-			_t1 = new tardis.Channel(0);
-			_g._t0.store(_t1);
-			_t2 = new tardis.Closure(new tardis.Closure(tardis._Go.Go_main_delay_36_1.call,null),{ w : _g._t0});
-			_t3 = _g.p_n * 250 >> 0;
-			_g._t4 = new tardis.Interface(3,_t2);
-			_g._t5 = new tardis.Interface(0,_t3);
-			haxe.Timer.delay(tardis.Force.toHaxeParam(_g._t4),tardis.Force.toHaxeParam(_g._t5));
-			_g._t7 = _g._t0.load();
-			_g._Next = -2;
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var _Block_2 = function() {
-			if(_g._t7.hasNoContents()) return _g;
-			_g._t7.receive(new tardis.Object(0)).r0;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_delay
-});
-tardis.Go_main_Start_36_1 = $hx_exports.Go_main_Start_36_1 = function(gr,_bds) {
-	this._t0 = null;
-	this._SF1 = null;
-	tardis.StackFrameBasis.call(this,gr,228,"Go_main_Start_36_1");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis.Go_main_Start_36_1.__name__ = true;
-tardis.Go_main_Start_36_1.__interfaces__ = [tardis.StackFrame];
-tardis.Go_main_Start_36_1.call = function(gr,_bds) {
-	return new tardis.Go_main_Start_36_1(gr,_bds);
-};
-tardis.Go_main_Start_36_1.__super__ = tardis.StackFrameBasis;
-tardis.Go_main_Start_36_1.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._SF1 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/bigpile.png");
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			_g._t0 = _g._SF1.res();
-			new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t0,10,20);
-			_g._Next = -2;
-			return _g;
-		};
-		var _Block_2 = function() {
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis.Go_main_Start_36_1
-});
-tardis._Go.Go_main_makeSprite_36_1 = function(gr,_bds,p_e) {
-	this._t6 = null;
-	this._t5 = null;
-	this._t4 = null;
-	this._t0 = null;
-	tardis.StackFrameBasis.call(this,gr,183,"Go_main_makeSprite_36_1");
-	this._bds = _bds;
-	this.p_e = p_e;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_makeSprite_36_1.__name__ = true;
-tardis._Go.Go_main_makeSprite_36_1.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_makeSprite_36_1.call = function(gr,_bds,p_e) {
-	return new tardis._Go.Go_main_makeSprite_36_1(gr,_bds,p_e);
-};
-tardis._Go.Go_main_makeSprite_36_1.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_makeSprite_36_1.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t1 = null;
-			var _t2 = 0;
-			var _t3 = 0;
-			_g._t0 = tardis.Go.main_context.load_uintptr();
-			_t1 = _g._bds.bitmap.load_uintptr();
-			_t2 = _g._bds.x.load_int32();
-			_t3 = _g._bds.y.load_int32();
-			_g._t4 = new tardis.Interface(2,_t1);
-			_g._t5 = new tardis.Interface(0,_t2);
-			_g._t6 = new tardis.Interface(0,_t3);
-			_g._t0.drawImage(tardis.Force.toHaxeParam(_g._t4),tardis.Force.toHaxeParam(_g._t5),tardis.Force.toHaxeParam(_g._t6));
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_makeSprite_36_1
-});
-tardis.Go_main_Start_36_2 = $hx_exports.Go_main_Start_36_2 = function(gr,_bds) {
-	this._t0 = null;
-	this._SF1 = null;
-	tardis.StackFrameBasis.call(this,gr,230,"Go_main_Start_36_2");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis.Go_main_Start_36_2.__name__ = true;
-tardis.Go_main_Start_36_2.__interfaces__ = [tardis.StackFrame];
-tardis.Go_main_Start_36_2.call = function(gr,_bds) {
-	return new tardis.Go_main_Start_36_2(gr,_bds);
-};
-tardis.Go_main_Start_36_2.__super__ = tardis.StackFrameBasis;
-tardis.Go_main_Start_36_2.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._SF1 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/oven.png");
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			_g._t0 = _g._SF1.res();
-			new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t0,690,0);
-			_g._Next = -2;
-			return _g;
-		};
-		var _Block_2 = function() {
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis.Go_main_Start_36_2
-});
-tardis._Go.Go_tardisgolib_init = function(gr,_bds) {
-	tardis.StackFrameBasis.call(this,gr,230,"Go_tardisgolib_init");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_tardisgolib_init.__name__ = true;
-tardis._Go.Go_tardisgolib_init.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_tardisgolib_init.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_tardisgolib_init.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t0 = false;
-			_t0 = tardis.Go.tardisgolib_init_36_guard.load_bool();
-			if(_t0) _g._Next = 2; else _g._Next = 1;
-			return null;
-		};
-		var _Block1 = function() {
-			tardis.Go.tardisgolib_init_36_guard.store_bool(true);
-			var _t2 = null;
-			_t2 = new tardis.Channel(0);
-			tardis.Go.tardisgolib_gosched_chan.store(_t2);
-			_g._Next = 2;
-			return null;
-		};
-		var _Block2 = function() {
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_tardisgolib_init
-});
-tardis.Go_utf8_RuneLen = $hx_exports.Go_utf8_RuneLen = function(gr,_bds,p_r) {
-	tardis.StackFrameBasis.call(this,gr,967,"Go_utf8_RuneLen");
-	this._bds = _bds;
-	this.p_r = p_r;
-	tardis.Scheduler.push(gr,this);
-};
-tardis.Go_utf8_RuneLen.__name__ = true;
-tardis.Go_utf8_RuneLen.__interfaces__ = [tardis.StackFrame];
-tardis.Go_utf8_RuneLen.__super__ = tardis.StackFrameBasis;
-tardis.Go_utf8_RuneLen.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _t5 = false;
-		var _t6 = false;
-		var _Phi = 0;
-		var _Block0 = function() {
-			var _t0 = false;
-			_t0 = _g.p_r < 0;
-			if(_t0) _g._Next = 1; else _g._Next = 3;
-			_Phi = 0;
-			return null;
-		};
-		var _Block1 = function() {
-			_g._res = -1;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block2 = function() {
-			_g._res = 1;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block3 = function() {
-			var _t1 = false;
-			_t1 = _g.p_r <= 127;
-			if(_t1) _g._Next = 2; else _g._Next = 5;
-			_Phi = 3;
-			return null;
-		};
-		var _Block4 = function() {
-			_g._res = 2;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block5 = function() {
-			var _t2 = false;
-			_t2 = _g.p_r <= 2047;
-			if(_t2) _g._Next = 4; else _g._Next = 7;
-			_Phi = 5;
-			return null;
-		};
-		var _Block6 = function() {
-			_g._res = -1;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block7 = function() {
-			var _t3 = false;
-			_t3 = 55296 <= _g.p_r;
-			if(_t3) _g._Next = 10; else _g._Next = 11;
-			_Phi = 7;
-			return null;
-		};
-		var _Block8 = function() {
-			_g._res = 3;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block9 = function() {
-			var _t4 = false;
-			_t4 = _g.p_r <= 65535;
-			if(_t4) _g._Next = 8; else _g._Next = 13;
-			_Phi = 9;
-			return null;
-		};
-		var _Block10 = function() {
-			_t5 = _g.p_r <= 57343;
-			_g._Next = 11;
-			_Phi = 10;
-			return null;
-		};
-		var _Block11 = function() {
-			if(_Phi == 7) _t6 = false; else if(_Phi == 10) _t6 = _t5; else _t6 = false;
-			if(_t6) _g._Next = 6; else _g._Next = 9;
-			_Phi = 11;
-			return null;
-		};
-		var _Block12 = function() {
-			_g._res = 4;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block13 = function() {
-			var _t7 = false;
-			_t7 = _g.p_r <= 1114111;
-			if(_t7) _g._Next = 12; else _g._Next = 14;
-			_Phi = 13;
-			return null;
-		};
-		var _Block14 = function() {
-			_g._res = -1;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case 3:
-				retVal = _Block3();
-				break;
-			case 4:
-				retVal = _Block4();
-				break;
-			case 5:
-				retVal = _Block5();
-				break;
-			case 6:
-				retVal = _Block6();
-				break;
-			case 7:
-				retVal = _Block7();
-				break;
-			case 8:
-				retVal = _Block8();
-				break;
-			case 9:
-				retVal = _Block9();
-				break;
-			case 10:
-				retVal = _Block10();
-				break;
-			case 11:
-				retVal = _Block11();
-				break;
-			case 12:
-				retVal = _Block12();
-				break;
-			case 13:
-				retVal = _Block13();
-				break;
-			case 14:
-				retVal = _Block14();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis.Go_utf8_RuneLen
-});
-tardis.Go_main_Gosched = $hx_exports.Go_main_Gosched = function(gr,_bds) {
-	tardis.StackFrameBasis.call(this,gr,380,"Go_main_Gosched");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis.Go_main_Gosched.__name__ = true;
-tardis.Go_main_Gosched.__interfaces__ = [tardis.StackFrame];
-tardis.Go_main_Gosched.__super__ = tardis.StackFrameBasis;
-tardis.Go_main_Gosched.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			new tardis._Go.Go_main_monitor(_g._goroutine,[]);
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			new tardis.Go_tardisgolib_Gosched(_g._goroutine,[]);
-			_g._Next = -2;
-			return _g;
-		};
-		var _Block_2 = function() {
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis.Go_main_Gosched
-});
-tardis._Go.Go_main_pickBooks = function(gr,_bds,p_x,p_y,p_state,p_in) {
-	this._t0 = 0;
-	tardis.StackFrameBasis.call(this,gr,86,"Go_main_pickBooks");
-	this._bds = _bds;
-	this.p_x = p_x;
-	this.p_y = p_y;
-	this.p_state = p_state;
-	this.p_in = p_in;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_pickBooks.__name__ = true;
-tardis._Go.Go_main_pickBooks.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_pickBooks.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_pickBooks.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g.p_state.store_int32(0);
-			_g.p_x.store_float64(0);
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			if(_g.p_in.hasNoContents()) return _g;
-			_g._t0 = _g.p_in.receive(0).r0;
-			new tardis._Go.Go_main_delay(_g._goroutine,[],_g._t0);
-			_g._Next = -2;
-			return _g;
-		};
-		var _Block_2 = function() {
-			_g._res = _g._t0;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_pickBooks
-});
-tardis._Go.Go_main_makeText = function(gr,_bds,p_selectable,p_x,p_y,p_width,p_height,p_textColor,p_oldtext,p_text) {
-	this._Phi = 0;
-	this._t45 = null;
-	this._t44 = null;
-	this._t43 = null;
-	this._t38 = null;
-	this._t34 = 0;
-	this._t33 = 0;
-	this._t26 = null;
-	this._t22 = 0;
-	this._t20 = 0;
-	this._t18 = null;
-	this._t17 = null;
-	this._t16 = null;
-	this._t15 = null;
-	this._t13 = null;
-	this._t11 = null;
-	this._t10 = null;
-	this._t8 = null;
-	this._t7 = null;
-	this._t6 = null;
-	this._t3 = null;
-	this._t1 = null;
-	this._t0 = null;
-	tardis.StackFrameBasis.call(this,gr,148,"Go_main_makeText");
-	this._bds = _bds;
-	this.p_selectable = p_selectable;
-	this.p_x = p_x;
-	this.p_y = p_y;
-	this.p_width = p_width;
-	this.p_height = p_height;
-	this.p_textColor = p_textColor;
-	this.p_oldtext = p_oldtext;
-	this.p_text = p_text;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_makeText.__name__ = true;
-tardis._Go.Go_main_makeText.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_makeText.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_makeText.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._t0 = tardis.Go.main_context.load_uintptr();
-			_g._t1 = "#fff";
-			_g._t0.fillStyle = _g._t1;
-			var _t4 = 0.0;
-			var _t5 = 0.0;
-			_g._t3 = tardis.Go.main_context.load_uintptr();
-			_t4 = _g.p_x;
-			_t5 = _g.p_y;
-			_g._t6 = new tardis.Interface(1,_g.p_oldtext);
-			_g._t7 = new tardis.Interface(4,_t4);
-			_g._t8 = new tardis.Interface(4,_t5);
-			_g._t3.fillText(tardis.Force.toHaxeParam(_g._t6),tardis.Force.toHaxeParam(_g._t7),tardis.Force.toHaxeParam(_g._t8));
-			_g._t10 = tardis.Go.main_context.load_uintptr();
-			_g._t11 = "#373";
-			_g._t10.fillStyle = _g._t11;
-			_g._t13 = tardis.Go.main_context.load_uintptr();
-			_g._t13.font = "12px Arial";
-			_g._t15 = new tardis.Slice(new tardis.Pointer(new tardis.Object(8)),0,1,1,8);
-			_g._t16 = { k : 0, v : tardis.Force.toUTF8slice(_g._goroutine,_g.p_text)};
-			_g._Next = 1;
-			_g._Phi = 0;
-			return null;
-		};
-		var _Block1 = function() {
-			if(_g._Phi == 0) _g._t17 = _g._t15; else if(_g._Phi == 4) _g._t17 = _g._t26; else if(_g._Phi == 5) _g._t17 = _g._t17; else _g._t17 = new tardis.Slice(new tardis.Pointer(new tardis.Object(0)),0,0,0,8);
-			var _t19 = false;
-			var _thisK = _g._t16.k;
-			if(_g._t16.k >= _g._t16.v.len()) _g._t18 = { r0 : false, r1 : 0, r2 : 0}; else {
-				var _dr = tardis.Go_utf8_DecodeRune.callFromRT(_g._goroutine,_g._t16.v.subSlice(_thisK,-1));
-				_g._t16.k += _dr.r1;
-				_g._t18 = { r0 : true, r1 : js.Boot.__cast(_thisK , Int), r2 : js.Boot.__cast(_dr.r0 , Int)};
-			}
-			_t19 = _g._t18.r0;
-			if(_t19) _g._Next = 2; else _g._Next = 3;
-			_g._Phi = 1;
-			return null;
-		};
-		var _Block2 = function() {
-			var _t21 = false;
-			_g._t20 = _g._t18.r2;
-			_t21 = _g._t20 == 10;
-			if(_t21) _g._Next = 4; else _g._Next = 5;
-			_g._Phi = 2;
-			return null;
-		};
-		var _Block3 = function() {
-			var _v = _g._t17;
-			if(_v == null) _g._t22 = 0; else _g._t22 = _v.length;
-			_g._Next = 6;
-			_g._Phi = 3;
-			return null;
-		};
-		var _Block4 = function() {
-			var _t23 = null;
-			var _t24 = null;
-			var _t25 = null;
-			_t23 = new tardis.Pointer(new tardis.Object(8));
-			_t24 = _t23.addr(0);
-			_t24.obj.set(_t24.off,"");
-			_t25 = new tardis.Slice(_t23,0,-1,1,8);
-			_g._t26 = _g._t17.append(_t25);
-			_g._Next = 1;
-			_g._Phi = 4;
-			return null;
-		};
-		var _Block5 = function() {
-			var _t27 = 0;
-			var _t28 = 0;
-			var _t29 = null;
-			var _t30 = "";
-			var _t31 = "";
-			var _t32 = "";
-			var _v1 = _g._t17;
-			if(_v1 == null) _t27 = 0; else _t27 = _v1.length;
-			_t28 = _t27 - 1 >> 0;
-			if(_t28 < 0 || _t28 >= _g._t17.length) tardis.Scheduler.ioor();
-			_t29 = _g._t17.itemAddr(_t28);
-			var _r = tardis.Go_haxegoruntime_Rune2Raw.callFromRT(_g._goroutine,_g._t20);
-			_t30 = "";
-			var _g2 = 0;
-			var _g1 = _r.length;
-			while(_g2 < _g1) {
-				var _i = _g2++;
-				_t30 += String.fromCharCode(_r.baseArray.addr((_i + _r.start) * _r.itemSize).load_int32());
-			}
-			_t31 = _t29.obj.get_string(_t29.off);
-			_t32 = _t31 + _t30;
-			_t29.obj.set(_t29.off,_t32);
-			_g._Next = 1;
-			_g._Phi = 5;
-			return null;
-		};
-		var _Block6 = function() {
-			if(_g._Phi == 3) _g._t33 = -1; else if(_g._Phi == 7) _g._t33 = _g._t34; else _g._t33 = 0;
-			var _t35 = false;
-			_g._t34 = _g._t33 + 1 >> 0;
-			_t35 = _g._t34 < _g._t22;
-			if(_t35) _g._Next = 7; else _g._Next = 8;
-			_g._Phi = 6;
-			return null;
-		};
-		var _Block7 = function() {
-			var _t36 = null;
-			var _t37 = "";
-			var _t39 = 0.0;
-			var _t40 = 0;
-			var _t41 = 0;
-			var _t42 = 0.0;
-			tardis.Scheduler.wraprangechk(_g._t34,_g._t17.length);
-			_t36 = _g._t17.itemAddr(_g._t34);
-			_t37 = _t36.obj.get_string(_t36.off);
-			_g._t38 = tardis.Go.main_context.load_uintptr();
-			_t39 = _g.p_x;
-			_t40 = 12 * _g._t34 >> 0;
-			_t41 = _g.p_y + _t40 >> 0;
-			_t42 = _t41;
-			_g._t43 = new tardis.Interface(1,_t37);
-			_g._t44 = new tardis.Interface(4,_t39);
-			_g._t45 = new tardis.Interface(4,_t42);
-			_g._t38.fillText(tardis.Force.toHaxeParam(_g._t43),tardis.Force.toHaxeParam(_g._t44),tardis.Force.toHaxeParam(_g._t45));
-			_g._Next = 6;
-			_g._Phi = 7;
-			return null;
-		};
-		var _Block8 = function() {
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var _Block_2 = function() {
-			return null;
-		};
-		var _Block_3 = function() {
-			return null;
-		};
-		var _Block_4 = function() {
-			return null;
-		};
-		var _Block_5 = function() {
-			return null;
-		};
-		var _Block_6 = function() {
-			return null;
-		};
-		var _Block_7 = function() {
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g3 = this._Next;
-			switch(_g3) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case 3:
-				retVal = _Block3();
-				break;
-			case 4:
-				retVal = _Block4();
-				break;
-			case 5:
-				retVal = _Block5();
-				break;
-			case 6:
-				retVal = _Block6();
-				break;
-			case 7:
-				retVal = _Block7();
-				break;
-			case 8:
-				retVal = _Block8();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			case -3:
-				retVal = _Block_3();
-				break;
-			case -4:
-				retVal = _Block_4();
-				break;
-			case -5:
-				retVal = _Block_5();
-				break;
-			case -6:
-				retVal = _Block_6();
-				break;
-			case -7:
-				retVal = _Block_7();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_makeText
-});
-tardis.Go_utf16_IsSurrogate = $hx_exports.Go_utf16_IsSurrogate = function(gr,_bds,p_r) {
-	tardis.StackFrameBasis.call(this,gr,569,"Go_utf16_IsSurrogate");
-	this._bds = _bds;
-	this.p_r = p_r;
-	tardis.Scheduler.push(gr,this);
-};
-tardis.Go_utf16_IsSurrogate.__name__ = true;
-tardis.Go_utf16_IsSurrogate.__interfaces__ = [tardis.StackFrame];
-tardis.Go_utf16_IsSurrogate.__super__ = tardis.StackFrameBasis;
-tardis.Go_utf16_IsSurrogate.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _t1 = false;
-		var _t2 = false;
-		var _Phi = 0;
-		var _Block0 = function() {
-			var _t0 = false;
-			_t0 = 55296 <= _g.p_r;
-			if(_t0) _g._Next = 1; else _g._Next = 2;
-			_Phi = 0;
-			return null;
-		};
-		var _Block1 = function() {
-			_t1 = _g.p_r < 57344;
-			_g._Next = 2;
-			_Phi = 1;
-			return null;
-		};
-		var _Block2 = function() {
-			if(_Phi == 0) _t2 = false; else if(_Phi == 1) _t2 = _t1; else _t2 = false;
-			_g._res = _t2;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis.Go_utf16_IsSurrogate
-});
 tardis.Go_utf8_EncodeRune = $hx_exports.Go_utf8_EncodeRune = function(gr,_bds,p_p,p_r) {
 	tardis.StackFrameBasis.call(this,gr,987,"Go_utf8_EncodeRune");
 	this._bds = _bds;
@@ -2920,2773 +1395,6 @@ tardis.Go_utf8_EncodeRune.prototype = $extend(tardis.StackFrameBasis.prototype,{
 		return retVal;
 	}
 	,__class__: tardis.Go_utf8_EncodeRune
-});
-tardis._Go.Go_tgoaddmath_init_35_1 = function(gr,_bds) {
-	tardis.StackFrameBasis.call(this,gr,1272,"Go_tgoaddmath_init_35_1");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_tgoaddmath_init_35_1.__name__ = true;
-tardis._Go.Go_tgoaddmath_init_35_1.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_tgoaddmath_init_35_1.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_tgoaddmath_init_35_1.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._Next = 2;
-			return null;
-		};
-		var _Block1 = function() {
-			new tardis._Go.Go_tgoaddmath_glrFloat32bits(_g._goroutine,[],0);
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			new tardis._Go.Go_tgoaddmath_glrFloat32frombits(_g._goroutine,[],0);
-			_g._Next = -2;
-			return _g;
-		};
-		var _Block_2 = function() {
-			new tardis._Go.Go_tgoaddmath_glrFloat64bits(_g._goroutine,[],0).run();
-			tardis._Go.Go_tgoaddmath_glrFloat64frombits.call(_g._goroutine,[],(function($this) {
-				var $r;
-				var v = new tardis.Int64(0,0);
-				$r = v;
-				return $r;
-			}(this)));
-			_g._Next = -4;
-			return _g;
-		};
-		var _Block_3 = function() {
-			return null;
-		};
-		var _Block_4 = function() {
-			_g._Next = 2;
-			return null;
-		};
-		var _Block2 = function() {
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			case -3:
-				retVal = _Block_3();
-				break;
-			case -4:
-				retVal = _Block_4();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_tgoaddmath_init_35_1
-});
-tardis._Go.Go_main_fire = function(gr,_bds) {
-	this._t0 = null;
-	tardis.StackFrameBasis.call(this,gr,70,"Go_main_fire");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_fire.__name__ = true;
-tardis._Go.Go_main_fire.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_fire.call = function(gr,_bds) {
-	return new tardis._Go.Go_main_fire(gr,_bds);
-};
-tardis._Go.Go_main_fire.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_fire.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._Next = 1;
-			return null;
-		};
-		var _Block1 = function() {
-			_g._t0 = tardis.Go.main_oven.load();
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			if(_g._t0.hasNoContents()) return _g;
-			_g._t0.receive(0).r0;
-			_g._Next = 1;
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_fire
-});
-tardis._Go.Go_main_makeSprite = function(gr,_bds,p_bitmap,p_x,p_y) {
-	this._t22 = null;
-	this._t20 = null;
-	this._t13 = null;
-	this._t11 = null;
-	this._t10 = null;
-	this._t9 = null;
-	this._t5 = null;
-	this._t4 = false;
-	this._t3 = null;
-	this._t2 = null;
-	this._t1 = null;
-	this._t0 = null;
-	tardis.StackFrameBasis.call(this,gr,179,"Go_main_makeSprite");
-	this._bds = _bds;
-	this.p_bitmap = p_bitmap;
-	this.p_x = p_x;
-	this.p_y = p_y;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_makeSprite.__name__ = true;
-tardis._Go.Go_main_makeSprite.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_makeSprite.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_makeSprite.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._t0 = new tardis.Pointer(new tardis.Object(4));
-			_g._t0.store_uintptr(_g.p_bitmap);
-			_g._t1 = new tardis.Pointer(new tardis.Object(4));
-			_g._t1.store_int32(_g.p_x);
-			_g._t2 = new tardis.Pointer(new tardis.Object(4));
-			_g._t2.store_int32(_g.p_y);
-			_g._t3 = _g._t0.load_uintptr();
-			_g._t4 = _g._t3.complete;
-			if(_g._t4) _g._Next = 1; else _g._Next = 3;
-			return null;
-		};
-		var _Block1 = function() {
-			var _t6 = null;
-			var _t7 = 0;
-			var _t8 = 0;
-			_g._t5 = tardis.Go.main_context.load_uintptr();
-			_t6 = _g._t0.load_uintptr();
-			_t7 = _g._t1.load_int32();
-			_t8 = _g._t2.load_int32();
-			_g._t9 = new tardis.Interface(2,_t6);
-			_g._t10 = new tardis.Interface(0,_t7);
-			_g._t11 = new tardis.Interface(0,_t8);
-			_g._t5.drawImage(tardis.Force.toHaxeParam(_g._t9),tardis.Force.toHaxeParam(_g._t10),tardis.Force.toHaxeParam(_g._t11));
-			_g._Next = 2;
-			return null;
-		};
-		var _Block2 = function() {
-			var _t14 = null;
-			var _t15 = null;
-			var _t16 = null;
-			var _t17 = 0;
-			var _t18 = null;
-			var _t19 = 0;
-			_g._t13 = new tardis.Pointer(new tardis.Object(12));
-			_t14 = _g._t13.addr(0);
-			_t15 = _g._t0.load_uintptr();
-			_t14.obj.set(_t14.off,_t15);
-			_t16 = _g._t13.addr(4);
-			_t17 = _g._t1.load_int32();
-			_t16.obj.iVec[_t16.off] = _t17;
-			_t18 = _g._t13.addr(8);
-			_t19 = _g._t2.load_int32();
-			_t18.obj.iVec[_t18.off] = _t19;
-			_g._res = _g._t13;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block3 = function() {
-			var _t21 = null;
-			_g._t20 = _g._t0.load_uintptr();
-			_t21 = new tardis.Closure(new tardis.Closure(tardis._Go.Go_main_makeSprite_36_1.call,null),{ bitmap : _g._t0, x : _g._t1, y : _g._t2});
-			_g._t22 = tardis.Force.toHaxeParam(new tardis.Interface(5,_t21));
-			_g._t20.onload = _g._t22;
-			_g._Next = 2;
-			return null;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var _Block_2 = function() {
-			return null;
-		};
-		var _Block_3 = function() {
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case 3:
-				retVal = _Block3();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			case -3:
-				retVal = _Block_3();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_makeSprite
-});
-tardis.Go_haxegoruntime_Rune2Raw = $hx_exports.Go_haxegoruntime_Rune2Raw = function(gr,_bds,p_oneRune) {
-	this._t2 = null;
-	this._SF1 = null;
-	this._t0 = null;
-	tardis.StackFrameBasis.call(this,gr,511,"Go_haxegoruntime_Rune2Raw");
-	this._bds = _bds;
-	this.p_oneRune = p_oneRune;
-	tardis.Scheduler.push(gr,this);
-};
-tardis.Go_haxegoruntime_Rune2Raw.__name__ = true;
-tardis.Go_haxegoruntime_Rune2Raw.__interfaces__ = [tardis.StackFrame];
-tardis.Go_haxegoruntime_Rune2Raw.callFromRT = function(_gr,p_oneRune) {
-	var _sf = new tardis.Go_haxegoruntime_Rune2Raw(_gr,null,p_oneRune).run();
-	while(_sf._incomplete) if(tardis.Scheduler.grStacks[_gr].first() == null) throw "Panic:" + Std.string(tardis.Scheduler.grPanicMsg) + "\nScheduler: null stack entry for goroutine " + _gr + "\n" + tardis.Scheduler.stackDump(); else {
-		tardis.Scheduler.currentGR = _gr;
-		tardis.Scheduler.grStacks[_gr].first().run();
-	}
-	return _sf._res;
-};
-tardis.Go_haxegoruntime_Rune2Raw.__super__ = tardis.StackFrameBasis;
-tardis.Go_haxegoruntime_Rune2Raw.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t1 = null;
-			_g._t0 = new tardis.Slice(new tardis.Pointer(new tardis.Object(4)),0,1,1,4);
-			if(0 >= _g._t0.length) tardis.Scheduler.ioor();
-			_t1 = _g._t0.itemAddr(0);
-			_t1.obj.iVec[_t1.off] = _g.p_oneRune;
-			_g._SF1 = new tardis.Go_haxegoruntime_Runes2Raw(_g._goroutine,[],_g._t0);
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			_g._t2 = _g._SF1.res();
-			_g._res = _g._t2;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis.Go_haxegoruntime_Rune2Raw
-});
-tardis.Go_utf16_DecodeRune = $hx_exports.Go_utf16_DecodeRune = function(gr,_bds,p_r1,p_r2) {
-	tardis.StackFrameBasis.call(this,gr,576,"Go_utf16_DecodeRune");
-	this._bds = _bds;
-	this.p_r1 = p_r1;
-	this.p_r2 = p_r2;
-	tardis.Scheduler.push(gr,this);
-};
-tardis.Go_utf16_DecodeRune.__name__ = true;
-tardis.Go_utf16_DecodeRune.__interfaces__ = [tardis.StackFrame];
-tardis.Go_utf16_DecodeRune.__super__ = tardis.StackFrameBasis;
-tardis.Go_utf16_DecodeRune.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _t5 = 0;
-		var _Block0 = function() {
-			var _t0 = false;
-			_t0 = 55296 <= _g.p_r1;
-			if(_t0) _g._Next = 5; else _g._Next = 2;
-			return null;
-		};
-		var _Block1 = function() {
-			var _t1 = 0;
-			var _t2 = 0;
-			var _t3 = 0;
-			var _t4 = 0;
-			_t1 = _g.p_r1 - 55296 >> 0;
-			var _v1 = _t1;
-			var _v2;
-			var v;
-			var v1 = new tardis.Int64(0,10);
-			v = v1;
-			_v2 = tardis.Int64.getLow(v);
-			if(_v2 == 0) _t2 = _v1; else _t2 = _v1 << _v2;
-			_t3 = _g.p_r2 - 56320 >> 0;
-			_t4 = (_t2 | _t3) >> 0;
-			_t5 = _t4 + 65536 >> 0;
-			_g._res = _t5;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block2 = function() {
-			_g._res = 65533;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block3 = function() {
-			var _t6 = false;
-			_t6 = _g.p_r2 < 57344;
-			if(_t6) _g._Next = 1; else _g._Next = 2;
-			return null;
-		};
-		var _Block4 = function() {
-			var _t7 = false;
-			_t7 = 56320 <= _g.p_r2;
-			if(_t7) _g._Next = 3; else _g._Next = 2;
-			return null;
-		};
-		var _Block5 = function() {
-			var _t8 = false;
-			_t8 = _g.p_r1 < 56320;
-			if(_t8) _g._Next = 4; else _g._Next = 2;
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case 3:
-				retVal = _Block3();
-				break;
-			case 4:
-				retVal = _Block4();
-				break;
-			case 5:
-				retVal = _Block5();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis.Go_utf16_DecodeRune
-});
-tardis._Go.Go_utf16_init = function(gr,_bds) {
-	tardis.StackFrameBasis.call(this,gr,577,"Go_utf16_init");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_utf16_init.__name__ = true;
-tardis._Go.Go_utf16_init.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_utf16_init.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_utf16_init.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t0 = false;
-			_t0 = tardis.Go.utf16_init_36_guard.load_bool();
-			if(_t0) _g._Next = 2; else _g._Next = 1;
-			return null;
-		};
-		var _Block1 = function() {
-			tardis.Go.utf16_init_36_guard.store_bool(true);
-			_g._Next = 2;
-			return null;
-		};
-		var _Block2 = function() {
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_utf16_init
-});
-tardis._Go.Go_tgoaddmath_pow2 = function(gr,_bds,p_c) {
-	this._t7 = 0.0;
-	this._t6 = null;
-	tardis.StackFrameBasis.call(this,gr,1443,"Go_tgoaddmath_pow2");
-	this._bds = _bds;
-	this.p_c = p_c;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_tgoaddmath_pow2.__name__ = true;
-tardis._Go.Go_tgoaddmath_pow2.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_tgoaddmath_pow2.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_tgoaddmath_pow2.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t0 = 0.0;
-			var _t1 = null;
-			var _t2 = null;
-			var _t3 = null;
-			var _t4 = null;
-			var _t5 = null;
-			_t0 = _g.p_c;
-			_t1 = new tardis.Pointer(new tardis.Object(16));
-			_t2 = _t1.addr(0);
-			_t3 = new tardis.Interface(4,2);
-			_t2.store(_t3);
-			_t4 = _t1.addr(8);
-			_t5 = new tardis.Interface(4,_t0);
-			_t4.store(_t5);
-			_g._t6 = new tardis.Slice(_t1,0,-1,2,8);
-			var _a = _g._t6;
-			_g._t7 = Math.pow(_a.baseArray.addr(_a.start * _a.itemSize).load().val,_a.baseArray.addr((1 + _a.start) * _a.itemSize).load().val);
-			_g._res = _g._t7;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_tgoaddmath_pow2
-});
-tardis._Go.Go_tgoaddmath_glrFloat64frombits = function(gr,_bds,p_b) {
-	this._Phi = 0;
-	this._t21 = 0.0;
-	this._t19 = 0.0;
-	this._SF2 = null;
-	this._t18 = 0;
-	this._t15 = 0.0;
-	this._t14 = null;
-	this._t12 = null;
-	this._t11 = null;
-	this._t10 = 0.0;
-	this._t6 = null;
-	this._t5 = null;
-	this._t3 = 0.0;
-	this._t0 = 0.0;
-	tardis.StackFrameBasis.call(this,gr,1415,"Go_tgoaddmath_glrFloat64frombits");
-	this._bds = _bds;
-	this.p_b = p_b;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_tgoaddmath_glrFloat64frombits.__name__ = true;
-tardis._Go.Go_tgoaddmath_glrFloat64frombits.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_tgoaddmath_glrFloat64frombits.call = function(gr,_bds,p_b) {
-	return new tardis._Go.Go_tgoaddmath_glrFloat64frombits(gr,_bds,p_b);
-};
-tardis._Go.Go_tgoaddmath_glrFloat64frombits.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_tgoaddmath_glrFloat64frombits.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._t0 = Math.NaN;
-			var _t1 = null;
-			var _t2 = false;
-			_t1 = tardis.Force.toUint64((function($this) {
-				var $r;
-				var x = _g.p_b;
-				var y;
-				{
-					var v = new tardis.Int64(-2147483648,0);
-					y = v;
-				}
-				$r = (function($this) {
-					var $r;
-					var v1 = new tardis.Int64(x.high & y.high,x.low & y.low);
-					$r = v1;
-					return $r;
-				}($this));
-				return $r;
-			}(this)));
-			_t2 = tardis._Go.HaxeInt64abs_Impl_.ucompare(_t1,(function($this) {
-				var $r;
-				var v2 = new tardis.Int64(0,0);
-				$r = v2;
-				return $r;
-			}(this))) != 0;
-			if(_t2) _g._Next = 1; else _g._Next = 2;
-			_g._Phi = 0;
-			return null;
-		};
-		var _Block1 = function() {
-			_g._Next = 2;
-			_g._Phi = 1;
-			return null;
-		};
-		var _Block2 = function() {
-			if(_g._Phi == 0) _g._t3 = 1; else if(_g._Phi == 1) _g._t3 = -1; else _g._t3 = 0.0;
-			var _t4 = null;
-			var _t7 = false;
-			_t4 = tardis.Force.toUint64(tardis._Go.HaxeInt64abs_Impl_.ushr(_g.p_b,(function($this) {
-				var $r;
-				var v3;
-				{
-					var v4 = new tardis.Int64(0,52);
-					v3 = v4;
-				}
-				$r = tardis.Int64.getLow(v3);
-				return $r;
-			}(this))));
-			_g._t5 = tardis.Force.toUint64((function($this) {
-				var $r;
-				var y1;
-				{
-					var v5 = new tardis.Int64(0,2047);
-					y1 = v5;
-				}
-				$r = (function($this) {
-					var $r;
-					var v6 = new tardis.Int64(_t4.high & y1.high,_t4.low & y1.low);
-					$r = v6;
-					return $r;
-				}($this));
-				return $r;
-			}(this)));
-			_g._t6 = tardis.Force.toUint64((function($this) {
-				var $r;
-				var x1 = _g.p_b;
-				var y2;
-				{
-					var v7 = new tardis.Int64(1048575,-1);
-					y2 = v7;
-				}
-				$r = (function($this) {
-					var $r;
-					var v8 = new tardis.Int64(x1.high & y2.high,x1.low & y2.low);
-					$r = v8;
-					return $r;
-				}($this));
-				return $r;
-			}(this)));
-			_t7 = tardis._Go.HaxeInt64abs_Impl_.ucompare(_g._t5,(function($this) {
-				var $r;
-				var v9 = new tardis.Int64(0,2047);
-				$r = v9;
-				return $r;
-			}(this))) == 0;
-			if(_t7) _g._Next = 3; else _g._Next = 4;
-			_g._Phi = 2;
-			return null;
-		};
-		var _Block3 = function() {
-			var _t8 = false;
-			_t8 = tardis._Go.HaxeInt64abs_Impl_.ucompare(_g._t6,(function($this) {
-				var $r;
-				var v10 = new tardis.Int64(0,0);
-				$r = v10;
-				return $r;
-			}(this))) == 0;
-			if(_t8) _g._Next = 5; else _g._Next = 6;
-			_g._Phi = 3;
-			return null;
-		};
-		var _Block4 = function() {
-			var _t9 = false;
-			_t9 = tardis._Go.HaxeInt64abs_Impl_.ucompare(_g._t5,(function($this) {
-				var $r;
-				var v11 = new tardis.Int64(0,0);
-				$r = v11;
-				return $r;
-			}(this))) != 0;
-			if(_t9) _g._Next = 7; else _g._Next = 8;
-			_g._Phi = 4;
-			return null;
-		};
-		var _Block5 = function() {
-			_g._t10 = tardis.Force.floatDiv(_g._t3,0);
-			_g._res = _g._t10;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block6 = function() {
-			_g._res = _g._t0;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block7 = function() {
-			_g._t11 = tardis.Force.toUint64((function($this) {
-				var $r;
-				var y3;
-				{
-					var v12 = new tardis.Int64(1048576,0);
-					y3 = v12;
-				}
-				$r = (function($this) {
-					var $r;
-					var v13 = tardis.Int64.add(_g._t6,y3);
-					$r = v13;
-					return $r;
-				}($this));
-				return $r;
-			}(this)));
-			_g._Next = 8;
-			_g._Phi = 7;
-			return null;
-		};
-		var _Block8 = function() {
-			if(_g._Phi == 4) _g._t12 = _g._t6; else if(_g._Phi == 7) _g._t12 = _g._t11; else {
-				var v14 = new tardis.Int64(0,0);
-				_g._t12 = v14;
-			}
-			var _t13 = false;
-			_t13 = tardis._Go.HaxeInt64abs_Impl_.ucompare(_g._t5,(function($this) {
-				var $r;
-				var v15 = new tardis.Int64(0,0);
-				$r = v15;
-				return $r;
-			}(this))) == 0;
-			if(_t13) _g._Next = 9; else _g._Next = 10;
-			_g._Phi = 8;
-			return null;
-		};
-		var _Block9 = function() {
-			_g._Next = 10;
-			_g._Phi = 9;
-			return null;
-		};
-		var _Block10 = function() {
-			if(_g._Phi == 8) _g._t14 = _g._t5; else if(_g._Phi == 9) {
-				var v16 = new tardis.Int64(0,1);
-				_g._t14 = v16;
-			} else {
-				var v17 = new tardis.Int64(0,0);
-				_g._t14 = v17;
-			}
-			var _t16 = 0;
-			var _t17 = 0;
-			_g._t15 = tardis._Go.HaxeInt64abs_Impl_.toUFloat(_g._t12);
-			_t16 = tardis.Force.toInt32(tardis.Int64.getLow(_g._t14));
-			_t17 = _t16 - 1023 >> 0;
-			_g._t18 = _t17 - 52 >> 0;
-			_g._SF2 = new tardis._Go.Go_tgoaddmath_pow2(_g._goroutine,[],_g._t18);
-			_g._Next = -2;
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var _Block_2 = function() {
-			_g._t19 = _g._SF2.res();
-			var _t20 = 0.0;
-			_t20 = _g._t15 * _g._t19;
-			_g._t21 = _t20 * _g._t3;
-			_g._res = _g._t21;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case 3:
-				retVal = _Block3();
-				break;
-			case 4:
-				retVal = _Block4();
-				break;
-			case 5:
-				retVal = _Block5();
-				break;
-			case 6:
-				retVal = _Block6();
-				break;
-			case 7:
-				retVal = _Block7();
-				break;
-			case 8:
-				retVal = _Block8();
-				break;
-			case 9:
-				retVal = _Block9();
-				break;
-			case 10:
-				retVal = _Block10();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_tgoaddmath_glrFloat64frombits
-});
-tardis.Go_haxegoruntime_RunesToUTF16 = $hx_exports.Go_haxegoruntime_RunesToUTF16 = function(gr,_bds,p_r) {
-	this._t0 = null;
-	this._SF1 = null;
-	tardis.StackFrameBasis.call(this,gr,471,"Go_haxegoruntime_RunesToUTF16");
-	this._bds = _bds;
-	this.p_r = p_r;
-	tardis.Scheduler.push(gr,this);
-};
-tardis.Go_haxegoruntime_RunesToUTF16.__name__ = true;
-tardis.Go_haxegoruntime_RunesToUTF16.__interfaces__ = [tardis.StackFrame];
-tardis.Go_haxegoruntime_RunesToUTF16.__super__ = tardis.StackFrameBasis;
-tardis.Go_haxegoruntime_RunesToUTF16.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._SF1 = new tardis.Go_utf16_Encode(_g._goroutine,[],_g.p_r);
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			_g._t0 = _g._SF1.res();
-			_g._res = _g._t0;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis.Go_haxegoruntime_RunesToUTF16
-});
-tardis.Go_haxegoruntime_RunesToUTF8 = $hx_exports.Go_haxegoruntime_RunesToUTF8 = function(gr,_bds,p_r) {
-	this._Phi = 0;
-	this._t13 = null;
-	this._t11 = 0;
-	this._t9 = null;
-	this._t8 = 0;
-	this._SF1 = null;
-	this._t7 = 0;
-	this._t4 = 0;
-	this._t3 = 0;
-	this._t2 = null;
-	this._t1 = 0;
-	this._t0 = null;
-	tardis.StackFrameBasis.call(this,gr,476,"Go_haxegoruntime_RunesToUTF8");
-	this._bds = _bds;
-	this.p_r = p_r;
-	tardis.Scheduler.push(gr,this);
-};
-tardis.Go_haxegoruntime_RunesToUTF8.__name__ = true;
-tardis.Go_haxegoruntime_RunesToUTF8.__interfaces__ = [tardis.StackFrame];
-tardis.Go_haxegoruntime_RunesToUTF8.callFromRT = function(_gr,p_r) {
-	var _sf = new tardis.Go_haxegoruntime_RunesToUTF8(_gr,null,p_r).run();
-	while(_sf._incomplete) if(tardis.Scheduler.grStacks[_gr].first() == null) throw "Panic:" + Std.string(tardis.Scheduler.grPanicMsg) + "\nScheduler: null stack entry for goroutine " + _gr + "\n" + tardis.Scheduler.stackDump(); else {
-		tardis.Scheduler.currentGR = _gr;
-		tardis.Scheduler.grStacks[_gr].first().run();
-	}
-	return _sf._res;
-};
-tardis.Go_haxegoruntime_RunesToUTF8.__super__ = tardis.StackFrameBasis;
-tardis.Go_haxegoruntime_RunesToUTF8.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._t0 = new tardis.Slice(new tardis.Pointer(new tardis.Object(0)),0,0,0,1);
-			var _v = _g.p_r;
-			if(_v == null) _g._t1 = 0; else _g._t1 = _v.length;
-			_g._Next = 1;
-			_g._Phi = 0;
-			return null;
-		};
-		var _Block1 = function() {
-			var _g1 = _g._Phi;
-			switch(_g1) {
-			case 2:
-				_g._t2 = _g._t13;
-				_g._t3 = _g._t4;
-				break;
-			case 0:
-				_g._t2 = _g._t0;
-				_g._t3 = -1;
-				break;
-			}
-			var _t5 = false;
-			_g._t4 = _g._t3 + 1 >> 0;
-			_t5 = _g._t4 < _g._t1;
-			if(_t5) _g._Next = 2; else _g._Next = 3;
-			_g._Phi = 1;
-			return null;
-		};
-		var _Block2 = function() {
-			var _t6 = null;
-			tardis.Scheduler.wraprangechk(_g._t4,_g.p_r.length);
-			_t6 = _g.p_r.itemAddr(_g._t4);
-			_g._t7 = _t6.obj.get_int32(_t6.off);
-			_g._SF1 = new tardis.Go_utf8_RuneLen(_g._goroutine,[],_g._t7);
-			_g._SF1.run();
-			_g._t8 = _g._SF1.res();
-			var _t10 = null;
-			_g._t9 = new tardis.Slice(new tardis.Pointer(new tardis.Object(_g._t8)),0,_g._t8,_g._t8,1);
-			tardis.Scheduler.wraprangechk(_g._t4,_g.p_r.length);
-			_t10 = _g.p_r.itemAddr(_g._t4);
-			_g._t11 = _t10.obj.get_int32(_t10.off);
-			new tardis.Go_utf8_EncodeRune(_g._goroutine,[],_g._t9,_g._t11).run();
-			_g._t13 = _g._t2.append(_g._t9);
-			_g._Next = 1;
-			_g._Phi = 2;
-			return null;
-		};
-		var _Block3 = function() {
-			_g._res = _g._t2;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var _Block_2 = function() {
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g2 = this._Next;
-			switch(_g2) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case 3:
-				retVal = _Block3();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis.Go_haxegoruntime_RunesToUTF8
-});
-tardis._Go.Go_main_fireBooks = function(gr,_bds,p_x,p_y,p_state,p_cartLoad,p_out) {
-	tardis.StackFrameBasis.call(this,gr,108,"Go_main_fireBooks");
-	this._bds = _bds;
-	this.p_x = p_x;
-	this.p_y = p_y;
-	this.p_state = p_state;
-	this.p_cartLoad = p_cartLoad;
-	this.p_out = p_out;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_fireBooks.__name__ = true;
-tardis._Go.Go_main_fireBooks.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_fireBooks.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_fireBooks.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g.p_state.store_int32(2);
-			new tardis._Go.Go_main_delay(_g._goroutine,[],_g.p_cartLoad);
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			_g._Next = -2;
-			return _g;
-		};
-		var _Block_2 = function() {
-			if(!_g.p_out.hasSpace()) return _g;
-			_g.p_out.send(_g.p_cartLoad);
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_fireBooks
-});
-tardis._Go.Go_main_moreBooks = function(gr,_bds,p_x,p_y,p_state) {
-	this._t10 = 0;
-	this._t9 = null;
-	tardis.StackFrameBasis.call(this,gr,113,"Go_main_moreBooks");
-	this._bds = _bds;
-	this.p_x = p_x;
-	this.p_y = p_y;
-	this.p_state = p_state;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_moreBooks.__name__ = true;
-tardis._Go.Go_main_moreBooks.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_moreBooks.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_moreBooks.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g.p_state.store_int32(3);
-			_g._Next = 3;
-			return null;
-		};
-		var _Block1 = function() {
-			var _t0 = 0.0;
-			var _t1 = 0.0;
-			var _t2 = 0.0;
-			var _t3 = false;
-			_t0 = _g.p_x.load_float64();
-			_t1 = _t0 - 10;
-			_g.p_x.store_float64(_t1);
-			_t2 = _g.p_x.load_float64();
-			_t3 = _t2 < 0;
-			if(_t3) _g._Next = 4; else _g._Next = 5;
-			return null;
-		};
-		var _Block2 = function() {
-			_g.p_y.store_float64(0);
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block3 = function() {
-			var _t4 = 0.0;
-			var _t5 = false;
-			_t4 = _g.p_x.load_float64();
-			_t5 = _t4 > 0;
-			if(_t5) _g._Next = 1; else _g._Next = 2;
-			return null;
-		};
-		var _Block4 = function() {
-			_g.p_x.store_float64(0);
-			_g._Next = 5;
-			return null;
-		};
-		var _Block5 = function() {
-			var _t6 = 0.0;
-			var _t7 = false;
-			_t6 = _g.p_y.load_float64();
-			_t7 = _t6 > 0;
-			if(_t7) _g._Next = 6; else _g._Next = 8;
-			return null;
-		};
-		var _Block6 = function() {
-			_g.p_y.store_float64(0);
-			_g._Next = 7;
-			return null;
-		};
-		var _Block7 = function() {
-			new tardis.Go_main_Gosched(_g._goroutine,[]);
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			_g._Next = 3;
-			return null;
-		};
-		var _Block8 = function() {
-			_g._t9 = new tardis.Interface(0,5);
-			_g._t10 = Std.random(tardis.Force.toHaxeParam(_g._t9));
-			var _t11 = 0.0;
-			_t11 = _g._t10;
-			_g.p_y.store_float64(_t11);
-			_g._Next = 7;
-			return null;
-		};
-		var _Block_2 = function() {
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case 3:
-				retVal = _Block3();
-				break;
-			case 4:
-				retVal = _Block4();
-				break;
-			case 5:
-				retVal = _Block5();
-				break;
-			case 6:
-				retVal = _Block6();
-				break;
-			case 7:
-				retVal = _Block7();
-				break;
-			case 8:
-				retVal = _Block8();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_moreBooks
-});
-tardis._Go.Go_tgoaddmath_glrFloat64bits = function(gr,_bds,p_f) {
-	tardis.StackFrameBasis.call(this,gr,1372,"Go_tgoaddmath_glrFloat64bits");
-	this._bds = _bds;
-	this.p_f = p_f;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_tgoaddmath_glrFloat64bits.__name__ = true;
-tardis._Go.Go_tgoaddmath_glrFloat64bits.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_tgoaddmath_glrFloat64bits.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_tgoaddmath_glrFloat64bits.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _t3 = 0.0;
-		var _t4 = 0.0;
-		var _t5 = null;
-		var _t6 = 0.0;
-		var _t8 = 0.0;
-		var _t9 = 0;
-		var _t11 = 0;
-		var _t12 = 0;
-		var _t14 = 0;
-		var _t20 = null;
-		var _t21 = 0.0;
-		var _t22 = 0;
-		var _t24 = 0.0;
-		var _Phi = 0;
-		var _Block0 = function() {
-			var _t0 = false;
-			_t0 = _g.p_f == 0;
-			if(_t0) _g._Next = 1; else _g._Next = 2;
-			_Phi = 0;
-			return null;
-		};
-		var _Block1 = function() {
-			var v = new tardis.Int64(0,0);
-			_g._res = v;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block2 = function() {
-			var _t1 = false;
-			_t1 = _g.p_f != _g.p_f;
-			if(_t1) _g._Next = 3; else _g._Next = 4;
-			_Phi = 2;
-			return null;
-		};
-		var _Block3 = function() {
-			var v1 = new tardis.Int64(2146959360,1);
-			_g._res = v1;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block4 = function() {
-			var _t2 = false;
-			_t2 = _g.p_f < 0;
-			if(_t2) _g._Next = 5; else _g._Next = 6;
-			_Phi = 4;
-			return null;
-		};
-		var _Block5 = function() {
-			_t3 = -_g.p_f;
-			_g._Next = 6;
-			_Phi = 5;
-			return null;
-		};
-		var _Block6 = function() {
-			switch(_Phi) {
-			case 4:
-				_t4 = _g.p_f;
-				var v2 = new tardis.Int64(0,0);
-				_t5 = v2;
-				break;
-			case 5:
-				_t4 = _t3;
-				var v3 = new tardis.Int64(-2147483648,0);
-				_t5 = v3;
-				break;
-			}
-			_g._Next = 8;
-			_Phi = 6;
-			return null;
-		};
-		var _Block7 = function() {
-			var _t7 = false;
-			_t6 = tardis.Force.floatDiv(_t8,2);
-			_t7 = tardis.Force.uintCompare(_t9,2047) == 0;
-			if(_t7) _g._Next = 12; else _g._Next = 9;
-			_Phi = 7;
-			return null;
-		};
-		var _Block8 = function() {
-			switch(_Phi) {
-			case 6:
-				_t8 = _t4;
-				_t9 = 1075;
-				break;
-			case 9:
-				_t8 = _t6;
-				_t9 = _t11;
-				break;
-			}
-			var _t10 = false;
-			_t10 = _t8 >= 9.007199254740992e+15;
-			if(_t10) _g._Next = 7; else _g._Next = 12;
-			_Phi = 8;
-			return null;
-		};
-		var _Block9 = function() {
-			_t11 = _t9 + 1 >>> 0;
-			_g._Next = 8;
-			_Phi = 9;
-			return null;
-		};
-		var _Block10 = function() {
-			var _t13 = false;
-			_t12 = _t22 - 1 >>> 0;
-			_t13 = tardis.Force.uintCompare(_t12,0) == 0;
-			if(_t13) _g._Next = 11; else _g._Next = 13;
-			_Phi = 10;
-			return null;
-		};
-		var _Block11 = function() {
-			if(_Phi == 12) _t14 = _t22; else if(_Phi == 10) _t14 = _t12; else _t14 = 0;
-			var _t15 = null;
-			var _t16 = null;
-			var _t17 = null;
-			var _t18 = null;
-			var _t19 = null;
-			var v4 = new tardis.Int64(_t14 >> 31,_t14);
-			_t15 = v4;
-			_t16 = tardis.Force.toUint64((function($this) {
-				var $r;
-				var y;
-				{
-					var v5;
-					var v6 = new tardis.Int64(0,52);
-					v5 = v6;
-					y = tardis.Int64.getLow(v5);
-				}
-				$r = y == 64?(function($this) {
-					var $r;
-					var v7 = new tardis.Int64(0,0);
-					$r = v7;
-					return $r;
-				}($this)):(function($this) {
-					var $r;
-					var v8;
-					if((y & 63) == 0) v8 = _t15; else if((y & 63) < 32) v8 = new tardis.Int64(_t15.high << y | _t15.low >>> (32 - (y & 63) | 0),_t15.low << y); else v8 = new tardis.Int64(_t15.low << (y - 32 | 0),0);
-					$r = v8;
-					return $r;
-				}($this));
-				return $r;
-			}(this)));
-			_t17 = tardis.Force.toUint64((function($this) {
-				var $r;
-				var v9 = new tardis.Int64(_t5.high | _t16.high,_t5.low | _t16.low);
-				$r = v9;
-				return $r;
-			}(this)));
-			_t18 = tardis._Go.HaxeInt64abs_Impl_.ofUFloat(_t21);
-			_t19 = tardis.Force.toUint64((function($this) {
-				var $r;
-				var y1;
-				{
-					var x;
-					var v10 = new tardis.Int64(1048576,0);
-					x = v10;
-					var y2;
-					var v11 = new tardis.Int64(-1,-1);
-					y2 = v11;
-					var v12 = new tardis.Int64(x.high ^ y2.high,x.low ^ y2.low);
-					y1 = v12;
-				}
-				$r = (function($this) {
-					var $r;
-					var v13 = new tardis.Int64(_t18.high & y1.high,_t18.low & y1.low);
-					$r = v13;
-					return $r;
-				}($this));
-				return $r;
-			}(this)));
-			_t20 = tardis.Force.toUint64((function($this) {
-				var $r;
-				var v14 = new tardis.Int64(_t17.high | _t19.high,_t17.low | _t19.low);
-				$r = v14;
-				return $r;
-			}(this)));
-			_g._res = _t20;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block12 = function() {
-			switch(_Phi) {
-			case 7:
-				_t21 = _t6;
-				_t22 = _t9;
-				break;
-			case 8:
-				_t21 = _t8;
-				_t22 = _t9;
-				break;
-			case 13:
-				_t21 = _t24;
-				_t22 = _t12;
-				break;
-			}
-			var _t23 = false;
-			_t23 = _t21 < 4.503599627370496e+15;
-			if(_t23) _g._Next = 10; else _g._Next = 11;
-			_Phi = 12;
-			return null;
-		};
-		var _Block13 = function() {
-			_t24 = _t21 * 2;
-			_g._Next = 12;
-			_Phi = 13;
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case 3:
-				retVal = _Block3();
-				break;
-			case 4:
-				retVal = _Block4();
-				break;
-			case 5:
-				retVal = _Block5();
-				break;
-			case 6:
-				retVal = _Block6();
-				break;
-			case 7:
-				retVal = _Block7();
-				break;
-			case 8:
-				retVal = _Block8();
-				break;
-			case 9:
-				retVal = _Block9();
-				break;
-			case 10:
-				retVal = _Block10();
-				break;
-			case 11:
-				retVal = _Block11();
-				break;
-			case 12:
-				retVal = _Block12();
-				break;
-			case 13:
-				retVal = _Block13();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_tgoaddmath_glrFloat64bits
-});
-tardis.Go_tardisgolib_Gosched = $hx_exports.Go_tardisgolib_Gosched = function(gr,_bds) {
-	this._t1 = null;
-	this._t0 = null;
-	tardis.StackFrameBasis.call(this,gr,396742,"Go_tardisgolib_Gosched");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis.Go_tardisgolib_Gosched.__name__ = true;
-tardis.Go_tardisgolib_Gosched.__interfaces__ = [tardis.StackFrame];
-tardis.Go_tardisgolib_Gosched.__super__ = tardis.StackFrameBasis;
-tardis.Go_tardisgolib_Gosched.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._t0 = tardis.Go.tardisgolib_gosched_chan.load();
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			_g._t1 = { r0 : 0, r1 : false, r2 : null};
-			_g._t1.r0 = -1;
-			var _states = new Array();
-			var _rnd = Std.random(1);
-			_states[0] = _g._t0.hasContents();
-			var _g1 = 0;
-			while(_g1 < 1) {
-				var _s = _g1++;
-				var _i = (_s + _rnd) % 1;
-				if(_states[_i]) {
-					_g._t1.r0 = _i;
-					break;
-				}
-			}
-			var _g11 = _g._t1.r0;
-			switch(_g11) {
-			case 0:
-				var _v = _g._t0.receive(null);
-				_g._t1.r2 = _v.r0;
-				_g._t1.r1 = _v.r1;
-				break;
-			}
-			var _t2 = 0;
-			var _t3 = false;
-			_t2 = _g._t1.r0;
-			_t3 = _t2 == 0;
-			if(_t3) _g._Next = 1; else _g._Next = 2;
-			return null;
-		};
-		var _Block1 = function() {
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block2 = function() {
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g2 = this._Next;
-			switch(_g2) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis.Go_tardisgolib_Gosched
-});
-tardis._Go.Go_main_delay_36_1 = function(gr,_bds) {
-	this._t2 = null;
-	this._t1_stackalloc = new tardis.Object(0);
-	this._t0 = null;
-	tardis.StackFrameBasis.call(this,gr,131,"Go_main_delay_36_1");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_delay_36_1.__name__ = true;
-tardis._Go.Go_main_delay_36_1.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_delay_36_1.call = function(gr,_bds) {
-	return new tardis._Go.Go_main_delay_36_1(gr,_bds);
-};
-tardis._Go.Go_main_delay_36_1.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_delay_36_1.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t1 = null;
-			_g._t0 = _g._bds.w.load();
-			_t1 = new tardis.Pointer(_g._t1_stackalloc.clear());
-			_g._t2 = _t1.obj.get_object(0,_t1.off);
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			if(!_g._t0.hasSpace()) return _g;
-			_g._t0.send(_g._t2);
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_delay_36_1
-});
-tardis._Go.Go_main_makeBitmap = function(gr,_bds,p_file) {
-	this._t0 = null;
-	tardis.StackFrameBasis.call(this,gr,166,"Go_main_makeBitmap");
-	this._bds = _bds;
-	this.p_file = p_file;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_makeBitmap.__name__ = true;
-tardis._Go.Go_main_makeBitmap.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_makeBitmap.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_makeBitmap.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._t0 = new Image();
-			_g._t0.src = _g.p_file;
-			_g._res = _g._t0;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var _Block_2 = function() {
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_makeBitmap
-});
-tardis._Go.Go_utf8_decodeRuneInternal = function(gr,_bds,p_p) {
-	this._t58 = 0;
-	this._t41 = 0;
-	this._t35 = 0;
-	this._t22 = 0;
-	this._t18 = 0;
-	this._t9 = 0;
-	this._t5 = 0;
-	this._t3 = 0;
-	this._t0 = 0;
-	tardis.StackFrameBasis.call(this,gr,692,"Go_utf8_decodeRuneInternal");
-	this._bds = _bds;
-	this.p_p = p_p;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_utf8_decodeRuneInternal.__name__ = true;
-tardis._Go.Go_utf8_decodeRuneInternal.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_utf8_decodeRuneInternal.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_utf8_decodeRuneInternal.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t1 = false;
-			var _v = _g.p_p;
-			if(_v == null) _g._t0 = 0; else _g._t0 = _v.length;
-			_t1 = _g._t0 < 1;
-			if(_t1) _g._Next = 1; else _g._Next = 2;
-			return null;
-		};
-		var _Block1 = function() {
-			_g._res = { r0 : 65533, r1 : 0, r2 : true};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block2 = function() {
-			var _t2 = null;
-			var _t4 = false;
-			if(0 >= _g.p_p.length) tardis.Scheduler.ioor();
-			_t2 = _g.p_p.itemAddr(0);
-			_g._t3 = _t2.obj.get_uint8(_t2.off);
-			_t4 = tardis.Force.uintCompare(_g._t3,128) < 0;
-			if(_t4) _g._Next = 3; else _g._Next = 4;
-			return null;
-		};
-		var _Block3 = function() {
-			_g._t5 = _g._t3;
-			_g._res = { r0 : _g._t5, r1 : 1, r2 : false};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block4 = function() {
-			var _t6 = false;
-			_t6 = tardis.Force.uintCompare(_g._t3,192) < 0;
-			if(_t6) _g._Next = 5; else _g._Next = 6;
-			return null;
-		};
-		var _Block5 = function() {
-			_g._res = { r0 : 65533, r1 : 1, r2 : false};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block6 = function() {
-			var _t7 = false;
-			_t7 = _g._t0 < 2;
-			if(_t7) _g._Next = 7; else _g._Next = 8;
-			return null;
-		};
-		var _Block7 = function() {
-			_g._res = { r0 : 65533, r1 : 1, r2 : true};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block8 = function() {
-			var _t8 = null;
-			var _t10 = false;
-			if(1 >= _g.p_p.length) tardis.Scheduler.ioor();
-			_t8 = _g.p_p.itemAddr(1);
-			_g._t9 = _t8.obj.get_uint8(_t8.off);
-			_t10 = tardis.Force.uintCompare(_g._t9,128) < 0;
-			if(_t10) _g._Next = 9; else _g._Next = 11;
-			return null;
-		};
-		var _Block9 = function() {
-			_g._res = { r0 : 65533, r1 : 1, r2 : false};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block10 = function() {
-			var _t11 = false;
-			_t11 = tardis.Force.uintCompare(_g._t3,224) < 0;
-			if(_t11) _g._Next = 12; else _g._Next = 13;
-			return null;
-		};
-		var _Block11 = function() {
-			var _t12 = false;
-			_t12 = tardis.Force.uintCompare(192,_g._t9) <= 0;
-			if(_t12) _g._Next = 9; else _g._Next = 10;
-			return null;
-		};
-		var _Block12 = function() {
-			var _t13 = 0;
-			var _t14 = 0;
-			var _t15 = 0;
-			var _t16 = 0;
-			var _t17 = 0;
-			var _t19 = false;
-			_t13 = _g._t3 & 31 & 255;
-			_t14 = _t13;
-			var _v1 = _t14;
-			var _v2;
-			var v;
-			var v1 = new tardis.Int64(0,6);
-			v = v1;
-			_v2 = tardis.Int64.getLow(v);
-			if(_v2 == 0) _t15 = _v1; else _t15 = _v1 << _v2;
-			_t16 = _g._t9 & 63 & 255;
-			_t17 = _t16;
-			_g._t18 = (_t15 | _t17) >> 0;
-			_t19 = _g._t18 <= 127;
-			if(_t19) _g._Next = 14; else _g._Next = 15;
-			return null;
-		};
-		var _Block13 = function() {
-			var _t20 = false;
-			_t20 = _g._t0 < 3;
-			if(_t20) _g._Next = 16; else _g._Next = 17;
-			return null;
-		};
-		var _Block14 = function() {
-			_g._res = { r0 : 65533, r1 : 1, r2 : false};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block15 = function() {
-			_g._res = { r0 : _g._t18, r1 : 2, r2 : false};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block16 = function() {
-			_g._res = { r0 : 65533, r1 : 1, r2 : true};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block17 = function() {
-			var _t21 = null;
-			var _t23 = false;
-			if(2 >= _g.p_p.length) tardis.Scheduler.ioor();
-			_t21 = _g.p_p.itemAddr(2);
-			_g._t22 = _t21.obj.get_uint8(_t21.off);
-			_t23 = tardis.Force.uintCompare(_g._t22,128) < 0;
-			if(_t23) _g._Next = 18; else _g._Next = 20;
-			return null;
-		};
-		var _Block18 = function() {
-			_g._res = { r0 : 65533, r1 : 1, r2 : false};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block19 = function() {
-			var _t24 = false;
-			_t24 = tardis.Force.uintCompare(_g._t3,240) < 0;
-			if(_t24) _g._Next = 21; else _g._Next = 22;
-			return null;
-		};
-		var _Block20 = function() {
-			var _t25 = false;
-			_t25 = tardis.Force.uintCompare(192,_g._t22) <= 0;
-			if(_t25) _g._Next = 18; else _g._Next = 19;
-			return null;
-		};
-		var _Block21 = function() {
-			var _t26 = 0;
-			var _t27 = 0;
-			var _t28 = 0;
-			var _t29 = 0;
-			var _t30 = 0;
-			var _t31 = 0;
-			var _t32 = 0;
-			var _t33 = 0;
-			var _t34 = 0;
-			var _t36 = false;
-			_t26 = _g._t3 & 15 & 255;
-			_t27 = _t26;
-			var _v11 = _t27;
-			var _v21;
-			var v2;
-			var v3 = new tardis.Int64(0,12);
-			v2 = v3;
-			_v21 = tardis.Int64.getLow(v2);
-			if(_v21 == 0) _t28 = _v11; else _t28 = _v11 << _v21;
-			_t29 = _g._t9 & 63 & 255;
-			_t30 = _t29;
-			var _v12 = _t30;
-			var _v22;
-			var v4;
-			var v5 = new tardis.Int64(0,6);
-			v4 = v5;
-			_v22 = tardis.Int64.getLow(v4);
-			if(_v22 == 0) _t31 = _v12; else _t31 = _v12 << _v22;
-			_t32 = (_t28 | _t31) >> 0;
-			_t33 = _g._t22 & 63 & 255;
-			_t34 = _t33;
-			_g._t35 = (_t32 | _t34) >> 0;
-			_t36 = _g._t35 <= 2047;
-			if(_t36) _g._Next = 23; else _g._Next = 24;
-			return null;
-		};
-		var _Block22 = function() {
-			var _t37 = false;
-			_t37 = _g._t0 < 4;
-			if(_t37) _g._Next = 28; else _g._Next = 29;
-			return null;
-		};
-		var _Block23 = function() {
-			_g._res = { r0 : 65533, r1 : 1, r2 : false};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block24 = function() {
-			var _t38 = false;
-			_t38 = 55296 <= _g._t35;
-			if(_t38) _g._Next = 27; else _g._Next = 26;
-			return null;
-		};
-		var _Block25 = function() {
-			_g._res = { r0 : 65533, r1 : 1, r2 : false};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block26 = function() {
-			_g._res = { r0 : _g._t35, r1 : 3, r2 : false};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block27 = function() {
-			var _t39 = false;
-			_t39 = _g._t35 <= 57343;
-			if(_t39) _g._Next = 25; else _g._Next = 26;
-			return null;
-		};
-		var _Block28 = function() {
-			_g._res = { r0 : 65533, r1 : 1, r2 : true};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block29 = function() {
-			var _t40 = null;
-			var _t42 = false;
-			if(3 >= _g.p_p.length) tardis.Scheduler.ioor();
-			_t40 = _g.p_p.itemAddr(3);
-			_g._t41 = _t40.obj.get_uint8(_t40.off);
-			_t42 = tardis.Force.uintCompare(_g._t41,128) < 0;
-			if(_t42) _g._Next = 30; else _g._Next = 32;
-			return null;
-		};
-		var _Block30 = function() {
-			_g._res = { r0 : 65533, r1 : 1, r2 : false};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block31 = function() {
-			var _t43 = false;
-			_t43 = tardis.Force.uintCompare(_g._t3,248) < 0;
-			if(_t43) _g._Next = 33; else _g._Next = 34;
-			return null;
-		};
-		var _Block32 = function() {
-			var _t44 = false;
-			_t44 = tardis.Force.uintCompare(192,_g._t41) <= 0;
-			if(_t44) _g._Next = 30; else _g._Next = 31;
-			return null;
-		};
-		var _Block33 = function() {
-			var _t45 = 0;
-			var _t46 = 0;
-			var _t47 = 0;
-			var _t48 = 0;
-			var _t49 = 0;
-			var _t50 = 0;
-			var _t51 = 0;
-			var _t52 = 0;
-			var _t53 = 0;
-			var _t54 = 0;
-			var _t55 = 0;
-			var _t56 = 0;
-			var _t57 = 0;
-			var _t59 = false;
-			_t45 = _g._t3 & 7 & 255;
-			_t46 = _t45;
-			var _v13 = _t46;
-			var _v23;
-			var v6;
-			var v7 = new tardis.Int64(0,18);
-			v6 = v7;
-			_v23 = tardis.Int64.getLow(v6);
-			if(_v23 == 0) _t47 = _v13; else _t47 = _v13 << _v23;
-			_t48 = _g._t9 & 63 & 255;
-			_t49 = _t48;
-			var _v14 = _t49;
-			var _v24;
-			var v8;
-			var v9 = new tardis.Int64(0,12);
-			v8 = v9;
-			_v24 = tardis.Int64.getLow(v8);
-			if(_v24 == 0) _t50 = _v14; else _t50 = _v14 << _v24;
-			_t51 = (_t47 | _t50) >> 0;
-			_t52 = _g._t22 & 63 & 255;
-			_t53 = _t52;
-			var _v15 = _t53;
-			var _v25;
-			var v10;
-			var v11 = new tardis.Int64(0,6);
-			v10 = v11;
-			_v25 = tardis.Int64.getLow(v10);
-			if(_v25 == 0) _t54 = _v15; else _t54 = _v15 << _v25;
-			_t55 = (_t51 | _t54) >> 0;
-			_t56 = _g._t41 & 63 & 255;
-			_t57 = _t56;
-			_g._t58 = (_t55 | _t57) >> 0;
-			_t59 = _g._t58 <= 65535;
-			if(_t59) _g._Next = 35; else _g._Next = 37;
-			return null;
-		};
-		var _Block34 = function() {
-			_g._res = { r0 : 65533, r1 : 1, r2 : false};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block35 = function() {
-			_g._res = { r0 : 65533, r1 : 1, r2 : false};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block36 = function() {
-			_g._res = { r0 : _g._t58, r1 : 4, r2 : false};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block37 = function() {
-			var _t60 = false;
-			_t60 = 1114111 < _g._t58;
-			if(_t60) _g._Next = 35; else _g._Next = 36;
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case 3:
-				retVal = _Block3();
-				break;
-			case 4:
-				retVal = _Block4();
-				break;
-			case 5:
-				retVal = _Block5();
-				break;
-			case 6:
-				retVal = _Block6();
-				break;
-			case 7:
-				retVal = _Block7();
-				break;
-			case 8:
-				retVal = _Block8();
-				break;
-			case 9:
-				retVal = _Block9();
-				break;
-			case 10:
-				retVal = _Block10();
-				break;
-			case 11:
-				retVal = _Block11();
-				break;
-			case 12:
-				retVal = _Block12();
-				break;
-			case 13:
-				retVal = _Block13();
-				break;
-			case 14:
-				retVal = _Block14();
-				break;
-			case 15:
-				retVal = _Block15();
-				break;
-			case 16:
-				retVal = _Block16();
-				break;
-			case 17:
-				retVal = _Block17();
-				break;
-			case 18:
-				retVal = _Block18();
-				break;
-			case 19:
-				retVal = _Block19();
-				break;
-			case 20:
-				retVal = _Block20();
-				break;
-			case 21:
-				retVal = _Block21();
-				break;
-			case 22:
-				retVal = _Block22();
-				break;
-			case 23:
-				retVal = _Block23();
-				break;
-			case 24:
-				retVal = _Block24();
-				break;
-			case 25:
-				retVal = _Block25();
-				break;
-			case 26:
-				retVal = _Block26();
-				break;
-			case 27:
-				retVal = _Block27();
-				break;
-			case 28:
-				retVal = _Block28();
-				break;
-			case 29:
-				retVal = _Block29();
-				break;
-			case 30:
-				retVal = _Block30();
-				break;
-			case 31:
-				retVal = _Block31();
-				break;
-			case 32:
-				retVal = _Block32();
-				break;
-			case 33:
-				retVal = _Block33();
-				break;
-			case 34:
-				retVal = _Block34();
-				break;
-			case 35:
-				retVal = _Block35();
-				break;
-			case 36:
-				retVal = _Block36();
-				break;
-			case 37:
-				retVal = _Block37();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_utf8_decodeRuneInternal
-});
-tardis._Go.Go_main_gopher = function(gr,_bds,p_x,p_y,p_state,p_in,p_out) {
-	this._t0 = 0;
-	this._SF1 = null;
-	tardis.StackFrameBasis.call(this,gr,77,"Go_main_gopher");
-	this._bds = _bds;
-	this.p_x = p_x;
-	this.p_y = p_y;
-	this.p_state = p_state;
-	this.p_in = p_in;
-	this.p_out = p_out;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_gopher.__name__ = true;
-tardis._Go.Go_main_gopher.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_gopher.call = function(gr,_bds,p_x,p_y,p_state,p_in,p_out) {
-	return new tardis._Go.Go_main_gopher(gr,_bds,p_x,p_y,p_state,p_in,p_out);
-};
-tardis._Go.Go_main_gopher.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_gopher.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._Next = 1;
-			return null;
-		};
-		var _Block1 = function() {
-			_g._SF1 = new tardis._Go.Go_main_pickBooks(_g._goroutine,[],_g.p_x,_g.p_y,_g.p_state,_g.p_in);
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			_g._t0 = _g._SF1.res();
-			new tardis._Go.Go_main_pushBooks(_g._goroutine,[],_g.p_x,_g.p_y,_g.p_state,_g._t0);
-			_g._Next = -2;
-			return _g;
-		};
-		var _Block_2 = function() {
-			new tardis._Go.Go_main_fireBooks(_g._goroutine,[],_g.p_x,_g.p_y,_g.p_state,_g._t0,_g.p_out);
-			_g._Next = -3;
-			return _g;
-		};
-		var _Block_3 = function() {
-			new tardis._Go.Go_main_moreBooks(_g._goroutine,[],_g.p_x,_g.p_y,_g.p_state);
-			_g._Next = -4;
-			return _g;
-		};
-		var _Block_4 = function() {
-			_g._Next = 1;
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			case -3:
-				retVal = _Block_3();
-				break;
-			case -4:
-				retVal = _Block_4();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_gopher
-});
-tardis._Go.Go_tgoaddmath_init = function(gr,_bds) {
-	tardis.StackFrameBasis.call(this,gr,82,"Go_tgoaddmath_init");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_tgoaddmath_init.__name__ = true;
-tardis._Go.Go_tgoaddmath_init.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_tgoaddmath_init.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_tgoaddmath_init.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t0 = false;
-			_t0 = tardis.Go.tgoaddmath_init_36_guard.load_bool();
-			if(_t0) _g._Next = 2; else _g._Next = 1;
-			return null;
-		};
-		var _Block1 = function() {
-			tardis.Go.tgoaddmath_init_36_guard.store_bool(true);
-			new tardis._Go.Go_tgoaddmath_init_35_1(_g._goroutine,[]);
-			_g._Next = -2;
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var _Block_2 = function() {
-			_g._Next = 2;
-			return null;
-		};
-		var _Block2 = function() {
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_tgoaddmath_init
-});
-tardis.Go_utf16_Decode = $hx_exports.Go_utf16_Decode = function(gr,_bds,p_s) {
-	this._Phi = 0;
-	this._t42 = false;
-	this._t41 = false;
-	this._t40 = 0;
-	this._t29 = false;
-	this._t28 = false;
-	this._t23 = 0;
-	this._t21 = 0;
-	this._t20 = 0;
-	this._t19 = 0;
-	this._SF1 = null;
-	this._t18 = 0;
-	this._t14 = 0;
-	this._t13 = null;
-	this._t12 = 0;
-	this._t11 = 0;
-	this._t10 = 0;
-	this._t7 = 0;
-	this._t6 = 0;
-	this._t5 = null;
-	this._t3 = 0;
-	this._t1 = null;
-	tardis.StackFrameBasis.call(this,gr,625,"Go_utf16_Decode");
-	this._bds = _bds;
-	this.p_s = p_s;
-	tardis.Scheduler.push(gr,this);
-};
-tardis.Go_utf16_Decode.__name__ = true;
-tardis.Go_utf16_Decode.__interfaces__ = [tardis.StackFrame];
-tardis.Go_utf16_Decode.__super__ = tardis.StackFrameBasis;
-tardis.Go_utf16_Decode.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t0 = 0;
-			var _v = _g.p_s;
-			if(_v == null) _t0 = 0; else _t0 = _v.length;
-			_g._t1 = new tardis.Slice(new tardis.Pointer(new tardis.Object(_t0 * 4)),0,_t0,_t0,4);
-			_g._Next = 3;
-			_g._Phi = 0;
-			return null;
-		};
-		var _Block1 = function() {
-			var _t2 = null;
-			var _t4 = false;
-			tardis.Scheduler.wraprangechk(_g._t7,_g.p_s.length);
-			_t2 = _g.p_s.itemAddr(_g._t7);
-			_g._t3 = _t2.obj.get_uint16(_t2.off);
-			_t4 = tardis.Force.uintCompare(55296,_g._t3) <= 0;
-			if(_t4) _g._Next = 12; else _g._Next = 9;
-			_g._Phi = 1;
-			return null;
-		};
-		var _Block2 = function() {
-			_g._t5 = _g._t1.subSlice(0,_g._t6);
-			_g._res = _g._t5;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block3 = function() {
-			var _g1 = _g._Phi;
-			switch(_g1) {
-			case 0:
-				_g._t6 = 0;
-				_g._t7 = 0;
-				break;
-			case 4:
-				_g._t6 = _g._t10;
-				_g._t7 = _g._t12;
-				break;
-			}
-			var _t8 = 0;
-			var _t9 = false;
-			var _v1 = _g.p_s;
-			if(_v1 == null) _t8 = 0; else _t8 = _v1.length;
-			_t9 = _g._t7 < _t8;
-			if(_t9) _g._Next = 1; else _g._Next = 2;
-			_g._Phi = 3;
-			return null;
-		};
-		var _Block4 = function() {
-			var _g11 = _g._Phi;
-			switch(_g11) {
-			case 6:
-				_g._t10 = _g._t23;
-				_g._t11 = _g._t7;
-				break;
-			case 13:
-				_g._t10 = _g._t40;
-				_g._t11 = _g._t7;
-				break;
-			case 5:
-				_g._t10 = _g._t21;
-				_g._t11 = _g._t20;
-				break;
-			}
-			_g._t12 = _g._t11 + 1 >> 0;
-			_g._Next = 3;
-			_g._Phi = 4;
-			return null;
-		};
-		var _Block5 = function() {
-			var _t15 = 0;
-			var _t16 = null;
-			var _t17 = 0;
-			tardis.Scheduler.wraprangechk(_g._t6,_g._t1.length);
-			_g._t13 = _g._t1.itemAddr(_g._t6);
-			_g._t14 = _g._t3;
-			_t15 = _g._t7 + 1 >> 0;
-			if(_t15 < 0 || _t15 >= _g.p_s.length) tardis.Scheduler.ioor();
-			_t16 = _g.p_s.itemAddr(_t15);
-			_t17 = _t16.obj.get_uint16(_t16.off);
-			_g._t18 = _t17;
-			_g._SF1 = new tardis.Go_utf16_DecodeRune(_g._goroutine,[],_g._t14,_g._t18);
-			_g._SF1.run();
-			_g._t19 = _g._SF1.res();
-			_g._t13.store_int32(_g._t19);
-			_g._t20 = _g._t7 + 1 >> 0;
-			_g._t21 = _g._t6 + 1 >> 0;
-			_g._Next = 4;
-			_g._Phi = 5;
-			return null;
-		};
-		var _Block6 = function() {
-			var _t22 = null;
-			tardis.Scheduler.wraprangechk(_g._t6,_g._t1.length);
-			_t22 = _g._t1.itemAddr(_g._t6);
-			_t22.obj.iVec[_t22.off] = 65533;
-			_g._t23 = _g._t6 + 1 >> 0;
-			_g._Next = 4;
-			_g._Phi = 6;
-			return null;
-		};
-		var _Block7 = function() {
-			var _t24 = false;
-			_t24 = tardis.Force.uintCompare(55296,_g._t3) <= 0;
-			if(_t24) _g._Next = 14; else _g._Next = 15;
-			_g._Phi = 7;
-			return null;
-		};
-		var _Block8 = function() {
-			var _t25 = 0;
-			var _t26 = null;
-			var _t27 = 0;
-			_t25 = _g._t7 + 1 >> 0;
-			if(_t25 < 0 || _t25 >= _g.p_s.length) tardis.Scheduler.ioor();
-			_t26 = _g.p_s.itemAddr(_t25);
-			_t27 = _t26.obj.get_uint16(_t26.off);
-			_g._t28 = tardis.Force.uintCompare(_t27,57344) < 0;
-			_g._Next = 9;
-			_g._Phi = 8;
-			return null;
-		};
-		var _Block9 = function() {
-			if(_g._Phi == 1) _g._t29 = false; else if(_g._Phi == 12) _g._t29 = false; else if(_g._Phi == 11) _g._t29 = false; else if(_g._Phi == 10) _g._t29 = false; else if(_g._Phi == 8) _g._t29 = _g._t28; else _g._t29 = false;
-			if(_g._t29) _g._Next = 5; else _g._Next = 7;
-			_g._Phi = 9;
-			return null;
-		};
-		var _Block10 = function() {
-			var _t30 = 0;
-			var _t31 = null;
-			var _t32 = 0;
-			var _t33 = false;
-			_t30 = _g._t7 + 1 >> 0;
-			if(_t30 < 0 || _t30 >= _g.p_s.length) tardis.Scheduler.ioor();
-			_t31 = _g.p_s.itemAddr(_t30);
-			_t32 = _t31.obj.get_uint16(_t31.off);
-			_t33 = tardis.Force.uintCompare(56320,_t32) <= 0;
-			if(_t33) _g._Next = 8; else _g._Next = 9;
-			_g._Phi = 10;
-			return null;
-		};
-		var _Block11 = function() {
-			var _t34 = 0;
-			var _t35 = 0;
-			var _t36 = false;
-			_t34 = _g._t7 + 1 >> 0;
-			var _v2 = _g.p_s;
-			if(_v2 == null) _t35 = 0; else _t35 = _v2.length;
-			_t36 = _t34 < _t35;
-			if(_t36) _g._Next = 10; else _g._Next = 9;
-			_g._Phi = 11;
-			return null;
-		};
-		var _Block12 = function() {
-			var _t37 = false;
-			_t37 = tardis.Force.uintCompare(_g._t3,56320) < 0;
-			if(_t37) _g._Next = 11; else _g._Next = 9;
-			_g._Phi = 12;
-			return null;
-		};
-		var _Block13 = function() {
-			var _t38 = null;
-			var _t39 = 0;
-			tardis.Scheduler.wraprangechk(_g._t6,_g._t1.length);
-			_t38 = _g._t1.itemAddr(_g._t6);
-			_t39 = _g._t3;
-			_t38.obj.iVec[_t38.off] = _t39;
-			_g._t40 = _g._t6 + 1 >> 0;
-			_g._Next = 4;
-			_g._Phi = 13;
-			return null;
-		};
-		var _Block14 = function() {
-			_g._t41 = tardis.Force.uintCompare(_g._t3,57344) < 0;
-			_g._Next = 15;
-			_g._Phi = 14;
-			return null;
-		};
-		var _Block15 = function() {
-			if(_g._Phi == 7) _g._t42 = false; else if(_g._Phi == 14) _g._t42 = _g._t41; else _g._t42 = false;
-			if(_g._t42) _g._Next = 6; else _g._Next = 13;
-			_g._Phi = 15;
-			return null;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g2 = this._Next;
-			switch(_g2) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case 3:
-				retVal = _Block3();
-				break;
-			case 4:
-				retVal = _Block4();
-				break;
-			case 5:
-				retVal = _Block5();
-				break;
-			case 6:
-				retVal = _Block6();
-				break;
-			case 7:
-				retVal = _Block7();
-				break;
-			case 8:
-				retVal = _Block8();
-				break;
-			case 9:
-				retVal = _Block9();
-				break;
-			case 10:
-				retVal = _Block10();
-				break;
-			case 11:
-				retVal = _Block11();
-				break;
-			case 12:
-				retVal = _Block12();
-				break;
-			case 13:
-				retVal = _Block13();
-				break;
-			case 14:
-				retVal = _Block14();
-				break;
-			case 15:
-				retVal = _Block15();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis.Go_utf16_Decode
-});
-tardis._Go.Go_tgoaddmath_glrFloat32frombits = function(gr,_bds,p_b) {
-	this._Phi = 0;
-	this._t23 = 0.0;
-	this._t20 = 0.0;
-	this._SF2 = null;
-	this._t19 = 0;
-	this._t16 = 0.0;
-	this._t15 = 0;
-	this._t13 = 0;
-	this._t12 = 0;
-	this._t11 = 0.0;
-	this._t10 = 0.0;
-	this._t9 = 0.0;
-	this._t5 = 0;
-	this._t4 = 0;
-	this._t2 = 0.0;
-	tardis.StackFrameBasis.call(this,gr,1342,"Go_tgoaddmath_glrFloat32frombits");
-	this._bds = _bds;
-	this.p_b = p_b;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_tgoaddmath_glrFloat32frombits.__name__ = true;
-tardis._Go.Go_tgoaddmath_glrFloat32frombits.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_tgoaddmath_glrFloat32frombits.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_tgoaddmath_glrFloat32frombits.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t0 = 0;
-			var _t1 = false;
-			_t0 = tardis.Force.toUint32(_g.p_b & 0x80000000);
-			_t1 = tardis.Force.uintCompare(_t0,0) != 0;
-			if(_t1) _g._Next = 1; else _g._Next = 2;
-			_g._Phi = 0;
-			return null;
-		};
-		var _Block1 = function() {
-			_g._Next = 2;
-			_g._Phi = 1;
-			return null;
-		};
-		var _Block2 = function() {
-			if(_g._Phi == 0) _g._t2 = 1; else if(_g._Phi == 1) _g._t2 = -1; else _g._t2 = 0.0;
-			var _t3 = 0;
-			var _t6 = false;
-			var _v1 = _g.p_b;
-			var _v2;
-			var v;
-			var v1 = new tardis.Int64(0,23);
-			v = v1;
-			_v2 = tardis.Int64.getLow(v);
-			if(_v2 == 0) _t3 = _v1; else _t3 = _v1 >>> _v2;
-			_g._t4 = (_t3 & 255) >>> 0;
-			_g._t5 = (_g.p_b & 8388607) >>> 0;
-			_t6 = tardis.Force.uintCompare(_g._t4,255) == 0;
-			if(_t6) _g._Next = 3; else _g._Next = 4;
-			_g._Phi = 2;
-			return null;
-		};
-		var _Block3 = function() {
-			var _t7 = false;
-			_t7 = tardis.Force.uintCompare(_g._t5,0) == 0;
-			if(_t7) _g._Next = 5; else _g._Next = 6;
-			_g._Phi = 3;
-			return null;
-		};
-		var _Block4 = function() {
-			var _t8 = false;
-			_t8 = tardis.Force.uintCompare(_g._t4,0) != 0;
-			if(_t8) _g._Next = 7; else _g._Next = 8;
-			_g._Phi = 4;
-			return null;
-		};
-		var _Block5 = function() {
-			_g._t9 = tardis.Force.floatDiv(_g._t2,0);
-			_g._res = _g._t9;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block6 = function() {
-			_g._t10 = Math.NaN;
-			_g._t11 = _g._t10;
-			_g._res = _g._t11;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block7 = function() {
-			_g._t12 = _g._t5 + 8388608 >>> 0;
-			_g._Next = 8;
-			_g._Phi = 7;
-			return null;
-		};
-		var _Block8 = function() {
-			if(_g._Phi == 4) _g._t13 = _g._t5; else if(_g._Phi == 7) _g._t13 = _g._t12; else _g._t13 = 0;
-			var _t14 = false;
-			_t14 = tardis.Force.uintCompare(_g._t4,0) == 0;
-			if(_t14) _g._Next = 9; else _g._Next = 10;
-			_g._Phi = 8;
-			return null;
-		};
-		var _Block9 = function() {
-			_g._Next = 10;
-			_g._Phi = 9;
-			return null;
-		};
-		var _Block10 = function() {
-			if(_g._Phi == 8) _g._t15 = _g._t4; else if(_g._Phi == 9) _g._t15 = 1; else _g._t15 = 0;
-			var _t17 = 0;
-			var _t18 = 0;
-			_g._t16 = tardis._Go.HaxeInt64abs_Impl_.toUFloat((function($this) {
-				var $r;
-				var v2 = new tardis.Int64(0,_g._t13);
-				$r = v2;
-				return $r;
-			}(this)));
-			_t17 = _g._t15;
-			_t18 = _t17 - 1023 >> 0;
-			_g._t19 = _t18 - 52 >> 0;
-			_g._SF2 = new tardis._Go.Go_tgoaddmath_pow2(_g._goroutine,[],_g._t19);
-			_g._Next = -2;
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var _Block_2 = function() {
-			_g._t20 = _g._SF2.res();
-			var _t21 = 0.0;
-			var _t22 = 0.0;
-			_t21 = _g._t16 * _g._t20;
-			_t22 = _t21;
-			_g._t23 = _t22 * _g._t2;
-			_g._res = _g._t23;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case 3:
-				retVal = _Block3();
-				break;
-			case 4:
-				retVal = _Block4();
-				break;
-			case 5:
-				retVal = _Block5();
-				break;
-			case 6:
-				retVal = _Block6();
-				break;
-			case 7:
-				retVal = _Block7();
-				break;
-			case 8:
-				retVal = _Block8();
-				break;
-			case 9:
-				retVal = _Block9();
-				break;
-			case 10:
-				retVal = _Block10();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_tgoaddmath_glrFloat32frombits
 });
 tardis._Go.Go_main_monitor = function(gr,_bds) {
 	this._t112 = null;
@@ -6352,8 +2060,3472 @@ tardis._Go.Go_main_monitor.prototype = $extend(tardis.StackFrameBasis.prototype,
 	}
 	,__class__: tardis._Go.Go_main_monitor
 });
+tardis._Go.Go_main_makeHeadline = function(gr,_bds,p_e) {
+	this._t8 = 0;
+	this._t6 = "";
+	this._t5 = "";
+	this._t4 = "";
+	this._t1 = 0;
+	this._t0 = null;
+	tardis.StackFrameBasis.call(this,gr,205,"Go_main_makeHeadline");
+	this._bds = _bds;
+	this.p_e = p_e;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_makeHeadline.__name__ = true;
+tardis._Go.Go_main_makeHeadline.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_makeHeadline.call = function(gr,_bds,p_e) {
+	return new tardis._Go.Go_main_makeHeadline(gr,_bds,p_e);
+};
+tardis._Go.Go_main_makeHeadline.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_makeHeadline.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._t0 = new Date();
+			_g._t1 = _g._t0.getSeconds();
+			var _t2 = 0;
+			var _t3 = false;
+			_t2 = tardis.Go.main_lastTime.load_int32();
+			_t3 = _g._t1 != _t2;
+			if(_t3) _g._Next = 1; else _g._Next = 2;
+			return null;
+		};
+		var _Block1 = function() {
+			_g._t4 = HxOverrides.dateStr(_g._t0);
+			_g._t5 = "Translated by TARDIS Go into JS and running live: " + _g._t4;
+			_g._t6 = tardis.Go.main_lastHeading.load_string();
+			new tardis._Go.Go_main_makeText(_g._goroutine,[],false,195,15,500,20,32768,_g._t6,_g._t5);
+			_g._Next = -4;
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var _Block_2 = function() {
+			return null;
+		};
+		var _Block_3 = function() {
+			return null;
+		};
+		var _Block_4 = function() {
+			_g._t8 = _g._t0.getSeconds();
+			tardis.Go.main_lastTime.store_int32(_g._t8);
+			tardis.Go.main_lastHeading.store_string(_g._t5);
+			_g._Next = 2;
+			return null;
+		};
+		var _Block2 = function() {
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block_5 = function() {
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			case -3:
+				retVal = _Block_3();
+				break;
+			case -4:
+				retVal = _Block_4();
+				break;
+			case -5:
+				retVal = _Block_5();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_makeHeadline
+});
+tardis.Go_main_Start_36_1 = $hx_exports.Go_main_Start_36_1 = function(gr,_bds) {
+	this._t0 = null;
+	this._SF1 = null;
+	tardis.StackFrameBasis.call(this,gr,228,"Go_main_Start_36_1");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis.Go_main_Start_36_1.__name__ = true;
+tardis.Go_main_Start_36_1.__interfaces__ = [tardis.StackFrame];
+tardis.Go_main_Start_36_1.call = function(gr,_bds) {
+	return new tardis.Go_main_Start_36_1(gr,_bds);
+};
+tardis.Go_main_Start_36_1.__super__ = tardis.StackFrameBasis;
+tardis.Go_main_Start_36_1.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._SF1 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/bigpile.png");
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			_g._t0 = _g._SF1.res();
+			new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t0,10,20);
+			_g._Next = -2;
+			return _g;
+		};
+		var _Block_2 = function() {
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis.Go_main_Start_36_1
+});
+tardis._Go.Go_haxegoruntime_init = function(gr,_bds) {
+	this._t5 = 0;
+	tardis.StackFrameBasis.call(this,gr,228,"Go_haxegoruntime_init");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_haxegoruntime_init.__name__ = true;
+tardis._Go.Go_haxegoruntime_init.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_haxegoruntime_init.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_haxegoruntime_init.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t0 = false;
+			_t0 = tardis.Go.haxegoruntime_init_36_guard.load_bool();
+			if(_t0) _g._Next = 2; else _g._Next = 1;
+			return null;
+		};
+		var _Block1 = function() {
+			tardis.Go.haxegoruntime_init_36_guard.store_bool(true);
+			new tardis._Go.Go_utf16_init(_g._goroutine,[]).run();
+			new tardis._Go.Go_utf8_init(_g._goroutine,[]).run();
+			new tardis._Go.Go_golibruntime_init(_g._goroutine,[]);
+			_g._Next = -4;
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var _Block_2 = function() {
+			return null;
+		};
+		var _Block_3 = function() {
+			return null;
+		};
+		var _Block_4 = function() {
+			var _a = null;
+			_g._t5 = "字".length;
+			tardis.Go.haxegoruntime_ZiLen.store_int32(_g._t5);
+			_g._Next = 2;
+			return null;
+		};
+		var _Block2 = function() {
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block_5 = function() {
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			case -3:
+				retVal = _Block_3();
+				break;
+			case -4:
+				retVal = _Block_4();
+				break;
+			case -5:
+				retVal = _Block_5();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_haxegoruntime_init
+});
+tardis._Go.Go_golibruntime_init = function(gr,_bds) {
+	tardis.StackFrameBasis.call(this,gr,426,"Go_golibruntime_init");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_golibruntime_init.__name__ = true;
+tardis._Go.Go_golibruntime_init.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_golibruntime_init.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_golibruntime_init.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t0 = false;
+			_t0 = tardis.Go.golibruntime_init_36_guard.load_bool();
+			if(_t0) _g._Next = 2; else _g._Next = 1;
+			return null;
+		};
+		var _Block1 = function() {
+			tardis.Go.golibruntime_init_36_guard.store_bool(true);
+			new tardis._Go.Go_tgoaddmath_init(_g._goroutine,[]);
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			_g._Next = 2;
+			return null;
+		};
+		var _Block2 = function() {
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_golibruntime_init
+});
+tardis._Go.Go_main_delay = function(gr,_bds,p_n) {
+	this._t7 = null;
+	this._t5 = null;
+	this._t4 = null;
+	this._t0 = null;
+	tardis.StackFrameBasis.call(this,gr,129,"Go_main_delay");
+	this._bds = _bds;
+	this.p_n = p_n;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_delay.__name__ = true;
+tardis._Go.Go_main_delay.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_delay.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_delay.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t1 = null;
+			var _t2 = null;
+			var _t3 = 0;
+			_g._t0 = new tardis.Pointer(new tardis.Object(4));
+			_t1 = new tardis.Channel(0);
+			_g._t0.store(_t1);
+			_t2 = new tardis.Closure(new tardis.Closure(tardis._Go.Go_main_delay_36_1.call,null),{ w : _g._t0});
+			_t3 = _g.p_n * 250 >> 0;
+			_g._t4 = new tardis.Interface(0,_t2);
+			_g._t5 = new tardis.Interface(1,_t3);
+			haxe.Timer.delay(tardis.Force.toHaxeParam(_g._t4),tardis.Force.toHaxeParam(_g._t5));
+			_g._t7 = _g._t0.load();
+			_g._Next = -2;
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var _Block_2 = function() {
+			if(_g._t7.hasNoContents()) return _g;
+			_g._t7.receive(new tardis.Object(0)).r0;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_delay
+});
+tardis._Go.Go_tgoaddmath_pow2 = function(gr,_bds,p_c) {
+	this._t7 = 0.0;
+	this._t6 = null;
+	tardis.StackFrameBasis.call(this,gr,1443,"Go_tgoaddmath_pow2");
+	this._bds = _bds;
+	this.p_c = p_c;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_tgoaddmath_pow2.__name__ = true;
+tardis._Go.Go_tgoaddmath_pow2.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_tgoaddmath_pow2.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_tgoaddmath_pow2.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t0 = 0.0;
+			var _t1 = null;
+			var _t2 = null;
+			var _t3 = null;
+			var _t4 = null;
+			var _t5 = null;
+			_t0 = _g.p_c;
+			_t1 = new tardis.Pointer(new tardis.Object(16));
+			_t2 = _t1.addr(0);
+			_t3 = new tardis.Interface(2,2);
+			_t2.store(_t3);
+			_t4 = _t1.addr(8);
+			_t5 = new tardis.Interface(2,_t0);
+			_t4.store(_t5);
+			_g._t6 = new tardis.Slice(_t1,0,-1,2,8);
+			var _a = _g._t6;
+			_g._t7 = Math.pow(_a.baseArray.addr(_a.start * _a.itemSize).load().val,_a.baseArray.addr((1 + _a.start) * _a.itemSize).load().val);
+			_g._res = _g._t7;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_tgoaddmath_pow2
+});
+tardis._Go.Go_main_moreBooks = function(gr,_bds,p_x,p_y,p_state) {
+	this._t10 = 0;
+	this._t9 = null;
+	tardis.StackFrameBasis.call(this,gr,113,"Go_main_moreBooks");
+	this._bds = _bds;
+	this.p_x = p_x;
+	this.p_y = p_y;
+	this.p_state = p_state;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_moreBooks.__name__ = true;
+tardis._Go.Go_main_moreBooks.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_moreBooks.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_moreBooks.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g.p_state.store_int32(3);
+			_g._Next = 3;
+			return null;
+		};
+		var _Block1 = function() {
+			var _t0 = 0.0;
+			var _t1 = 0.0;
+			var _t2 = 0.0;
+			var _t3 = false;
+			_t0 = _g.p_x.load_float64();
+			_t1 = _t0 - 10;
+			_g.p_x.store_float64(_t1);
+			_t2 = _g.p_x.load_float64();
+			_t3 = _t2 < 0;
+			if(_t3) _g._Next = 4; else _g._Next = 5;
+			return null;
+		};
+		var _Block2 = function() {
+			_g.p_y.store_float64(0);
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block3 = function() {
+			var _t4 = 0.0;
+			var _t5 = false;
+			_t4 = _g.p_x.load_float64();
+			_t5 = _t4 > 0;
+			if(_t5) _g._Next = 1; else _g._Next = 2;
+			return null;
+		};
+		var _Block4 = function() {
+			_g.p_x.store_float64(0);
+			_g._Next = 5;
+			return null;
+		};
+		var _Block5 = function() {
+			var _t6 = 0.0;
+			var _t7 = false;
+			_t6 = _g.p_y.load_float64();
+			_t7 = _t6 > 0;
+			if(_t7) _g._Next = 6; else _g._Next = 8;
+			return null;
+		};
+		var _Block6 = function() {
+			_g.p_y.store_float64(0);
+			_g._Next = 7;
+			return null;
+		};
+		var _Block7 = function() {
+			new tardis.Go_main_Gosched(_g._goroutine,[]);
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			_g._Next = 3;
+			return null;
+		};
+		var _Block8 = function() {
+			_g._t9 = new tardis.Interface(1,5);
+			_g._t10 = Std.random(tardis.Force.toHaxeParam(_g._t9));
+			var _t11 = 0.0;
+			_t11 = _g._t10;
+			_g.p_y.store_float64(_t11);
+			_g._Next = 7;
+			return null;
+		};
+		var _Block_2 = function() {
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case 3:
+				retVal = _Block3();
+				break;
+			case 4:
+				retVal = _Block4();
+				break;
+			case 5:
+				retVal = _Block5();
+				break;
+			case 6:
+				retVal = _Block6();
+				break;
+			case 7:
+				retVal = _Block7();
+				break;
+			case 8:
+				retVal = _Block8();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_moreBooks
+});
+tardis.Go_main_Gosched = $hx_exports.Go_main_Gosched = function(gr,_bds) {
+	tardis.StackFrameBasis.call(this,gr,380,"Go_main_Gosched");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis.Go_main_Gosched.__name__ = true;
+tardis.Go_main_Gosched.__interfaces__ = [tardis.StackFrame];
+tardis.Go_main_Gosched.__super__ = tardis.StackFrameBasis;
+tardis.Go_main_Gosched.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			new tardis._Go.Go_main_monitor(_g._goroutine,[]);
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			new tardis.Go_tardisgolib_Gosched(_g._goroutine,[]);
+			_g._Next = -2;
+			return _g;
+		};
+		var _Block_2 = function() {
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis.Go_main_Gosched
+});
+tardis.Go_haxegoruntime_RunesToUTF16 = $hx_exports.Go_haxegoruntime_RunesToUTF16 = function(gr,_bds,p_r) {
+	this._t0 = null;
+	this._SF1 = null;
+	tardis.StackFrameBasis.call(this,gr,471,"Go_haxegoruntime_RunesToUTF16");
+	this._bds = _bds;
+	this.p_r = p_r;
+	tardis.Scheduler.push(gr,this);
+};
+tardis.Go_haxegoruntime_RunesToUTF16.__name__ = true;
+tardis.Go_haxegoruntime_RunesToUTF16.__interfaces__ = [tardis.StackFrame];
+tardis.Go_haxegoruntime_RunesToUTF16.__super__ = tardis.StackFrameBasis;
+tardis.Go_haxegoruntime_RunesToUTF16.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._SF1 = new tardis.Go_utf16_Encode(_g._goroutine,[],_g.p_r);
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			_g._t0 = _g._SF1.res();
+			_g._res = _g._t0;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis.Go_haxegoruntime_RunesToUTF16
+});
+tardis.Go_haxegoruntime_RunesToUTF8 = $hx_exports.Go_haxegoruntime_RunesToUTF8 = function(gr,_bds,p_r) {
+	this._Phi = 0;
+	this._t13 = null;
+	this._t11 = 0;
+	this._t9 = null;
+	this._t8 = 0;
+	this._SF1 = null;
+	this._t7 = 0;
+	this._t4 = 0;
+	this._t3 = 0;
+	this._t2 = null;
+	this._t1 = 0;
+	this._t0 = null;
+	tardis.StackFrameBasis.call(this,gr,476,"Go_haxegoruntime_RunesToUTF8");
+	this._bds = _bds;
+	this.p_r = p_r;
+	tardis.Scheduler.push(gr,this);
+};
+tardis.Go_haxegoruntime_RunesToUTF8.__name__ = true;
+tardis.Go_haxegoruntime_RunesToUTF8.__interfaces__ = [tardis.StackFrame];
+tardis.Go_haxegoruntime_RunesToUTF8.callFromRT = function(_gr,p_r) {
+	var _sf = new tardis.Go_haxegoruntime_RunesToUTF8(_gr,null,p_r).run();
+	while(_sf._incomplete) if(tardis.Scheduler.grStacks[_gr].first() == null) throw "Panic:" + Std.string(tardis.Scheduler.grPanicMsg) + "\nScheduler: null stack entry for goroutine " + _gr + "\n" + tardis.Scheduler.stackDump(); else {
+		tardis.Scheduler.currentGR = _gr;
+		tardis.Scheduler.grStacks[_gr].first().run();
+	}
+	return _sf._res;
+};
+tardis.Go_haxegoruntime_RunesToUTF8.__super__ = tardis.StackFrameBasis;
+tardis.Go_haxegoruntime_RunesToUTF8.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._t0 = new tardis.Slice(new tardis.Pointer(new tardis.Object(0)),0,0,0,1);
+			var _v = _g.p_r;
+			if(_v == null) _g._t1 = 0; else _g._t1 = _v.length;
+			_g._Next = 1;
+			_g._Phi = 0;
+			return null;
+		};
+		var _Block1 = function() {
+			var _g1 = _g._Phi;
+			switch(_g1) {
+			case 0:
+				_g._t2 = _g._t0;
+				_g._t3 = -1;
+				break;
+			case 2:
+				_g._t2 = _g._t13;
+				_g._t3 = _g._t4;
+				break;
+			}
+			var _t5 = false;
+			_g._t4 = _g._t3 + 1 >> 0;
+			_t5 = _g._t4 < _g._t1;
+			if(_t5) _g._Next = 2; else _g._Next = 3;
+			_g._Phi = 1;
+			return null;
+		};
+		var _Block2 = function() {
+			var _t6 = null;
+			tardis.Scheduler.wraprangechk(_g._t4,_g.p_r.length);
+			_t6 = _g.p_r.itemAddr(_g._t4);
+			_g._t7 = _t6.obj.get_int32(_t6.off);
+			_g._SF1 = new tardis.Go_utf8_RuneLen(_g._goroutine,[],_g._t7);
+			_g._SF1.run();
+			_g._t8 = _g._SF1.res();
+			var _t10 = null;
+			_g._t9 = new tardis.Slice(new tardis.Pointer(new tardis.Object(_g._t8)),0,_g._t8,_g._t8,1);
+			tardis.Scheduler.wraprangechk(_g._t4,_g.p_r.length);
+			_t10 = _g.p_r.itemAddr(_g._t4);
+			_g._t11 = _t10.obj.get_int32(_t10.off);
+			new tardis.Go_utf8_EncodeRune(_g._goroutine,[],_g._t9,_g._t11).run();
+			_g._t13 = _g._t2.append(_g._t9);
+			_g._Next = 1;
+			_g._Phi = 2;
+			return null;
+		};
+		var _Block3 = function() {
+			_g._res = _g._t2;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var _Block_2 = function() {
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g2 = this._Next;
+			switch(_g2) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case 3:
+				retVal = _Block3();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis.Go_haxegoruntime_RunesToUTF8
+});
+tardis._Go.Go_main_fire = function(gr,_bds) {
+	this._t0 = null;
+	tardis.StackFrameBasis.call(this,gr,70,"Go_main_fire");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_fire.__name__ = true;
+tardis._Go.Go_main_fire.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_fire.call = function(gr,_bds) {
+	return new tardis._Go.Go_main_fire(gr,_bds);
+};
+tardis._Go.Go_main_fire.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_fire.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._Next = 1;
+			return null;
+		};
+		var _Block1 = function() {
+			_g._t0 = tardis.Go.main_oven.load();
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			if(_g._t0.hasNoContents()) return _g;
+			_g._t0.receive(0).r0;
+			_g._Next = 1;
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_fire
+});
+tardis.Go_tardisgolib_Gosched = $hx_exports.Go_tardisgolib_Gosched = function(gr,_bds) {
+	this._t1 = null;
+	this._t0 = null;
+	tardis.StackFrameBasis.call(this,gr,396742,"Go_tardisgolib_Gosched");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis.Go_tardisgolib_Gosched.__name__ = true;
+tardis.Go_tardisgolib_Gosched.__interfaces__ = [tardis.StackFrame];
+tardis.Go_tardisgolib_Gosched.__super__ = tardis.StackFrameBasis;
+tardis.Go_tardisgolib_Gosched.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._t0 = tardis.Go.tardisgolib_gosched_chan.load();
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			_g._t1 = { r0 : 0, r1 : false, r2 : null};
+			_g._t1.r0 = -1;
+			var _states = new Array();
+			var _rnd = Std.random(1);
+			_states[0] = _g._t0.hasContents();
+			var _g1 = 0;
+			while(_g1 < 1) {
+				var _s = _g1++;
+				var _i = (_s + _rnd) % 1;
+				if(_states[_i]) {
+					_g._t1.r0 = _i;
+					break;
+				}
+			}
+			var _g11 = _g._t1.r0;
+			switch(_g11) {
+			case 0:
+				var _v = _g._t0.receive(null);
+				_g._t1.r2 = _v.r0;
+				_g._t1.r1 = _v.r1;
+				break;
+			}
+			var _t2 = 0;
+			var _t3 = false;
+			_t2 = _g._t1.r0;
+			_t3 = _t2 == 0;
+			if(_t3) _g._Next = 1; else _g._Next = 2;
+			return null;
+		};
+		var _Block1 = function() {
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block2 = function() {
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g2 = this._Next;
+			switch(_g2) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis.Go_tardisgolib_Gosched
+});
+tardis._Go.Go_main_makeSprite_36_1 = function(gr,_bds,p_e) {
+	this._t6 = null;
+	this._t5 = null;
+	this._t4 = null;
+	this._t0 = null;
+	tardis.StackFrameBasis.call(this,gr,183,"Go_main_makeSprite_36_1");
+	this._bds = _bds;
+	this.p_e = p_e;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_makeSprite_36_1.__name__ = true;
+tardis._Go.Go_main_makeSprite_36_1.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_makeSprite_36_1.call = function(gr,_bds,p_e) {
+	return new tardis._Go.Go_main_makeSprite_36_1(gr,_bds,p_e);
+};
+tardis._Go.Go_main_makeSprite_36_1.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_makeSprite_36_1.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t1 = null;
+			var _t2 = 0;
+			var _t3 = 0;
+			_g._t0 = tardis.Go.main_context.load_uintptr();
+			_t1 = _g._bds.bitmap.load_uintptr();
+			_t2 = _g._bds.x.load_int32();
+			_t3 = _g._bds.y.load_int32();
+			_g._t4 = new tardis.Interface(3,_t1);
+			_g._t5 = new tardis.Interface(1,_t2);
+			_g._t6 = new tardis.Interface(1,_t3);
+			_g._t0.drawImage(tardis.Force.toHaxeParam(_g._t4),tardis.Force.toHaxeParam(_g._t5),tardis.Force.toHaxeParam(_g._t6));
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_makeSprite_36_1
+});
+tardis._Go.Go_tardisgolib_init = function(gr,_bds) {
+	tardis.StackFrameBasis.call(this,gr,184,"Go_tardisgolib_init");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_tardisgolib_init.__name__ = true;
+tardis._Go.Go_tardisgolib_init.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_tardisgolib_init.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_tardisgolib_init.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t0 = false;
+			_t0 = tardis.Go.tardisgolib_init_36_guard.load_bool();
+			if(_t0) _g._Next = 2; else _g._Next = 1;
+			return null;
+		};
+		var _Block1 = function() {
+			tardis.Go.tardisgolib_init_36_guard.store_bool(true);
+			var _t2 = null;
+			_t2 = new tardis.Channel(0);
+			tardis.Go.tardisgolib_gosched_chan.store(_t2);
+			_g._Next = 2;
+			return null;
+		};
+		var _Block2 = function() {
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_tardisgolib_init
+});
+tardis._Go.Go_tgoaddmath_init_35_1 = function(gr,_bds) {
+	tardis.StackFrameBasis.call(this,gr,1272,"Go_tgoaddmath_init_35_1");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_tgoaddmath_init_35_1.__name__ = true;
+tardis._Go.Go_tgoaddmath_init_35_1.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_tgoaddmath_init_35_1.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_tgoaddmath_init_35_1.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._Next = 2;
+			return null;
+		};
+		var _Block1 = function() {
+			new tardis._Go.Go_tgoaddmath_glrFloat32bits(_g._goroutine,[],0);
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			new tardis._Go.Go_tgoaddmath_glrFloat32frombits(_g._goroutine,[],0);
+			_g._Next = -2;
+			return _g;
+		};
+		var _Block_2 = function() {
+			new tardis._Go.Go_tgoaddmath_glrFloat64bits(_g._goroutine,[],0).run();
+			tardis._Go.Go_tgoaddmath_glrFloat64frombits.call(_g._goroutine,[],(function($this) {
+				var $r;
+				var v = new tardis.Int64(0,0);
+				$r = v;
+				return $r;
+			}(this)));
+			_g._Next = -4;
+			return _g;
+		};
+		var _Block_3 = function() {
+			return null;
+		};
+		var _Block_4 = function() {
+			_g._Next = 2;
+			return null;
+		};
+		var _Block2 = function() {
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			case -3:
+				retVal = _Block_3();
+				break;
+			case -4:
+				retVal = _Block_4();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_tgoaddmath_init_35_1
+});
+tardis._Go.Go_tgoaddmath_glrFloat32bits = function(gr,_bds,p_f) {
+	this._Phi = 0;
+	this._t33 = 0;
+	this._t28 = 0.0;
+	this._t27 = 0.0;
+	this._t25 = 0.0;
+	this._t20 = null;
+	this._t19 = 0.0;
+	this._t17 = 0;
+	this._t16 = 0.0;
+	this._t14 = 0;
+	this._t12 = 0;
+	this._t11 = 0;
+	this._t9 = 0;
+	this._t8 = 0.0;
+	this._t6 = 0.0;
+	this._t5 = 0;
+	this._t4 = 0.0;
+	this._t3 = 0.0;
+	tardis.StackFrameBasis.call(this,gr,1288,"Go_tgoaddmath_glrFloat32bits");
+	this._bds = _bds;
+	this.p_f = p_f;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_tgoaddmath_glrFloat32bits.__name__ = true;
+tardis._Go.Go_tgoaddmath_glrFloat32bits.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_tgoaddmath_glrFloat32bits.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_tgoaddmath_glrFloat32bits.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t0 = false;
+			_t0 = _g.p_f == 0;
+			if(_t0) _g._Next = 1; else _g._Next = 2;
+			_g._Phi = 0;
+			return null;
+		};
+		var _Block1 = function() {
+			_g._res = 0;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block2 = function() {
+			var _t1 = false;
+			_t1 = _g.p_f != _g.p_f;
+			if(_t1) _g._Next = 3; else _g._Next = 4;
+			_g._Phi = 2;
+			return null;
+		};
+		var _Block3 = function() {
+			_g._res = 2143289344;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block4 = function() {
+			var _t2 = false;
+			_t2 = _g.p_f < 0;
+			if(_t2) _g._Next = 5; else _g._Next = 6;
+			_g._Phi = 4;
+			return null;
+		};
+		var _Block5 = function() {
+			_g._t3 = -_g.p_f;
+			_g._Next = 6;
+			_g._Phi = 5;
+			return null;
+		};
+		var _Block6 = function() {
+			var _g1 = _g._Phi;
+			switch(_g1) {
+			case 5:
+				_g._t4 = _g._t3;
+				_g._t5 = 0x80000000;
+				break;
+			case 4:
+				_g._t4 = _g.p_f;
+				_g._t5 = 0;
+				break;
+			}
+			_g._Next = 8;
+			_g._Phi = 6;
+			return null;
+		};
+		var _Block7 = function() {
+			var _t7 = false;
+			_g._t6 = tardis.Force.floatDiv(_g._t8,2);
+			_t7 = tardis.Force.uintCompare(_g._t9,255) == 0;
+			if(_t7) _g._Next = 12; else _g._Next = 9;
+			_g._Phi = 7;
+			return null;
+		};
+		var _Block8 = function() {
+			var _g11 = _g._Phi;
+			switch(_g11) {
+			case 6:
+				_g._t8 = _g._t4;
+				_g._t9 = 150;
+				break;
+			case 9:
+				_g._t8 = _g._t6;
+				_g._t9 = _g._t11;
+				break;
+			}
+			var _t10 = false;
+			_t10 = _g._t8 >= 1.6777216e+07;
+			if(_t10) _g._Next = 7; else _g._Next = 12;
+			_g._Phi = 8;
+			return null;
+		};
+		var _Block9 = function() {
+			_g._t11 = _g._t9 + 1 >>> 0;
+			_g._Next = 8;
+			_g._Phi = 9;
+			return null;
+		};
+		var _Block10 = function() {
+			var _t13 = false;
+			_g._t12 = _g._t17 - 1 >>> 0;
+			_t13 = tardis.Force.uintCompare(_g._t12,0) == 0;
+			if(_t13) _g._Next = 11; else _g._Next = 13;
+			_g._Phi = 10;
+			return null;
+		};
+		var _Block11 = function() {
+			if(_g._Phi == 12) _g._t14 = _g._t17; else if(_g._Phi == 10) _g._t14 = _g._t12; else _g._t14 = 0;
+			var _t15 = false;
+			_t15 = _g._t16 < 0;
+			if(_t15) _g._Next = 14; else _g._Next = 15;
+			_g._Phi = 11;
+			return null;
+		};
+		var _Block12 = function() {
+			var _g12 = _g._Phi;
+			switch(_g12) {
+			case 8:
+				_g._t16 = _g._t8;
+				_g._t17 = _g._t9;
+				break;
+			case 13:
+				_g._t16 = _g._t19;
+				_g._t17 = _g._t12;
+				break;
+			case 7:
+				_g._t16 = _g._t6;
+				_g._t17 = _g._t9;
+				break;
+			}
+			var _t18 = false;
+			_t18 = _g._t16 < 8.388608e+06;
+			if(_t18) _g._Next = 10; else _g._Next = 11;
+			_g._Phi = 12;
+			return null;
+		};
+		var _Block13 = function() {
+			_g._t19 = _g._t16 * 2;
+			_g._Next = 12;
+			_g._Phi = 13;
+			return null;
+		};
+		var _Block14 = function() {
+			_g._t20 = new tardis.Interface(4,"glrFloat32bits");
+			tardis.Scheduler.panic(_g._goroutine,_g._t20);
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var _Block15 = function() {
+			var _t21 = 0.0;
+			var _t22 = 0.0;
+			var _t23 = 0.0;
+			var _t24 = 0.0;
+			var _t26 = false;
+			_t21 = _g._t16;
+			_t22 = tardis.Force.floatDiv(_t21,2);
+			_t23 = _g._t16;
+			_t24 = 2 * _t22;
+			_g._t25 = _t23 - _t24;
+			_t26 = _g._t25 > 0.5;
+			if(_t26) _g._Next = 19; else _g._Next = 18;
+			_g._Phi = 15;
+			return null;
+		};
+		var _Block16 = function() {
+			_g._t27 = _g._t16 + 1;
+			_g._Next = 17;
+			_g._Phi = 16;
+			return null;
+		};
+		var _Block17 = function() {
+			if(_g._Phi == 18) _g._t28 = _g._t16; else if(_g._Phi == 16) _g._t28 = _g._t27; else _g._t28 = 0.0;
+			var _t29 = 0;
+			var _t30 = 0;
+			var _t31 = 0;
+			var _t32 = 0;
+			var _v1 = _g._t14;
+			var _v2;
+			var v;
+			var v1 = new tardis.Int64(0,23);
+			v = v1;
+			_v2 = tardis.Int64.getLow(v);
+			if(_v2 == 0) _t29 = _v1; else _t29 = _v1 << _v2;
+			_t30 = (_g._t5 | _t29) >>> 0;
+			_t31 = tardis.Force.toUint32((function($this) {
+				var $r;
+				var _f = _g._t28;
+				$r = _f >= 0?Math.floor(_f):Math.ceil(_f);
+				return $r;
+			}(this)));
+			_t32 = (_t31 & -8388609) >>> 0;
+			_g._t33 = (_t30 | _t32) >>> 0;
+			_g._res = _g._t33;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block18 = function() {
+			var _t34 = false;
+			_t34 = _g._t25 >= 1.5;
+			if(_t34) _g._Next = 16; else _g._Next = 17;
+			_g._Phi = 18;
+			return null;
+		};
+		var _Block19 = function() {
+			var _t35 = false;
+			_t35 = _g._t25 < 1;
+			if(_t35) _g._Next = 16; else _g._Next = 18;
+			_g._Phi = 19;
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g2 = this._Next;
+			switch(_g2) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case 3:
+				retVal = _Block3();
+				break;
+			case 4:
+				retVal = _Block4();
+				break;
+			case 5:
+				retVal = _Block5();
+				break;
+			case 6:
+				retVal = _Block6();
+				break;
+			case 7:
+				retVal = _Block7();
+				break;
+			case 8:
+				retVal = _Block8();
+				break;
+			case 9:
+				retVal = _Block9();
+				break;
+			case 10:
+				retVal = _Block10();
+				break;
+			case 11:
+				retVal = _Block11();
+				break;
+			case 12:
+				retVal = _Block12();
+				break;
+			case 13:
+				retVal = _Block13();
+				break;
+			case 14:
+				retVal = _Block14();
+				break;
+			case 15:
+				retVal = _Block15();
+				break;
+			case 16:
+				retVal = _Block16();
+				break;
+			case 17:
+				retVal = _Block17();
+				break;
+			case 18:
+				retVal = _Block18();
+				break;
+			case 19:
+				retVal = _Block19();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_tgoaddmath_glrFloat32bits
+});
+tardis._Go.Go_main_makeText = function(gr,_bds,p_selectable,p_x,p_y,p_width,p_height,p_textColor,p_oldtext,p_text) {
+	this._Phi = 0;
+	this._t45 = null;
+	this._t44 = null;
+	this._t43 = null;
+	this._t38 = null;
+	this._t34 = 0;
+	this._t33 = 0;
+	this._t26 = null;
+	this._t22 = 0;
+	this._t20 = 0;
+	this._t18 = null;
+	this._t17 = null;
+	this._t16 = null;
+	this._t15 = null;
+	this._t13 = null;
+	this._t11 = null;
+	this._t10 = null;
+	this._t8 = null;
+	this._t7 = null;
+	this._t6 = null;
+	this._t3 = null;
+	this._t1 = null;
+	this._t0 = null;
+	tardis.StackFrameBasis.call(this,gr,148,"Go_main_makeText");
+	this._bds = _bds;
+	this.p_selectable = p_selectable;
+	this.p_x = p_x;
+	this.p_y = p_y;
+	this.p_width = p_width;
+	this.p_height = p_height;
+	this.p_textColor = p_textColor;
+	this.p_oldtext = p_oldtext;
+	this.p_text = p_text;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_makeText.__name__ = true;
+tardis._Go.Go_main_makeText.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_makeText.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_makeText.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._t0 = tardis.Go.main_context.load_uintptr();
+			_g._t1 = "#fff";
+			_g._t0.fillStyle = _g._t1;
+			var _t4 = 0.0;
+			var _t5 = 0.0;
+			_g._t3 = tardis.Go.main_context.load_uintptr();
+			_t4 = _g.p_x;
+			_t5 = _g.p_y;
+			_g._t6 = new tardis.Interface(4,_g.p_oldtext);
+			_g._t7 = new tardis.Interface(2,_t4);
+			_g._t8 = new tardis.Interface(2,_t5);
+			_g._t3.fillText(tardis.Force.toHaxeParam(_g._t6),tardis.Force.toHaxeParam(_g._t7),tardis.Force.toHaxeParam(_g._t8));
+			_g._t10 = tardis.Go.main_context.load_uintptr();
+			_g._t11 = "#373";
+			_g._t10.fillStyle = _g._t11;
+			_g._t13 = tardis.Go.main_context.load_uintptr();
+			_g._t13.font = "12px Arial";
+			_g._t15 = new tardis.Slice(new tardis.Pointer(new tardis.Object(8)),0,1,1,8);
+			_g._t16 = { k : 0, v : tardis.Force.toUTF8slice(_g._goroutine,_g.p_text)};
+			_g._Next = 1;
+			_g._Phi = 0;
+			return null;
+		};
+		var _Block1 = function() {
+			if(_g._Phi == 0) _g._t17 = _g._t15; else if(_g._Phi == 4) _g._t17 = _g._t26; else if(_g._Phi == 5) _g._t17 = _g._t17; else _g._t17 = new tardis.Slice(new tardis.Pointer(new tardis.Object(0)),0,0,0,8);
+			var _t19 = false;
+			var _thisK = _g._t16.k;
+			if(_g._t16.k >= _g._t16.v.len()) _g._t18 = { r0 : false, r1 : 0, r2 : 0}; else {
+				var _dr = tardis.Go_utf8_DecodeRune.callFromRT(_g._goroutine,_g._t16.v.subSlice(_thisK,-1));
+				_g._t16.k += _dr.r1;
+				_g._t18 = { r0 : true, r1 : js.Boot.__cast(_thisK , Int), r2 : js.Boot.__cast(_dr.r0 , Int)};
+			}
+			_t19 = _g._t18.r0;
+			if(_t19) _g._Next = 2; else _g._Next = 3;
+			_g._Phi = 1;
+			return null;
+		};
+		var _Block2 = function() {
+			var _t21 = false;
+			_g._t20 = _g._t18.r2;
+			_t21 = _g._t20 == 10;
+			if(_t21) _g._Next = 4; else _g._Next = 5;
+			_g._Phi = 2;
+			return null;
+		};
+		var _Block3 = function() {
+			var _v = _g._t17;
+			if(_v == null) _g._t22 = 0; else _g._t22 = _v.length;
+			_g._Next = 6;
+			_g._Phi = 3;
+			return null;
+		};
+		var _Block4 = function() {
+			var _t23 = null;
+			var _t24 = null;
+			var _t25 = null;
+			_t23 = new tardis.Pointer(new tardis.Object(8));
+			_t24 = _t23.addr(0);
+			_t24.obj.set(_t24.off,"");
+			_t25 = new tardis.Slice(_t23,0,-1,1,8);
+			_g._t26 = _g._t17.append(_t25);
+			_g._Next = 1;
+			_g._Phi = 4;
+			return null;
+		};
+		var _Block5 = function() {
+			var _t27 = 0;
+			var _t28 = 0;
+			var _t29 = null;
+			var _t30 = "";
+			var _t31 = "";
+			var _t32 = "";
+			var _v1 = _g._t17;
+			if(_v1 == null) _t27 = 0; else _t27 = _v1.length;
+			_t28 = _t27 - 1 >> 0;
+			if(_t28 < 0 || _t28 >= _g._t17.length) tardis.Scheduler.ioor();
+			_t29 = _g._t17.itemAddr(_t28);
+			var _r = tardis.Go_haxegoruntime_Rune2Raw.callFromRT(_g._goroutine,_g._t20);
+			_t30 = "";
+			var _g2 = 0;
+			var _g1 = _r.length;
+			while(_g2 < _g1) {
+				var _i = _g2++;
+				_t30 += String.fromCharCode(_r.baseArray.addr((_i + _r.start) * _r.itemSize).load_int32());
+			}
+			_t31 = _t29.obj.get_string(_t29.off);
+			_t32 = _t31 + _t30;
+			_t29.obj.set(_t29.off,_t32);
+			_g._Next = 1;
+			_g._Phi = 5;
+			return null;
+		};
+		var _Block6 = function() {
+			if(_g._Phi == 3) _g._t33 = -1; else if(_g._Phi == 7) _g._t33 = _g._t34; else _g._t33 = 0;
+			var _t35 = false;
+			_g._t34 = _g._t33 + 1 >> 0;
+			_t35 = _g._t34 < _g._t22;
+			if(_t35) _g._Next = 7; else _g._Next = 8;
+			_g._Phi = 6;
+			return null;
+		};
+		var _Block7 = function() {
+			var _t36 = null;
+			var _t37 = "";
+			var _t39 = 0.0;
+			var _t40 = 0;
+			var _t41 = 0;
+			var _t42 = 0.0;
+			tardis.Scheduler.wraprangechk(_g._t34,_g._t17.length);
+			_t36 = _g._t17.itemAddr(_g._t34);
+			_t37 = _t36.obj.get_string(_t36.off);
+			_g._t38 = tardis.Go.main_context.load_uintptr();
+			_t39 = _g.p_x;
+			_t40 = 12 * _g._t34 >> 0;
+			_t41 = _g.p_y + _t40 >> 0;
+			_t42 = _t41;
+			_g._t43 = new tardis.Interface(4,_t37);
+			_g._t44 = new tardis.Interface(2,_t39);
+			_g._t45 = new tardis.Interface(2,_t42);
+			_g._t38.fillText(tardis.Force.toHaxeParam(_g._t43),tardis.Force.toHaxeParam(_g._t44),tardis.Force.toHaxeParam(_g._t45));
+			_g._Next = 6;
+			_g._Phi = 7;
+			return null;
+		};
+		var _Block8 = function() {
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var _Block_2 = function() {
+			return null;
+		};
+		var _Block_3 = function() {
+			return null;
+		};
+		var _Block_4 = function() {
+			return null;
+		};
+		var _Block_5 = function() {
+			return null;
+		};
+		var _Block_6 = function() {
+			return null;
+		};
+		var _Block_7 = function() {
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g3 = this._Next;
+			switch(_g3) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case 3:
+				retVal = _Block3();
+				break;
+			case 4:
+				retVal = _Block4();
+				break;
+			case 5:
+				retVal = _Block5();
+				break;
+			case 6:
+				retVal = _Block6();
+				break;
+			case 7:
+				retVal = _Block7();
+				break;
+			case 8:
+				retVal = _Block8();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			case -3:
+				retVal = _Block_3();
+				break;
+			case -4:
+				retVal = _Block_4();
+				break;
+			case -5:
+				retVal = _Block_5();
+				break;
+			case -6:
+				retVal = _Block_6();
+				break;
+			case -7:
+				retVal = _Block_7();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_makeText
+});
+tardis._Go.Go_main_delay_36_1 = function(gr,_bds) {
+	this._t2 = null;
+	this._t1_stackalloc = new tardis.Object(0);
+	this._t0 = null;
+	tardis.StackFrameBasis.call(this,gr,131,"Go_main_delay_36_1");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_delay_36_1.__name__ = true;
+tardis._Go.Go_main_delay_36_1.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_delay_36_1.call = function(gr,_bds) {
+	return new tardis._Go.Go_main_delay_36_1(gr,_bds);
+};
+tardis._Go.Go_main_delay_36_1.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_delay_36_1.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t1 = null;
+			_g._t0 = _g._bds.w.load();
+			_t1 = new tardis.Pointer(_g._t1_stackalloc.clear());
+			_g._t2 = _t1.obj.get_object(0,_t1.off);
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			if(!_g._t0.hasSpace()) return _g;
+			_g._t0.send(_g._t2);
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_delay_36_1
+});
+tardis._Go.Go_tgoaddmath_init = function(gr,_bds) {
+	tardis.StackFrameBasis.call(this,gr,132,"Go_tgoaddmath_init");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_tgoaddmath_init.__name__ = true;
+tardis._Go.Go_tgoaddmath_init.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_tgoaddmath_init.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_tgoaddmath_init.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t0 = false;
+			_t0 = tardis.Go.tgoaddmath_init_36_guard.load_bool();
+			if(_t0) _g._Next = 2; else _g._Next = 1;
+			return null;
+		};
+		var _Block1 = function() {
+			tardis.Go.tgoaddmath_init_36_guard.store_bool(true);
+			new tardis._Go.Go_tgoaddmath_init_35_1(_g._goroutine,[]);
+			_g._Next = -2;
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var _Block_2 = function() {
+			_g._Next = 2;
+			return null;
+		};
+		var _Block2 = function() {
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_tgoaddmath_init
+});
+tardis.Go_main_Start_36_2 = $hx_exports.Go_main_Start_36_2 = function(gr,_bds) {
+	this._t0 = null;
+	this._SF1 = null;
+	tardis.StackFrameBasis.call(this,gr,230,"Go_main_Start_36_2");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis.Go_main_Start_36_2.__name__ = true;
+tardis.Go_main_Start_36_2.__interfaces__ = [tardis.StackFrame];
+tardis.Go_main_Start_36_2.call = function(gr,_bds) {
+	return new tardis.Go_main_Start_36_2(gr,_bds);
+};
+tardis.Go_main_Start_36_2.__super__ = tardis.StackFrameBasis;
+tardis.Go_main_Start_36_2.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._SF1 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/oven.png");
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			_g._t0 = _g._SF1.res();
+			new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t0,690,0);
+			_g._Next = -2;
+			return _g;
+		};
+		var _Block_2 = function() {
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis.Go_main_Start_36_2
+});
+tardis._Go.Go_tgoaddmath_glrFloat64frombits = function(gr,_bds,p_b) {
+	this._Phi = 0;
+	this._t21 = 0.0;
+	this._t19 = 0.0;
+	this._SF2 = null;
+	this._t18 = 0;
+	this._t15 = 0.0;
+	this._t14 = null;
+	this._t12 = null;
+	this._t11 = null;
+	this._t10 = 0.0;
+	this._t6 = null;
+	this._t5 = null;
+	this._t3 = 0.0;
+	this._t0 = 0.0;
+	tardis.StackFrameBasis.call(this,gr,1415,"Go_tgoaddmath_glrFloat64frombits");
+	this._bds = _bds;
+	this.p_b = p_b;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_tgoaddmath_glrFloat64frombits.__name__ = true;
+tardis._Go.Go_tgoaddmath_glrFloat64frombits.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_tgoaddmath_glrFloat64frombits.call = function(gr,_bds,p_b) {
+	return new tardis._Go.Go_tgoaddmath_glrFloat64frombits(gr,_bds,p_b);
+};
+tardis._Go.Go_tgoaddmath_glrFloat64frombits.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_tgoaddmath_glrFloat64frombits.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._t0 = Math.NaN;
+			var _t1 = null;
+			var _t2 = false;
+			_t1 = tardis.Force.toUint64((function($this) {
+				var $r;
+				var x = _g.p_b;
+				var y;
+				{
+					var v = new tardis.Int64(-2147483648,0);
+					y = v;
+				}
+				$r = (function($this) {
+					var $r;
+					var v1 = new tardis.Int64(x.high & y.high,x.low & y.low);
+					$r = v1;
+					return $r;
+				}($this));
+				return $r;
+			}(this)));
+			_t2 = tardis._Go.HaxeInt64abs_Impl_.ucompare(_t1,(function($this) {
+				var $r;
+				var v2 = new tardis.Int64(0,0);
+				$r = v2;
+				return $r;
+			}(this))) != 0;
+			if(_t2) _g._Next = 1; else _g._Next = 2;
+			_g._Phi = 0;
+			return null;
+		};
+		var _Block1 = function() {
+			_g._Next = 2;
+			_g._Phi = 1;
+			return null;
+		};
+		var _Block2 = function() {
+			if(_g._Phi == 0) _g._t3 = 1; else if(_g._Phi == 1) _g._t3 = -1; else _g._t3 = 0.0;
+			var _t4 = null;
+			var _t7 = false;
+			_t4 = tardis.Force.toUint64(tardis._Go.HaxeInt64abs_Impl_.ushr(_g.p_b,(function($this) {
+				var $r;
+				var v3;
+				{
+					var v4 = new tardis.Int64(0,52);
+					v3 = v4;
+				}
+				$r = tardis.Int64.getLow(v3);
+				return $r;
+			}(this))));
+			_g._t5 = tardis.Force.toUint64((function($this) {
+				var $r;
+				var y1;
+				{
+					var v5 = new tardis.Int64(0,2047);
+					y1 = v5;
+				}
+				$r = (function($this) {
+					var $r;
+					var v6 = new tardis.Int64(_t4.high & y1.high,_t4.low & y1.low);
+					$r = v6;
+					return $r;
+				}($this));
+				return $r;
+			}(this)));
+			_g._t6 = tardis.Force.toUint64((function($this) {
+				var $r;
+				var x1 = _g.p_b;
+				var y2;
+				{
+					var v7 = new tardis.Int64(1048575,-1);
+					y2 = v7;
+				}
+				$r = (function($this) {
+					var $r;
+					var v8 = new tardis.Int64(x1.high & y2.high,x1.low & y2.low);
+					$r = v8;
+					return $r;
+				}($this));
+				return $r;
+			}(this)));
+			_t7 = tardis._Go.HaxeInt64abs_Impl_.ucompare(_g._t5,(function($this) {
+				var $r;
+				var v9 = new tardis.Int64(0,2047);
+				$r = v9;
+				return $r;
+			}(this))) == 0;
+			if(_t7) _g._Next = 3; else _g._Next = 4;
+			_g._Phi = 2;
+			return null;
+		};
+		var _Block3 = function() {
+			var _t8 = false;
+			_t8 = tardis._Go.HaxeInt64abs_Impl_.ucompare(_g._t6,(function($this) {
+				var $r;
+				var v10 = new tardis.Int64(0,0);
+				$r = v10;
+				return $r;
+			}(this))) == 0;
+			if(_t8) _g._Next = 5; else _g._Next = 6;
+			_g._Phi = 3;
+			return null;
+		};
+		var _Block4 = function() {
+			var _t9 = false;
+			_t9 = tardis._Go.HaxeInt64abs_Impl_.ucompare(_g._t5,(function($this) {
+				var $r;
+				var v11 = new tardis.Int64(0,0);
+				$r = v11;
+				return $r;
+			}(this))) != 0;
+			if(_t9) _g._Next = 7; else _g._Next = 8;
+			_g._Phi = 4;
+			return null;
+		};
+		var _Block5 = function() {
+			_g._t10 = tardis.Force.floatDiv(_g._t3,0);
+			_g._res = _g._t10;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block6 = function() {
+			_g._res = _g._t0;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block7 = function() {
+			_g._t11 = tardis.Force.toUint64((function($this) {
+				var $r;
+				var y3;
+				{
+					var v12 = new tardis.Int64(1048576,0);
+					y3 = v12;
+				}
+				$r = (function($this) {
+					var $r;
+					var v13 = tardis.Int64.add(_g._t6,y3);
+					$r = v13;
+					return $r;
+				}($this));
+				return $r;
+			}(this)));
+			_g._Next = 8;
+			_g._Phi = 7;
+			return null;
+		};
+		var _Block8 = function() {
+			if(_g._Phi == 4) _g._t12 = _g._t6; else if(_g._Phi == 7) _g._t12 = _g._t11; else {
+				var v14 = new tardis.Int64(0,0);
+				_g._t12 = v14;
+			}
+			var _t13 = false;
+			_t13 = tardis._Go.HaxeInt64abs_Impl_.ucompare(_g._t5,(function($this) {
+				var $r;
+				var v15 = new tardis.Int64(0,0);
+				$r = v15;
+				return $r;
+			}(this))) == 0;
+			if(_t13) _g._Next = 9; else _g._Next = 10;
+			_g._Phi = 8;
+			return null;
+		};
+		var _Block9 = function() {
+			_g._Next = 10;
+			_g._Phi = 9;
+			return null;
+		};
+		var _Block10 = function() {
+			if(_g._Phi == 8) _g._t14 = _g._t5; else if(_g._Phi == 9) {
+				var v16 = new tardis.Int64(0,1);
+				_g._t14 = v16;
+			} else {
+				var v17 = new tardis.Int64(0,0);
+				_g._t14 = v17;
+			}
+			var _t16 = 0;
+			var _t17 = 0;
+			_g._t15 = tardis._Go.HaxeInt64abs_Impl_.toUFloat(_g._t12);
+			_t16 = tardis.Force.toInt32(tardis.Int64.getLow(_g._t14));
+			_t17 = _t16 - 1023 >> 0;
+			_g._t18 = _t17 - 52 >> 0;
+			_g._SF2 = new tardis._Go.Go_tgoaddmath_pow2(_g._goroutine,[],_g._t18);
+			_g._Next = -2;
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var _Block_2 = function() {
+			_g._t19 = _g._SF2.res();
+			var _t20 = 0.0;
+			_t20 = _g._t15 * _g._t19;
+			_g._t21 = _t20 * _g._t3;
+			_g._res = _g._t21;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case 3:
+				retVal = _Block3();
+				break;
+			case 4:
+				retVal = _Block4();
+				break;
+			case 5:
+				retVal = _Block5();
+				break;
+			case 6:
+				retVal = _Block6();
+				break;
+			case 7:
+				retVal = _Block7();
+				break;
+			case 8:
+				retVal = _Block8();
+				break;
+			case 9:
+				retVal = _Block9();
+				break;
+			case 10:
+				retVal = _Block10();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_tgoaddmath_glrFloat64frombits
+});
+tardis._Go.Go_main_main = function(gr,_bds) {
+	this._t5 = null;
+	this._t4 = null;
+	this._t3 = null;
+	this._t1 = null;
+	this._t0 = null;
+	tardis.StackFrameBasis.call(this,gr,21,"Go_main_main");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_main.__name__ = true;
+tardis._Go.Go_main_main.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_main.callFromHaxe = function() {
+	if(!tardis.Go.doneInit) tardis.Go.init();
+	var _sf = new tardis._Go.Go_main_main(0,null).run();
+	while(_sf._incomplete) tardis.Scheduler.runAll();
+};
+tardis._Go.Go_main_main.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_main.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._t0 = new tardis.Interface(1,100);
+			_g._t1 = new haxe.Timer(tardis.Force.toHaxeParam(_g._t0));
+			tardis.Go.main_timer.store_uintptr(_g._t1);
+			tardis.Scheduler.runLimit = 10;
+			_g._t3 = tardis.Go.main_timer.load_uintptr();
+			_g._t4 = new tardis.Interface(4,"Scheduler.timerEventHandler");
+			_g._t5 = new tardis.Interface(-1,tardis.Scheduler.timerEventHandler);
+			_g._t3.run = tardis.Force.toHaxeParam(_g._t5);
+			tardis.Go_main_Start.call(tardis.Scheduler.makeGoroutine(),[]);
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var _Block_2 = function() {
+			return null;
+		};
+		var _Block_3 = function() {
+			return null;
+		};
+		var _Block_4 = function() {
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			case -3:
+				retVal = _Block_3();
+				break;
+			case -4:
+				retVal = _Block_4();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_main
+});
+tardis._Go.Go_main_makeSprite = function(gr,_bds,p_bitmap,p_x,p_y) {
+	this._t22 = null;
+	this._t20 = null;
+	this._t13 = null;
+	this._t11 = null;
+	this._t10 = null;
+	this._t9 = null;
+	this._t5 = null;
+	this._t4 = false;
+	this._t3 = null;
+	this._t2 = null;
+	this._t1 = null;
+	this._t0 = null;
+	tardis.StackFrameBasis.call(this,gr,179,"Go_main_makeSprite");
+	this._bds = _bds;
+	this.p_bitmap = p_bitmap;
+	this.p_x = p_x;
+	this.p_y = p_y;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_makeSprite.__name__ = true;
+tardis._Go.Go_main_makeSprite.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_makeSprite.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_makeSprite.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._t0 = new tardis.Pointer(new tardis.Object(4));
+			_g._t0.store_uintptr(_g.p_bitmap);
+			_g._t1 = new tardis.Pointer(new tardis.Object(4));
+			_g._t1.store_int32(_g.p_x);
+			_g._t2 = new tardis.Pointer(new tardis.Object(4));
+			_g._t2.store_int32(_g.p_y);
+			_g._t3 = _g._t0.load_uintptr();
+			_g._t4 = _g._t3.complete;
+			if(_g._t4) _g._Next = 1; else _g._Next = 3;
+			return null;
+		};
+		var _Block1 = function() {
+			var _t6 = null;
+			var _t7 = 0;
+			var _t8 = 0;
+			_g._t5 = tardis.Go.main_context.load_uintptr();
+			_t6 = _g._t0.load_uintptr();
+			_t7 = _g._t1.load_int32();
+			_t8 = _g._t2.load_int32();
+			_g._t9 = new tardis.Interface(3,_t6);
+			_g._t10 = new tardis.Interface(1,_t7);
+			_g._t11 = new tardis.Interface(1,_t8);
+			_g._t5.drawImage(tardis.Force.toHaxeParam(_g._t9),tardis.Force.toHaxeParam(_g._t10),tardis.Force.toHaxeParam(_g._t11));
+			_g._Next = 2;
+			return null;
+		};
+		var _Block2 = function() {
+			var _t14 = null;
+			var _t15 = null;
+			var _t16 = null;
+			var _t17 = 0;
+			var _t18 = null;
+			var _t19 = 0;
+			_g._t13 = new tardis.Pointer(new tardis.Object(12));
+			_t14 = _g._t13.addr(0);
+			_t15 = _g._t0.load_uintptr();
+			_t14.obj.set(_t14.off,_t15);
+			_t16 = _g._t13.addr(4);
+			_t17 = _g._t1.load_int32();
+			_t16.obj.iVec[_t16.off] = _t17;
+			_t18 = _g._t13.addr(8);
+			_t19 = _g._t2.load_int32();
+			_t18.obj.iVec[_t18.off] = _t19;
+			_g._res = _g._t13;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block3 = function() {
+			var _t21 = null;
+			_g._t20 = _g._t0.load_uintptr();
+			_t21 = new tardis.Closure(new tardis.Closure(tardis._Go.Go_main_makeSprite_36_1.call,null),{ bitmap : _g._t0, x : _g._t1, y : _g._t2});
+			_g._t22 = tardis.Force.toHaxeParam(new tardis.Interface(5,_t21));
+			_g._t20.onload = _g._t22;
+			_g._Next = 2;
+			return null;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var _Block_2 = function() {
+			return null;
+		};
+		var _Block_3 = function() {
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case 3:
+				retVal = _Block3();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			case -3:
+				retVal = _Block_3();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_makeSprite
+});
+tardis._Go.Go_main_pickBooks = function(gr,_bds,p_x,p_y,p_state,p_in) {
+	this._t0 = 0;
+	tardis.StackFrameBasis.call(this,gr,86,"Go_main_pickBooks");
+	this._bds = _bds;
+	this.p_x = p_x;
+	this.p_y = p_y;
+	this.p_state = p_state;
+	this.p_in = p_in;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_pickBooks.__name__ = true;
+tardis._Go.Go_main_pickBooks.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_pickBooks.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_pickBooks.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g.p_state.store_int32(0);
+			_g.p_x.store_float64(0);
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			if(_g.p_in.hasNoContents()) return _g;
+			_g._t0 = _g.p_in.receive(0).r0;
+			new tardis._Go.Go_main_delay(_g._goroutine,[],_g._t0);
+			_g._Next = -2;
+			return _g;
+		};
+		var _Block_2 = function() {
+			_g._res = _g._t0;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_pickBooks
+});
+tardis._Go.Go_utf8_init = function(gr,_bds) {
+	tardis.StackFrameBasis.call(this,gr,91,"Go_utf8_init");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_utf8_init.__name__ = true;
+tardis._Go.Go_utf8_init.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_utf8_init.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_utf8_init.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t0 = false;
+			_t0 = tardis.Go.utf8_init_36_guard.load_bool();
+			if(_t0) _g._Next = 2; else _g._Next = 1;
+			return null;
+		};
+		var _Block1 = function() {
+			tardis.Go.utf8_init_36_guard.store_bool(true);
+			_g._Next = 2;
+			return null;
+		};
+		var _Block2 = function() {
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_utf8_init
+});
+tardis.Go_utf16_Decode = $hx_exports.Go_utf16_Decode = function(gr,_bds,p_s) {
+	this._Phi = 0;
+	this._t42 = false;
+	this._t41 = false;
+	this._t40 = 0;
+	this._t29 = false;
+	this._t28 = false;
+	this._t23 = 0;
+	this._t21 = 0;
+	this._t20 = 0;
+	this._t19 = 0;
+	this._SF1 = null;
+	this._t18 = 0;
+	this._t14 = 0;
+	this._t13 = null;
+	this._t12 = 0;
+	this._t11 = 0;
+	this._t10 = 0;
+	this._t7 = 0;
+	this._t6 = 0;
+	this._t5 = null;
+	this._t3 = 0;
+	this._t1 = null;
+	tardis.StackFrameBasis.call(this,gr,625,"Go_utf16_Decode");
+	this._bds = _bds;
+	this.p_s = p_s;
+	tardis.Scheduler.push(gr,this);
+};
+tardis.Go_utf16_Decode.__name__ = true;
+tardis.Go_utf16_Decode.__interfaces__ = [tardis.StackFrame];
+tardis.Go_utf16_Decode.__super__ = tardis.StackFrameBasis;
+tardis.Go_utf16_Decode.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t0 = 0;
+			var _v = _g.p_s;
+			if(_v == null) _t0 = 0; else _t0 = _v.length;
+			_g._t1 = new tardis.Slice(new tardis.Pointer(new tardis.Object(_t0 * 4)),0,_t0,_t0,4);
+			_g._Next = 3;
+			_g._Phi = 0;
+			return null;
+		};
+		var _Block1 = function() {
+			var _t2 = null;
+			var _t4 = false;
+			tardis.Scheduler.wraprangechk(_g._t7,_g.p_s.length);
+			_t2 = _g.p_s.itemAddr(_g._t7);
+			_g._t3 = _t2.obj.get_uint16(_t2.off);
+			_t4 = tardis.Force.uintCompare(55296,_g._t3) <= 0;
+			if(_t4) _g._Next = 12; else _g._Next = 9;
+			_g._Phi = 1;
+			return null;
+		};
+		var _Block2 = function() {
+			_g._t5 = _g._t1.subSlice(0,_g._t6);
+			_g._res = _g._t5;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block3 = function() {
+			var _g1 = _g._Phi;
+			switch(_g1) {
+			case 4:
+				_g._t6 = _g._t10;
+				_g._t7 = _g._t12;
+				break;
+			case 0:
+				_g._t6 = 0;
+				_g._t7 = 0;
+				break;
+			}
+			var _t8 = 0;
+			var _t9 = false;
+			var _v1 = _g.p_s;
+			if(_v1 == null) _t8 = 0; else _t8 = _v1.length;
+			_t9 = _g._t7 < _t8;
+			if(_t9) _g._Next = 1; else _g._Next = 2;
+			_g._Phi = 3;
+			return null;
+		};
+		var _Block4 = function() {
+			var _g11 = _g._Phi;
+			switch(_g11) {
+			case 5:
+				_g._t10 = _g._t21;
+				_g._t11 = _g._t20;
+				break;
+			case 6:
+				_g._t10 = _g._t23;
+				_g._t11 = _g._t7;
+				break;
+			case 13:
+				_g._t10 = _g._t40;
+				_g._t11 = _g._t7;
+				break;
+			}
+			_g._t12 = _g._t11 + 1 >> 0;
+			_g._Next = 3;
+			_g._Phi = 4;
+			return null;
+		};
+		var _Block5 = function() {
+			var _t15 = 0;
+			var _t16 = null;
+			var _t17 = 0;
+			tardis.Scheduler.wraprangechk(_g._t6,_g._t1.length);
+			_g._t13 = _g._t1.itemAddr(_g._t6);
+			_g._t14 = _g._t3;
+			_t15 = _g._t7 + 1 >> 0;
+			if(_t15 < 0 || _t15 >= _g.p_s.length) tardis.Scheduler.ioor();
+			_t16 = _g.p_s.itemAddr(_t15);
+			_t17 = _t16.obj.get_uint16(_t16.off);
+			_g._t18 = _t17;
+			_g._SF1 = new tardis.Go_utf16_DecodeRune(_g._goroutine,[],_g._t14,_g._t18);
+			_g._SF1.run();
+			_g._t19 = _g._SF1.res();
+			_g._t13.store_int32(_g._t19);
+			_g._t20 = _g._t7 + 1 >> 0;
+			_g._t21 = _g._t6 + 1 >> 0;
+			_g._Next = 4;
+			_g._Phi = 5;
+			return null;
+		};
+		var _Block6 = function() {
+			var _t22 = null;
+			tardis.Scheduler.wraprangechk(_g._t6,_g._t1.length);
+			_t22 = _g._t1.itemAddr(_g._t6);
+			_t22.obj.iVec[_t22.off] = 65533;
+			_g._t23 = _g._t6 + 1 >> 0;
+			_g._Next = 4;
+			_g._Phi = 6;
+			return null;
+		};
+		var _Block7 = function() {
+			var _t24 = false;
+			_t24 = tardis.Force.uintCompare(55296,_g._t3) <= 0;
+			if(_t24) _g._Next = 14; else _g._Next = 15;
+			_g._Phi = 7;
+			return null;
+		};
+		var _Block8 = function() {
+			var _t25 = 0;
+			var _t26 = null;
+			var _t27 = 0;
+			_t25 = _g._t7 + 1 >> 0;
+			if(_t25 < 0 || _t25 >= _g.p_s.length) tardis.Scheduler.ioor();
+			_t26 = _g.p_s.itemAddr(_t25);
+			_t27 = _t26.obj.get_uint16(_t26.off);
+			_g._t28 = tardis.Force.uintCompare(_t27,57344) < 0;
+			_g._Next = 9;
+			_g._Phi = 8;
+			return null;
+		};
+		var _Block9 = function() {
+			if(_g._Phi == 1) _g._t29 = false; else if(_g._Phi == 12) _g._t29 = false; else if(_g._Phi == 11) _g._t29 = false; else if(_g._Phi == 10) _g._t29 = false; else if(_g._Phi == 8) _g._t29 = _g._t28; else _g._t29 = false;
+			if(_g._t29) _g._Next = 5; else _g._Next = 7;
+			_g._Phi = 9;
+			return null;
+		};
+		var _Block10 = function() {
+			var _t30 = 0;
+			var _t31 = null;
+			var _t32 = 0;
+			var _t33 = false;
+			_t30 = _g._t7 + 1 >> 0;
+			if(_t30 < 0 || _t30 >= _g.p_s.length) tardis.Scheduler.ioor();
+			_t31 = _g.p_s.itemAddr(_t30);
+			_t32 = _t31.obj.get_uint16(_t31.off);
+			_t33 = tardis.Force.uintCompare(56320,_t32) <= 0;
+			if(_t33) _g._Next = 8; else _g._Next = 9;
+			_g._Phi = 10;
+			return null;
+		};
+		var _Block11 = function() {
+			var _t34 = 0;
+			var _t35 = 0;
+			var _t36 = false;
+			_t34 = _g._t7 + 1 >> 0;
+			var _v2 = _g.p_s;
+			if(_v2 == null) _t35 = 0; else _t35 = _v2.length;
+			_t36 = _t34 < _t35;
+			if(_t36) _g._Next = 10; else _g._Next = 9;
+			_g._Phi = 11;
+			return null;
+		};
+		var _Block12 = function() {
+			var _t37 = false;
+			_t37 = tardis.Force.uintCompare(_g._t3,56320) < 0;
+			if(_t37) _g._Next = 11; else _g._Next = 9;
+			_g._Phi = 12;
+			return null;
+		};
+		var _Block13 = function() {
+			var _t38 = null;
+			var _t39 = 0;
+			tardis.Scheduler.wraprangechk(_g._t6,_g._t1.length);
+			_t38 = _g._t1.itemAddr(_g._t6);
+			_t39 = _g._t3;
+			_t38.obj.iVec[_t38.off] = _t39;
+			_g._t40 = _g._t6 + 1 >> 0;
+			_g._Next = 4;
+			_g._Phi = 13;
+			return null;
+		};
+		var _Block14 = function() {
+			_g._t41 = tardis.Force.uintCompare(_g._t3,57344) < 0;
+			_g._Next = 15;
+			_g._Phi = 14;
+			return null;
+		};
+		var _Block15 = function() {
+			if(_g._Phi == 7) _g._t42 = false; else if(_g._Phi == 14) _g._t42 = _g._t41; else _g._t42 = false;
+			if(_g._t42) _g._Next = 6; else _g._Next = 13;
+			_g._Phi = 15;
+			return null;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g2 = this._Next;
+			switch(_g2) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case 3:
+				retVal = _Block3();
+				break;
+			case 4:
+				retVal = _Block4();
+				break;
+			case 5:
+				retVal = _Block5();
+				break;
+			case 6:
+				retVal = _Block6();
+				break;
+			case 7:
+				retVal = _Block7();
+				break;
+			case 8:
+				retVal = _Block8();
+				break;
+			case 9:
+				retVal = _Block9();
+				break;
+			case 10:
+				retVal = _Block10();
+				break;
+			case 11:
+				retVal = _Block11();
+				break;
+			case 12:
+				retVal = _Block12();
+				break;
+			case 13:
+				retVal = _Block13();
+				break;
+			case 14:
+				retVal = _Block14();
+				break;
+			case 15:
+				retVal = _Block15();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis.Go_utf16_Decode
+});
+tardis.Go_utf16_DecodeRune = $hx_exports.Go_utf16_DecodeRune = function(gr,_bds,p_r1,p_r2) {
+	tardis.StackFrameBasis.call(this,gr,576,"Go_utf16_DecodeRune");
+	this._bds = _bds;
+	this.p_r1 = p_r1;
+	this.p_r2 = p_r2;
+	tardis.Scheduler.push(gr,this);
+};
+tardis.Go_utf16_DecodeRune.__name__ = true;
+tardis.Go_utf16_DecodeRune.__interfaces__ = [tardis.StackFrame];
+tardis.Go_utf16_DecodeRune.__super__ = tardis.StackFrameBasis;
+tardis.Go_utf16_DecodeRune.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _t5 = 0;
+		var _Block0 = function() {
+			var _t0 = false;
+			_t0 = 55296 <= _g.p_r1;
+			if(_t0) _g._Next = 5; else _g._Next = 2;
+			return null;
+		};
+		var _Block1 = function() {
+			var _t1 = 0;
+			var _t2 = 0;
+			var _t3 = 0;
+			var _t4 = 0;
+			_t1 = _g.p_r1 - 55296 >> 0;
+			var _v1 = _t1;
+			var _v2;
+			var v;
+			var v1 = new tardis.Int64(0,10);
+			v = v1;
+			_v2 = tardis.Int64.getLow(v);
+			if(_v2 == 0) _t2 = _v1; else _t2 = _v1 << _v2;
+			_t3 = _g.p_r2 - 56320 >> 0;
+			_t4 = (_t2 | _t3) >> 0;
+			_t5 = _t4 + 65536 >> 0;
+			_g._res = _t5;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block2 = function() {
+			_g._res = 65533;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block3 = function() {
+			var _t6 = false;
+			_t6 = _g.p_r2 < 57344;
+			if(_t6) _g._Next = 1; else _g._Next = 2;
+			return null;
+		};
+		var _Block4 = function() {
+			var _t7 = false;
+			_t7 = 56320 <= _g.p_r2;
+			if(_t7) _g._Next = 3; else _g._Next = 2;
+			return null;
+		};
+		var _Block5 = function() {
+			var _t8 = false;
+			_t8 = _g.p_r1 < 56320;
+			if(_t8) _g._Next = 4; else _g._Next = 2;
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case 3:
+				retVal = _Block3();
+				break;
+			case 4:
+				retVal = _Block4();
+				break;
+			case 5:
+				retVal = _Block5();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis.Go_utf16_DecodeRune
+});
+tardis._Go.Go_utf8_decodeRuneInternal = function(gr,_bds,p_p) {
+	this._t58 = 0;
+	this._t41 = 0;
+	this._t35 = 0;
+	this._t22 = 0;
+	this._t18 = 0;
+	this._t9 = 0;
+	this._t5 = 0;
+	this._t3 = 0;
+	this._t0 = 0;
+	tardis.StackFrameBasis.call(this,gr,692,"Go_utf8_decodeRuneInternal");
+	this._bds = _bds;
+	this.p_p = p_p;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_utf8_decodeRuneInternal.__name__ = true;
+tardis._Go.Go_utf8_decodeRuneInternal.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_utf8_decodeRuneInternal.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_utf8_decodeRuneInternal.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t1 = false;
+			var _v = _g.p_p;
+			if(_v == null) _g._t0 = 0; else _g._t0 = _v.length;
+			_t1 = _g._t0 < 1;
+			if(_t1) _g._Next = 1; else _g._Next = 2;
+			return null;
+		};
+		var _Block1 = function() {
+			_g._res = { r0 : 65533, r1 : 0, r2 : true};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block2 = function() {
+			var _t2 = null;
+			var _t4 = false;
+			if(0 >= _g.p_p.length) tardis.Scheduler.ioor();
+			_t2 = _g.p_p.itemAddr(0);
+			_g._t3 = _t2.obj.get_uint8(_t2.off);
+			_t4 = tardis.Force.uintCompare(_g._t3,128) < 0;
+			if(_t4) _g._Next = 3; else _g._Next = 4;
+			return null;
+		};
+		var _Block3 = function() {
+			_g._t5 = _g._t3;
+			_g._res = { r0 : _g._t5, r1 : 1, r2 : false};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block4 = function() {
+			var _t6 = false;
+			_t6 = tardis.Force.uintCompare(_g._t3,192) < 0;
+			if(_t6) _g._Next = 5; else _g._Next = 6;
+			return null;
+		};
+		var _Block5 = function() {
+			_g._res = { r0 : 65533, r1 : 1, r2 : false};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block6 = function() {
+			var _t7 = false;
+			_t7 = _g._t0 < 2;
+			if(_t7) _g._Next = 7; else _g._Next = 8;
+			return null;
+		};
+		var _Block7 = function() {
+			_g._res = { r0 : 65533, r1 : 1, r2 : true};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block8 = function() {
+			var _t8 = null;
+			var _t10 = false;
+			if(1 >= _g.p_p.length) tardis.Scheduler.ioor();
+			_t8 = _g.p_p.itemAddr(1);
+			_g._t9 = _t8.obj.get_uint8(_t8.off);
+			_t10 = tardis.Force.uintCompare(_g._t9,128) < 0;
+			if(_t10) _g._Next = 9; else _g._Next = 11;
+			return null;
+		};
+		var _Block9 = function() {
+			_g._res = { r0 : 65533, r1 : 1, r2 : false};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block10 = function() {
+			var _t11 = false;
+			_t11 = tardis.Force.uintCompare(_g._t3,224) < 0;
+			if(_t11) _g._Next = 12; else _g._Next = 13;
+			return null;
+		};
+		var _Block11 = function() {
+			var _t12 = false;
+			_t12 = tardis.Force.uintCompare(192,_g._t9) <= 0;
+			if(_t12) _g._Next = 9; else _g._Next = 10;
+			return null;
+		};
+		var _Block12 = function() {
+			var _t13 = 0;
+			var _t14 = 0;
+			var _t15 = 0;
+			var _t16 = 0;
+			var _t17 = 0;
+			var _t19 = false;
+			_t13 = _g._t3 & 31 & 255;
+			_t14 = _t13;
+			var _v1 = _t14;
+			var _v2;
+			var v;
+			var v1 = new tardis.Int64(0,6);
+			v = v1;
+			_v2 = tardis.Int64.getLow(v);
+			if(_v2 == 0) _t15 = _v1; else _t15 = _v1 << _v2;
+			_t16 = _g._t9 & 63 & 255;
+			_t17 = _t16;
+			_g._t18 = (_t15 | _t17) >> 0;
+			_t19 = _g._t18 <= 127;
+			if(_t19) _g._Next = 14; else _g._Next = 15;
+			return null;
+		};
+		var _Block13 = function() {
+			var _t20 = false;
+			_t20 = _g._t0 < 3;
+			if(_t20) _g._Next = 16; else _g._Next = 17;
+			return null;
+		};
+		var _Block14 = function() {
+			_g._res = { r0 : 65533, r1 : 1, r2 : false};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block15 = function() {
+			_g._res = { r0 : _g._t18, r1 : 2, r2 : false};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block16 = function() {
+			_g._res = { r0 : 65533, r1 : 1, r2 : true};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block17 = function() {
+			var _t21 = null;
+			var _t23 = false;
+			if(2 >= _g.p_p.length) tardis.Scheduler.ioor();
+			_t21 = _g.p_p.itemAddr(2);
+			_g._t22 = _t21.obj.get_uint8(_t21.off);
+			_t23 = tardis.Force.uintCompare(_g._t22,128) < 0;
+			if(_t23) _g._Next = 18; else _g._Next = 20;
+			return null;
+		};
+		var _Block18 = function() {
+			_g._res = { r0 : 65533, r1 : 1, r2 : false};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block19 = function() {
+			var _t24 = false;
+			_t24 = tardis.Force.uintCompare(_g._t3,240) < 0;
+			if(_t24) _g._Next = 21; else _g._Next = 22;
+			return null;
+		};
+		var _Block20 = function() {
+			var _t25 = false;
+			_t25 = tardis.Force.uintCompare(192,_g._t22) <= 0;
+			if(_t25) _g._Next = 18; else _g._Next = 19;
+			return null;
+		};
+		var _Block21 = function() {
+			var _t26 = 0;
+			var _t27 = 0;
+			var _t28 = 0;
+			var _t29 = 0;
+			var _t30 = 0;
+			var _t31 = 0;
+			var _t32 = 0;
+			var _t33 = 0;
+			var _t34 = 0;
+			var _t36 = false;
+			_t26 = _g._t3 & 15 & 255;
+			_t27 = _t26;
+			var _v11 = _t27;
+			var _v21;
+			var v2;
+			var v3 = new tardis.Int64(0,12);
+			v2 = v3;
+			_v21 = tardis.Int64.getLow(v2);
+			if(_v21 == 0) _t28 = _v11; else _t28 = _v11 << _v21;
+			_t29 = _g._t9 & 63 & 255;
+			_t30 = _t29;
+			var _v12 = _t30;
+			var _v22;
+			var v4;
+			var v5 = new tardis.Int64(0,6);
+			v4 = v5;
+			_v22 = tardis.Int64.getLow(v4);
+			if(_v22 == 0) _t31 = _v12; else _t31 = _v12 << _v22;
+			_t32 = (_t28 | _t31) >> 0;
+			_t33 = _g._t22 & 63 & 255;
+			_t34 = _t33;
+			_g._t35 = (_t32 | _t34) >> 0;
+			_t36 = _g._t35 <= 2047;
+			if(_t36) _g._Next = 23; else _g._Next = 24;
+			return null;
+		};
+		var _Block22 = function() {
+			var _t37 = false;
+			_t37 = _g._t0 < 4;
+			if(_t37) _g._Next = 28; else _g._Next = 29;
+			return null;
+		};
+		var _Block23 = function() {
+			_g._res = { r0 : 65533, r1 : 1, r2 : false};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block24 = function() {
+			var _t38 = false;
+			_t38 = 55296 <= _g._t35;
+			if(_t38) _g._Next = 27; else _g._Next = 26;
+			return null;
+		};
+		var _Block25 = function() {
+			_g._res = { r0 : 65533, r1 : 1, r2 : false};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block26 = function() {
+			_g._res = { r0 : _g._t35, r1 : 3, r2 : false};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block27 = function() {
+			var _t39 = false;
+			_t39 = _g._t35 <= 57343;
+			if(_t39) _g._Next = 25; else _g._Next = 26;
+			return null;
+		};
+		var _Block28 = function() {
+			_g._res = { r0 : 65533, r1 : 1, r2 : true};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block29 = function() {
+			var _t40 = null;
+			var _t42 = false;
+			if(3 >= _g.p_p.length) tardis.Scheduler.ioor();
+			_t40 = _g.p_p.itemAddr(3);
+			_g._t41 = _t40.obj.get_uint8(_t40.off);
+			_t42 = tardis.Force.uintCompare(_g._t41,128) < 0;
+			if(_t42) _g._Next = 30; else _g._Next = 32;
+			return null;
+		};
+		var _Block30 = function() {
+			_g._res = { r0 : 65533, r1 : 1, r2 : false};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block31 = function() {
+			var _t43 = false;
+			_t43 = tardis.Force.uintCompare(_g._t3,248) < 0;
+			if(_t43) _g._Next = 33; else _g._Next = 34;
+			return null;
+		};
+		var _Block32 = function() {
+			var _t44 = false;
+			_t44 = tardis.Force.uintCompare(192,_g._t41) <= 0;
+			if(_t44) _g._Next = 30; else _g._Next = 31;
+			return null;
+		};
+		var _Block33 = function() {
+			var _t45 = 0;
+			var _t46 = 0;
+			var _t47 = 0;
+			var _t48 = 0;
+			var _t49 = 0;
+			var _t50 = 0;
+			var _t51 = 0;
+			var _t52 = 0;
+			var _t53 = 0;
+			var _t54 = 0;
+			var _t55 = 0;
+			var _t56 = 0;
+			var _t57 = 0;
+			var _t59 = false;
+			_t45 = _g._t3 & 7 & 255;
+			_t46 = _t45;
+			var _v13 = _t46;
+			var _v23;
+			var v6;
+			var v7 = new tardis.Int64(0,18);
+			v6 = v7;
+			_v23 = tardis.Int64.getLow(v6);
+			if(_v23 == 0) _t47 = _v13; else _t47 = _v13 << _v23;
+			_t48 = _g._t9 & 63 & 255;
+			_t49 = _t48;
+			var _v14 = _t49;
+			var _v24;
+			var v8;
+			var v9 = new tardis.Int64(0,12);
+			v8 = v9;
+			_v24 = tardis.Int64.getLow(v8);
+			if(_v24 == 0) _t50 = _v14; else _t50 = _v14 << _v24;
+			_t51 = (_t47 | _t50) >> 0;
+			_t52 = _g._t22 & 63 & 255;
+			_t53 = _t52;
+			var _v15 = _t53;
+			var _v25;
+			var v10;
+			var v11 = new tardis.Int64(0,6);
+			v10 = v11;
+			_v25 = tardis.Int64.getLow(v10);
+			if(_v25 == 0) _t54 = _v15; else _t54 = _v15 << _v25;
+			_t55 = (_t51 | _t54) >> 0;
+			_t56 = _g._t41 & 63 & 255;
+			_t57 = _t56;
+			_g._t58 = (_t55 | _t57) >> 0;
+			_t59 = _g._t58 <= 65535;
+			if(_t59) _g._Next = 35; else _g._Next = 37;
+			return null;
+		};
+		var _Block34 = function() {
+			_g._res = { r0 : 65533, r1 : 1, r2 : false};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block35 = function() {
+			_g._res = { r0 : 65533, r1 : 1, r2 : false};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block36 = function() {
+			_g._res = { r0 : _g._t58, r1 : 4, r2 : false};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block37 = function() {
+			var _t60 = false;
+			_t60 = 1114111 < _g._t58;
+			if(_t60) _g._Next = 35; else _g._Next = 36;
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case 3:
+				retVal = _Block3();
+				break;
+			case 4:
+				retVal = _Block4();
+				break;
+			case 5:
+				retVal = _Block5();
+				break;
+			case 6:
+				retVal = _Block6();
+				break;
+			case 7:
+				retVal = _Block7();
+				break;
+			case 8:
+				retVal = _Block8();
+				break;
+			case 9:
+				retVal = _Block9();
+				break;
+			case 10:
+				retVal = _Block10();
+				break;
+			case 11:
+				retVal = _Block11();
+				break;
+			case 12:
+				retVal = _Block12();
+				break;
+			case 13:
+				retVal = _Block13();
+				break;
+			case 14:
+				retVal = _Block14();
+				break;
+			case 15:
+				retVal = _Block15();
+				break;
+			case 16:
+				retVal = _Block16();
+				break;
+			case 17:
+				retVal = _Block17();
+				break;
+			case 18:
+				retVal = _Block18();
+				break;
+			case 19:
+				retVal = _Block19();
+				break;
+			case 20:
+				retVal = _Block20();
+				break;
+			case 21:
+				retVal = _Block21();
+				break;
+			case 22:
+				retVal = _Block22();
+				break;
+			case 23:
+				retVal = _Block23();
+				break;
+			case 24:
+				retVal = _Block24();
+				break;
+			case 25:
+				retVal = _Block25();
+				break;
+			case 26:
+				retVal = _Block26();
+				break;
+			case 27:
+				retVal = _Block27();
+				break;
+			case 28:
+				retVal = _Block28();
+				break;
+			case 29:
+				retVal = _Block29();
+				break;
+			case 30:
+				retVal = _Block30();
+				break;
+			case 31:
+				retVal = _Block31();
+				break;
+			case 32:
+				retVal = _Block32();
+				break;
+			case 33:
+				retVal = _Block33();
+				break;
+			case 34:
+				retVal = _Block34();
+				break;
+			case 35:
+				retVal = _Block35();
+				break;
+			case 36:
+				retVal = _Block36();
+				break;
+			case 37:
+				retVal = _Block37();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_utf8_decodeRuneInternal
+});
+tardis.Go_utf16_IsSurrogate = $hx_exports.Go_utf16_IsSurrogate = function(gr,_bds,p_r) {
+	tardis.StackFrameBasis.call(this,gr,569,"Go_utf16_IsSurrogate");
+	this._bds = _bds;
+	this.p_r = p_r;
+	tardis.Scheduler.push(gr,this);
+};
+tardis.Go_utf16_IsSurrogate.__name__ = true;
+tardis.Go_utf16_IsSurrogate.__interfaces__ = [tardis.StackFrame];
+tardis.Go_utf16_IsSurrogate.__super__ = tardis.StackFrameBasis;
+tardis.Go_utf16_IsSurrogate.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _t1 = false;
+		var _t2 = false;
+		var _Phi = 0;
+		var _Block0 = function() {
+			var _t0 = false;
+			_t0 = 55296 <= _g.p_r;
+			if(_t0) _g._Next = 1; else _g._Next = 2;
+			_Phi = 0;
+			return null;
+		};
+		var _Block1 = function() {
+			_t1 = _g.p_r < 57344;
+			_g._Next = 2;
+			_Phi = 1;
+			return null;
+		};
+		var _Block2 = function() {
+			if(_Phi == 0) _t2 = false; else if(_Phi == 1) _t2 = _t1; else _t2 = false;
+			_g._res = _t2;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis.Go_utf16_IsSurrogate
+});
+tardis.Go_haxegoruntime_Rune2Raw = $hx_exports.Go_haxegoruntime_Rune2Raw = function(gr,_bds,p_oneRune) {
+	this._t2 = null;
+	this._SF1 = null;
+	this._t0 = null;
+	tardis.StackFrameBasis.call(this,gr,511,"Go_haxegoruntime_Rune2Raw");
+	this._bds = _bds;
+	this.p_oneRune = p_oneRune;
+	tardis.Scheduler.push(gr,this);
+};
+tardis.Go_haxegoruntime_Rune2Raw.__name__ = true;
+tardis.Go_haxegoruntime_Rune2Raw.__interfaces__ = [tardis.StackFrame];
+tardis.Go_haxegoruntime_Rune2Raw.callFromRT = function(_gr,p_oneRune) {
+	var _sf = new tardis.Go_haxegoruntime_Rune2Raw(_gr,null,p_oneRune).run();
+	while(_sf._incomplete) if(tardis.Scheduler.grStacks[_gr].first() == null) throw "Panic:" + Std.string(tardis.Scheduler.grPanicMsg) + "\nScheduler: null stack entry for goroutine " + _gr + "\n" + tardis.Scheduler.stackDump(); else {
+		tardis.Scheduler.currentGR = _gr;
+		tardis.Scheduler.grStacks[_gr].first().run();
+	}
+	return _sf._res;
+};
+tardis.Go_haxegoruntime_Rune2Raw.__super__ = tardis.StackFrameBasis;
+tardis.Go_haxegoruntime_Rune2Raw.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t1 = null;
+			_g._t0 = new tardis.Slice(new tardis.Pointer(new tardis.Object(4)),0,1,1,4);
+			if(0 >= _g._t0.length) tardis.Scheduler.ioor();
+			_t1 = _g._t0.itemAddr(0);
+			_t1.obj.iVec[_t1.off] = _g.p_oneRune;
+			_g._SF1 = new tardis.Go_haxegoruntime_Runes2Raw(_g._goroutine,[],_g._t0);
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			_g._t2 = _g._SF1.res();
+			_g._res = _g._t2;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis.Go_haxegoruntime_Rune2Raw
+});
 tardis._Go.Go_main_init = function(gr,_bds) {
-	tardis.StackFrameBasis.call(this,gr,373,"Go_main_init");
+	tardis.StackFrameBasis.call(this,gr,514,"Go_main_init");
 	this._bds = _bds;
 	tardis.Scheduler.push(gr,this);
 };
@@ -6429,6 +5601,1965 @@ tardis._Go.Go_main_init.prototype = $extend(tardis.StackFrameBasis.prototype,{
 	}
 	,__class__: tardis._Go.Go_main_init
 });
+tardis._Go.Go_main_pushBooks = function(gr,_bds,p_x,p_y,p_state,p_cartLoad) {
+	this._t12 = 0;
+	this._t11 = null;
+	tardis.StackFrameBasis.call(this,gr,93,"Go_main_pushBooks");
+	this._bds = _bds;
+	this.p_x = p_x;
+	this.p_y = p_y;
+	this.p_state = p_state;
+	this.p_cartLoad = p_cartLoad;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_pushBooks.__name__ = true;
+tardis._Go.Go_main_pushBooks.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_pushBooks.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_pushBooks.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g.p_state.store_int32(1);
+			_g.p_x.store_float64(0);
+			_g._Next = 3;
+			return null;
+		};
+		var _Block1 = function() {
+			var _t0 = 0.0;
+			var _t1 = false;
+			_t0 = _g.p_y.load_float64();
+			_t1 = _t0 > 0;
+			if(_t1) _g._Next = 4; else _g._Next = 6;
+			return null;
+		};
+		var _Block2 = function() {
+			var _t2 = 0.0;
+			var _t3 = false;
+			_t2 = _g.p_x.load_float64();
+			_t3 = _t2 > 150;
+			if(_t3) _g._Next = 7; else _g._Next = 8;
+			return null;
+		};
+		var _Block3 = function() {
+			var _t4 = 0.0;
+			var _t5 = false;
+			_t4 = _g.p_x.load_float64();
+			_t5 = _t4 < 150;
+			if(_t5) _g._Next = 1; else _g._Next = 2;
+			return null;
+		};
+		var _Block4 = function() {
+			_g.p_y.store_float64(0);
+			_g._Next = 5;
+			return null;
+		};
+		var _Block5 = function() {
+			new tardis.Go_main_Gosched(_g._goroutine,[]);
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			var _t7 = 0.0;
+			var _t8 = 0.0;
+			var _t9 = 0.0;
+			var _t10 = 0.0;
+			_t7 = _g.p_cartLoad;
+			_t8 = tardis.Force.floatDiv(10,_t7);
+			_t9 = _g.p_x.load_float64();
+			_t10 = _t9 + _t8;
+			_g.p_x.store_float64(_t10);
+			_g._Next = 3;
+			return null;
+		};
+		var _Block6 = function() {
+			_g._t11 = new tardis.Interface(1,3);
+			_g._t12 = Std.random(tardis.Force.toHaxeParam(_g._t11));
+			var _t13 = 0.0;
+			_t13 = _g._t12;
+			_g.p_y.store_float64(_t13);
+			_g._Next = 5;
+			return null;
+		};
+		var _Block7 = function() {
+			_g.p_x.store_float64(150);
+			_g._Next = 8;
+			return null;
+		};
+		var _Block8 = function() {
+			_g.p_y.store_float64(0);
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block_2 = function() {
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case 3:
+				retVal = _Block3();
+				break;
+			case 4:
+				retVal = _Block4();
+				break;
+			case 5:
+				retVal = _Block5();
+				break;
+			case 6:
+				retVal = _Block6();
+				break;
+			case 7:
+				retVal = _Block7();
+				break;
+			case 8:
+				retVal = _Block8();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_pushBooks
+});
+tardis._Go.Go_tgoaddmath_glrFloat32frombits = function(gr,_bds,p_b) {
+	this._Phi = 0;
+	this._t23 = 0.0;
+	this._t20 = 0.0;
+	this._SF2 = null;
+	this._t19 = 0;
+	this._t16 = 0.0;
+	this._t15 = 0;
+	this._t13 = 0;
+	this._t12 = 0;
+	this._t11 = 0.0;
+	this._t10 = 0.0;
+	this._t9 = 0.0;
+	this._t5 = 0;
+	this._t4 = 0;
+	this._t2 = 0.0;
+	tardis.StackFrameBasis.call(this,gr,1342,"Go_tgoaddmath_glrFloat32frombits");
+	this._bds = _bds;
+	this.p_b = p_b;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_tgoaddmath_glrFloat32frombits.__name__ = true;
+tardis._Go.Go_tgoaddmath_glrFloat32frombits.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_tgoaddmath_glrFloat32frombits.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_tgoaddmath_glrFloat32frombits.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t0 = 0;
+			var _t1 = false;
+			_t0 = tardis.Force.toUint32(_g.p_b & 0x80000000);
+			_t1 = tardis.Force.uintCompare(_t0,0) != 0;
+			if(_t1) _g._Next = 1; else _g._Next = 2;
+			_g._Phi = 0;
+			return null;
+		};
+		var _Block1 = function() {
+			_g._Next = 2;
+			_g._Phi = 1;
+			return null;
+		};
+		var _Block2 = function() {
+			if(_g._Phi == 0) _g._t2 = 1; else if(_g._Phi == 1) _g._t2 = -1; else _g._t2 = 0.0;
+			var _t3 = 0;
+			var _t6 = false;
+			var _v1 = _g.p_b;
+			var _v2;
+			var v;
+			var v1 = new tardis.Int64(0,23);
+			v = v1;
+			_v2 = tardis.Int64.getLow(v);
+			if(_v2 == 0) _t3 = _v1; else _t3 = _v1 >>> _v2;
+			_g._t4 = (_t3 & 255) >>> 0;
+			_g._t5 = (_g.p_b & 8388607) >>> 0;
+			_t6 = tardis.Force.uintCompare(_g._t4,255) == 0;
+			if(_t6) _g._Next = 3; else _g._Next = 4;
+			_g._Phi = 2;
+			return null;
+		};
+		var _Block3 = function() {
+			var _t7 = false;
+			_t7 = tardis.Force.uintCompare(_g._t5,0) == 0;
+			if(_t7) _g._Next = 5; else _g._Next = 6;
+			_g._Phi = 3;
+			return null;
+		};
+		var _Block4 = function() {
+			var _t8 = false;
+			_t8 = tardis.Force.uintCompare(_g._t4,0) != 0;
+			if(_t8) _g._Next = 7; else _g._Next = 8;
+			_g._Phi = 4;
+			return null;
+		};
+		var _Block5 = function() {
+			_g._t9 = tardis.Force.floatDiv(_g._t2,0);
+			_g._res = _g._t9;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block6 = function() {
+			_g._t10 = Math.NaN;
+			_g._t11 = _g._t10;
+			_g._res = _g._t11;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block7 = function() {
+			_g._t12 = _g._t5 + 8388608 >>> 0;
+			_g._Next = 8;
+			_g._Phi = 7;
+			return null;
+		};
+		var _Block8 = function() {
+			if(_g._Phi == 4) _g._t13 = _g._t5; else if(_g._Phi == 7) _g._t13 = _g._t12; else _g._t13 = 0;
+			var _t14 = false;
+			_t14 = tardis.Force.uintCompare(_g._t4,0) == 0;
+			if(_t14) _g._Next = 9; else _g._Next = 10;
+			_g._Phi = 8;
+			return null;
+		};
+		var _Block9 = function() {
+			_g._Next = 10;
+			_g._Phi = 9;
+			return null;
+		};
+		var _Block10 = function() {
+			if(_g._Phi == 8) _g._t15 = _g._t4; else if(_g._Phi == 9) _g._t15 = 1; else _g._t15 = 0;
+			var _t17 = 0;
+			var _t18 = 0;
+			_g._t16 = tardis._Go.HaxeInt64abs_Impl_.toUFloat((function($this) {
+				var $r;
+				var v2 = new tardis.Int64(0,_g._t13);
+				$r = v2;
+				return $r;
+			}(this)));
+			_t17 = _g._t15;
+			_t18 = _t17 - 1023 >> 0;
+			_g._t19 = _t18 - 52 >> 0;
+			_g._SF2 = new tardis._Go.Go_tgoaddmath_pow2(_g._goroutine,[],_g._t19);
+			_g._Next = -2;
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var _Block_2 = function() {
+			_g._t20 = _g._SF2.res();
+			var _t21 = 0.0;
+			var _t22 = 0.0;
+			_t21 = _g._t16 * _g._t20;
+			_t22 = _t21;
+			_g._t23 = _t22 * _g._t2;
+			_g._res = _g._t23;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case 3:
+				retVal = _Block3();
+				break;
+			case 4:
+				retVal = _Block4();
+				break;
+			case 5:
+				retVal = _Block5();
+				break;
+			case 6:
+				retVal = _Block6();
+				break;
+			case 7:
+				retVal = _Block7();
+				break;
+			case 8:
+				retVal = _Block8();
+				break;
+			case 9:
+				retVal = _Block9();
+				break;
+			case 10:
+				retVal = _Block10();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_tgoaddmath_glrFloat32frombits
+});
+tardis._Go.Go_tgoaddmath_glrFloat64bits = function(gr,_bds,p_f) {
+	tardis.StackFrameBasis.call(this,gr,1372,"Go_tgoaddmath_glrFloat64bits");
+	this._bds = _bds;
+	this.p_f = p_f;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_tgoaddmath_glrFloat64bits.__name__ = true;
+tardis._Go.Go_tgoaddmath_glrFloat64bits.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_tgoaddmath_glrFloat64bits.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_tgoaddmath_glrFloat64bits.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _t3 = 0.0;
+		var _t4 = 0.0;
+		var _t5 = null;
+		var _t6 = 0.0;
+		var _t8 = 0.0;
+		var _t9 = 0;
+		var _t11 = 0;
+		var _t12 = 0;
+		var _t14 = 0;
+		var _t20 = null;
+		var _t21 = 0.0;
+		var _t22 = 0;
+		var _t24 = 0.0;
+		var _Phi = 0;
+		var _Block0 = function() {
+			var _t0 = false;
+			_t0 = _g.p_f == 0;
+			if(_t0) _g._Next = 1; else _g._Next = 2;
+			_Phi = 0;
+			return null;
+		};
+		var _Block1 = function() {
+			var v = new tardis.Int64(0,0);
+			_g._res = v;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block2 = function() {
+			var _t1 = false;
+			_t1 = _g.p_f != _g.p_f;
+			if(_t1) _g._Next = 3; else _g._Next = 4;
+			_Phi = 2;
+			return null;
+		};
+		var _Block3 = function() {
+			var v1 = new tardis.Int64(2146959360,1);
+			_g._res = v1;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block4 = function() {
+			var _t2 = false;
+			_t2 = _g.p_f < 0;
+			if(_t2) _g._Next = 5; else _g._Next = 6;
+			_Phi = 4;
+			return null;
+		};
+		var _Block5 = function() {
+			_t3 = -_g.p_f;
+			_g._Next = 6;
+			_Phi = 5;
+			return null;
+		};
+		var _Block6 = function() {
+			switch(_Phi) {
+			case 5:
+				_t4 = _t3;
+				var v2 = new tardis.Int64(-2147483648,0);
+				_t5 = v2;
+				break;
+			case 4:
+				_t4 = _g.p_f;
+				var v3 = new tardis.Int64(0,0);
+				_t5 = v3;
+				break;
+			}
+			_g._Next = 8;
+			_Phi = 6;
+			return null;
+		};
+		var _Block7 = function() {
+			var _t7 = false;
+			_t6 = tardis.Force.floatDiv(_t8,2);
+			_t7 = tardis.Force.uintCompare(_t9,2047) == 0;
+			if(_t7) _g._Next = 12; else _g._Next = 9;
+			_Phi = 7;
+			return null;
+		};
+		var _Block8 = function() {
+			switch(_Phi) {
+			case 6:
+				_t8 = _t4;
+				_t9 = 1075;
+				break;
+			case 9:
+				_t8 = _t6;
+				_t9 = _t11;
+				break;
+			}
+			var _t10 = false;
+			_t10 = _t8 >= 9.007199254740992e+15;
+			if(_t10) _g._Next = 7; else _g._Next = 12;
+			_Phi = 8;
+			return null;
+		};
+		var _Block9 = function() {
+			_t11 = _t9 + 1 >>> 0;
+			_g._Next = 8;
+			_Phi = 9;
+			return null;
+		};
+		var _Block10 = function() {
+			var _t13 = false;
+			_t12 = _t22 - 1 >>> 0;
+			_t13 = tardis.Force.uintCompare(_t12,0) == 0;
+			if(_t13) _g._Next = 11; else _g._Next = 13;
+			_Phi = 10;
+			return null;
+		};
+		var _Block11 = function() {
+			if(_Phi == 12) _t14 = _t22; else if(_Phi == 10) _t14 = _t12; else _t14 = 0;
+			var _t15 = null;
+			var _t16 = null;
+			var _t17 = null;
+			var _t18 = null;
+			var _t19 = null;
+			var v4 = new tardis.Int64(_t14 >> 31,_t14);
+			_t15 = v4;
+			_t16 = tardis.Force.toUint64((function($this) {
+				var $r;
+				var y;
+				{
+					var v5;
+					var v6 = new tardis.Int64(0,52);
+					v5 = v6;
+					y = tardis.Int64.getLow(v5);
+				}
+				$r = y == 64?(function($this) {
+					var $r;
+					var v7 = new tardis.Int64(0,0);
+					$r = v7;
+					return $r;
+				}($this)):(function($this) {
+					var $r;
+					var v8;
+					if((y & 63) == 0) v8 = _t15; else if((y & 63) < 32) v8 = new tardis.Int64(_t15.high << y | _t15.low >>> (32 - (y & 63) | 0),_t15.low << y); else v8 = new tardis.Int64(_t15.low << (y - 32 | 0),0);
+					$r = v8;
+					return $r;
+				}($this));
+				return $r;
+			}(this)));
+			_t17 = tardis.Force.toUint64((function($this) {
+				var $r;
+				var v9 = new tardis.Int64(_t5.high | _t16.high,_t5.low | _t16.low);
+				$r = v9;
+				return $r;
+			}(this)));
+			_t18 = tardis._Go.HaxeInt64abs_Impl_.ofUFloat(_t21);
+			_t19 = tardis.Force.toUint64((function($this) {
+				var $r;
+				var y1;
+				{
+					var x;
+					var v10 = new tardis.Int64(1048576,0);
+					x = v10;
+					var y2;
+					var v11 = new tardis.Int64(-1,-1);
+					y2 = v11;
+					var v12 = new tardis.Int64(x.high ^ y2.high,x.low ^ y2.low);
+					y1 = v12;
+				}
+				$r = (function($this) {
+					var $r;
+					var v13 = new tardis.Int64(_t18.high & y1.high,_t18.low & y1.low);
+					$r = v13;
+					return $r;
+				}($this));
+				return $r;
+			}(this)));
+			_t20 = tardis.Force.toUint64((function($this) {
+				var $r;
+				var v14 = new tardis.Int64(_t17.high | _t19.high,_t17.low | _t19.low);
+				$r = v14;
+				return $r;
+			}(this)));
+			_g._res = _t20;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block12 = function() {
+			switch(_Phi) {
+			case 7:
+				_t21 = _t6;
+				_t22 = _t9;
+				break;
+			case 8:
+				_t21 = _t8;
+				_t22 = _t9;
+				break;
+			case 13:
+				_t21 = _t24;
+				_t22 = _t12;
+				break;
+			}
+			var _t23 = false;
+			_t23 = _t21 < 4.503599627370496e+15;
+			if(_t23) _g._Next = 10; else _g._Next = 11;
+			_Phi = 12;
+			return null;
+		};
+		var _Block13 = function() {
+			_t24 = _t21 * 2;
+			_g._Next = 12;
+			_Phi = 13;
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case 3:
+				retVal = _Block3();
+				break;
+			case 4:
+				retVal = _Block4();
+				break;
+			case 5:
+				retVal = _Block5();
+				break;
+			case 6:
+				retVal = _Block6();
+				break;
+			case 7:
+				retVal = _Block7();
+				break;
+			case 8:
+				retVal = _Block8();
+				break;
+			case 9:
+				retVal = _Block9();
+				break;
+			case 10:
+				retVal = _Block10();
+				break;
+			case 11:
+				retVal = _Block11();
+				break;
+			case 12:
+				retVal = _Block12();
+				break;
+			case 13:
+				retVal = _Block13();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_tgoaddmath_glrFloat64bits
+});
+tardis.Go_haxegoruntime_UTF16toRunes = $hx_exports.Go_haxegoruntime_UTF16toRunes = function(gr,_bds,p_s) {
+	this._t0 = null;
+	this._SF1 = null;
+	tardis.StackFrameBasis.call(this,gr,429,"Go_haxegoruntime_UTF16toRunes");
+	this._bds = _bds;
+	this.p_s = p_s;
+	tardis.Scheduler.push(gr,this);
+};
+tardis.Go_haxegoruntime_UTF16toRunes.__name__ = true;
+tardis.Go_haxegoruntime_UTF16toRunes.__interfaces__ = [tardis.StackFrame];
+tardis.Go_haxegoruntime_UTF16toRunes.callFromRT = function(_gr,p_s) {
+	var _sf = new tardis.Go_haxegoruntime_UTF16toRunes(_gr,null,p_s).run();
+	while(_sf._incomplete) if(tardis.Scheduler.grStacks[_gr].first() == null) throw "Panic:" + Std.string(tardis.Scheduler.grPanicMsg) + "\nScheduler: null stack entry for goroutine " + _gr + "\n" + tardis.Scheduler.stackDump(); else {
+		tardis.Scheduler.currentGR = _gr;
+		tardis.Scheduler.grStacks[_gr].first().run();
+	}
+	return _sf._res;
+};
+tardis.Go_haxegoruntime_UTF16toRunes.__super__ = tardis.StackFrameBasis;
+tardis.Go_haxegoruntime_UTF16toRunes.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._SF1 = new tardis.Go_utf16_Decode(_g._goroutine,[],_g.p_s);
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			_g._t0 = _g._SF1.res();
+			_g._res = _g._t0;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis.Go_haxegoruntime_UTF16toRunes
+});
+tardis._Go.Go_main_replaceBitmap = function(gr,_bds,p_sprite,p_bitmap) {
+	this._t11 = null;
+	this._t10 = null;
+	this._t9 = null;
+	this._t2 = null;
+	tardis.StackFrameBasis.call(this,gr,291,"Go_main_replaceBitmap");
+	this._bds = _bds;
+	this.p_sprite = p_sprite;
+	this.p_bitmap = p_bitmap;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_replaceBitmap.__name__ = true;
+tardis._Go.Go_main_replaceBitmap.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_replaceBitmap.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_replaceBitmap.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t0 = null;
+			var _t1 = null;
+			var _t3 = null;
+			var _t4 = null;
+			var _t5 = null;
+			var _t6 = 0;
+			var _t7 = null;
+			var _t8 = 0;
+			_t0 = _g.p_sprite.addr(0);
+			_t1 = _g.p_bitmap.load_uintptr();
+			_t0.obj.set(_t0.off,_t1);
+			_g._t2 = tardis.Go.main_context.load_uintptr();
+			_t3 = _g.p_sprite.addr(0);
+			_t4 = _t3.obj.dVec4[_t3.off >> 2];
+			_t5 = _g.p_sprite.addr(4);
+			_t6 = _t5.obj.get_int32(_t5.off);
+			_t7 = _g.p_sprite.addr(8);
+			_t8 = _t7.obj.get_int32(_t7.off);
+			_g._t9 = new tardis.Interface(3,_t4);
+			_g._t10 = new tardis.Interface(1,_t6);
+			_g._t11 = new tardis.Interface(1,_t8);
+			_g._t2.drawImage(tardis.Force.toHaxeParam(_g._t9),tardis.Force.toHaxeParam(_g._t10),tardis.Force.toHaxeParam(_g._t11));
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_replaceBitmap
+});
+tardis._Go.Go_main_fireBooks = function(gr,_bds,p_x,p_y,p_state,p_cartLoad,p_out) {
+	tardis.StackFrameBasis.call(this,gr,108,"Go_main_fireBooks");
+	this._bds = _bds;
+	this.p_x = p_x;
+	this.p_y = p_y;
+	this.p_state = p_state;
+	this.p_cartLoad = p_cartLoad;
+	this.p_out = p_out;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_fireBooks.__name__ = true;
+tardis._Go.Go_main_fireBooks.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_fireBooks.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_fireBooks.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g.p_state.store_int32(2);
+			new tardis._Go.Go_main_delay(_g._goroutine,[],_g.p_cartLoad);
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			_g._Next = -2;
+			return _g;
+		};
+		var _Block_2 = function() {
+			if(!_g.p_out.hasSpace()) return _g;
+			_g.p_out.send(_g.p_cartLoad);
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_fireBooks
+});
+tardis.Go_utf8_DecodeRune = $hx_exports.Go_utf8_DecodeRune = function(gr,_bds,p_p) {
+	this._t2 = 0;
+	this._t1 = 0;
+	this._t0 = null;
+	this._SF1 = null;
+	tardis.StackFrameBasis.call(this,gr,869,"Go_utf8_DecodeRune");
+	this._bds = _bds;
+	this.p_p = p_p;
+	tardis.Scheduler.push(gr,this);
+};
+tardis.Go_utf8_DecodeRune.__name__ = true;
+tardis.Go_utf8_DecodeRune.__interfaces__ = [tardis.StackFrame];
+tardis.Go_utf8_DecodeRune.callFromRT = function(_gr,p_p) {
+	var _sf = new tardis.Go_utf8_DecodeRune(_gr,null,p_p).run();
+	while(_sf._incomplete) if(tardis.Scheduler.grStacks[_gr].first() == null) throw "Panic:" + Std.string(tardis.Scheduler.grPanicMsg) + "\nScheduler: null stack entry for goroutine " + _gr + "\n" + tardis.Scheduler.stackDump(); else {
+		tardis.Scheduler.currentGR = _gr;
+		tardis.Scheduler.grStacks[_gr].first().run();
+	}
+	return _sf._res;
+};
+tardis.Go_utf8_DecodeRune.__super__ = tardis.StackFrameBasis;
+tardis.Go_utf8_DecodeRune.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._SF1 = new tardis._Go.Go_utf8_decodeRuneInternal(_g._goroutine,[],_g.p_p);
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			_g._t0 = _g._SF1.res();
+			_g._t1 = _g._t0.r0;
+			_g._t2 = _g._t0.r1;
+			_g._res = { r0 : _g._t1, r1 : _g._t2};
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis.Go_utf8_DecodeRune
+});
+tardis._Go.Go_main_makeBitmap = function(gr,_bds,p_file) {
+	this._t0 = null;
+	tardis.StackFrameBasis.call(this,gr,166,"Go_main_makeBitmap");
+	this._bds = _bds;
+	this.p_file = p_file;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_makeBitmap.__name__ = true;
+tardis._Go.Go_main_makeBitmap.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_makeBitmap.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_makeBitmap.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._t0 = new Image();
+			_g._t0.src = _g.p_file;
+			_g._res = _g._t0;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var _Block_2 = function() {
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_makeBitmap
+});
+tardis._Go.Go_utf16_init = function(gr,_bds) {
+	tardis.StackFrameBasis.call(this,gr,169,"Go_utf16_init");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_utf16_init.__name__ = true;
+tardis._Go.Go_utf16_init.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_utf16_init.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_utf16_init.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t0 = false;
+			_t0 = tardis.Go.utf16_init_36_guard.load_bool();
+			if(_t0) _g._Next = 2; else _g._Next = 1;
+			return null;
+		};
+		var _Block1 = function() {
+			tardis.Go.utf16_init_36_guard.store_bool(true);
+			_g._Next = 2;
+			return null;
+		};
+		var _Block2 = function() {
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_utf16_init
+});
+tardis.Go_utf8_RuneLen = $hx_exports.Go_utf8_RuneLen = function(gr,_bds,p_r) {
+	tardis.StackFrameBasis.call(this,gr,967,"Go_utf8_RuneLen");
+	this._bds = _bds;
+	this.p_r = p_r;
+	tardis.Scheduler.push(gr,this);
+};
+tardis.Go_utf8_RuneLen.__name__ = true;
+tardis.Go_utf8_RuneLen.__interfaces__ = [tardis.StackFrame];
+tardis.Go_utf8_RuneLen.__super__ = tardis.StackFrameBasis;
+tardis.Go_utf8_RuneLen.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _t5 = false;
+		var _t6 = false;
+		var _Phi = 0;
+		var _Block0 = function() {
+			var _t0 = false;
+			_t0 = _g.p_r < 0;
+			if(_t0) _g._Next = 1; else _g._Next = 3;
+			_Phi = 0;
+			return null;
+		};
+		var _Block1 = function() {
+			_g._res = -1;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block2 = function() {
+			_g._res = 1;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block3 = function() {
+			var _t1 = false;
+			_t1 = _g.p_r <= 127;
+			if(_t1) _g._Next = 2; else _g._Next = 5;
+			_Phi = 3;
+			return null;
+		};
+		var _Block4 = function() {
+			_g._res = 2;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block5 = function() {
+			var _t2 = false;
+			_t2 = _g.p_r <= 2047;
+			if(_t2) _g._Next = 4; else _g._Next = 7;
+			_Phi = 5;
+			return null;
+		};
+		var _Block6 = function() {
+			_g._res = -1;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block7 = function() {
+			var _t3 = false;
+			_t3 = 55296 <= _g.p_r;
+			if(_t3) _g._Next = 10; else _g._Next = 11;
+			_Phi = 7;
+			return null;
+		};
+		var _Block8 = function() {
+			_g._res = 3;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block9 = function() {
+			var _t4 = false;
+			_t4 = _g.p_r <= 65535;
+			if(_t4) _g._Next = 8; else _g._Next = 13;
+			_Phi = 9;
+			return null;
+		};
+		var _Block10 = function() {
+			_t5 = _g.p_r <= 57343;
+			_g._Next = 11;
+			_Phi = 10;
+			return null;
+		};
+		var _Block11 = function() {
+			if(_Phi == 7) _t6 = false; else if(_Phi == 10) _t6 = _t5; else _t6 = false;
+			if(_t6) _g._Next = 6; else _g._Next = 9;
+			_Phi = 11;
+			return null;
+		};
+		var _Block12 = function() {
+			_g._res = 4;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block13 = function() {
+			var _t7 = false;
+			_t7 = _g.p_r <= 1114111;
+			if(_t7) _g._Next = 12; else _g._Next = 14;
+			_Phi = 13;
+			return null;
+		};
+		var _Block14 = function() {
+			_g._res = -1;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case 3:
+				retVal = _Block3();
+				break;
+			case 4:
+				retVal = _Block4();
+				break;
+			case 5:
+				retVal = _Block5();
+				break;
+			case 6:
+				retVal = _Block6();
+				break;
+			case 7:
+				retVal = _Block7();
+				break;
+			case 8:
+				retVal = _Block8();
+				break;
+			case 9:
+				retVal = _Block9();
+				break;
+			case 10:
+				retVal = _Block10();
+				break;
+			case 11:
+				retVal = _Block11();
+				break;
+			case 12:
+				retVal = _Block12();
+				break;
+			case 13:
+				retVal = _Block13();
+				break;
+			case 14:
+				retVal = _Block14();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis.Go_utf8_RuneLen
+});
+tardis.Go_haxegoruntime_Runes2Raw = $hx_exports.Go_haxegoruntime_Runes2Raw = function(gr,_bds,p_r) {
+	this._Phi = 0;
+	this._t21 = 0;
+	this._t20 = 0;
+	this._t19 = null;
+	this._t12 = 0;
+	this._t11 = 0;
+	this._t9 = 0;
+	this._t8 = null;
+	this._t6 = null;
+	this._SF2 = null;
+	this._t5 = 0;
+	this._t4 = null;
+	this._t2 = null;
+	this._SF1 = null;
+	this._t0 = 0;
+	tardis.StackFrameBasis.call(this,gr,488,"Go_haxegoruntime_Runes2Raw");
+	this._bds = _bds;
+	this.p_r = p_r;
+	tardis.Scheduler.push(gr,this);
+};
+tardis.Go_haxegoruntime_Runes2Raw.__name__ = true;
+tardis.Go_haxegoruntime_Runes2Raw.__interfaces__ = [tardis.StackFrame];
+tardis.Go_haxegoruntime_Runes2Raw.__super__ = tardis.StackFrameBasis;
+tardis.Go_haxegoruntime_Runes2Raw.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return this._res;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			var _t1 = false;
+			_g._t0 = tardis.Go.haxegoruntime_ZiLen.load_int32();
+			_t1 = _g._t0 == 1;
+			if(_t1) _g._Next = 1; else _g._Next = 3;
+			_g._Phi = 0;
+			return null;
+		};
+		var _Block1 = function() {
+			_g._SF1 = new tardis.Go_haxegoruntime_RunesToUTF16(_g._goroutine,[],_g.p_r);
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			_g._t2 = _g._SF1.res();
+			var _t3 = 0;
+			var _v = _g._t2;
+			if(_v == null) _t3 = 0; else _t3 = _v.length;
+			_g._t4 = new tardis.Slice(new tardis.Pointer(new tardis.Object(_t3 * 4)),0,_t3,_t3,4);
+			var _v1 = _g._t2;
+			if(_v1 == null) _g._t5 = 0; else _g._t5 = _v1.length;
+			_g._Next = 4;
+			_g._Phi = 1;
+			return null;
+		};
+		var _Block2 = function() {
+			_g._SF2 = new tardis.Go_haxegoruntime_RunesToUTF8(_g._goroutine,[],_g.p_r);
+			_g._Next = -2;
+			return _g;
+		};
+		var _Block_2 = function() {
+			_g._t6 = _g._SF2.res();
+			var _t7 = 0;
+			var _v2 = _g._t6;
+			if(_v2 == null) _t7 = 0; else _t7 = _v2.length;
+			_g._t8 = new tardis.Slice(new tardis.Pointer(new tardis.Object(_t7 * 4)),0,_t7,_t7,4);
+			var _v3 = _g._t6;
+			if(_v3 == null) _g._t9 = 0; else _g._t9 = _v3.length;
+			_g._Next = 8;
+			_g._Phi = 2;
+			return null;
+		};
+		var _Block3 = function() {
+			var _t10 = false;
+			_t10 = _g._t0 == 3;
+			if(_t10) _g._Next = 2; else _g._Next = 7;
+			_g._Phi = 3;
+			return null;
+		};
+		var _Block4 = function() {
+			if(_g._Phi == 1) _g._t11 = -1; else if(_g._Phi == 5) _g._t11 = _g._t12; else _g._t11 = 0;
+			var _t13 = false;
+			_g._t12 = _g._t11 + 1 >> 0;
+			_t13 = _g._t12 < _g._t5;
+			if(_t13) _g._Next = 5; else _g._Next = 6;
+			_g._Phi = 4;
+			return null;
+		};
+		var _Block5 = function() {
+			var _t14 = null;
+			var _t15 = null;
+			var _t16 = 0;
+			var _t17 = 0;
+			tardis.Scheduler.wraprangechk(_g._t12,_g._t4.length);
+			_t14 = _g._t4.itemAddr(_g._t12);
+			tardis.Scheduler.wraprangechk(_g._t12,_g._t2.length);
+			_t15 = _g._t2.itemAddr(_g._t12);
+			_t16 = _t15.obj.get_uint16(_t15.off);
+			_t17 = _t16;
+			_t14.obj.iVec[_t14.off] = _t17;
+			_g._Next = 4;
+			_g._Phi = 5;
+			return null;
+		};
+		var _Block6 = function() {
+			_g._res = _g._t4;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block7 = function() {
+			var _t18 = null;
+			_t18 = new tardis.Pointer(new tardis.Object(0));
+			_g._t19 = new tardis.Slice(_t18,0,-1,0,4);
+			_g._res = _g._t19;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var _Block8 = function() {
+			if(_g._Phi == 2) _g._t20 = -1; else if(_g._Phi == 9) _g._t20 = _g._t21; else _g._t20 = 0;
+			var _t22 = false;
+			_g._t21 = _g._t20 + 1 >> 0;
+			_t22 = _g._t21 < _g._t9;
+			if(_t22) _g._Next = 9; else _g._Next = 10;
+			_g._Phi = 8;
+			return null;
+		};
+		var _Block9 = function() {
+			var _t23 = null;
+			var _t24 = null;
+			var _t25 = 0;
+			var _t26 = 0;
+			tardis.Scheduler.wraprangechk(_g._t21,_g._t8.length);
+			_t23 = _g._t8.itemAddr(_g._t21);
+			tardis.Scheduler.wraprangechk(_g._t21,_g._t6.length);
+			_t24 = _g._t6.itemAddr(_g._t21);
+			_t25 = _t24.obj.get_uint8(_t24.off);
+			_t26 = _t25;
+			_t23.obj.iVec[_t23.off] = _t26;
+			_g._Next = 8;
+			_g._Phi = 9;
+			return null;
+		};
+		var _Block10 = function() {
+			_g._res = _g._t8;
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case 3:
+				retVal = _Block3();
+				break;
+			case 4:
+				retVal = _Block4();
+				break;
+			case 5:
+				retVal = _Block5();
+				break;
+			case 6:
+				retVal = _Block6();
+				break;
+			case 7:
+				retVal = _Block7();
+				break;
+			case 8:
+				retVal = _Block8();
+				break;
+			case 9:
+				retVal = _Block9();
+				break;
+			case 10:
+				retVal = _Block10();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis.Go_haxegoruntime_Runes2Raw
+});
+tardis._Go.Go_main_fillbigpile = function(gr,_bds) {
+	this._t14 = null;
+	this._t7 = 0;
+	this._t6 = null;
+	this._t5 = null;
+	this._t4 = null;
+	this._t3 = null;
+	this._t2 = null;
+	this._t1 = null;
+	this._t0 = null;
+	tardis.StackFrameBasis.call(this,gr,57,"Go_main_fillbigpile");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_fillbigpile.__name__ = true;
+tardis._Go.Go_main_fillbigpile.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_fillbigpile.call = function(gr,_bds) {
+	return new tardis._Go.Go_main_fillbigpile(gr,_bds);
+};
+tardis._Go.Go_main_fillbigpile.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_fillbigpile.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._Next = 1;
+			return null;
+		};
+		var _Block1 = function() {
+			_g._t0 = tardis.Go.main_bigpile.load();
+			_g._t1 = tardis.Go.main_bigpile.load();
+			_g._t2 = tardis.Go.main_bigpile.load();
+			_g._t3 = tardis.Go.main_bigpile.load();
+			_g._t4 = tardis.Go.main_bigpile.load();
+			_g._t5 = tardis.Go.main_bigpile.load();
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			_g._t6 = { r0 : 0, r1 : false};
+			_g._t6.r0 = -1;
+			var _states = new Array();
+			var _rnd = Std.random(6);
+			_states[0] = _g._t0.hasSpace();
+			_states[1] = _g._t1.hasSpace();
+			_states[2] = _g._t2.hasSpace();
+			_states[3] = _g._t3.hasSpace();
+			_states[4] = _g._t4.hasSpace();
+			_states[5] = _g._t5.hasSpace();
+			var _g1 = 0;
+			while(_g1 < 6) {
+				var _s = _g1++;
+				var _i = (_s + _rnd) % 6;
+				if(_states[_i]) {
+					_g._t6.r0 = _i;
+					break;
+				}
+			}
+			var _g11 = _g._t6.r0;
+			switch(_g11) {
+			case 0:
+				_g._t0.send(1);
+				break;
+			case 1:
+				_g._t1.send(2);
+				break;
+			case 2:
+				_g._t2.send(3);
+				break;
+			case 3:
+				_g._t3.send(8);
+				break;
+			case 4:
+				_g._t4.send(9);
+				break;
+			case 5:
+				_g._t5.send(10);
+				break;
+			}
+			if(_g._t6.r0 == -1) return _g;
+			var _t8 = false;
+			_g._t7 = _g._t6.r0;
+			_t8 = _g._t7 == 0;
+			if(_t8) _g._Next = 1; else _g._Next = 2;
+			return null;
+		};
+		var _Block2 = function() {
+			var _t9 = false;
+			_t9 = _g._t7 == 1;
+			if(_t9) _g._Next = 1; else _g._Next = 3;
+			return null;
+		};
+		var _Block3 = function() {
+			var _t10 = false;
+			_t10 = _g._t7 == 2;
+			if(_t10) _g._Next = 1; else _g._Next = 4;
+			return null;
+		};
+		var _Block4 = function() {
+			var _t11 = false;
+			_t11 = _g._t7 == 3;
+			if(_t11) _g._Next = 1; else _g._Next = 5;
+			return null;
+		};
+		var _Block5 = function() {
+			var _t12 = false;
+			_t12 = _g._t7 == 4;
+			if(_t12) _g._Next = 1; else _g._Next = 6;
+			return null;
+		};
+		var _Block6 = function() {
+			var _t13 = false;
+			_t13 = _g._t7 == 5;
+			if(_t13) _g._Next = 1; else _g._Next = 7;
+			return null;
+		};
+		var _Block7 = function() {
+			_g._t14 = new tardis.Interface(4,"blocking select matched no case");
+			tardis.Scheduler.panic(_g._goroutine,_g._t14);
+			_g._Next = -2;
+			return _g;
+		};
+		var _Block_2 = function() {
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g2 = this._Next;
+			switch(_g2) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case 2:
+				retVal = _Block2();
+				break;
+			case 3:
+				retVal = _Block3();
+				break;
+			case 4:
+				retVal = _Block4();
+				break;
+			case 5:
+				retVal = _Block5();
+				break;
+			case 6:
+				retVal = _Block6();
+				break;
+			case 7:
+				retVal = _Block7();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_fillbigpile
+});
+tardis.Go_main_Start = $hx_exports.Go_main_Start = function(gr,_bds) {
+	this._t39 = null;
+	this._SF29 = null;
+	this._t38 = null;
+	this._t37 = null;
+	this._SF28 = null;
+	this._t36 = null;
+	this._t35 = null;
+	this._SF27 = null;
+	this._t34 = null;
+	this._t33 = null;
+	this._SF26 = null;
+	this._t32 = null;
+	this._t31 = null;
+	this._SF25 = null;
+	this._t30 = null;
+	this._t25 = null;
+	this._t24 = null;
+	this._t23 = null;
+	this._t22 = null;
+	this._t20 = null;
+	this._SF18 = null;
+	this._t19 = null;
+	this._SF17 = null;
+	this._t18 = null;
+	this._SF16 = null;
+	this._t17 = null;
+	this._SF15 = null;
+	this._t16 = null;
+	this._SF14 = null;
+	this._t15 = null;
+	this._SF13 = null;
+	this._t14 = null;
+	this._SF12 = null;
+	this._t13 = null;
+	this._SF11 = null;
+	this._t12 = null;
+	this._SF10 = null;
+	this._t11 = null;
+	this._SF9 = null;
+	this._t10 = null;
+	this._SF8 = null;
+	this._t9 = null;
+	this._SF7 = null;
+	this._t8 = null;
+	this._SF6 = null;
+	this._t7 = null;
+	this._SF5 = null;
+	this._t6 = null;
+	this._SF4 = null;
+	this._t5 = null;
+	this._t4 = null;
+	this._t3 = null;
+	this._t2 = null;
+	this._t1 = null;
+	this._t0 = null;
+	tardis.StackFrameBasis.call(this,gr,219,"Go_main_Start");
+	this._bds = _bds;
+	tardis.Scheduler.push(gr,this);
+};
+tardis.Go_main_Start.__name__ = true;
+tardis.Go_main_Start.__interfaces__ = [tardis.StackFrame];
+tardis.Go_main_Start.call = function(gr,_bds) {
+	return new tardis.Go_main_Start(gr,_bds);
+};
+tardis.Go_main_Start.__super__ = tardis.StackFrameBasis;
+tardis.Go_main_Start.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._t0 = window.document;
+			tardis.Go.main_doc.store_uintptr(_g._t0);
+			_g._t1 = tardis.Go.main_doc.load_uintptr();
+			_g._t2 = new tardis.Interface(4,"myCanvas");
+			_g._t3 = _g._t1.getElementById(tardis.Force.toHaxeParam(_g._t2));
+			_g._t4 = _g._t3;
+			_g._t5 = _g._t4.getContext("2d");
+			tardis.Go.main_context.store_uintptr(_g._t5);
+			tardis.Go_main_Start_36_1.call(tardis.Scheduler.makeGoroutine(),[]);
+			tardis.Go_main_Start_36_2.call(tardis.Scheduler.makeGoroutine(),[]);
+			_g._SF4 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/function.png");
+			_g._Next = -4;
+			return _g;
+		};
+		var _Block_1 = function() {
+			return null;
+		};
+		var _Block_2 = function() {
+			return null;
+		};
+		var _Block_3 = function() {
+			return null;
+		};
+		var _Block_4 = function() {
+			_g._t6 = _g._SF4.res();
+			_g._SF5 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/emptypile.png");
+			_g._Next = -5;
+			return _g;
+		};
+		var _Block_5 = function() {
+			_g._t7 = _g._SF5.res();
+			tardis.Go.main_emptyPilePng.store_uintptr(_g._t7);
+			_g._SF6 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/gophercolor16x16.png");
+			_g._Next = -6;
+			return _g;
+		};
+		var _Block_6 = function() {
+			_g._t8 = _g._SF6.res();
+			tardis.Go.main_L1.store_uintptr(_g._t8);
+			_g._SF7 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/gophercolor16x16flipped.png");
+			_g._Next = -7;
+			return _g;
+		};
+		var _Block_7 = function() {
+			_g._t9 = _g._SF7.res();
+			tardis.Go.main_L2.store_uintptr(_g._t9);
+			_g._SF8 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/pick.png");
+			_g._Next = -8;
+			return _g;
+		};
+		var _Block_8 = function() {
+			_g._t10 = _g._SF8.res();
+			tardis.Go.main_pickPng1.store_uintptr(_g._t10);
+			_g._SF9 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/pick.png");
+			_g._Next = -9;
+			return _g;
+		};
+		var _Block_9 = function() {
+			_g._t11 = _g._SF9.res();
+			tardis.Go.main_pickPng2.store_uintptr(_g._t11);
+			_g._SF10 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/smallpile.png");
+			_g._Next = -10;
+			return _g;
+		};
+		var _Block_10 = function() {
+			_g._t12 = _g._SF10.res();
+			tardis.Go.main_smallPilePng.store_uintptr(_g._t12);
+			_g._SF11 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/full.png");
+			_g._Next = -11;
+			return _g;
+		};
+		var _Block_11 = function() {
+			_g._t13 = _g._SF11.res();
+			tardis.Go.main_fullPng1.store_uintptr(_g._t13);
+			_g._SF12 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/full.png");
+			_g._Next = -12;
+			return _g;
+		};
+		var _Block_12 = function() {
+			_g._t14 = _g._SF12.res();
+			tardis.Go.main_fullPng2.store_uintptr(_g._t14);
+			_g._SF13 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/empty.png");
+			_g._Next = -13;
+			return _g;
+		};
+		var _Block_13 = function() {
+			_g._t15 = _g._SF13.res();
+			tardis.Go.main_emptyPng1.store_uintptr(_g._t15);
+			_g._SF14 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/empty.png");
+			_g._Next = -14;
+			return _g;
+		};
+		var _Block_14 = function() {
+			_g._t16 = _g._SF14.res();
+			tardis.Go.main_emptyPng2.store_uintptr(_g._t16);
+			_g._SF15 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/shovel.png");
+			_g._Next = -15;
+			return _g;
+		};
+		var _Block_15 = function() {
+			_g._t17 = _g._SF15.res();
+			tardis.Go.main_shovelPng1.store_uintptr(_g._t17);
+			_g._SF16 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/shovel.png");
+			_g._Next = -16;
+			return _g;
+		};
+		var _Block_16 = function() {
+			_g._t18 = _g._SF16.res();
+			tardis.Go.main_shovelPng2.store_uintptr(_g._t18);
+			_g._SF17 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/white.png");
+			_g._Next = -17;
+			return _g;
+		};
+		var _Block_17 = function() {
+			_g._t19 = _g._SF17.res();
+			tardis.Go.main_white.store_uintptr(_g._t19);
+			_g._SF18 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/whitethumb.png");
+			_g._Next = -18;
+			return _g;
+		};
+		var _Block_18 = function() {
+			_g._t20 = _g._SF18.res();
+			tardis.Go.main_WT.store_uintptr(_g._t20);
+			new tardis._Go.Go_main_makeHeadline(_g._goroutine,[],0);
+			_g._Next = -19;
+			return _g;
+		};
+		var _Block_19 = function() {
+			_g._t22 = new tardis.Interface(1,1000);
+			_g._t23 = new haxe.Timer(tardis.Force.toHaxeParam(_g._t22));
+			tardis.Go.main_headlineTimer.store_uintptr(_g._t23);
+			_g._t24 = tardis.Go.main_headlineTimer.load_uintptr();
+			_g._t25 = new tardis.Interface(5,new tardis.Closure(tardis._Go.Go_main_makeHeadline.call,null));
+			_g._t24.run = tardis.Force.toHaxeParam(_g._t25);
+			new tardis._Go.Go_main_makeText(_g._goroutine,[],false,10,140,180,200,32768,"","Both animated gophers are \nrunning the code on the right.\nThe 2 logos show where they\neach are in that code now.\n\nGo calling native JS APIs.");
+			_g._Next = -22;
+			return _g;
+		};
+		var _Block_20 = function() {
+			return null;
+		};
+		var _Block_21 = function() {
+			return null;
+		};
+		var _Block_22 = function() {
+			new tardis._Go.Go_main_makeText(_g._goroutine,[],true,630,140,200,200,32768,"","Inspired by Rob Pike:\nhttp://blog.golang.org/\nconcurrency-is-not-parallelism\n\nGopher by Renee French,\nCreative Commons 3.0 license");
+			_g._Next = -23;
+			return _g;
+		};
+		var _Block_23 = function() {
+			new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t6,200,110);
+			_g._Next = -24;
+			return _g;
+		};
+		var _Block_24 = function() {
+			_g._t30 = tardis.Go.main_emptyPilePng.load_uintptr();
+			_g._SF25 = new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t30,390,50);
+			_g._Next = -25;
+			return _g;
+		};
+		var _Block_25 = function() {
+			_g._t31 = _g._SF25.res();
+			tardis.Go.main_Books.store(_g._t31);
+			_g._t32 = tardis.Go.main_L1.load_uintptr();
+			_g._SF26 = new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t32,230,140);
+			_g._Next = -26;
+			return _g;
+		};
+		var _Block_26 = function() {
+			_g._t33 = _g._SF26.res();
+			tardis.Go.main_Logo1.store(_g._t33);
+			_g._t34 = tardis.Go.main_L2.load_uintptr();
+			_g._SF27 = new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t34,540,140);
+			_g._Next = -27;
+			return _g;
+		};
+		var _Block_27 = function() {
+			_g._t35 = _g._SF27.res();
+			tardis.Go.main_Logo2.store(_g._t35);
+			_g._t36 = tardis.Go.main_pickPng1.load_uintptr();
+			_g._SF28 = new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t36,90,45);
+			_g._Next = -28;
+			return _g;
+		};
+		var _Block_28 = function() {
+			_g._t37 = _g._SF28.res();
+			tardis.Go.main_Sprite1.store(_g._t37);
+			_g._t38 = tardis.Go.main_pickPng2.load_uintptr();
+			_g._SF29 = new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t38,420,45);
+			_g._Next = -29;
+			return _g;
+		};
+		var _Block_29 = function() {
+			_g._t39 = _g._SF29.res();
+			tardis.Go.main_Sprite2.store(_g._t39);
+			new tardis._Go.Go_main_startGophers(_g._goroutine,[]);
+			_g._Next = -30;
+			return _g;
+		};
+		var _Block_30 = function() {
+			_g._incomplete = false;
+			tardis.Scheduler.pop(_g._goroutine);
+			return _g;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			case -3:
+				retVal = _Block_3();
+				break;
+			case -4:
+				retVal = _Block_4();
+				break;
+			case -5:
+				retVal = _Block_5();
+				break;
+			case -6:
+				retVal = _Block_6();
+				break;
+			case -7:
+				retVal = _Block_7();
+				break;
+			case -8:
+				retVal = _Block_8();
+				break;
+			case -9:
+				retVal = _Block_9();
+				break;
+			case -10:
+				retVal = _Block_10();
+				break;
+			case -11:
+				retVal = _Block_11();
+				break;
+			case -12:
+				retVal = _Block_12();
+				break;
+			case -13:
+				retVal = _Block_13();
+				break;
+			case -14:
+				retVal = _Block_14();
+				break;
+			case -15:
+				retVal = _Block_15();
+				break;
+			case -16:
+				retVal = _Block_16();
+				break;
+			case -17:
+				retVal = _Block_17();
+				break;
+			case -18:
+				retVal = _Block_18();
+				break;
+			case -19:
+				retVal = _Block_19();
+				break;
+			case -20:
+				retVal = _Block_20();
+				break;
+			case -21:
+				retVal = _Block_21();
+				break;
+			case -22:
+				retVal = _Block_22();
+				break;
+			case -23:
+				retVal = _Block_23();
+				break;
+			case -24:
+				retVal = _Block_24();
+				break;
+			case -25:
+				retVal = _Block_25();
+				break;
+			case -26:
+				retVal = _Block_26();
+				break;
+			case -27:
+				retVal = _Block_27();
+				break;
+			case -28:
+				retVal = _Block_28();
+				break;
+			case -29:
+				retVal = _Block_29();
+				break;
+			case -30:
+				retVal = _Block_30();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis.Go_main_Start
+});
+tardis._Go.Go_main_gopher = function(gr,_bds,p_x,p_y,p_state,p_in,p_out) {
+	this._t0 = 0;
+	this._SF1 = null;
+	tardis.StackFrameBasis.call(this,gr,77,"Go_main_gopher");
+	this._bds = _bds;
+	this.p_x = p_x;
+	this.p_y = p_y;
+	this.p_state = p_state;
+	this.p_in = p_in;
+	this.p_out = p_out;
+	tardis.Scheduler.push(gr,this);
+};
+tardis._Go.Go_main_gopher.__name__ = true;
+tardis._Go.Go_main_gopher.__interfaces__ = [tardis.StackFrame];
+tardis._Go.Go_main_gopher.call = function(gr,_bds,p_x,p_y,p_state,p_in,p_out) {
+	return new tardis._Go.Go_main_gopher(gr,_bds,p_x,p_y,p_state,p_in,p_out);
+};
+tardis._Go.Go_main_gopher.__super__ = tardis.StackFrameBasis;
+tardis._Go.Go_main_gopher.prototype = $extend(tardis.StackFrameBasis.prototype,{
+	res: function() {
+		return null;
+	}
+	,run: function() {
+		var _g = this;
+		var _Block0 = function() {
+			_g._Next = 1;
+			return null;
+		};
+		var _Block1 = function() {
+			_g._SF1 = new tardis._Go.Go_main_pickBooks(_g._goroutine,[],_g.p_x,_g.p_y,_g.p_state,_g.p_in);
+			_g._Next = -1;
+			return _g;
+		};
+		var _Block_1 = function() {
+			_g._t0 = _g._SF1.res();
+			new tardis._Go.Go_main_pushBooks(_g._goroutine,[],_g.p_x,_g.p_y,_g.p_state,_g._t0);
+			_g._Next = -2;
+			return _g;
+		};
+		var _Block_2 = function() {
+			new tardis._Go.Go_main_fireBooks(_g._goroutine,[],_g.p_x,_g.p_y,_g.p_state,_g._t0,_g.p_out);
+			_g._Next = -3;
+			return _g;
+		};
+		var _Block_3 = function() {
+			new tardis._Go.Go_main_moreBooks(_g._goroutine,[],_g.p_x,_g.p_y,_g.p_state);
+			_g._Next = -4;
+			return _g;
+		};
+		var _Block_4 = function() {
+			_g._Next = 1;
+			return null;
+		};
+		var retVal = null;
+		while(retVal == null) {
+			var _g1 = this._Next;
+			switch(_g1) {
+			case 0:
+				retVal = _Block0();
+				break;
+			case 1:
+				retVal = _Block1();
+				break;
+			case -1:
+				retVal = _Block_1();
+				break;
+			case -2:
+				retVal = _Block_2();
+				break;
+			case -3:
+				retVal = _Block_3();
+				break;
+			case -4:
+				retVal = _Block_4();
+				break;
+			default:
+				tardis.Scheduler.bbi();
+			}
+		}
+		return retVal;
+	}
+	,__class__: tardis._Go.Go_main_gopher
+});
 tardis.Go_utf16_Encode = $hx_exports.Go_utf16_Encode = function(gr,_bds,p_s) {
 	this._Phi = 0;
 	this._t37 = 0;
@@ -6477,16 +7608,16 @@ tardis.Go_utf16_Encode.prototype = $extend(tardis.StackFrameBasis.prototype,{
 		var _Block1 = function() {
 			var _g1 = _g._Phi;
 			switch(_g1) {
+			case 0:
+				_g._t2 = _g._t0;
+				_g._t3 = -1;
+				break;
 			case 2:
 				_g._t3 = _g._t4;
 				break;
 			case 4:
 				_g._t2 = _g._t11;
 				_g._t3 = _g._t4;
-				break;
-			case 0:
-				_g._t2 = _g._t0;
-				_g._t3 = -1;
 				break;
 			}
 			var _t5 = false;
@@ -6525,6 +7656,10 @@ tardis.Go_utf16_Encode.prototype = $extend(tardis.StackFrameBasis.prototype,{
 		var _Block5 = function() {
 			var _g11 = _g._Phi;
 			switch(_g11) {
+			case 9:
+				_g._t12 = _g._t23;
+				_g._t13 = _g._t14;
+				break;
 			case 15:
 				_g._t12 = _g._t37;
 				_g._t13 = _g._t14;
@@ -6532,10 +7667,6 @@ tardis.Go_utf16_Encode.prototype = $extend(tardis.StackFrameBasis.prototype,{
 			case 3:
 				_g._t12 = 0;
 				_g._t13 = -1;
-				break;
-			case 9:
-				_g._t12 = _g._t23;
-				_g._t13 = _g._t14;
 				break;
 			}
 			var _t15 = false;
@@ -6806,959 +7937,6 @@ tardis.Go_utf16_EncodeRune.prototype = $extend(tardis.StackFrameBasis.prototype,
 	}
 	,__class__: tardis.Go_utf16_EncodeRune
 });
-tardis.Go_haxegoruntime_Runes2Raw = $hx_exports.Go_haxegoruntime_Runes2Raw = function(gr,_bds,p_r) {
-	this._Phi = 0;
-	this._t21 = 0;
-	this._t20 = 0;
-	this._t19 = null;
-	this._t12 = 0;
-	this._t11 = 0;
-	this._t9 = 0;
-	this._t8 = null;
-	this._t6 = null;
-	this._SF2 = null;
-	this._t5 = 0;
-	this._t4 = null;
-	this._t2 = null;
-	this._SF1 = null;
-	this._t0 = 0;
-	tardis.StackFrameBasis.call(this,gr,488,"Go_haxegoruntime_Runes2Raw");
-	this._bds = _bds;
-	this.p_r = p_r;
-	tardis.Scheduler.push(gr,this);
-};
-tardis.Go_haxegoruntime_Runes2Raw.__name__ = true;
-tardis.Go_haxegoruntime_Runes2Raw.__interfaces__ = [tardis.StackFrame];
-tardis.Go_haxegoruntime_Runes2Raw.__super__ = tardis.StackFrameBasis;
-tardis.Go_haxegoruntime_Runes2Raw.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t1 = false;
-			_g._t0 = tardis.Go.haxegoruntime_ZiLen.load_int32();
-			_t1 = _g._t0 == 1;
-			if(_t1) _g._Next = 1; else _g._Next = 3;
-			_g._Phi = 0;
-			return null;
-		};
-		var _Block1 = function() {
-			_g._SF1 = new tardis.Go_haxegoruntime_RunesToUTF16(_g._goroutine,[],_g.p_r);
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			_g._t2 = _g._SF1.res();
-			var _t3 = 0;
-			var _v = _g._t2;
-			if(_v == null) _t3 = 0; else _t3 = _v.length;
-			_g._t4 = new tardis.Slice(new tardis.Pointer(new tardis.Object(_t3 * 4)),0,_t3,_t3,4);
-			var _v1 = _g._t2;
-			if(_v1 == null) _g._t5 = 0; else _g._t5 = _v1.length;
-			_g._Next = 4;
-			_g._Phi = 1;
-			return null;
-		};
-		var _Block2 = function() {
-			_g._SF2 = new tardis.Go_haxegoruntime_RunesToUTF8(_g._goroutine,[],_g.p_r);
-			_g._Next = -2;
-			return _g;
-		};
-		var _Block_2 = function() {
-			_g._t6 = _g._SF2.res();
-			var _t7 = 0;
-			var _v2 = _g._t6;
-			if(_v2 == null) _t7 = 0; else _t7 = _v2.length;
-			_g._t8 = new tardis.Slice(new tardis.Pointer(new tardis.Object(_t7 * 4)),0,_t7,_t7,4);
-			var _v3 = _g._t6;
-			if(_v3 == null) _g._t9 = 0; else _g._t9 = _v3.length;
-			_g._Next = 8;
-			_g._Phi = 2;
-			return null;
-		};
-		var _Block3 = function() {
-			var _t10 = false;
-			_t10 = _g._t0 == 3;
-			if(_t10) _g._Next = 2; else _g._Next = 7;
-			_g._Phi = 3;
-			return null;
-		};
-		var _Block4 = function() {
-			if(_g._Phi == 1) _g._t11 = -1; else if(_g._Phi == 5) _g._t11 = _g._t12; else _g._t11 = 0;
-			var _t13 = false;
-			_g._t12 = _g._t11 + 1 >> 0;
-			_t13 = _g._t12 < _g._t5;
-			if(_t13) _g._Next = 5; else _g._Next = 6;
-			_g._Phi = 4;
-			return null;
-		};
-		var _Block5 = function() {
-			var _t14 = null;
-			var _t15 = null;
-			var _t16 = 0;
-			var _t17 = 0;
-			tardis.Scheduler.wraprangechk(_g._t12,_g._t4.length);
-			_t14 = _g._t4.itemAddr(_g._t12);
-			tardis.Scheduler.wraprangechk(_g._t12,_g._t2.length);
-			_t15 = _g._t2.itemAddr(_g._t12);
-			_t16 = _t15.obj.get_uint16(_t15.off);
-			_t17 = _t16;
-			_t14.obj.iVec[_t14.off] = _t17;
-			_g._Next = 4;
-			_g._Phi = 5;
-			return null;
-		};
-		var _Block6 = function() {
-			_g._res = _g._t4;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block7 = function() {
-			var _t18 = null;
-			_t18 = new tardis.Pointer(new tardis.Object(0));
-			_g._t19 = new tardis.Slice(_t18,0,-1,0,4);
-			_g._res = _g._t19;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block8 = function() {
-			if(_g._Phi == 2) _g._t20 = -1; else if(_g._Phi == 9) _g._t20 = _g._t21; else _g._t20 = 0;
-			var _t22 = false;
-			_g._t21 = _g._t20 + 1 >> 0;
-			_t22 = _g._t21 < _g._t9;
-			if(_t22) _g._Next = 9; else _g._Next = 10;
-			_g._Phi = 8;
-			return null;
-		};
-		var _Block9 = function() {
-			var _t23 = null;
-			var _t24 = null;
-			var _t25 = 0;
-			var _t26 = 0;
-			tardis.Scheduler.wraprangechk(_g._t21,_g._t8.length);
-			_t23 = _g._t8.itemAddr(_g._t21);
-			tardis.Scheduler.wraprangechk(_g._t21,_g._t6.length);
-			_t24 = _g._t6.itemAddr(_g._t21);
-			_t25 = _t24.obj.get_uint8(_t24.off);
-			_t26 = _t25;
-			_t23.obj.iVec[_t23.off] = _t26;
-			_g._Next = 8;
-			_g._Phi = 9;
-			return null;
-		};
-		var _Block10 = function() {
-			_g._res = _g._t8;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case 3:
-				retVal = _Block3();
-				break;
-			case 4:
-				retVal = _Block4();
-				break;
-			case 5:
-				retVal = _Block5();
-				break;
-			case 6:
-				retVal = _Block6();
-				break;
-			case 7:
-				retVal = _Block7();
-				break;
-			case 8:
-				retVal = _Block8();
-				break;
-			case 9:
-				retVal = _Block9();
-				break;
-			case 10:
-				retVal = _Block10();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis.Go_haxegoruntime_Runes2Raw
-});
-tardis._Go.Go_tgoaddmath_glrFloat32bits = function(gr,_bds,p_f) {
-	this._Phi = 0;
-	this._t33 = 0;
-	this._t28 = 0.0;
-	this._t27 = 0.0;
-	this._t25 = 0.0;
-	this._t20 = null;
-	this._t19 = 0.0;
-	this._t17 = 0;
-	this._t16 = 0.0;
-	this._t14 = 0;
-	this._t12 = 0;
-	this._t11 = 0;
-	this._t9 = 0;
-	this._t8 = 0.0;
-	this._t6 = 0.0;
-	this._t5 = 0;
-	this._t4 = 0.0;
-	this._t3 = 0.0;
-	tardis.StackFrameBasis.call(this,gr,1288,"Go_tgoaddmath_glrFloat32bits");
-	this._bds = _bds;
-	this.p_f = p_f;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_tgoaddmath_glrFloat32bits.__name__ = true;
-tardis._Go.Go_tgoaddmath_glrFloat32bits.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_tgoaddmath_glrFloat32bits.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_tgoaddmath_glrFloat32bits.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			var _t0 = false;
-			_t0 = _g.p_f == 0;
-			if(_t0) _g._Next = 1; else _g._Next = 2;
-			_g._Phi = 0;
-			return null;
-		};
-		var _Block1 = function() {
-			_g._res = 0;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block2 = function() {
-			var _t1 = false;
-			_t1 = _g.p_f != _g.p_f;
-			if(_t1) _g._Next = 3; else _g._Next = 4;
-			_g._Phi = 2;
-			return null;
-		};
-		var _Block3 = function() {
-			_g._res = 2143289344;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block4 = function() {
-			var _t2 = false;
-			_t2 = _g.p_f < 0;
-			if(_t2) _g._Next = 5; else _g._Next = 6;
-			_g._Phi = 4;
-			return null;
-		};
-		var _Block5 = function() {
-			_g._t3 = -_g.p_f;
-			_g._Next = 6;
-			_g._Phi = 5;
-			return null;
-		};
-		var _Block6 = function() {
-			var _g1 = _g._Phi;
-			switch(_g1) {
-			case 4:
-				_g._t4 = _g.p_f;
-				_g._t5 = 0;
-				break;
-			case 5:
-				_g._t4 = _g._t3;
-				_g._t5 = 0x80000000;
-				break;
-			}
-			_g._Next = 8;
-			_g._Phi = 6;
-			return null;
-		};
-		var _Block7 = function() {
-			var _t7 = false;
-			_g._t6 = tardis.Force.floatDiv(_g._t8,2);
-			_t7 = tardis.Force.uintCompare(_g._t9,255) == 0;
-			if(_t7) _g._Next = 12; else _g._Next = 9;
-			_g._Phi = 7;
-			return null;
-		};
-		var _Block8 = function() {
-			var _g11 = _g._Phi;
-			switch(_g11) {
-			case 6:
-				_g._t8 = _g._t4;
-				_g._t9 = 150;
-				break;
-			case 9:
-				_g._t8 = _g._t6;
-				_g._t9 = _g._t11;
-				break;
-			}
-			var _t10 = false;
-			_t10 = _g._t8 >= 1.6777216e+07;
-			if(_t10) _g._Next = 7; else _g._Next = 12;
-			_g._Phi = 8;
-			return null;
-		};
-		var _Block9 = function() {
-			_g._t11 = _g._t9 + 1 >>> 0;
-			_g._Next = 8;
-			_g._Phi = 9;
-			return null;
-		};
-		var _Block10 = function() {
-			var _t13 = false;
-			_g._t12 = _g._t17 - 1 >>> 0;
-			_t13 = tardis.Force.uintCompare(_g._t12,0) == 0;
-			if(_t13) _g._Next = 11; else _g._Next = 13;
-			_g._Phi = 10;
-			return null;
-		};
-		var _Block11 = function() {
-			if(_g._Phi == 12) _g._t14 = _g._t17; else if(_g._Phi == 10) _g._t14 = _g._t12; else _g._t14 = 0;
-			var _t15 = false;
-			_t15 = _g._t16 < 0;
-			if(_t15) _g._Next = 14; else _g._Next = 15;
-			_g._Phi = 11;
-			return null;
-		};
-		var _Block12 = function() {
-			var _g12 = _g._Phi;
-			switch(_g12) {
-			case 8:
-				_g._t16 = _g._t8;
-				_g._t17 = _g._t9;
-				break;
-			case 13:
-				_g._t16 = _g._t19;
-				_g._t17 = _g._t12;
-				break;
-			case 7:
-				_g._t16 = _g._t6;
-				_g._t17 = _g._t9;
-				break;
-			}
-			var _t18 = false;
-			_t18 = _g._t16 < 8.388608e+06;
-			if(_t18) _g._Next = 10; else _g._Next = 11;
-			_g._Phi = 12;
-			return null;
-		};
-		var _Block13 = function() {
-			_g._t19 = _g._t16 * 2;
-			_g._Next = 12;
-			_g._Phi = 13;
-			return null;
-		};
-		var _Block14 = function() {
-			_g._t20 = new tardis.Interface(1,"glrFloat32bits");
-			tardis.Scheduler.panic(_g._goroutine,_g._t20);
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var _Block15 = function() {
-			var _t21 = 0.0;
-			var _t22 = 0.0;
-			var _t23 = 0.0;
-			var _t24 = 0.0;
-			var _t26 = false;
-			_t21 = _g._t16;
-			_t22 = tardis.Force.floatDiv(_t21,2);
-			_t23 = _g._t16;
-			_t24 = 2 * _t22;
-			_g._t25 = _t23 - _t24;
-			_t26 = _g._t25 > 0.5;
-			if(_t26) _g._Next = 19; else _g._Next = 18;
-			_g._Phi = 15;
-			return null;
-		};
-		var _Block16 = function() {
-			_g._t27 = _g._t16 + 1;
-			_g._Next = 17;
-			_g._Phi = 16;
-			return null;
-		};
-		var _Block17 = function() {
-			if(_g._Phi == 18) _g._t28 = _g._t16; else if(_g._Phi == 16) _g._t28 = _g._t27; else _g._t28 = 0.0;
-			var _t29 = 0;
-			var _t30 = 0;
-			var _t31 = 0;
-			var _t32 = 0;
-			var _v1 = _g._t14;
-			var _v2;
-			var v;
-			var v1 = new tardis.Int64(0,23);
-			v = v1;
-			_v2 = tardis.Int64.getLow(v);
-			if(_v2 == 0) _t29 = _v1; else _t29 = _v1 << _v2;
-			_t30 = (_g._t5 | _t29) >>> 0;
-			_t31 = tardis.Force.toUint32((function($this) {
-				var $r;
-				var _f = _g._t28;
-				$r = _f >= 0?Math.floor(_f):Math.ceil(_f);
-				return $r;
-			}(this)));
-			_t32 = (_t31 & -8388609) >>> 0;
-			_g._t33 = (_t30 | _t32) >>> 0;
-			_g._res = _g._t33;
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var _Block18 = function() {
-			var _t34 = false;
-			_t34 = _g._t25 >= 1.5;
-			if(_t34) _g._Next = 16; else _g._Next = 17;
-			_g._Phi = 18;
-			return null;
-		};
-		var _Block19 = function() {
-			var _t35 = false;
-			_t35 = _g._t25 < 1;
-			if(_t35) _g._Next = 16; else _g._Next = 18;
-			_g._Phi = 19;
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g2 = this._Next;
-			switch(_g2) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case 3:
-				retVal = _Block3();
-				break;
-			case 4:
-				retVal = _Block4();
-				break;
-			case 5:
-				retVal = _Block5();
-				break;
-			case 6:
-				retVal = _Block6();
-				break;
-			case 7:
-				retVal = _Block7();
-				break;
-			case 8:
-				retVal = _Block8();
-				break;
-			case 9:
-				retVal = _Block9();
-				break;
-			case 10:
-				retVal = _Block10();
-				break;
-			case 11:
-				retVal = _Block11();
-				break;
-			case 12:
-				retVal = _Block12();
-				break;
-			case 13:
-				retVal = _Block13();
-				break;
-			case 14:
-				retVal = _Block14();
-				break;
-			case 15:
-				retVal = _Block15();
-				break;
-			case 16:
-				retVal = _Block16();
-				break;
-			case 17:
-				retVal = _Block17();
-				break;
-			case 18:
-				retVal = _Block18();
-				break;
-			case 19:
-				retVal = _Block19();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_tgoaddmath_glrFloat32bits
-});
-tardis.Go_main_Start = $hx_exports.Go_main_Start = function(gr,_bds) {
-	this._t39 = null;
-	this._SF29 = null;
-	this._t38 = null;
-	this._t37 = null;
-	this._SF28 = null;
-	this._t36 = null;
-	this._t35 = null;
-	this._SF27 = null;
-	this._t34 = null;
-	this._t33 = null;
-	this._SF26 = null;
-	this._t32 = null;
-	this._t31 = null;
-	this._SF25 = null;
-	this._t30 = null;
-	this._t25 = null;
-	this._t24 = null;
-	this._t23 = null;
-	this._t22 = null;
-	this._t20 = null;
-	this._SF18 = null;
-	this._t19 = null;
-	this._SF17 = null;
-	this._t18 = null;
-	this._SF16 = null;
-	this._t17 = null;
-	this._SF15 = null;
-	this._t16 = null;
-	this._SF14 = null;
-	this._t15 = null;
-	this._SF13 = null;
-	this._t14 = null;
-	this._SF12 = null;
-	this._t13 = null;
-	this._SF11 = null;
-	this._t12 = null;
-	this._SF10 = null;
-	this._t11 = null;
-	this._SF9 = null;
-	this._t10 = null;
-	this._SF8 = null;
-	this._t9 = null;
-	this._SF7 = null;
-	this._t8 = null;
-	this._SF6 = null;
-	this._t7 = null;
-	this._SF5 = null;
-	this._t6 = null;
-	this._SF4 = null;
-	this._t5 = null;
-	this._t4 = null;
-	this._t3 = null;
-	this._t2 = null;
-	this._t1 = null;
-	this._t0 = null;
-	tardis.StackFrameBasis.call(this,gr,219,"Go_main_Start");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis.Go_main_Start.__name__ = true;
-tardis.Go_main_Start.__interfaces__ = [tardis.StackFrame];
-tardis.Go_main_Start.call = function(gr,_bds) {
-	return new tardis.Go_main_Start(gr,_bds);
-};
-tardis.Go_main_Start.__super__ = tardis.StackFrameBasis;
-tardis.Go_main_Start.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._t0 = window.document;
-			tardis.Go.main_doc.store_uintptr(_g._t0);
-			_g._t1 = tardis.Go.main_doc.load_uintptr();
-			_g._t2 = new tardis.Interface(1,"myCanvas");
-			_g._t3 = _g._t1.getElementById(tardis.Force.toHaxeParam(_g._t2));
-			_g._t4 = _g._t3;
-			_g._t5 = _g._t4.getContext("2d");
-			tardis.Go.main_context.store_uintptr(_g._t5);
-			tardis.Go_main_Start_36_1.call(tardis.Scheduler.makeGoroutine(),[]);
-			tardis.Go_main_Start_36_2.call(tardis.Scheduler.makeGoroutine(),[]);
-			_g._SF4 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/function.png");
-			_g._Next = -4;
-			return _g;
-		};
-		var _Block_1 = function() {
-			return null;
-		};
-		var _Block_2 = function() {
-			return null;
-		};
-		var _Block_3 = function() {
-			return null;
-		};
-		var _Block_4 = function() {
-			_g._t6 = _g._SF4.res();
-			_g._SF5 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/emptypile.png");
-			_g._Next = -5;
-			return _g;
-		};
-		var _Block_5 = function() {
-			_g._t7 = _g._SF5.res();
-			tardis.Go.main_emptyPilePng.store_uintptr(_g._t7);
-			_g._SF6 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/gophercolor16x16.png");
-			_g._Next = -6;
-			return _g;
-		};
-		var _Block_6 = function() {
-			_g._t8 = _g._SF6.res();
-			tardis.Go.main_L1.store_uintptr(_g._t8);
-			_g._SF7 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/gophercolor16x16flipped.png");
-			_g._Next = -7;
-			return _g;
-		};
-		var _Block_7 = function() {
-			_g._t9 = _g._SF7.res();
-			tardis.Go.main_L2.store_uintptr(_g._t9);
-			_g._SF8 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/pick.png");
-			_g._Next = -8;
-			return _g;
-		};
-		var _Block_8 = function() {
-			_g._t10 = _g._SF8.res();
-			tardis.Go.main_pickPng1.store_uintptr(_g._t10);
-			_g._SF9 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/pick.png");
-			_g._Next = -9;
-			return _g;
-		};
-		var _Block_9 = function() {
-			_g._t11 = _g._SF9.res();
-			tardis.Go.main_pickPng2.store_uintptr(_g._t11);
-			_g._SF10 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/smallpile.png");
-			_g._Next = -10;
-			return _g;
-		};
-		var _Block_10 = function() {
-			_g._t12 = _g._SF10.res();
-			tardis.Go.main_smallPilePng.store_uintptr(_g._t12);
-			_g._SF11 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/full.png");
-			_g._Next = -11;
-			return _g;
-		};
-		var _Block_11 = function() {
-			_g._t13 = _g._SF11.res();
-			tardis.Go.main_fullPng1.store_uintptr(_g._t13);
-			_g._SF12 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/full.png");
-			_g._Next = -12;
-			return _g;
-		};
-		var _Block_12 = function() {
-			_g._t14 = _g._SF12.res();
-			tardis.Go.main_fullPng2.store_uintptr(_g._t14);
-			_g._SF13 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/empty.png");
-			_g._Next = -13;
-			return _g;
-		};
-		var _Block_13 = function() {
-			_g._t15 = _g._SF13.res();
-			tardis.Go.main_emptyPng1.store_uintptr(_g._t15);
-			_g._SF14 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/empty.png");
-			_g._Next = -14;
-			return _g;
-		};
-		var _Block_14 = function() {
-			_g._t16 = _g._SF14.res();
-			tardis.Go.main_emptyPng2.store_uintptr(_g._t16);
-			_g._SF15 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/shovel.png");
-			_g._Next = -15;
-			return _g;
-		};
-		var _Block_15 = function() {
-			_g._t17 = _g._SF15.res();
-			tardis.Go.main_shovelPng1.store_uintptr(_g._t17);
-			_g._SF16 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/shovel.png");
-			_g._Next = -16;
-			return _g;
-		};
-		var _Block_16 = function() {
-			_g._t18 = _g._SF16.res();
-			tardis.Go.main_shovelPng2.store_uintptr(_g._t18);
-			_g._SF17 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/white.png");
-			_g._Next = -17;
-			return _g;
-		};
-		var _Block_17 = function() {
-			_g._t19 = _g._SF17.res();
-			tardis.Go.main_white.store_uintptr(_g._t19);
-			_g._SF18 = new tardis._Go.Go_main_makeBitmap(_g._goroutine,[],"assets/whitethumb.png");
-			_g._Next = -18;
-			return _g;
-		};
-		var _Block_18 = function() {
-			_g._t20 = _g._SF18.res();
-			tardis.Go.main_WT.store_uintptr(_g._t20);
-			new tardis._Go.Go_main_makeHeadline(_g._goroutine,[],0);
-			_g._Next = -19;
-			return _g;
-		};
-		var _Block_19 = function() {
-			_g._t22 = new tardis.Interface(0,1000);
-			_g._t23 = new haxe.Timer(tardis.Force.toHaxeParam(_g._t22));
-			tardis.Go.main_headlineTimer.store_uintptr(_g._t23);
-			_g._t24 = tardis.Go.main_headlineTimer.load_uintptr();
-			_g._t25 = new tardis.Interface(5,new tardis.Closure(tardis._Go.Go_main_makeHeadline.call,null));
-			_g._t24.run = tardis.Force.toHaxeParam(_g._t25);
-			new tardis._Go.Go_main_makeText(_g._goroutine,[],false,10,140,180,200,32768,"","Both animated gophers are \nrunning the code on the right.\nThe 2 logos show where they\neach are in that code now.\n\nGo calling native JS APIs.");
-			_g._Next = -22;
-			return _g;
-		};
-		var _Block_20 = function() {
-			return null;
-		};
-		var _Block_21 = function() {
-			return null;
-		};
-		var _Block_22 = function() {
-			new tardis._Go.Go_main_makeText(_g._goroutine,[],true,630,140,200,200,32768,"","Inspired by Rob Pike:\nhttp://blog.golang.org/\nconcurrency-is-not-parallelism\n\nGopher by Renee French,\nCreative Commons 3.0 license");
-			_g._Next = -23;
-			return _g;
-		};
-		var _Block_23 = function() {
-			new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t6,200,110);
-			_g._Next = -24;
-			return _g;
-		};
-		var _Block_24 = function() {
-			_g._t30 = tardis.Go.main_emptyPilePng.load_uintptr();
-			_g._SF25 = new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t30,390,50);
-			_g._Next = -25;
-			return _g;
-		};
-		var _Block_25 = function() {
-			_g._t31 = _g._SF25.res();
-			tardis.Go.main_Books.store(_g._t31);
-			_g._t32 = tardis.Go.main_L1.load_uintptr();
-			_g._SF26 = new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t32,230,140);
-			_g._Next = -26;
-			return _g;
-		};
-		var _Block_26 = function() {
-			_g._t33 = _g._SF26.res();
-			tardis.Go.main_Logo1.store(_g._t33);
-			_g._t34 = tardis.Go.main_L2.load_uintptr();
-			_g._SF27 = new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t34,540,140);
-			_g._Next = -27;
-			return _g;
-		};
-		var _Block_27 = function() {
-			_g._t35 = _g._SF27.res();
-			tardis.Go.main_Logo2.store(_g._t35);
-			_g._t36 = tardis.Go.main_pickPng1.load_uintptr();
-			_g._SF28 = new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t36,90,45);
-			_g._Next = -28;
-			return _g;
-		};
-		var _Block_28 = function() {
-			_g._t37 = _g._SF28.res();
-			tardis.Go.main_Sprite1.store(_g._t37);
-			_g._t38 = tardis.Go.main_pickPng2.load_uintptr();
-			_g._SF29 = new tardis._Go.Go_main_makeSprite(_g._goroutine,[],_g._t38,420,45);
-			_g._Next = -29;
-			return _g;
-		};
-		var _Block_29 = function() {
-			_g._t39 = _g._SF29.res();
-			tardis.Go.main_Sprite2.store(_g._t39);
-			new tardis._Go.Go_main_startGophers(_g._goroutine,[]);
-			_g._Next = -30;
-			return _g;
-		};
-		var _Block_30 = function() {
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			case -3:
-				retVal = _Block_3();
-				break;
-			case -4:
-				retVal = _Block_4();
-				break;
-			case -5:
-				retVal = _Block_5();
-				break;
-			case -6:
-				retVal = _Block_6();
-				break;
-			case -7:
-				retVal = _Block_7();
-				break;
-			case -8:
-				retVal = _Block_8();
-				break;
-			case -9:
-				retVal = _Block_9();
-				break;
-			case -10:
-				retVal = _Block_10();
-				break;
-			case -11:
-				retVal = _Block_11();
-				break;
-			case -12:
-				retVal = _Block_12();
-				break;
-			case -13:
-				retVal = _Block_13();
-				break;
-			case -14:
-				retVal = _Block_14();
-				break;
-			case -15:
-				retVal = _Block_15();
-				break;
-			case -16:
-				retVal = _Block_16();
-				break;
-			case -17:
-				retVal = _Block_17();
-				break;
-			case -18:
-				retVal = _Block_18();
-				break;
-			case -19:
-				retVal = _Block_19();
-				break;
-			case -20:
-				retVal = _Block_20();
-				break;
-			case -21:
-				retVal = _Block_21();
-				break;
-			case -22:
-				retVal = _Block_22();
-				break;
-			case -23:
-				retVal = _Block_23();
-				break;
-			case -24:
-				retVal = _Block_24();
-				break;
-			case -25:
-				retVal = _Block_25();
-				break;
-			case -26:
-				retVal = _Block_26();
-				break;
-			case -27:
-				retVal = _Block_27();
-				break;
-			case -28:
-				retVal = _Block_28();
-				break;
-			case -29:
-				retVal = _Block_29();
-				break;
-			case -30:
-				retVal = _Block_30();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis.Go_main_Start
-});
-tardis.Go_utf8_DecodeRune = $hx_exports.Go_utf8_DecodeRune = function(gr,_bds,p_p) {
-	this._t2 = 0;
-	this._t1 = 0;
-	this._t0 = null;
-	this._SF1 = null;
-	tardis.StackFrameBasis.call(this,gr,869,"Go_utf8_DecodeRune");
-	this._bds = _bds;
-	this.p_p = p_p;
-	tardis.Scheduler.push(gr,this);
-};
-tardis.Go_utf8_DecodeRune.__name__ = true;
-tardis.Go_utf8_DecodeRune.__interfaces__ = [tardis.StackFrame];
-tardis.Go_utf8_DecodeRune.callFromRT = function(_gr,p_p) {
-	var _sf = new tardis.Go_utf8_DecodeRune(_gr,null,p_p).run();
-	while(_sf._incomplete) if(tardis.Scheduler.grStacks[_gr].first() == null) throw "Panic:" + Std.string(tardis.Scheduler.grPanicMsg) + "\nScheduler: null stack entry for goroutine " + _gr + "\n" + tardis.Scheduler.stackDump(); else {
-		tardis.Scheduler.currentGR = _gr;
-		tardis.Scheduler.grStacks[_gr].first().run();
-	}
-	return _sf._res;
-};
-tardis.Go_utf8_DecodeRune.__super__ = tardis.StackFrameBasis;
-tardis.Go_utf8_DecodeRune.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return this._res;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._SF1 = new tardis._Go.Go_utf8_decodeRuneInternal(_g._goroutine,[],_g.p_p);
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			_g._t0 = _g._SF1.res();
-			_g._t1 = _g._t0.r0;
-			_g._t2 = _g._t0.r1;
-			_g._res = { r0 : _g._t1, r1 : _g._t2};
-			_g._incomplete = false;
-			tardis.Scheduler.pop(_g._goroutine);
-			return _g;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g1 = this._Next;
-			switch(_g1) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis.Go_utf8_DecodeRune
-});
 tardis._Go.Go_main_startGophers = function(gr,_bds) {
 	this._t8 = null;
 	this._t7 = null;
@@ -7836,175 +8014,6 @@ tardis._Go.Go_main_startGophers.prototype = $extend(tardis.StackFrameBasis.proto
 	}
 	,__class__: tardis._Go.Go_main_startGophers
 });
-tardis._Go.Go_main_fillbigpile = function(gr,_bds) {
-	this._t14 = null;
-	this._t7 = 0;
-	this._t6 = null;
-	this._t5 = null;
-	this._t4 = null;
-	this._t3 = null;
-	this._t2 = null;
-	this._t1 = null;
-	this._t0 = null;
-	tardis.StackFrameBasis.call(this,gr,57,"Go_main_fillbigpile");
-	this._bds = _bds;
-	tardis.Scheduler.push(gr,this);
-};
-tardis._Go.Go_main_fillbigpile.__name__ = true;
-tardis._Go.Go_main_fillbigpile.__interfaces__ = [tardis.StackFrame];
-tardis._Go.Go_main_fillbigpile.call = function(gr,_bds) {
-	return new tardis._Go.Go_main_fillbigpile(gr,_bds);
-};
-tardis._Go.Go_main_fillbigpile.__super__ = tardis.StackFrameBasis;
-tardis._Go.Go_main_fillbigpile.prototype = $extend(tardis.StackFrameBasis.prototype,{
-	res: function() {
-		return null;
-	}
-	,run: function() {
-		var _g = this;
-		var _Block0 = function() {
-			_g._Next = 1;
-			return null;
-		};
-		var _Block1 = function() {
-			_g._t0 = tardis.Go.main_bigpile.load();
-			_g._t1 = tardis.Go.main_bigpile.load();
-			_g._t2 = tardis.Go.main_bigpile.load();
-			_g._t3 = tardis.Go.main_bigpile.load();
-			_g._t4 = tardis.Go.main_bigpile.load();
-			_g._t5 = tardis.Go.main_bigpile.load();
-			_g._Next = -1;
-			return _g;
-		};
-		var _Block_1 = function() {
-			_g._t6 = { r0 : 0, r1 : false};
-			_g._t6.r0 = -1;
-			var _states = new Array();
-			var _rnd = Std.random(6);
-			_states[0] = _g._t0.hasSpace();
-			_states[1] = _g._t1.hasSpace();
-			_states[2] = _g._t2.hasSpace();
-			_states[3] = _g._t3.hasSpace();
-			_states[4] = _g._t4.hasSpace();
-			_states[5] = _g._t5.hasSpace();
-			var _g1 = 0;
-			while(_g1 < 6) {
-				var _s = _g1++;
-				var _i = (_s + _rnd) % 6;
-				if(_states[_i]) {
-					_g._t6.r0 = _i;
-					break;
-				}
-			}
-			var _g11 = _g._t6.r0;
-			switch(_g11) {
-			case 0:
-				_g._t0.send(1);
-				break;
-			case 1:
-				_g._t1.send(2);
-				break;
-			case 2:
-				_g._t2.send(3);
-				break;
-			case 3:
-				_g._t3.send(8);
-				break;
-			case 4:
-				_g._t4.send(9);
-				break;
-			case 5:
-				_g._t5.send(10);
-				break;
-			}
-			if(_g._t6.r0 == -1) return _g;
-			var _t8 = false;
-			_g._t7 = _g._t6.r0;
-			_t8 = _g._t7 == 0;
-			if(_t8) _g._Next = 1; else _g._Next = 2;
-			return null;
-		};
-		var _Block2 = function() {
-			var _t9 = false;
-			_t9 = _g._t7 == 1;
-			if(_t9) _g._Next = 1; else _g._Next = 3;
-			return null;
-		};
-		var _Block3 = function() {
-			var _t10 = false;
-			_t10 = _g._t7 == 2;
-			if(_t10) _g._Next = 1; else _g._Next = 4;
-			return null;
-		};
-		var _Block4 = function() {
-			var _t11 = false;
-			_t11 = _g._t7 == 3;
-			if(_t11) _g._Next = 1; else _g._Next = 5;
-			return null;
-		};
-		var _Block5 = function() {
-			var _t12 = false;
-			_t12 = _g._t7 == 4;
-			if(_t12) _g._Next = 1; else _g._Next = 6;
-			return null;
-		};
-		var _Block6 = function() {
-			var _t13 = false;
-			_t13 = _g._t7 == 5;
-			if(_t13) _g._Next = 1; else _g._Next = 7;
-			return null;
-		};
-		var _Block7 = function() {
-			_g._t14 = new tardis.Interface(1,"blocking select matched no case");
-			tardis.Scheduler.panic(_g._goroutine,_g._t14);
-			_g._Next = -2;
-			return _g;
-		};
-		var _Block_2 = function() {
-			return null;
-		};
-		var retVal = null;
-		while(retVal == null) {
-			var _g2 = this._Next;
-			switch(_g2) {
-			case 0:
-				retVal = _Block0();
-				break;
-			case 1:
-				retVal = _Block1();
-				break;
-			case 2:
-				retVal = _Block2();
-				break;
-			case 3:
-				retVal = _Block3();
-				break;
-			case 4:
-				retVal = _Block4();
-				break;
-			case 5:
-				retVal = _Block5();
-				break;
-			case 6:
-				retVal = _Block6();
-				break;
-			case 7:
-				retVal = _Block7();
-				break;
-			case -1:
-				retVal = _Block_1();
-				break;
-			case -2:
-				retVal = _Block_2();
-				break;
-			default:
-				tardis.Scheduler.bbi();
-			}
-		}
-		return retVal;
-	}
-	,__class__: tardis._Go.Go_main_fillbigpile
-});
 tardis.Go = $hx_exports.Go = function() { };
 tardis.Go.__name__ = true;
 tardis.Go.init = function() {
@@ -8034,17 +8043,17 @@ tardis.TypeInfo = function() { };
 tardis.TypeInfo.__name__ = true;
 tardis.TypeInfo.getName = function(id) {
 	switch(id) {
-	case 4:
+	case 1:
+		return "int";
+	case 2:
 		return "float64";
+	case 3:
+		return "github.com/tardisgo/gohaxelib/_js.Sjs_html_Image";
+	case 4:
+		return "string";
 	case 5:
 		return "func(e uintptr)";
 	case 0:
-		return "int";
-	case 1:
-		return "string";
-	case 2:
-		return "github.com/tardisgo/gohaxelib/_js.Sjs_html_Image";
-	case 3:
 		return "func()";
 	default:
 		return "UNKNOWN";
@@ -8052,18 +8061,18 @@ tardis.TypeInfo.getName = function(id) {
 };
 tardis.TypeInfo.getId = function(name) {
 	switch(name) {
+	case "int":
+		return 1;
 	case "float64":
+		return 2;
+	case "github.com/tardisgo/gohaxelib/_js.Sjs_html_Image":
+		return 3;
+	case "string":
 		return 4;
 	case "func(e uintptr)":
 		return 5;
-	case "int":
-		return 0;
-	case "string":
-		return 1;
-	case "github.com/tardisgo/gohaxelib/_js.Sjs_html_Image":
-		return 2;
 	case "func()":
-		return 3;
+		return 0;
 	default:
 		return -1;
 	}
@@ -8098,53 +8107,53 @@ tardis.Scheduler.panicStackDump = "";
 tardis.Scheduler.entryCount = 0;
 tardis.Scheduler.currentGR = 0;
 tardis.Scheduler.runLimit = 0;
-tardis.Go.utf8_init_36_guard = new tardis.Pointer(new tardis.Object(1));
-tardis.Go.golibruntime_init_36_guard = new tardis.Pointer(new tardis.Object(1));
-tardis.Go.tgoaddmath_init_36_guard = new tardis.Pointer(new tardis.Object(1));
 tardis.Go.haxegoruntime_init_36_guard = new tardis.Pointer(new tardis.Object(1));
 tardis.Go.haxegoruntime_ZiLen = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.tardisgolib_gosched_chan = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.golibruntime_init_36_guard = new tardis.Pointer(new tardis.Object(1));
+tardis.Go.utf8_init_36_guard = new tardis.Pointer(new tardis.Object(1));
+tardis.Go.tgoaddmath_init_36_guard = new tardis.Pointer(new tardis.Object(1));
 tardis.Go.tardisgolib_init_36_guard = new tardis.Pointer(new tardis.Object(1));
+tardis.Go.tardisgolib_gosched_chan = new tardis.Pointer(new tardis.Object(4));
 tardis.Go.utf16_init_36_guard = new tardis.Pointer(new tardis.Object(1));
-tardis.Go.main_Sprite1state = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_Sprite1Y = new tardis.Pointer(new tardis.Object(8));
-tardis.Go.main_spChan = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_emptyPilePng = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_timer = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_smallpile = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_s2state = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_init_36_guard = new tardis.Pointer(new tardis.Object(1));
-tardis.Go.main_Books = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_pickPng1 = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_showingBooks = new tardis.Pointer(new tardis.Object(1));
-tardis.Go.main_Sprite1X = new tardis.Pointer(new tardis.Object(8));
-tardis.Go.main_context = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_bigpile = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_white = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_Sprite2Y = new tardis.Pointer(new tardis.Object(8));
-tardis.Go.main_emptyPng1 = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_shovelPng1 = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_WT = new tardis.Pointer(new tardis.Object(4));
 tardis.Go.main_smallPilePng = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_oven = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_doc = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_L1 = new tardis.Pointer(new tardis.Object(4));
 tardis.Go.main_lastTime = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_headlineTimer = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_Sprite2 = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_fullPng1 = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_shovelPng2 = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_L2 = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_s1state = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_Sprite2state = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_Sprite1state = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_Books = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_init_36_guard = new tardis.Pointer(new tardis.Object(1));
+tardis.Go.main_showingBooks = new tardis.Pointer(new tardis.Object(1));
+tardis.Go.main_L1 = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_pickPng1 = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_doc = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_emptyPng1 = new tardis.Pointer(new tardis.Object(4));
 tardis.Go.main_Logo2 = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_Sprite2 = new tardis.Pointer(new tardis.Object(4));
 tardis.Go.main_pickPng2 = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_emptyPng2 = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_fullPng2 = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_Sprite2X = new tardis.Pointer(new tardis.Object(8));
-tardis.Go.main_Sprite1 = new tardis.Pointer(new tardis.Object(4));
-tardis.Go.main_Logo1 = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_shovelPng1 = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_bigpile = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_context = new tardis.Pointer(new tardis.Object(4));
 tardis.Go.main_lastHeading = new tardis.Pointer(new tardis.Object(8));
+tardis.Go.main_s2state = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_smallpile = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_spChan = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_L2 = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_Logo1 = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_WT = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_Sprite1X = new tardis.Pointer(new tardis.Object(8));
+tardis.Go.main_Sprite1 = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_s1state = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_timer = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_emptyPilePng = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_fullPng2 = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_shovelPng2 = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_headlineTimer = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_Sprite1Y = new tardis.Pointer(new tardis.Object(8));
+tardis.Go.main_Sprite2state = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_emptyPng2 = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_Sprite2X = new tardis.Pointer(new tardis.Object(8));
+tardis.Go.main_Sprite2Y = new tardis.Pointer(new tardis.Object(8));
+tardis.Go.main_fullPng1 = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_white = new tardis.Pointer(new tardis.Object(4));
+tardis.Go.main_oven = new tardis.Pointer(new tardis.Object(4));
 tardis.Go.doneInit = false;
 tardis.Go.main();
 })(typeof window != "undefined" ? window : exports);

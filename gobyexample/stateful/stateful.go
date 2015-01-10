@@ -21,8 +21,9 @@ import (
 
 	//_ "github.com/tardisgo/tardisgo/golibruntime/sync/atomic" // runtime functions for sync/atomic
 
-	"github.com/tardisgo/tardisgo/tardisgolib"
-	"github.com/tardisgo/tardisgo/tardisgolib/hx" // runtime functions for TARDIS Go
+	"runtime"
+
+	"github.com/tardisgo/tardisgo/haxe/hx" // runtime functions for TARDIS Go
 )
 
 // In this example our state will be owned by a single
@@ -113,7 +114,7 @@ func main() {
 	// Let the goroutines work for a second.
 	//time.Sleep(time.Second)
 	for i := 0; i < 1000; i++ {
-		tardisgolib.Gosched()
+		runtime.Gosched()
 	}
 
 	// Finally, capture and report the `ops` count.

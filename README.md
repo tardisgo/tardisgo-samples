@@ -16,8 +16,11 @@ For help or general discussions about this repository please go to the [Google G
 - [channel synchronization](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/chansync/chansync.go)
 - [Non-Blocking Channel Operations](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/nonblock/nonblock.go)
 - [range over channel](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/rangeoverchan/rangeoverchan.go)
+- [collections](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/collections/collections.go) (uses "strings" package)
+- [string functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/stringfuncs/stringfuncs.go) (uses "strings" package)
 - [stateful goroutines](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/stateful/stateful.go) (uses "sync/atomic" package)
 - [sorting by functions](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/sortbyfunc/sortbyfunc.go) (uses "sort" package)
+- [encoding to/from base64](https://github.com/tardisgo/tardisgo-samples/blob/master/gobyexample/base64/base64.go) (uses "encoding/base64" package)
 
 ### Command line samples showing Haxe called from Go
 ----

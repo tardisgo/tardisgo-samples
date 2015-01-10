@@ -6,8 +6,9 @@
 package main
 
 import (
-	"github.com/tardisgo/tardisgo/tardisgolib"
-	"github.com/tardisgo/tardisgo/tardisgolib/hx"
+	"runtime"
+
+	"github.com/tardisgo/tardisgo/haxe/hx"
 )
 
 func main() {}
@@ -88,7 +89,7 @@ func pushBooks(x, y *float64, state *int, cartLoad int) {
 		} else {
 			*y = float64(hx.CodeInt("", "Std.random(3);")) // random small bumps
 		}
-		tardisgolib.Gosched() // without this, the animation would not show each state
+		runtime.Gosched() // without this, the animation would not show each state
 	}
 	if *x > 150.0 { // constrain large x offsets
 		*x = 150.0
@@ -114,7 +115,7 @@ func moreBooks(x, y *float64, state *int) {
 		} else {
 			*y = float64(hx.CodeInt("", "Std.random(5);")) // random bigger bumps
 		}
-		tardisgolib.Gosched() // would not show state without this, the animation would jump.
+		runtime.Gosched() // would not show state without this, the animation would jump.
 	}
 	*y = 0.0
 }
@@ -122,6 +123,6 @@ func moreBooks(x, y *float64, state *int) {
 func loop(n int) { // add some delay when required
 	for n > 0 {
 		n--
-		tardisgolib.Gosched() // give up control in order to show the gopher waiting
+		runtime.Gosched() // give up control in order to show the gopher waiting
 	}
 }
