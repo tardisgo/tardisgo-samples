@@ -1,0 +1,5 @@
+-main tardis.Go 
+-resource resource.go  
+-resource test/zombie.txt 
+--interp
+
