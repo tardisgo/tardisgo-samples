@@ -1,5 +1,10 @@
 -main tardis.Go 
--resource resource.go  
--resource test/zombie.txt 
---interp
+-dce full
+-resource resource.go@/tgo/resource.go  
+-resource test/zombie.txt@/a/really/deep/path/zombie.txt
+-resource test/mad.txt@/a/really/deep/path/mad.txt
+-resource tgofs.zip
+-resource resource.go
+-js tardis/go.js
+
 

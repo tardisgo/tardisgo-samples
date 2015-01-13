@@ -148,7 +148,7 @@ class Main extends Sprite {
 		s2laststatus = [0, 0, 0];
 		bookslaststatus = [true, true, true];
 		Go.init(); // initialise the Go environment
-		Go_main_StartGophers.callFromHaxe(); // start the gopher animation goroutines
+		Go_main_SStartGGophers.callFromHaxe(); // start the gopher animation goroutines
 		goTimer=new Timer(25); // 25 ms per run
 		goTimer.addEventListener ( "timer", goTimerEvent); // schedule some go every so often
 		goTimer.start();
@@ -177,57 +177,57 @@ class Main extends Sprite {
 				}
 			}
 		
-			if(Go.main_Sprite1state.addr(l<<2).load_int32()!=s1laststatus[l]){
+			if(Go.main_SSprite1state.addr(l<<2).load_int32()!=s1laststatus[l]){
 			
 				// make sure we don't leave any stray pixels unset and flag for GC
 				Sprite1[l].removeChildAt(0);
 	
-				s1laststatus[l] = Go.main_Sprite1state.addr(l<<2).load_int32(); // switch to the new state
+				s1laststatus[l] = Go.main_SSprite1state.addr(l<<2).load_int32(); // switch to the new state
 				if(l==0)
 					Logo1.y = 140 + (15*s1laststatus[l]); // move the logo to reflect the new state
 			
 				// add the new image
-				if(s1laststatus[l]==Go.main_Pick) {
+				if(s1laststatus[l]==Go.main_PPick) {
 					Sprite1[l].addChild (new Bitmap (Assets.getBitmapData ("assets/pick.png")));
 				}
-				if(s1laststatus[l]==Go.main_Full) {
+				if(s1laststatus[l]==Go.main_FFull) {
 					Sprite1[l].addChild (new Bitmap (Assets.getBitmapData ("assets/full.png")));
 				}
-				if(s1laststatus[l]==Go.main_Shovel) {
+				if(s1laststatus[l]==Go.main_SShovel) {
 					Sprite1[l].addChild (new Bitmap (Assets.getBitmapData ("assets/shovel.png")));
 				}
-				if(s1laststatus[l]==Go.main_Empty) {
+				if(s1laststatus[l]==Go.main_EEmpty) {
 					Sprite1[l].addChild (new Bitmap (Assets.getBitmapData ("assets/empty.png")));
 				}
 			}
-			Sprite1[l].x = s1x + Go.main_Sprite1X.addr(l<<3).load_float64();
-			Sprite1[l].y = s1y + Go.main_Sprite1Y.addr(l<<3).load_float64() + lineOffsets[l];
+			Sprite1[l].x = s1x + Go.main_SSprite1XX.addr(l<<3).load_float64();
+			Sprite1[l].y = s1y + Go.main_SSprite1YY.addr(l<<3).load_float64() + lineOffsets[l];
 			
-			if(Go.main_Sprite2state.addr(l<<2).load_int32()!=s2laststatus[l]){
+			if(Go.main_SSprite2state.addr(l<<2).load_int32()!=s2laststatus[l]){
 				
 				// make sure we don't leave any stray pixels unset and flag for GC
 				Sprite2[l].removeChildAt(0);
 				
-				s2laststatus[l] = Go.main_Sprite2state.addr(l<<2).load_int32(); // switch to the new state
+				s2laststatus[l] = Go.main_SSprite2state.addr(l<<2).load_int32(); // switch to the new state
 				if (l==0)
 						Logo2.y = 140 + (15*s2laststatus[l]); // move the logo to reflect the new state
 				
 				// add the new image
-				if(s2laststatus[l]==Go.main_Pick) {
+				if(s2laststatus[l]==Go.main_PPick) {
 					Sprite2[l].addChild (new Bitmap (Assets.getBitmapData ("assets/pick.png")));
 				}
-				if(s2laststatus[l]==Go.main_Full) {
+				if(s2laststatus[l]==Go.main_FFull) {
 					Sprite2[l].addChild (new Bitmap (Assets.getBitmapData ("assets/full.png")));
 				}
-				if(s2laststatus[l]==Go.main_Shovel) {
+				if(s2laststatus[l]==Go.main_SShovel) {
 					Sprite2[l].addChild (new Bitmap (Assets.getBitmapData ("assets/shovel.png")));
 				}
-				if(s2laststatus[l]==Go.main_Empty) {
+				if(s2laststatus[l]==Go.main_EEmpty) {
 					Sprite2[l].addChild (new Bitmap (Assets.getBitmapData ("assets/empty.png")));
 				}
 			}
-			Sprite2[l].x = s2x + Go.main_Sprite2X.addr(l<<3).load_float64();
-			Sprite2[l].y = s2y + Go.main_Sprite2Y.addr(l<<3).load_float64() + lineOffsets[l];
+			Sprite2[l].x = s2x + Go.main_SSprite2XX.addr(l<<3).load_float64();
+			Sprite2[l].y = s2y + Go.main_SSprite2YY.addr(l<<3).load_float64() + lineOffsets[l];
 		}			
 	}
 }
