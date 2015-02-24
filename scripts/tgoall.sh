@@ -5,19 +5,19 @@ tardisgo $* *.go
 if [ "$?" = "0" ]; then
 	haxe -main tardis.Go -dce full -swf tardis/go.swf
 	#haxe -main tardis.Go -dce full -neko tardis/tardisgo.n
-	haxe -main tardis.Go -dce full -D fullunsafe -js tardis/go_fu.js
-	haxe -main tardis.Go -dce full -js tardis/go.js
-	haxe -main tardis.Go -dce full -cpp tardis/cpp 
-	haxe -main tardis.Go -dce full -java tardis/java
-	haxe -main tardis.Go -dce full -cs tardis/cs
-	haxe -main tardis.Go -dce full -php tardis/php --php-prefix tgo
+	haxe -main tardis.Go -cp tardis -dce full -D fullunsafe -js tardis/go-fu.js
+	haxe -main tardis.Go -cp tardis -dce full -js tardis/go.js
+	haxe -main tardis.Go -cp tardis -dce full -cpp tardis/cpp 
+	haxe -main tardis.Go -cp tardis -dce full -java tardis/java
+	haxe -main tardis.Go -cp tardis -dce full -cs tardis/cs
+	haxe -main tardis.Go -cp tardis -dce full -php tardis/php --php-prefix tgo
 	echo "Neko (haxe --interp):"
-	haxe -main tardis.Go --interp
+	haxe -main tardis.Go -cp tardis --interp
 	#echo "Neko (only works on very small projects):"
 	#neko tardis/tardisgo.n
 	echo "Node/JS (using fullunsafe):"
 	# NOTE on Linux, the line below should use nodejs rather than node
-	node < tardis/go_fu.js
+	node < tardis/go-fu.js
 	echo "Node/JS:"
 	# NOTE on Linux, the line below should use nodejs rather than node
 	node < tardis/go.js

@@ -13,5 +13,5 @@
 
 tardisgo *.go
 if [ "$?" = "0" ]; then
-	haxe -main tardis.Go -dce full $*
+	haxe -main tardis.Go -cp tardis -dce full $*
 fi

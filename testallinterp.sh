@@ -4,7 +4,7 @@ do
  echo "Test running:" $d 
  cd $d
  tardisgo -debug *.go
- haxe -main tardis.Go --interp
+ haxe -main tardis.Go -cp tardis --interp
  cd ~/go/src/github.com/tardisgo/tardisgo-samples
 done
 

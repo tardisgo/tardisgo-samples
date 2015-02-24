@@ -11,7 +11,7 @@ import openfl.Assets;
 import openfl.text.TextField;
 import openfl.text.TextFieldAutoSize;
 
-import tardis.Go; // import of the Go code
+import tardis.*; // import of the Go code
 
 
 class Main extends Sprite {

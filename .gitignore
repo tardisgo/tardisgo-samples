@@ -1,9 +1,9 @@
 .DS_Store
-*/*/Go.hx
-*/*/*/Go.hx
-*/*/*/*/Go.hx
-*/*/*/*/*/Go.hx
-*/*/*/*/*/*/Go.hx
+*/tardis/*
+*/*/tardis/*
+*/*/*/tardis/*
+*/*/*/*/tardis/*
+*/*/*/*/*/tardis/*
 */*/*.pprof
 */*/*/*.pprof
 */*/*/*/*.pprof
@@ -25,9 +25,9 @@ gobyexample/*/cs/*
 gobyexample/*/cpp/*
 gobyexample/*/php/*
 gobyexample/*/*.swf
-gobyexample/*/tardis/Go.hx
+gobyexample/*/tardis/*.hx
 openfl/*/Export/*
-openfl/*/Source/tardis/Go.hx
+openfl/*/Source/tardis/*.hx
 tests/*/tardis/*
 tests/*/*.js
 tests/*/*.js.map
@@ -37,7 +37,7 @@ tests/*/cs/*
 tests/*/cpp/*
 tests/*/php/*
 tests/*/*.swf
-tests/*/tardis/Go.hx
+tests/*/tardis/*.hx
 benchmarks/*/tardis/*
 benchmarks/*/*.js
 benchmarks/*/*.js.map
@@ -47,7 +47,7 @@ benchmarks/*/cs/*
 benchmarks/*/cpp/*
 benchmarks/*/php/*
 benchmarks/*/*.swf
-benchmarks/*/tardis/Go.hx
+benchmarks/*/tardis/*.hx
 wip/*/*.js
 wip/*/*.js.map
 wip/*/*.n
