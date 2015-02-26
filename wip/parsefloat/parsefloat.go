@@ -2,8 +2,11 @@ package main
 
 import (
 	"fmt"
+	_ "math"
 	"reflect"
 )
+
+const tardisgoLibList = "math,strconv"
 
 type I int
 

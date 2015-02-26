@@ -148,7 +148,7 @@ class Main extends Sprite {
 		s2laststatus = [0, 0, 0];
 		bookslaststatus = [true, true, true];
 		Go.init(); // initialise the Go environment
-		Go_main_SStartGGophers.callFromHaxe(); // start the gopher animation goroutines
+		Go_main_SStartGGophers.hx(); // start the gopher animation goroutines
 		goTimer=new Timer(25); // 25 ms per run
 		goTimer.addEventListener ( "timer", goTimerEvent); // schedule some go every so often
 		goTimer.start();
