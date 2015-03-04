@@ -6,13 +6,13 @@ class Main {
  	public static function main(){
 		trace("Go unicode normalization library access example");
 
-		compare("aaa","aaa"); 									// aaa == aaa ? true
-		compare("aaa","aab"); 									// aaa == aab ? false
-		compare("a\u0300a", "\u00E0a");							// àa == àa ? true
-		compare("a\u0300\u0320b", "a\u0320\u0300b");			// à̠b == à̠b ? true
-		compare("\u1E0A\u0323", "\x44\u0323\u0307");			// Ḍ̇ == Ḍ̇ ? true
+		compare("aaa","aaa");                                   // aaa == aaa ? true
+		compare("aaa","aab");                                   // aaa == aab ? false
+		compare("a\u0300a", "\u00E0a");                         // àa == àa ? true
+		compare("a\u0300\u0320b", "a\u0320\u0300b");            // à̠b == à̠b ? true
+		compare("\u1E0A\u0323", "\x44\u0323\u0307");            // Ḍ̇ == Ḍ̇ ? true
 		// A character that decomposes into multiple segments spans several iterations.
-		compare("\u3304", "\u30A4\u30CB\u30F3\u30AF\u3099");	// ㌄ == イニング ? true
+		compare("\u3304", "\u30A4\u30CB\u30F3\u30AF\u3099");    // ㌄ == イニング ? true
 	}
 
 	static function compare(a1:String,b1:String):Bool{
