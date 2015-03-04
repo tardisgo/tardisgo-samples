@@ -4,7 +4,7 @@ import tardis.*; // import the generated Go code
 
 class Main {
  	public static function main(){
-		trace("Go unicode normalization library access example");
+		trace("Go unicode normalization library example");
 		// for documentation see https://godoc.org/golang.org/x/text/unicode/norm
 
 		compare("aaa","aaa");                                   // aaa == aaa ? true
