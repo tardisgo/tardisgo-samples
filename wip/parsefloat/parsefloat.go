@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	_ "math"
 	"reflect"
+	"time"
 )
 
 const tardisgoLibList = "math,strconv"
@@ -49,4 +49,5 @@ func main() {
 
 	fmt.Printf("ValueOf=%v\n", reflect.ValueOf(b12).Field(0))
 
+	fmt.Println("The time is", time.Now())
 }

@@ -1,0 +1,110 @@
+# Name: (*main.decompressor).ResetOK
+# Package: main
+# Location: reset.go:53:24
+# Locals:
+#   0:	t0 decompressor
+#   1:	t1 decompressor
+func (f *decompressor) ResetOK():
+0:                                                                entry P:0 S:0
+	t0 = local decompressor (d)                               *decompressor
+	t1 = local decompressor ()                                *decompressor
+	t2 = *t1                                                   decompressor
+	*t0 = t2
+	t3 = &t0.hist [#9]                                        **[32768]byte
+	t4 = &f.hist [#9]                                         **[32768]byte
+	t5 = *t4                                                   *[32768]byte
+	*t3 = t5
+	t6 = *t0                                                   decompressor
+	*f = t6
+	return
+
+# Name: (*main.decompressor).ResetBad
+# Package: main
+# Location: reset.go:60:24
+# Locals:
+#   0:	t0 decompressor
+func (f *decompressor) ResetBad():
+0:                                                                entry P:0 S:0
+	t0 = local decompressor ()                                *decompressor
+	t1 = *t0                                                   decompressor
+	*f = t1
+	t2 = &f.hist [#9]                                         **[32768]byte
+	t3 = &f.hist [#9]                                         **[32768]byte
+	t4 = *t3                                                   *[32768]byte
+	*t2 = t4
+	return
+
+# Name: (*main.decompressor).print
+# Package: main
+# Location: reset.go:65:24
+func (f *decompressor) print():
+0:                                                                entry P:0 S:1
+	t0 = &f.hist [#9]                                         **[32768]byte
+	t1 = *t0                                                   *[32768]byte
+	jump 1
+1:                                                      rangeindex.loop P:2 S:2
+	t2 = phi [0: -1:int, 2: t3]                                         int
+	t3 = t2 + 1:int                                                     int
+	t4 = t3 < 32768:int                                                bool
+	if t4 goto 2 else 3
+2:                                                      rangeindex.body P:1 S:2
+	t5 = t3 & 255:int                                                   int
+	t6 = &f.hist [#9]                                         **[32768]byte
+	t7 = *t6                                                   *[32768]byte
+	t8 = &t7[t3]                                                      *byte
+	t9 = *t8                                                           byte
+	t10 = convert int <- byte (t9)                                      int
+	t11 = t5 != t10                                                    bool
+	if t11 goto 4 else 1
+3:                                                      rangeindex.done P:1 S:0
+	t12 = println("good":string)                                         ()
+	return
+4:                                                              if.then P:1 S:0
+	t13 = println("bad":string)                                          ()
+	return
+
+# Name: main.main
+# Package: main
+# Location: reset.go:75:6
+func main():
+0:                                                                entry P:0 S:1
+	t0 = new decompressor (new)                               *decompressor
+	t1 = &t0.hist [#9]                                        **[32768]byte
+	t2 = new [32768]byte (new)                                 *[32768]byte
+	*t1 = t2
+	t3 = &t0.hist [#9]                                        **[32768]byte
+	t4 = *t3                                                   *[32768]byte
+	jump 1
+1:                                                      rangeindex.loop P:2 S:2
+	t5 = phi [0: -1:int, 2: t6]                                         int
+	t6 = t5 + 1:int                                                     int
+	t7 = t6 < 32768:int                                                bool
+	if t7 goto 2 else 3
+2:                                                      rangeindex.body P:1 S:1
+	t8 = &t0.hist [#9]                                        **[32768]byte
+	t9 = *t8                                                   *[32768]byte
+	t10 = &t9[t6]                                                     *byte
+	t11 = convert byte <- int (t6)                                     byte
+	*t10 = t11
+	jump 1
+3:                                                      rangeindex.done P:1 S:0
+	t12 = (*decompressor).print(t0)                                      ()
+	t13 = (*decompressor).ResetOK(t0)                                    ()
+	t14 = (*decompressor).print(t0)                                      ()
+	t15 = (*decompressor).ResetBad(t0)                                   ()
+	t16 = (*decompressor).print(t0)                                      ()
+	return
+
+# Name: main.init
+# Package: main
+# Synthetic: package initializer
+func init():
+0:                                                                entry P:0 S:2
+	t0 = *init$guard                                                   bool
+	if t0 goto 2 else 1
+1:                                                           init.start P:1 S:1
+	*init$guard = true:bool
+	jump 2
+2:                                                            init.done P:2 S:0
+	return
+

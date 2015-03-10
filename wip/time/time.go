@@ -3,14 +3,7 @@
 
 package main
 
-//import "fmt"
 import (
-	_ "github.com/tardisgo/tardisgo/golibruntime/math"
-	_ "github.com/tardisgo/tardisgo/golibruntime/runtime"
-	_ "github.com/tardisgo/tardisgo/golibruntime/sync"
-	_ "github.com/tardisgo/tardisgo/golibruntime/sync/atomic"
-	_ "github.com/tardisgo/tardisgo/golibruntime/syscall"
-	_ "github.com/tardisgo/tardisgo/golibruntime/time"
 	"strconv"
 	"time"
 )
