@@ -84,3 +84,4 @@ haxe-call-examples/*/cpp/*
 haxe-call-examples/*/php/*
 haxe-call-examples/*/*.swf
 haxe-call-examples/*/tardis/*
+go-as-haxe-lib-examples/*/*.js

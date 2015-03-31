@@ -3,10 +3,7 @@ package main
 import (
 	"fmt"
 	"reflect"
-	"time"
 )
-
-const tardisgoLibList = "math,strconv"
 
 type I int
 
@@ -37,8 +34,9 @@ func main() {
 	fmt.Printf("%v\n", b12)
 	fmt.Printf("%#v\n", b12)
 
-	fmt.Println(reflect.TypeOf(b12).NumField())
-	fmt.Println(reflect.TypeOf(b12).NumMethod())
+	//fmt.Println(reflect.TypeOf(b12).NumField())
+	//fmt.Println(reflect.TypeOf(b12).NumMethod())
+	//fmt.Println(reflect.TypeOf(b12.I).NumMethod())
 
 	for f := 0; f < reflect.TypeOf(b12).NumField(); f++ {
 		fmt.Printf("%d %#v \n", f, reflect.TypeOf(b12).Field(f))
@@ -49,5 +47,6 @@ func main() {
 
 	fmt.Printf("ValueOf=%v\n", reflect.ValueOf(b12).Field(0))
 
-	fmt.Println("The time is", time.Now())
+	y := float64(0)
+	fmt.Println("-0=", y*-1)
 }

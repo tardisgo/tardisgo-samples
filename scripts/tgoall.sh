@@ -10,7 +10,7 @@ if [ "$?" = "0" ]; then
 	haxe -main tardis.Go -cp tardis -dce full -cpp tardis/cpp 
 	haxe -main tardis.Go -cp tardis -dce full -java tardis/java
 	haxe -main tardis.Go -cp tardis -dce full -cs tardis/cs
-	haxe -main tardis.Go -cp tardis -dce full -php tardis/php --php-prefix tgo
+	#haxe -main tardis.Go -cp tardis -dce full -php tardis/php --php-prefix tgo
 	echo "Neko (haxe --interp):"
 	haxe -main tardis.Go -cp tardis --interp
 	#echo "Neko (only works on very small projects):"
@@ -27,8 +27,8 @@ if [ "$?" = "0" ]; then
 	java -jar tardis/java/Go.jar
 	echo "CS:"
 	mono ./tardis/cs/bin/Go.exe
-	echo "PHP:"
-	php tardis/php/index.php
+	#echo "PHP:"
+	#php tardis/php/index.php
 	echo "Opening swf file (Chrome as a file association for swf works to test on OSX):"
 	open tardis/go.swf
 fi

@@ -1,6 +1,22 @@
+# Name: (*main.decompressor).ResetBad
+# Package: main
+# Location: reset.go:54:24
+# Locals:
+#   0:	t0 decompressor
+func (f *decompressor) ResetBad():
+0:                                                                entry P:0 S:0
+	t0 = local decompressor ()                                *decompressor
+	t1 = *t0                                                   decompressor
+	t2 = &f.hist [#9]                                         **[32768]byte
+	t3 = &f.hist [#9]                                         **[32768]byte
+	t4 = *t3                                                   *[32768]byte
+	*f = t1
+	*t2 = t4
+	return
+
 # Name: (*main.decompressor).ResetOK
 # Package: main
-# Location: reset.go:53:24
+# Location: reset.go:78:24
 # Locals:
 #   0:	t0 decompressor
 #   1:	t1 decompressor
@@ -9,34 +25,18 @@ func (f *decompressor) ResetOK():
 	t0 = local decompressor (d)                               *decompressor
 	t1 = local decompressor ()                                *decompressor
 	t2 = *t1                                                   decompressor
-	*t0 = t2
 	t3 = &t0.hist [#9]                                        **[32768]byte
 	t4 = &f.hist [#9]                                         **[32768]byte
 	t5 = *t4                                                   *[32768]byte
+	*t0 = t2
 	*t3 = t5
 	t6 = *t0                                                   decompressor
 	*f = t6
 	return
 
-# Name: (*main.decompressor).ResetBad
-# Package: main
-# Location: reset.go:60:24
-# Locals:
-#   0:	t0 decompressor
-func (f *decompressor) ResetBad():
-0:                                                                entry P:0 S:0
-	t0 = local decompressor ()                                *decompressor
-	t1 = *t0                                                   decompressor
-	*f = t1
-	t2 = &f.hist [#9]                                         **[32768]byte
-	t3 = &f.hist [#9]                                         **[32768]byte
-	t4 = *t3                                                   *[32768]byte
-	*t2 = t4
-	return
-
 # Name: (*main.decompressor).print
 # Package: main
-# Location: reset.go:65:24
+# Location: reset.go:107:24
 func (f *decompressor) print():
 0:                                                                entry P:0 S:1
 	t0 = &f.hist [#9]                                         **[32768]byte
@@ -65,7 +65,7 @@ func (f *decompressor) print():
 
 # Name: main.main
 # Package: main
-# Location: reset.go:75:6
+# Location: reset.go:117:6
 func main():
 0:                                                                entry P:0 S:1
 	t0 = new decompressor (new)                               *decompressor
