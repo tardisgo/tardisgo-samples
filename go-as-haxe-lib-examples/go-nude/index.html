@@ -1,11 +1,20 @@
-</<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>go-nude TARDISgo Haxe library example</title>
+	<title>go-nude TARDISgo Go->Haxe library example using JS</title>
+	<link rel="stylesheet" type="text/css" href="avenir-white.css">
+	<!-- https://github.com/jasonm23/markdown-css-themes/blob/gh-pages/avenir-white.css -->
 </head>
-<body>
-<h2><a href=https://github.com/koyachi/go-nude>Go-Nude</a>: a <a href=https://github.com/tardisgo/tardisgo>TARDISGo</a> Go->Haxe library demonstration</h2>
-<input id="inputFileToLoad" type="file" /><br>
+<body> 
+<h2>Nudity Detection: A Go library called from Haxe</h2>
+
+<p>The <a href=https://github.com/koyachi/go-nude>go-nude</a> nudity detection libray takes a jpeg, gif or png image and tries to determine if it contains nudity. Try it below by choosing a thumbnail image.</p>
+
+<p>The library has been translated from Go into Haxe using <a href=https://github.com/tardisgo/tardisgo>TARDIS Go</a>. The Haxe compiler then translated this <a href=https://github.com/tardisgo/tardisgo-samples/blob/master/go-as-haxe-lib-examples/go-nude/Main.hx>program</a> to call the library, and the generated library itself, into JS to enable it to run in this page.</p>
+
+<p>The translation process is currently very imature and produces slow code. As a result, please only test with small thumbnail-size images. Finally, be aware that the library does not always give the result you might expect!</p>
+
+<input id="inputFileToLoad" type="file"/><br>
 <div id="imgTest"></div><br>
 <output id="result"></output><br>
 <script type='text/javascript' src="test-opt.js"></script>
