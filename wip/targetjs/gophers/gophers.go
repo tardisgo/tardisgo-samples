@@ -7,13 +7,9 @@
 package main
 
 import (
-	//"strings"
-
-	//_ "github.com/tardisgo/tardisgo/golibruntime/strings"
-
+	"runtime"
 	. "github.com/tardisgo/gohaxelib/_js"
-	"github.com/tardisgo/tardisgo/tardisgolib"
-	"github.com/tardisgo/tardisgo/tardisgolib/hx"
+	"github.com/tardisgo/tardisgo/haxe/hx"
 )
 
 var timer Shaxe_Timer // make sure it is a global variable
@@ -379,5 +375,5 @@ func monitor() {
 // Gosched here both monitors what is going on, displaying changes to the observer and schedules other goroutines
 func Gosched() {
 	monitor()
-	tardisgolib.Gosched()
+	runtime.Gosched()
 }
