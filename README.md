@@ -24,7 +24,7 @@ For help or general discussions about this repository please go to the [Google G
 
 ### Command line samples showing Haxe called from Go
 ----
-- [geturl](https://github.com/tardisgo/tardisgo-samples/blob/master/haxe-call-examples/geturl/geturl.go) Print tardisgo web site LICENSE in the simplest way possible using the [Haxe pseudo-functions API library](https://github.com/tardisgo/tardisgo/blob/master/tardisgolib/hx/hx.go)
+- [geturl](https://github.com/tardisgo/tardisgo-samples/blob/master/haxe-call-examples/geturl/geturl.go) Print tardisgo web site LICENSE in the simplest way possible using the [Haxe pseudo-functions API library](https://github.com/tardisgo/tardisgo/blob/master/haxe/hx/hx.go)
 - [printdatetime](https://github.com/tardisgo/tardisgo-samples/blob/master/haxe-call-examples/printdatetime/printdatetime.go) - Print current Haxe date and time using the Haxe "target".Lib.println() API if one exists - shows use of the [_cross API definition](https://github.com/tardisgo/gohaxelib) and also has an example of hand-building a haxe api definition 
 
 ### Go as Haxe library examples
