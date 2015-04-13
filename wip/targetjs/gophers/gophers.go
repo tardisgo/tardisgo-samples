@@ -142,9 +142,9 @@ const (
 )
 
 func makeText(selectable bool, x, y, width, height, textColor int, oldtext, text string) {
-	context.SfillStyle_s(hx.GetDynamic("", `'#fff'`))
+	context.SfillStyle_s(Shaxe_extern_EitherType(hx.GetDynamic("", `'#fff'`)))
 	context.SfillText_3(oldtext, float64(x), float64(y))
-	context.SfillStyle_s(hx.GetDynamic("", `'#373'`))
+	context.SfillStyle_s(Shaxe_extern_EitherType(hx.GetDynamic("", `'#373'`)))
 	context.Sfont_s("12px Arial")
 	ss := make([]string, 1)
 	for _, v := range text {
@@ -176,9 +176,10 @@ func makeSprite(bitmap Sjs_html_Image, x, y int) *Sprite {
 	if bitmap.Scomplete_g() {
 		context.SdrawImage_3(bitmap, x, y) //context.Call("drawImage", bitmap, x, y)
 	} else {
-		bitmap.Sonload_s(func(e uintptr) {
+		f := func(e uintptr) {
 			context.SdrawImage_3(bitmap, x, y)
-		})
+		}
+		hx.Code("", "_a[0].val.onload=_a[1].val;", bitmap, hx.CallbackFunc(f))
 	}
 	return &Sprite{
 		bitmap: bitmap,
@@ -187,7 +188,7 @@ func makeSprite(bitmap Sjs_html_Image, x, y int) *Sprite {
 	}
 }
 
-var doc Sjs_html_Document
+var doc Sjs_html_HTMLDocument
 
 var emptyPilePng, smallPilePng, pickPng1, pickPng2, fullPng1, fullPng2, emptyPng1, emptyPng2, shovelPng1, shovelPng2, white, L1, L2, WT Sjs_html_Image
 
