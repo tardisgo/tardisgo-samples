@@ -63,9 +63,9 @@ class Main {
 						trace("start isNude");
 				       	var nude = isNude();
 			       		if(nude)
-				            js.Browser.document.getElementById("result").innerHTML = "<font style=\"background:red\"  >Image looks nude!</font>";
+				            js.Browser.document.getElementById("result").innerHTML = "<font style=\"background:red;color:white;padding:0 10px\"  >Image looks nude!</font>";
 				        else
-				            js.Browser.document.getElementById("result").innerHTML = "<font style=\"background:green\">Image looks fine.</font>";
+				            js.Browser.document.getElementById("result").innerHTML = "<font style=\"background:green;color:white;padding:0 10px\">Image looks fine.</font>";
 				    },100);
 
 	        }
