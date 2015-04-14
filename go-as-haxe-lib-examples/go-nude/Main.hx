@@ -63,9 +63,9 @@ class Main {
 						trace("start isNude");
 				       	var nude = isNude();
 			       		if(nude)
-				            js.Browser.document.getElementById("result").innerHTML = "go-nude verdict: NUDE!";
+				            js.Browser.document.getElementById("result").innerHTML = "<font style=\"background:red\"  >Image looks nude!</font>";
 				        else
-				            js.Browser.document.getElementById("result").innerHTML = "go-nude verdict: no problem.";
+				            js.Browser.document.getElementById("result").innerHTML = "<font style=\"background:green\">Image looks fine.</font>";
 				    },100);
 
 	        }
