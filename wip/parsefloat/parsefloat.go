@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"reflect"
+	"strconv"
 )
 
 type I int
@@ -49,4 +50,7 @@ func main() {
 
 	y := float64(0)
 	fmt.Println("-0=", y*-1)
+
+	u, err := strconv.ParseUint("1e19", 10, 64)
+	println("1e19", u, err.Error())
 }

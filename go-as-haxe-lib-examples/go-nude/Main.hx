@@ -16,14 +16,15 @@ class Main {
 		var sl=tardis.Slice.fromBytes(b); // make a Go byte slice
 		trace(typ,sl.len());
 		var p="temp."+typ; // the name of our file
-		var err=tardis.Go_io_47_ioutil_WWriteFFile.hx(p,sl,438 /*0666*/); // write the file in the pseudo file system
+		// write the file in the pseudo file system
+		var err=tardis.Go_io_47_ioutil_WWriteFFile.hx(p,sl,438 /*0666*/); 
 	    if(err!=null){
 			trace(p," ioutil.WriteFile() had error: ",err);
 		} 
 		trace("wrote file ",p);
 	 	fName=p;
-	 }
-	 public static function isNude():Bool {
+	}
+	public static function isNude():Bool {
 	    var ret=tardis.Go_github_dot_com_47_koyachi_47_go_45_nude_IIsNNude.hx(fName);
 	    if(ret.r1!=null){
 			trace("nude.IsNude() had error: ",ret.r1);
