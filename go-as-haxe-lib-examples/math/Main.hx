@@ -5,8 +5,8 @@ import tardis.*; // import the generated Go code
 class Main {
  	public static function main(){
 		trace("Go 'math' and 'strconv' standard library trivial example");
-
 		// for documentation see http://golang.org/pkg/math and http://golang.org/pkg/strconv
+		
 		// math.Nextafter returns the next representable float64 value after x towards y. 
 		var na2to3=Go_math_NNextafter.hx(2.0,3.0);
 		var na2to1=Go_math_NNextafter.hx(2.0,1.0);

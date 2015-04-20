@@ -53,4 +53,14 @@ func main() {
 
 	u, err := strconv.ParseUint("1e19", 10, 64)
 	println("1e19", u, err.Error())
+
+	e := int64(-1 << 63)
+	eu := uint64(e)
+	eum := -eu
+	eumd := eum % 10
+	eumdb := byte(eumd)
+	fmt.Println("e,eu,-,%10,byte()=", e, eu, eum, eumd, eumdb)
+
+	x777 := 777
+	fmt.Println("Cast from int +/-", x777, -x777, " to uint8 ", uint8(x777), uint8(-x777))
 }
