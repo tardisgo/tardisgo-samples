@@ -1,0 +1,11 @@
+-main tardis.Go
+-cp tardis
+-dce full
+--each
+-js tardis/go.js
+--next
+-cs tardis/cs
+--next
+-java tardis/java
+--next
+-cpp tardis/cpp
