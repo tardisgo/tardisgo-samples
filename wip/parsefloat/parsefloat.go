@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"reflect"
 	"strconv"
+
+	"github.com/tardisgo/tardisgo/haxe/hx"
 )
 
 type I int
@@ -50,6 +52,8 @@ func main() {
 
 	y := float64(0)
 	fmt.Println("-0=", y*-1)
+	fmz := hx.CodeFloat("", "Force.minusZero;")
+	fmt.Println("Force -0=", fmz, 1/fmz)
 
 	u, err := strconv.ParseUint("1e19", 10, 64)
 	println("1e19", u, err.Error())

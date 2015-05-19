@@ -6,11 +6,15 @@ package main
 
 import (
 	"fmt"
+	"go/build"
 	"os"
+	"runtime"
+	"syscall"
 
 	"golang.org/x/tools/go/loader"
 	"golang.org/x/tools/go/ssa"
 	"golang.org/x/tools/go/ssa/interp"
+	"golang.org/x/tools/go/ssa/ssautil"
 	"golang.org/x/tools/go/types"
 )
 
@@ -34,16 +38,24 @@ func main() {
 	const hello = `
 package main
 
-//import "fmt"
-
 const message = "Hello, World!"
 
 func main() {
-	//fmt.Println(message)
 	println(message)
+	println("The meaning of life the universe and everything is ",42)
 }
 `
-	var conf loader.Config
+
+	conf := loader.Config{
+		Build: &build.Default,
+	}
+	syscall.UnzipFS("Users.zip")
+	conf.Build.GOROOT = "/Users/elliott/go/src/github.com/tardisgo/tardisgo/goroot/haxe/go1.4/"
+	conf.Build.GOPATH = "/Users/elliott/go/"
+	conf.Build.GOOS = "nacl"
+	conf.Build.GOARCH = "haxe"
+
+	println("Compiler:", runtime.Compiler)
 
 	// Parse the input file.
 	file, err := conf.ParseFile("hello.go", hello)
@@ -51,11 +63,9 @@ func main() {
 		fmt.Print(err) // parse error
 		return
 	}
-
 	// Create single-file main package.
 	conf.CreateFromFiles("main", file)
-
-	conf.Import("runtime") // TARDISGO ADDITION
+	conf.Import("runtime")
 
 	// Load the main package and its dependencies.
 	iprog, err := conf.Load()
@@ -65,7 +75,7 @@ func main() {
 	}
 
 	// Create SSA-form program representation.
-	prog := ssa.Create(iprog, ssa.SanityCheckFunctions)
+	prog := ssautil.CreateProgram(iprog, ssa.SanityCheckFunctions)
 	mainPkg := prog.Package(iprog.Created[0].Pkg)
 
 	// Print out the package.

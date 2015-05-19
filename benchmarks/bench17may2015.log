@@ -1,0 +1,48 @@
+mandel benchmark:
+go:
+"CPP:"
+       26.32 real        25.28 user         0.27 sys
+
+"CS:"
+       34.87 real        33.70 user         0.36 sys
+
+"Java:"
+Picked up JAVA_TOOL_OPTIONS: -Djava.awt.headless=true
+       40.08 real        39.37 user         0.40 sys
+
+"Node/JS:"
+      195.77 real       194.03 user         1.60 sys
+
+GopherJS
+fannkuch benchmark:
+go:
+"Java:"
+Picked up JAVA_TOOL_OPTIONS: -Djava.awt.headless=true
+       65.91 real        63.79 user         1.09 sys
+
+"CS:"
+      119.33 real       113.86 user         1.65 sys
+
+"CPP:"
+      148.37 real       146.80 user         9.13 sys
+
+"Node/JS:"
+      216.84 real       210.54 user         3.06 sys
+
+GopherJS
+binarytree benchmark:
+go:
+"Java:"
+Picked up JAVA_TOOL_OPTIONS: -Djava.awt.headless=true
+       38.43 real        39.47 user         1.46 sys
+
+"CS:"
+      327.51 real       313.24 user         6.68 sys
+
+"CPP:"
+      344.52 real       474.84 user         4.55 sys
+
+"Node/JS:"
+      485.64 real       467.56 user        13.25 sys
+
+GopherJS

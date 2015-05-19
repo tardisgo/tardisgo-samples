@@ -33,7 +33,7 @@ func (n *binaryNode) itemCheck() int {
 const minDepth = 4
 
 func binarytree(n int) {
-	println("start binarytree test")
+	//println("start binarytree test")
 	maxDepth := n
 	if minDepth+2 > n {
 		maxDepth = minDepth + 2
@@ -42,7 +42,7 @@ func binarytree(n int) {
 
 	check := bottomUpTree(0, stretchDepth).itemCheck()
 	//fmt.Printf("stretch tree of depth %d\t check: %d\n", stretchDepth, check)
-	println("stretch tree of depth ", stretchDepth, " check: ", check)
+	//println("stretch tree of depth ", stretchDepth, " check: ", check)
 
 	longLivedTree := bottomUpTree(0, maxDepth)
 
@@ -55,17 +55,17 @@ func binarytree(n int) {
 			check += bottomUpTree(-i, depth).itemCheck()
 		}
 		//fmt.Printf("%d\t trees of depth %d\t check: %d\n", iterations*2, depth, check)
-		println(iterations*2, " trees of depth ", depth, " check: ", check)
+		//println(iterations*2, " trees of depth ", depth, " check: ", check)
 	}
 	longLivedTree.itemCheck()
 	//fmt.Printf("long lived tree of depth %d\t check: %d\n", maxDepth, longLivedTree.itemCheck())
-	println("long lived tree of depth ", maxDepth, " check: ", longLivedTree.itemCheck())
+	//println("long lived tree of depth ", maxDepth, " check: ", longLivedTree.itemCheck())
 }
 
 //func BenchmarkBinaryTree17(b *testing.B) {
 func main() {
 	for i := 1; i < 3; i++ {
-		println("begin itteration", i) // multiple itterations to check GC is working
-		binarytree(17)                 // NOTE breaks PHP default memory sizes ... and runs for too long at present!
+		//println("begin itteration", i) // multiple itterations to check GC is working
+		binarytree(17) // NOTE breaks PHP default memory sizes ... and runs for too long at present!
 	}
 }
