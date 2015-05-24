@@ -1,0 +1,65 @@
+mandel benchmark:
+go:
+TARDISgo default settings
+"CPP:"
+       17.63 real        17.21 user         0.03 sys
+
+"CS:"
+       29.99 real        29.58 user         0.03 sys
+
+"Java:"
+Picked up JAVA_TOOL_OPTIONS: -Djava.awt.headless=true
+       53.95 real        53.90 user         0.06 sys
+
+"Node/JS:"
+      153.16 real       152.97 user         0.60 sys
+
+GopherJS
+fannkuch benchmark:
+go:
+TARDISgo default settings
+"Java:"
+Picked up JAVA_TOOL_OPTIONS: -Djava.awt.headless=true
+       52.91 real        53.08 user         0.47 sys
+
+"CS:"
+       84.95 real        83.28 user         0.17 sys
+
+"CPP:"
+       97.64 real        99.71 user         7.98 sys
+
+"Node/JS:"
+      138.63 real       137.44 user         0.70 sys
+
+TARDISgo with in-line pointer code
+"Java:"
+Picked up JAVA_TOOL_OPTIONS: -Djava.awt.headless=true
+       43.24 real        43.71 user         0.38 sys
+
+"CS:"
+       54.88 real        53.35 user         0.13 sys
+
+"CPP:"
+       79.14 real        81.04 user         6.79 sys
+
+"Node/JS:"
+      105.50 real       104.37 user         0.49 sys
+
+GopherJS
+binarytree benchmark:
+go:
+TARDISgo default settings
+"Java:"
+Picked up JAVA_TOOL_OPTIONS: -Djava.awt.headless=true
+       28.80 real        32.88 user         1.04 sys
+
+"Node/JS:"
+      181.20 real       174.01 user         6.36 sys
+
+"CS:"
+      186.71 real       180.65 user         3.24 sys
+
+"CPP:"
+      199.74 real       298.03 user         0.72 sys
+
+GopherJS
