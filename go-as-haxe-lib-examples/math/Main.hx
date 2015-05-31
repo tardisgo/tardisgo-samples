@@ -13,9 +13,15 @@ class Main {
 
 		// The Std.string() float->string conversions for cpp & cs round the results to "2",
 		// so Go formatting is used to give a consistent cross-platform result.
-		trace("The next valid floating point value after 2.0 towards 3.0 is: "+
+		trace("The next valid floating point value after 2.0 towards 3.0 is (Go): "+
 			Go_strconv_FFormatFFloat.hx(na2to3,"g".charCodeAt(0),-1,64)); // 2.0000000000000004
-		trace("The next valid floating point value after 2.0 towards 1.0 is: "+
+		trace("The next valid floating point value after 2.0 towards 1.0 is (Go): "+
 			Go_strconv_FFormatFFloat.hx(na2to1,"g".charCodeAt(0),-1,64)); // 1.9999999999999998
+
+		// to show the rounding feature of cpp & cs
+		trace("The next valid floating point value after 2.0 towards 3.0 is (Haxe): "+
+			Std.string(na2to3));
+		trace("The next valid floating point value after 2.0 towards 1.0 is (Haxe): "+
+			Std.string(na2to1)); 
 	}
 } 
