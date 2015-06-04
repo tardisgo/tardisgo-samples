@@ -23,5 +23,14 @@ class Main {
 			Std.string(na2to3));
 		trace("The next valid floating point value after 2.0 towards 1.0 is (Haxe): "+
 			Std.string(na2to1)); 
+
+		// to show the formatting feature of cpp
+		#if cpp
+			cpp.Lib.setFloatFormat("%.17g");
+			trace("The next valid floating point value after 2.0 towards 3.0 is (explicit C++ format): "+
+				Std.string(na2to3));
+			trace("The next valid floating point value after 2.0 towards 1.0 is (explicit C++ format): "+
+				Std.string(na2to1)); 
+		#end
 	}
 } 
