@@ -19,8 +19,8 @@ echo "go:"
 time ./fannkuch
 echo "TARDISgo default settings"
 tardisgo -haxe all fannkuch.go
-echo "TARDISgo benchmark settings: -D inlinepointers"
-tardisgo -haxe bench fannkuch.go
+#echo "TARDISgo benchmark settings"
+#tardisgo -haxe bench fannkuch.go
 echo "GopherJS"
 gopherjs build fannkuch.go
 time node<fannkuch.js
