@@ -7,8 +7,8 @@ echo "go:"
 time ./mandel
 echo "TARDISgo default settings"
 tardisgo -haxe all mandel.go
-#echo "TARDISgo benchmark settings"
-#tardisgo -haxe bench mandel.go
+echo "TARDISgo benchmark settings"
+tardisgo -haxe bench mandel.go
 echo "GopherJS"
 gopherjs build mandel.go
 time node<mandel.js
@@ -19,8 +19,8 @@ echo "go:"
 time ./fannkuch
 echo "TARDISgo default settings"
 tardisgo -haxe all fannkuch.go
-#echo "TARDISgo benchmark settings"
-#tardisgo -haxe bench fannkuch.go
+echo "TARDISgo benchmark settings"
+tardisgo -haxe bench fannkuch.go
 echo "GopherJS"
 gopherjs build fannkuch.go
 time node<fannkuch.js
@@ -31,8 +31,8 @@ echo "go:"
 time ./binarytree
 echo "TARDISgo default settings"
 tardisgo -haxe all binarytree.go
-#echo "TARDISgo benchmark settings"
-#tardisgo -haxe bench binarytree.go
+echo "TARDISgo benchmark settings"
+tardisgo -haxe bench binarytree.go
 echo "GopherJS"
 gopherjs build binarytree.go
 time node<binarytree.js
