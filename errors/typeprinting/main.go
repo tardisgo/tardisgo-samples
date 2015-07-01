@@ -49,13 +49,4 @@ func main() {
 	// Print out the package.
 	fmt.Println("\ngolang.org/x/tools/go/types type descriptions:")
 	mainPkg.WriteTo(os.Stdout)
-
-	// Build SSA code for bodies of functions in mainPkg.
-	//mainPkg.Build()
-
-	// Print out the package-level functions.
-	//mainPkg.Func("init").WriteTo(os.Stdout)
-	//mainPkg.Func("main").WriteTo(os.Stdout)
-
-	//interp.Interpret(mainPkg, 0, &types.StdSizes{8, 8}, "hello.go", []string{})
 }
