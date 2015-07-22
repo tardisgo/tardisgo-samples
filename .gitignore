@@ -75,6 +75,8 @@ wip/haxe-call-examples/*/cpp/*
 wip/haxe-call-examples/*/php/*
 wip/haxe-call-examples/*/*.swf
 wip/haxe-call-examples/*/tardis/*
+wip/gocallingcpphaxe/a.out
+wip/gocallingcpphaxe/*.o
 haxe-call-examples/*/*.js
 haxe-call-examples/*/*.js.map
 haxe-call-examples/*/*.n
@@ -85,3 +87,4 @@ haxe-call-examples/*/php/*
 haxe-call-examples/*/*.swf
 haxe-call-examples/*/tardis/*
 go-as-haxe-lib-examples/*/*.js
+

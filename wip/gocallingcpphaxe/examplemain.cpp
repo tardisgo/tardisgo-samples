@@ -33,10 +33,8 @@
 
 #include <stdio.h>
 
-/*
 extern "C" const char *hxRunLibrary();
 extern "C" void hxcpp_set_top_of_stack();
-*/	
 
 // Declare additional library entry points...
 //extern "C" int nme_register_prims();
@@ -45,21 +43,29 @@ extern "C" int hxmain(int argc, char *argv[])
 {
 	// Do this first
   printf("hxmain!\n");
-	/*
+	
   hxcpp_set_top_of_stack();
-  */
+  
    // Register additional ndll libaries ...
    // nme_register_prims();
 
 	printf("Begin!\n");
- 	/*
+ 	
   const char *err = hxRunLibrary();
 	if (err) {
 		// Unhandled exceptions ...
 		fprintf(stderr,"Error %s\n", err );
 		return -1;
 	}
-  */
-	printf("Done!\n");
+
+	printf("Done! %d\n",1110);
 	return 0;
 }
+
+/*
+extern "C" int main(int argc, char *argv[]) 
+{
+  return hxmain(argc,argv);
+}
+*/
+
