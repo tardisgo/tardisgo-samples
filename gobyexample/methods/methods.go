@@ -1,6 +1,7 @@
 // Go supports _methods_ defined on struct types.
 
 package main // example adapted from gobyexample.com/methods
+import "fmt"
 
 type rect struct {
 	width, height int
@@ -21,8 +22,8 @@ func main() {
 	r := rect{width: 10, height: 5}
 
 	// Here we call the 2 methods defined for our struct.
-	println("area: ", r.area())
-	println("perim:", r.perim())
+	fmt.Println("area: ", r.area())
+	fmt.Println("perim:", r.perim())
 
 	// Go automatically handles conversion between values
 	// and pointers for method calls. You may want to use
@@ -30,6 +31,6 @@ func main() {
 	// calls or to allow the method to mutate the
 	// receiving struct.
 	rp := &r
-	println("area: ", rp.area())
-	println("perim:", rp.perim())
+	fmt.Println("area: ", rp.area())
+	fmt.Println("perim:", rp.perim())
 }

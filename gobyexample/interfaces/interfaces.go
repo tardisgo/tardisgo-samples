@@ -6,6 +6,7 @@
 package main
 
 import (
+	"fmt"
 	"math"
 )
 
@@ -47,9 +48,9 @@ func (c circle) perim() float64 {
 // generic `measure` function taking advantage of this
 // to work on any `geometry`.
 func measure(g geometry) {
-	println(g)
-	println(g.area())
-	println(g.perim())
+	fmt.Println(g)
+	fmt.Println(g.area())
+	fmt.Println(g.perim())
 }
 
 func main() {

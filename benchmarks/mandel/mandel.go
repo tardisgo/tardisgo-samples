@@ -8,8 +8,6 @@
 
 package main
 
-//import 	"time"
-
 func mandelbrot(n int) int {
 	const Iter = 50
 	const Zero float64 = 0
@@ -37,8 +35,5 @@ func mandelbrot(n int) int {
 }
 
 func main() {
-	//start := time.Now()
-	mandelbrot(10000) // was 200
-	//end := time.Now()
-	//println("Mandelbrot processing time=" + end.Sub(start).String())
+	_ := mandelbrot(10000) // was 200
 }

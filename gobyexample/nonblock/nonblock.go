@@ -5,7 +5,7 @@
 
 package main
 
-//import "fmt"
+import "fmt"
 
 func main() {
 	messages := make(chan string)
@@ -17,18 +17,18 @@ func main() {
 	// it will immediately take the `default` case.
 	select {
 	case msg := <-messages:
-		println("received message", msg)
+		fmt.Println("received message", msg)
 	default:
-		println("no message received")
+		fmt.Println("no message received")
 	}
 
 	// A non-blocking send works similarly.
 	msg := "hi"
 	select {
 	case messages <- msg:
-		println("sent message", msg)
+		fmt.Println("sent message", msg)
 	default:
-		println("no message sent")
+		fmt.Println("no message sent")
 	}
 
 	// We can use multiple `case`s above the `default`
@@ -37,10 +37,10 @@ func main() {
 	// on both `messages` and `signals`.
 	select {
 	case msg := <-messages:
-		println("received message", msg)
+		fmt.Println("received message", msg)
 	case sig := <-signals:
-		println("received signal", sig)
+		fmt.Println("received signal", sig)
 	default:
-		println("no activity")
+		fmt.Println("no activity")
 	}
 }

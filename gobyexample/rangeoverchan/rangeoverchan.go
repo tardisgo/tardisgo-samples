@@ -4,6 +4,7 @@
 // values received from a channel.
 
 package main // adapted from gobyexample.com
+import "fmt"
 
 func main() {
 
@@ -19,6 +20,6 @@ func main() {
 	// receiving the 2 elements. If we didn't `close` it
 	// we'd block on a 3rd receive in the loop.
 	for elem := range queue {
-		println(elem)
+		fmt.Println(elem)
 	}
 }

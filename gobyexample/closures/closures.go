@@ -7,7 +7,7 @@
 
 package main
 
-//import "fmt"
+import "fmt"
 
 // This function `intSeq` returns another function, which
 // we define anonymously in the body of `intSeq`. The
@@ -31,13 +31,13 @@ func main() {
 
 	// See the effect of the closure by calling `nextInt`
 	// a few times.
-	println(nextInt())
-	println(nextInt())
-	println(nextInt())
+	fmt.Println(nextInt())
+	fmt.Println(nextInt())
+	fmt.Println(nextInt())
 
 	// To confirm that the state is unique to that
 	// particular function, create and test a new one.
 	newInts := intSeq()
-	println(newInts())
+	fmt.Println(newInts())
 
 }

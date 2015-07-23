@@ -12,18 +12,10 @@
 package main
 
 import (
-	// Not available in TARDIS Go as at Jan'14
-	// "fmt"
-	// "time"
-	// "math/rand"
-
-	//"sync/atomic"
-
-	//_ "github.com/tardisgo/tardisgo/golibruntime/sync/atomic" // runtime functions for sync/atomic
-
-	"runtime"
-
-	"github.com/tardisgo/tardisgo/haxe/hx" // runtime functions for TARDIS Go
+	"fmt"
+	"math/rand"
+	"sync/atomic"
+	"time"
 )
 
 // In this example our state will be owned by a single
@@ -86,11 +78,11 @@ func main() {
 		go func() {
 			for {
 				read := &readOp{
-					key:  hx.CodeInt("", "Std.random(5);"), // rand.Intn(5),
+					key:  rand.Intn(5),
 					resp: make(chan int)}
 				reads <- read
 				<-read.resp
-				ops++ //atomic.AddInt64(&ops, 1)
+				atomic.AddInt64(&ops, 1)
 			}
 		}()
 	}
@@ -101,24 +93,20 @@ func main() {
 		go func() {
 			for {
 				write := &writeOp{
-					key:  hx.CodeInt("", "Std.random(5);"),   // rand.Intn(5),
-					val:  hx.CodeInt("", "Std.random(100);"), // rand.Intn(100),
+					key:  rand.Intn(5),
+					val:  rand.Intn(100),
 					resp: make(chan bool)}
 				writes <- write
 				<-write.resp
-				ops++ //atomic.AddInt64(&ops, 1)
+				atomic.AddInt64(&ops, 1)
 			}
 		}()
 	}
 
 	// Let the goroutines work for a second.
-	//time.Sleep(time.Second)
-	for i := 0; i < 1000; i++ {
-		runtime.Gosched()
-	}
+	time.Sleep(time.Second)
 
 	// Finally, capture and report the `ops` count.
-	opsFinal := ops //atomic.LoadInt64(&ops)
-	//fmt.Println("ops:", opsFinal)
-	println("ops:", int(opsFinal)) // TODO println of a 64-bit int does not show the actual value on all platforms, only the type name see issue #18
+	opsFinal := atomic.LoadInt64(&ops)
+	fmt.Println("ops:", int(opsFinal))
 }

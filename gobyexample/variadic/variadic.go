@@ -5,7 +5,7 @@
 
 package main
 
-//import "fmt"
+import "fmt"
 
 // Here's a function that will take an arbitrary number
 // of `ints` as arguments.
@@ -16,7 +16,7 @@ func sum(nums ...int) {
 		total += num
 	}
 	//fmt.Println(total)
-	println(nums, total)
+	fmt.Println(nums, total)
 }
 
 func main() {

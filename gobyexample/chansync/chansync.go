@@ -1,7 +1,9 @@
 package main
 
+import "fmt"
+
 func worker(done chan bool) {
-	println("Work at something...")
+	fmt.Println("Work at something...")
 	done <- true
 }
 
@@ -9,5 +11,5 @@ func main() {
 	done := make(chan bool, 1)
 	go worker(done)
 	<-done
-	println("Done!")
+	fmt.Println("Done!")
 }
