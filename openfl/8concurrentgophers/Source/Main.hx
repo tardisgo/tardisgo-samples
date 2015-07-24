@@ -163,14 +163,16 @@ class Main extends Sprite {
 		
 		//trace("event listner!");
 
+		Scheduler.runLimit=1;
 		Scheduler.timerEventHandler(e); // schedule the Go code
 
 		for(l in 0...4){
 
-			if(Go.main_smallpiles.addr(l<<2).load().hasContents()!=bookslaststatus[l]){
-				bookslaststatus[l]=Go.main_smallpiles.addr(l<<2).load().hasContents();
+			var hc:Bool=tardis.Channel.hasContents(Go.main_smallpiles.addr(l<<2).load());
+			if(hc!=bookslaststatus[l]){
+				bookslaststatus[l]=hc;
 				Books[l].removeChildAt(0);		
-				if(Go.main_smallpiles.addr(l<<2).load().hasContents()==true){		
+				if(hc==true){		
 					Books[l].addChild (new Bitmap (Assets.getBitmapData ("assets/smallpile.png")));			
 				} else {
 					Books[l].addChild (new Bitmap (Assets.getBitmapData ("assets/emptypile.png")));			

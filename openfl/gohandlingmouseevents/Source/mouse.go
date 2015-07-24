@@ -2,6 +2,7 @@ package main
 
 import (
 	"runtime"
+
 	. "github.com/tardisgo/gohaxelib/_openfl"
 )
 
@@ -22,9 +23,26 @@ const (
 var mouseEvents = make(chan mouseEvent, 100)
 
 // The next three functions are all called by Haxe interface event handlers
-func MouseUp(x, y float64)   { mouseEvents <- mouseEvent{MOUSE_UP, x, y} }
-func MouseDown(x, y float64) { mouseEvents <- mouseEvent{MOUSE_DOWN, x, y} }
-func MouseMove(x, y float64) { mouseEvents <- mouseEvent{MOUSE_MOVE, x, y} }
+func MouseUp(x, y float64) {
+	//println("MOUSE UP", x, y)
+	handleMouseEvent(mouseEvent{MOUSE_UP, x, y})
+}
+func MouseDown(x, y float64) {
+	//println("MOUSE DOWN", x, y)
+	handleMouseEvent(mouseEvent{MOUSE_DOWN, x, y})
+}
+func MouseMove(x, y float64) {
+	//println("MOUSE MOVE", x, y)
+	handleMouseEvent(mouseEvent{MOUSE_MOVE, x, y})
+}
+
+func handleMouseEvent(e mouseEvent) {
+	if e.x < 1 || e.y < 1 {
+		//println("BAD XY")
+		return
+	}
+	mouseEvents <- e
+}
 
 // This function is called to set-up the mouse handling
 func MouseGoroutine() {
@@ -123,10 +141,11 @@ func Start(mt Xopenfl_display_Sprite) {
 	stage.XaddEventListener_2(Xopenfl_events_MouseEvent_MOUSE___MOVE_g(), Stage_onMouseMove)
 	stage.XaddEventListener_2(Xopenfl_events_MouseEvent_MOUSE___UP_g(), Stage_onMouseUp)
 
-	MouseGoroutine()                                   // start the mouse handling goroutine
-	goTimer = Xopenfl_utils_Timer_new_1(200)           // 200 ms so that the MOUSE_UP Status can be read
-	goTimer.XaddEventListener_2("timer", goTimerEvent) // schedule some go every so oftern
-	goTimer.Xstart_0()
+	MouseGoroutine()                                     // start the mouse handling goroutine
+	goTimerBG := Xopenfl_utils_Timer_new_1(20)           // ms
+	goTimerBG.XaddEventListener_2("timer", goTimerEvent) // schedule some go every so oftern
+	goTimerBG.Xstart_0()
+
 }
 
 var goTimer Xopenfl_utils_Timer
