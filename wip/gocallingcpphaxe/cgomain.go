@@ -22,9 +22,12 @@ extern void tardisgo_timereventhandler(int run_limit);
 extern int Gohaxecpp_Int2Dynamic(int i);
 extern int Gohaxecpp_Dynamic2Int(int i);
 
+extern int tgoMOL(int l);
+extern char *GoHxRPC(char *p);
 */
 import "C"
 import "unsafe"
+import "runtime"
 
 func Print(s string) {
 	cs := C.CString(s)
@@ -33,6 +36,7 @@ func Print(s string) {
 }
 
 func main() {
+	runtime.LockOSThread()
 	Print("Hello world from C\n")
 	C.gogo = 1219
 	println("myhxmain=", C.myhxmain())
@@ -42,4 +46,9 @@ func main() {
 	}
 	ss := C.Gohaxecpp_Int2Dynamic(77)
 	println("SevenSeven=", ss, C.Gohaxecpp_Dynamic2Int(ss))
+	println("tgoMOL=", C.tgoMOL(2))
+	hw := C.CString("Hello World!")
+	HW := C.GoHxRPC(hw)
+	println("GoHxRPC", C.GoString(HW))
+	C.free(unsafe.Pointer(hw))
 }

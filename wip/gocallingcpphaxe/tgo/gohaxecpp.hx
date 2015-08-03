@@ -3,6 +3,7 @@ package ;
 @:cppFileCode('extern "C" int Gohaxecpp_Int2Dynamic(int i){return Gohaxecpp_obj::Int2Dynamic(i);};
 extern "C" int Gohaxecpp_Dynamic2Int(int d){return Gohaxecpp_obj::Dynamic2Int(d);};')
 
+@:keep
 class Gohaxecpp {
 
 	static var dynoArray = new Array<Dynamic>();

@@ -35,5 +35,5 @@ func mandelbrot(n int) int {
 }
 
 func main() {
-	_ := mandelbrot(10000) // was 200
+	_ = mandelbrot(10000) // was 200
 }
