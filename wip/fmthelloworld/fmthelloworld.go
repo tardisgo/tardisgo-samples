@@ -1,58 +1,58 @@
-// the classic hello world, using fmt - currenly a long way from working!
 package main
 
 import (
 	"fmt"
-	"strconv"
+	"time"
 )
 
-type s struct {
-	b string
-	a int
+type A interface {
+	RunA(param string) string
+	RunB(param string) string
 }
 
-type t struct {
-	s
-	c string
+type impl struct{}
+
+func (impl) RunA(param string) string {
+	return "ran A: " + param
 }
+
+func (impl) RunB(param string) string {
+	return "ran B: " + param
+}
+
+func execute(on A, runner func(A, string) string) string {
+	return runner(on, "hey!")
+}
+
+func makeItAdd(i, j, k int) func([]int) {
+	return func(vars []int) {
+		vars[k] = vars[i] + vars[j]
+	}
+}
+
+func justAdd(vars []int, i, j, k int) {
+	vars[k] = vars[i] + vars[j]
+}
+
+const TIMES = 1000000
 
 func main() {
-	//fmt.Printf("Hello %s : %d %g %g %v %T\n", "Elliott",
-	//	-42, float32(42.42), float64(42.42), 42+42i, byte(0))
-	println("haxe 42.42=", 42.42)
-	println("strconv version:", strconv.FormatFloat(42.42, byte('g'), -1, 64))
-	//println("Haxe native float64(float64(-1.0) * float64(0.0) ):", hx.CallString("", "Std.string", 1, minusZero))
-
-	//println("smallest f32 (1e-45)=", 1e-45)
-	//println("largest f64 (1.7976931348623157e+308)=", 1.7976931348623157e+308)
-
-	//ptr := uintptr(0)
-	//println(*(*int)(unsafe.Pointer(ptr)))
-
-	var a = [2][5]float64{{0, 1, 2, 3, 4}, {5, 6, 7, 8, 9}}
-	sl := a[1][1:4]
-	fmt.Printf("The array a: %v %v\n", a, sl)
-
-	var sl2 = [][]float64{{0, 1, 2, 3, 4}, {5, 6, 7, 8, 9}}
-	fmt.Printf("The slice sl2: %v\n", sl2)
-
-	var b = [5]string{"alpha", "beta", "gamma", "delta", "epislon"}
-	fmt.Printf("The array b: %v %v\n", b, b[1:4])
-
-	var c = [][]string{{"tulips", "from", "amsterdam"}, {"a", "fool", "on", "the", "hill"}}
-	fmt.Printf("c[0]=%v\n", c[0])
-	fmt.Printf("The slice of slices c: %v \n", c)
-
-	itter := 0
-	for u := uint64(1); itter < 53; u = u<<1 + 1 {
-		f := float64(u)
-		fu := uint64(f)
-		if u != fu {
-			println("uint64/float64 conversion error", itter, u, f, fu, u == fu)
-		}
-		itter++
+	fmt.Println("Hello, 世界")
+	regs := make([]int, 100)
+	fn := makeItAdd(1, 2, 3)
+	regs[1] = 42
+	regs[2] = 24
+	start := time.Now()
+	for i := 0; i < TIMES; i++ {
+		fn(regs)
 	}
-
-	fmt.Printf("Struct: %v\n", t{s{"Level", 42}, "rocks"})
-
+	fmt.Println("made fn result", regs[3], "time", time.Since(start).Nanoseconds())
+	start2 := time.Now()
+	for i := 0; i < TIMES; i++ {
+		justAdd(regs, 1, 2, 3)
+	}
+	fmt.Println("direct  result", regs[3], "time", time.Since(start2).Nanoseconds())
+	fmt.Println(execute(impl{}, A.RunA))
+	fmt.Println(execute(impl{}, A.RunB))
+	fmt.Println(A.RunB(impl{}, "Elliott"))
 }
