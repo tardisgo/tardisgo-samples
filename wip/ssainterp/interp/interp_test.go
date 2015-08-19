@@ -259,8 +259,10 @@ func run(t *testing.T, dir, input string, success successPredicate) bool {
 	interp.CapturedOutput = &out
 
 	ext := interp.NewExternals()
-	// TODO(Elliott5) - report the error requiring this cludge of:
-	// required output not being captured for an example function
+	// TODO(Elliott5) - remove next line when error #12196 is resolved
+	// see https://github.com/golang/go/issues/12196
+	// so not requiring this cludge because of
+	// required output not being captured for an example function.
 	ext.AddExtFunc("testing.RunExamples", func([]interp.Ivalue) interp.Ivalue { return true }) // NoOp
 
 	hint = fmt.Sprintf("To trace execution, run:\n%% go build golang.org/x/tools/cmd/ssadump && ./ssadump -build=C -run --interp=T %s\n", input)
