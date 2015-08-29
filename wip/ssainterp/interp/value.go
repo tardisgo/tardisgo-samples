@@ -40,7 +40,6 @@ import (
 	"reflect"
 	"strings"
 	"sync"
-	"unsafe"
 
 	"golang.org/x/tools/go/ssa"
 	"golang.org/x/tools/go/types"
@@ -307,7 +306,7 @@ func hash(t types.Type, x Ivalue) int {
 	case string:
 		return hashString(x)
 	case *Ivalue:
-		return /*int(uintptr(reflect.ValueOf(x).Pointer())) */ int(uintptr(unsafe.Pointer(x)))
+		return int(uintptr(reflect.ValueOf(x).Elem().Pointer())) // int(uintptr(unsafe.Pointer(x)))
 	case chan Ivalue:
 		return int(uintptr(reflect.ValueOf(x).Pointer()))
 	case structure:

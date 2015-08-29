@@ -14,7 +14,6 @@ import (
 	"fmt"
 	"go/token"
 	"reflect"
-	"unsafe"
 
 	"golang.org/x/tools/go/ssa"
 	"golang.org/x/tools/go/types"
@@ -357,7 +356,7 @@ func ext۰reflect۰Value۰Pointer(fr *frame, args []Ivalue) Ivalue {
 	// Signature: func (v reflect.Value) uintptr
 	switch v := rV2V(args[0]).(type) {
 	case *Ivalue:
-		return /* reflect.ValueOf(v).Pointer() */ uintptr(unsafe.Pointer(v))
+		return reflect.ValueOf(v).Pointer() // uintptr(unsafe.Pointer(v))
 	case chan Ivalue:
 		return reflect.ValueOf(v).Pointer()
 	case []Ivalue:
@@ -367,9 +366,9 @@ func ext۰reflect۰Value۰Pointer(fr *frame, args []Ivalue) Ivalue {
 	case map[Ivalue]Ivalue:
 		return reflect.ValueOf(v).Pointer()
 	case *ssa.Function:
-		return /* reflect.ValueOf(v).Pointer() */ uintptr(unsafe.Pointer(v))
+		return reflect.ValueOf(v).Pointer() // uintptr(unsafe.Pointer(v))
 	case *closure:
-		return /* reflect.ValueOf(v).Pointer() */ uintptr(unsafe.Pointer(v))
+		return reflect.ValueOf(v).Pointer() // uintptr(unsafe.Pointer(v))
 	default:
 		panic(fmt.Sprintf("reflect.(Ivalue).Pointer(%T)", v))
 	}

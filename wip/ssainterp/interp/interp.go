@@ -98,6 +98,8 @@ type interpreter struct {
 	functions        map[*ssa.Function]functionInfo
 	functionsRWMutex sync.RWMutex
 	panicSource      *frame
+
+	runtimeFunc map[uintptr]*ssa.Function // required to avoid using the unsafe package
 }
 
 type deferred struct {
@@ -161,8 +163,8 @@ func (fr *frame) runDefer(d *deferred) {
 			// Deferred call created a new state of panic.
 			fr.panicking = true
 			fr.panic = recover()
-			if fr.i.panicSource==nil {
-				fr=fr.i.panicSource
+			if fr.i.panicSource == nil {
+				fr = fr.i.panicSource
 			}
 		}
 	}()
@@ -188,6 +190,9 @@ func (fr *frame) runDefers() {
 	}
 	fr.defers = nil
 	if fr.panicking {
+		if fr.i.panicSource == nil {
+			fr.i.panicSource = fr
+		}
 		panic(fr.panic) // new panic, or still panicking
 	}
 }
@@ -300,7 +305,12 @@ func visitInstr(fr *frame, instr ssa.Instruction) continuation {
 
 	case *ssa.Go:
 		fn, args := prepareCall(fr, &instr.Call)
-		go call(fr.i, nil, instr.Pos(), fn, args)
+		go func() {
+			defer func() {
+				fr.i.userStackIfPanic()
+			}()
+			call(fr.i, nil, instr.Pos(), fn, args)
+		}()
 
 	case *ssa.MakeChan:
 		fr.env[envEnt(fr, instr)] = make(chan Ivalue, asInt(fr.get(instr.Size)))
@@ -541,7 +551,7 @@ func callSSA(i *interpreter, caller *frame, callpos token.Pos, fn *ssa.Function,
 			return ext(fr, args)
 		}
 		if fn.Blocks == nil {
-			fr.i.panicSource=fr
+			fr.i.panicSource = fr
 			panic("no code for function: " + name)
 		}
 	}
@@ -729,8 +739,9 @@ func Interpret(mainpkg *ssa.Package, mode Mode, sizes types.Sizes, filename stri
 		sizes:   sizes,
 
 		//constants: make(map[*ssa.Const]Ivalue),
-		externals: ext,
-		functions: make(map[*ssa.Function]functionInfo),
+		externals:   ext,
+		functions:   make(map[*ssa.Function]functionInfo),
+		runtimeFunc: make(map[uintptr]*ssa.Function),
 	}
 	i.preprocess()
 	context = &Context{
@@ -798,20 +809,7 @@ func Interpret(mainpkg *ssa.Package, mode Mode, sizes types.Sizes, filename stri
 			fmt.Fprintf(os.Stderr, "panic: unexpected type: %T: %v\n", p, p)
 		}
 
-		if i.panicSource != nil {
-			fmt.Fprintln(os.Stderr, "USER STACK:")
-			fr := i.panicSource
-			for fr != nil {
-				inst := fr.block.Instrs[fr.iNum].(ssa.Instruction)
-				where := "-"
-				for ii := fr.iNum; ii >= 0 && where == "-"; ii-- {
-					where =
-						fr.i.prog.Fset.Position(fr.block.Instrs[ii].(ssa.Instruction).Pos()).String()
-				}
-				fmt.Fprintln(os.Stderr, fr.fn.String(), where, inst.String())
-				fr = fr.caller
-			}
-		}
+		i.userStackIfPanic()
 
 		fmt.Fprintln(os.Stderr, "INTERPRETER STACK:")
 		buf := make([]byte, 0x10000)
@@ -830,6 +828,23 @@ func Interpret(mainpkg *ssa.Package, mode Mode, sizes types.Sizes, filename stri
 		exitCode = 1
 	}
 	return
+}
+
+func (i *interpreter) userStackIfPanic() {
+	if i.panicSource != nil {
+		fmt.Fprintln(os.Stderr, "USER STACK:")
+		fr := i.panicSource
+		for fr != nil {
+			inst := fr.block.Instrs[fr.iNum].(ssa.Instruction)
+			where := "-"
+			for ii := fr.iNum; ii >= 0 && where == "-"; ii-- {
+				where =
+					fr.i.prog.Fset.Position(fr.block.Instrs[ii].(ssa.Instruction).Pos()).String()
+			}
+			fmt.Fprintln(os.Stderr, fr.fn.String(), where, inst.String())
+			fr = fr.caller
+		}
+	}
 }
 
 // Call a function in the interpreter's execution context

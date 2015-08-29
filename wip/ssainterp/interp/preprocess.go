@@ -55,6 +55,8 @@ var debugMapMutex sync.Mutex
 func (i *interpreter) preprocessFn(fn *ssa.Function) {
 	_, found := i.functions[fn]
 	if !found {
+		i.runtimeFunc[reflect.ValueOf(fn).Pointer()] = fn // to avoid using unsafe package
+
 		if _, isExtern := i.externals.funcs[fn.String()]; isExtern {
 			if fn.Blocks != nil {
 				fn.Blocks = nil
@@ -139,19 +141,12 @@ func (i *interpreter) preprocessFn(fn *ssa.Function) {
 						srcTul := srcT.Underlying()
 						if desBas, ok := desTul.(*types.Basic); ok {
 							if srcBas, ok := srcTul.(*types.Basic); ok {
-								if srcBas == desBas { // optimize any non-conversions
+								ec := easyConvFunc(desBas.Kind(), srcBas.Kind())
+								if ec != nil {
 									i.functions[fn].instrs[bNum][iNum] =
 										func(fr *frame) {
-											fr.env[envTgt] = xFn(fr)
+											fr.env[envTgt] = ec(xFn(fr))
 										}
-								} else {
-									ec := easyConvFunc(desBas.Kind(), srcBas.Kind())
-									if ec != nil {
-										i.functions[fn].instrs[bNum][iNum] =
-											func(fr *frame) {
-												fr.env[envTgt] = ec(xFn(fr))
-											}
-									}
 								}
 							}
 						}

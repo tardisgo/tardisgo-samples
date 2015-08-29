@@ -8,13 +8,14 @@ package interp
 // external or because they use "unsafe" or "reflect" operations.
 
 import (
+	"fmt"
 	"math"
 	"os"
+	"reflect"
 	"runtime"
 	"sync"
 	"syscall"
 	"time"
-	"unsafe"
 
 	"golang.org/x/tools/go/ssa"
 	"golang.org/x/tools/go/types"
@@ -121,9 +122,11 @@ func init() {
 		"sync/atomic.AddUint64":            ext۰atomic۰AddUint64,
 		"sync/atomic.AddInt64":             ext۰atomic۰AddInt64, // Elliott
 		"sync/atomic.CompareAndSwapInt32":  ext۰atomic۰CompareAndSwapInt32,
+		"sync/atomic.CompareAndSwapUint64": ext۰atomic۰CompareAndSwapUint64, // Elliott
 		"sync/atomic.LoadInt32":            ext۰atomic۰LoadInt32,
 		"sync/atomic.LoadInt64":            ext۰atomic۰LoadInt64, // Elliott
 		"sync/atomic.LoadUint32":           ext۰atomic۰LoadUint32,
+		"sync/atomic.LoadUint64":           ext۰atomic۰LoadUint64, // Elliott
 		"sync/atomic.StoreInt32":           ext۰atomic۰StoreInt32,
 		"sync/atomic.StoreUint32":          ext۰atomic۰StoreUint32,
 		"syscall.Close":                    ext۰syscall۰Close,
@@ -147,6 +150,7 @@ func init() {
 		"syscall.now":                      ext۰time۰now,
 		"time.Sleep":                       ext۰time۰Sleep,
 		"time.now":                         ext۰time۰now,
+		"time.runtimeNano":                 ext۰time۰runtimeNano,
 	}
 }
 
@@ -320,7 +324,7 @@ func ext۰runtime۰Caller(fr *frame, args []Ivalue) Ivalue {
 	if fr != nil {
 		fn := fr.fn
 		// TODO(adonovan): use pc/posn of current instruction, not start of fn.
-		pc = /*reflect.ValueOf(fn).Pointer() */ uintptr(unsafe.Pointer(fn))
+		pc = reflect.ValueOf(fn).Pointer() // uintptr(unsafe.Pointer(fn))
 		posn := fn.Prog.Fset.Position(fn.Pos())
 		file = posn.Filename
 		line = posn.Line
@@ -340,7 +344,7 @@ func ext۰runtime۰Callers(fr *frame, args []Ivalue) Ivalue {
 	}
 	i := 0
 	for fr != nil {
-		pc[i] = /*reflect.ValueOf(fr.fn).Pointer() */ uintptr(unsafe.Pointer(fr.fn))
+		pc[i] = reflect.ValueOf(fr.fn).Pointer() // uintptr(unsafe.Pointer(fr.fn))
 		i++
 		fr = fr.caller
 	}
@@ -352,8 +356,8 @@ func ext۰runtime۰FuncForPC(fr *frame, args []Ivalue) Ivalue {
 	pc := args[0].(uintptr)
 	var fn *ssa.Function
 	if pc != 0 {
-		fn = (*ssa.Function)(unsafe.Pointer(pc)) // indeed unsafe!
-		//reflect.ValueOf(&fn).Elem().Set(reflect.ValueOf(pc))
+		//fn = (*ssa.Function)(unsafe.Pointer(pc)) // indeed unsafe!
+		fn = fr.i.runtimeFunc[pc]
 	}
 	var Func Ivalue
 	Func = structure{fn} // a runtime.Func
@@ -524,6 +528,22 @@ func ext۰atomic۰AddUint32(fr *frame, args []Ivalue) Ivalue {
 	return newv
 }
 
+func ext۰atomic۰LoadUint64(fr *frame, args []Ivalue) Ivalue {
+	//	func LoadUint64(addr *uint64) (val uint64)
+	// Elliott
+	atomic_mutex.Lock()
+	defer atomic_mutex.Unlock()
+	p := args[0].(*Ivalue)
+	fmt.Printf("DEBUG LoadUint64 %v:%T\n", *p, *p)
+	if _, isArray := (*p).(array); isArray {
+		p = &((*p).(array)[0])
+	}
+	if ui64, isUint64 := (*p).(uint64); isUint64 {
+		return ui64
+	}
+	return uint64(0) // TODO correct ???
+}
+
 func ext۰atomic۰AddUint64(fr *frame, args []Ivalue) Ivalue {
 	// TODO(adonovan): fix: not atomic!
 	// Elliott
@@ -531,9 +551,38 @@ func ext۰atomic۰AddUint64(fr *frame, args []Ivalue) Ivalue {
 	defer atomic_mutex.Unlock()
 
 	p := args[0].(*Ivalue)
+	fmt.Printf("DEBUG AddUint64 %v:%T %v:%T\n", *p, *p, args[1], args[1])
+	if _, isArray := (*p).(array); isArray {
+		p = &((*p).(array)[0])
+		if _, isUint64 := (*p).(uint64); !isUint64 {
+			*p = uint64(0) // TODO check this works...
+		}
+	}
 	newv := (*p).(uint64) + args[1].(uint64)
 	*p = newv
 	return newv
+}
+
+func ext۰atomic۰CompareAndSwapUint64(fr *frame, args []Ivalue) Ivalue {
+	// func CompareAndSwapUint64(addr *uint64, old, new uint64) (swapped bool)
+	atomic_mutex.Lock()
+	defer atomic_mutex.Unlock()
+	p := args[0].(*Ivalue)
+	fmt.Printf("DEBUG CompareAndSwapUint64 %v:%T %v:%T %v:%T\n",
+		*p, *p, args[1], args[1], args[2], args[2])
+	if _, isArray := (*p).(array); isArray {
+		fmt.Println("DEBUG isArray")
+		p = &((*p).(array)[0])
+		if _, isUint64 := (*p).(uint64); !isUint64 {
+			fmt.Println("DEBUG !isUint64")
+			*p = uint64(0) // TODO check this works...
+		}
+	}
+	if (*p).(uint64) == args[1].(uint64) {
+		*p = args[2]
+		return true
+	}
+	return false
 }
 
 var atomic_mutex sync.Mutex // Elliott
@@ -580,7 +629,7 @@ func ext۰runtime۰Func۰Name(fr *frame, args []Ivalue) Ivalue {
 func ext۰runtime۰Func۰Entry(fr *frame, args []Ivalue) Ivalue {
 	// func (*runtime.Func) Entry() uintptr
 	f, _ := (*args[0].(*Ivalue)).(structure)[0].(*ssa.Function)
-	return /*reflect.ValueOf(f).Pointer() */ uintptr(unsafe.Pointer(f))
+	return reflect.ValueOf(f).Pointer() // uintptr(unsafe.Pointer(f))
 }
 
 func ext۰time۰now(fr *frame, args []Ivalue) Ivalue {
@@ -588,6 +637,22 @@ func ext۰time۰now(fr *frame, args []Ivalue) Ivalue {
 	return tuple{int64(nano / 1e9), int32(nano % 1e9)}
 }
 
+func ext۰time۰runtimeNano(fr *frame, args []Ivalue) Ivalue {
+	return time.Now().UnixNano()
+}
+
+var timers = make(map[*Ivalue]time.Timer)
+
+func ext۰time۰startTimer(fr *frame, args []Ivalue) Ivalue {
+	// TODO
+	fmt.Println("DEBUG time.startTimer")
+	return nil
+}
+func ext۰time۰stopTimer(fr *frame, args []Ivalue) Ivalue {
+	// TODO
+	fmt.Println("DEBUG time.stopTimer")
+	return false
+}
 func ext۰time۰Sleep(fr *frame, args []Ivalue) Ivalue {
 	time.Sleep(time.Duration(args[0].(int64)))
 	return nil

@@ -8,9 +8,9 @@ import (
 	"bytes"
 	"fmt"
 	"go/token"
+	"reflect"
 	"strings"
 	"sync"
-	"unsafe"
 
 	"golang.org/x/tools/go/exact"
 	"golang.org/x/tools/go/ssa"
@@ -96,9 +96,11 @@ func (i *interpreter) constIvalue(c *ssa.Const) Ivalue {
 			return uint32(c.Uint64())
 		case types.Uint64:
 			return c.Uint64()
-		case types.Uintptr, types.UnsafePointer /*may be unsafe!*/ :
+		case types.Uintptr:
 			// Assume sizeof(uintptr) is same on host and target.
 			return uintptr(c.Uint64())
+		case types.UnsafePointer /*may be unsafe!*/ :
+			return Ivalue(nil) // can't initialize an unsafePointer
 		case types.Float32:
 			return float32(c.Float64())
 		case types.Float64, types.UntypedFloat:
@@ -240,7 +242,7 @@ func (i *interpreter) zero(t types.Type) Ivalue {
 		case types.String:
 			return ""
 		case types.UnsafePointer:
-			return unsafe.Pointer(nil)
+			return Ivalue(nil)
 		default:
 			panic(fmt.Sprint("zero for unexpected type:", t))
 		}
@@ -1174,7 +1176,8 @@ func rangeIter(x Ivalue, t types.Type) iter {
 //
 func widen(x Ivalue) Ivalue {
 	switch y := x.(type) {
-	case bool, int64, uint64, float64, complex128, string, unsafe.Pointer:
+	case bool, int64, uint64, float64, complex128, string,
+		*Ivalue /*unsafe.Pointer(*/ :
 		return x
 	case int:
 		return int64(y)
@@ -1240,10 +1243,10 @@ func (i *interpreter) conv(t_dst, t_src types.Type, x Ivalue) Ivalue {
 	case *types.Pointer:
 		switch ut_dst := ut_dst.(type) {
 		case *types.Basic:
-			// *Ivalue to unsafe.Pointer?
-			if ut_dst.Kind() == types.UnsafePointer {
-				return unsafe.Pointer(x.(*Ivalue))
-				//return reflect.ValueOf(x).Pointer()
+			switch ut_dst.Kind() {
+			case types.UnsafePointer: // *Ivalue to unsafe.Pointer?
+				fmt.Printf("DEBUG convert to unsafePointer %v:%T\n", x, x)
+				return x.(*Ivalue)
 			}
 		}
 
@@ -1269,6 +1272,22 @@ func (i *interpreter) conv(t_dst, t_src types.Type, x Ivalue) Ivalue {
 		}
 
 	case *types.Basic:
+		switch ut_dst := ut_dst.(type) {
+		case *types.Basic:
+			switch ut_dst.Kind() {
+			case types.Uintptr: // unsafePointer to uintptr?
+				if ut_src.Kind() == types.UnsafePointer {
+					fmt.Printf("DEBUG convert unsafe.Pointer to uintptr %v:%T\n", x, x)
+					return reflect.ValueOf(x.(*Ivalue)).Pointer()
+				}
+			case types.UnsafePointer:
+				if ut_src.Kind() == types.Uintptr {
+					fmt.Printf("DEBUG convert uintptr to unsafe.Pointer %v:%T\n", x, x)
+					return x // TODO ????
+				}
+			}
+		}
+
 		x = widen(x)
 
 		// integer -> string?
@@ -1307,6 +1326,8 @@ func (i *interpreter) conv(t_dst, t_src types.Type, x Ivalue) Ivalue {
 
 		// unsafe.Pointer -> *Ivalue
 		if ut_src.Kind() == types.UnsafePointer {
+			fmt.Printf("DEBUG convert from unsafePointer %v:%T\n", x, x)
+			return x // Elliott
 			// TODO(adonovan): this is wrong and cannot
 			// really be fixed with the current design.
 			//
@@ -1323,7 +1344,7 @@ func (i *interpreter) conv(t_dst, t_src types.Type, x Ivalue) Ivalue {
 			// To at least preserve type-safety, we'll
 			// just return the zero Ivalue of the
 			// destination type.
-			return i.zero(t_dst)
+			//return i.zero(t_dst)
 		}
 
 		// Conversions between complex numeric types?

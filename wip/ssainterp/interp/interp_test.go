@@ -21,7 +21,7 @@ import (
 	"golang.org/x/tools/go/ssa/ssautil"
 	"golang.org/x/tools/go/types"
 
-	"github.com/tardisgo/tardisgo-samples/wip/ssainterp/interp"
+	interp "."
 )
 
 // Each line contains a space-separated list of $GOROOT/test/
@@ -155,7 +155,9 @@ var testdataTests = []string{
 
 // These are files and packages in $GOROOT/src/.
 var gorootSrcTests = []string{
+	//"bufio", // needs time.startTimer
 	"encoding/ascii85",
+	//"encoding/binary", // needs reflect.Indirect
 	"encoding/hex",
 	//"encoding/pem", // TODO(adonovan): implement (reflect.Value).SetString
 	//"testing",      // TODO(adonovan): implement runtime.Goexit correctly
@@ -163,23 +165,26 @@ var gorootSrcTests = []string{
 
 	/* libraries below not in the original tests */
 	"unicode/utf16",
-	//"strings", // runtime error: invalid memory address
-	//"bytes", // runtime error: invalid memory address
+	// "strings", // runtime error: invalid memory address
+	// "bytes", // runtime error: interface is interp.array not uint64
 
 	// Too slow:
-	//"container/ring",
-	//"hash/adler32",
+	"container/heap",
+	"container/list",
+	"container/ring",
+	"hash/adler32",
 
 	// TODO(adonovan): packages with Examples require os.Pipe (unimplemented):
 	"hash/crc32",
 	"encoding/base32",
-	//"encoding/base64", // needs time.runtimeNano
+	//"encoding/base64", // needs time.startTimer
 	"unicode/utf8",
 	//"log", // pattern matching issue
 	"path",
 	"flag",
 	"encoding/csv",
 	"text/scanner",
+	//"encoding/json", // unsafe pointer conversion issue - invalid / nil ptr
 }
 
 type successPredicate func(exitcode int, output string) error
