@@ -21,7 +21,8 @@ import (
 	"golang.org/x/tools/go/ssa/ssautil"
 	"golang.org/x/tools/go/types"
 
-	interp "."
+	// interp "."
+	"github.com/tardisgo/tardisgo-samples/wip/ssainterp/interp"
 )
 
 // Each line contains a space-separated list of $GOROOT/test/

@@ -14,8 +14,8 @@ import (
 	"runtime/pprof"
 	"time"
 
-	//"github.com/tardisgo/tardisgo-samples/wip/ssainterp/interp"
-	"./interp"
+	"github.com/tardisgo/tardisgo-samples/wip/ssainterp/interp"
+	//"./interp"
 
 	"golang.org/x/tools/go/loader"
 	"golang.org/x/tools/go/ssa"
