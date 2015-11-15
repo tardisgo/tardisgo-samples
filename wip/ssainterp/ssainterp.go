@@ -220,7 +220,7 @@ func main() {
 
 	var mainPkg *ssa.Package
 	for _, pkg := range prog.AllPackages() {
-		if pkg.Object.Name() == "main" {
+		if pkg.Pkg.Name() == "main" {
 			mainPkg = pkg
 			if mainPkg.Func("main") == nil {
 				panic(fmt.Errorf("no func main() in main package"))
@@ -233,7 +233,7 @@ func main() {
 	}
 
 	// Build SSA code for bodies for whole program
-	prog.BuildAll()
+	prog.Build()
 
 	mainPkg.Func("main").WriteTo(os.Stdout) // list the main func in SSA form
 

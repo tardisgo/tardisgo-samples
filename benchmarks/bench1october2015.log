@@ -1,0 +1,90 @@
+mandel benchmark:
+go:
+
+real  0m10.303s
+user  0m10.274s
+sys 0m0.026s
+TARDISgo default settings
+"Node/JS:"
+       13.91 real        12.43 user         0.07 sys
+
+"Java:"
+Picked up JAVA_TOOL_OPTIONS: -Djava.awt.headless=true
+       12.73 real        12.29 user         0.05 sys
+
+"CPP:"
+        8.98 real         8.96 user         0.00 sys
+
+"CS:"
+       28.78 real        27.28 user         0.04 sys
+
+JS after closure
+
+real  0m11.047s
+user  0m11.022s
+sys 0m0.025s
+GopherJS
+
+real  0m9.742s
+user  0m9.724s
+sys 0m0.017s
+fannkuch benchmark:
+fannkuch go:
+
+real  0m5.102s
+user  0m5.098s
+sys 0m0.007s
+fannkuch TARDISgo default settings
+"Java:"
+Picked up JAVA_TOOL_OPTIONS: -Djava.awt.headless=true
+       21.58 real        21.24 user         0.06 sys
+
+"CS:"
+       26.92 real        25.39 user         0.04 sys
+
+"CPP:"
+        9.51 real         9.48 user         0.01 sys
+
+"Node/JS:"
+       35.80 real        34.00 user         0.07 sys
+
+fannkuch JS after closure
+
+real  0m27.805s
+user  0m27.784s
+sys 0m0.034s
+fannkuch GopherJS
+
+real  0m18.121s
+user  0m18.108s
+sys 0m0.022s
+binarytree benchmark:
+binarytree go:
+
+real  0m7.767s
+user  0m20.445s
+sys 0m0.534s
+binarytree TARDISgo default settings
+"Java:"
+Picked up JAVA_TOOL_OPTIONS: -Djava.awt.headless=true
+       13.85 real        14.01 user         0.80 sys
+
+"Node/JS:"
+       84.37 real        77.41 user         4.81 sys
+
+"CS:"
+      104.99 real        97.95 user         4.07 sys
+
+"CPP:"
+      526.71 real      1350.86 user         3.18 sys
+
+binarytree JS after closure
+
+real  1m4.745s
+user  1m1.045s
+sys 0m4.241s
+binarytree GopherJS
+
+real  0m2.672s
+user  0m2.627s
+sys 0m0.046s
