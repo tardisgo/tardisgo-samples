@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// This benchmark, taken from the shootuot, tests floating point performance.
+// This benchmark, taken from the shootout, tests floating point performance.
 
 // Modified for TARDIS Go
 
